@@ -1,0 +1,397 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout1}">
+
+<div layout:fragment="content">
+
+
+	<div id="conversation">
+		<div id="greetings"></div>
+		<button id="Disconnected">연결종료</button>
+	</div>
+	
+	
+	<style>
+	
+	.modal-open {
+	overflow: hidden
+}
+
+.modal {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1040;
+	display: none;
+	overflow: auto;
+	overflow-y: scroll
+}
+
+.modal.fade .modal-dialog {
+	-webkit-transform: translate(0, -25%);
+	-ms-transform: translate(0, -25%);
+	transform: translate(0, -25%);
+	-webkit-transition: -webkit-transform .3s ease-out;
+	-moz-transition: -moz-transform .3s ease-out;
+	-o-transition: -o-transform .3s ease-out;
+	transition: transform .3s ease-out
+}
+
+.modal.in .modal-dialog {
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0)
+}
+
+.modal-dialog {
+	position: relative;
+	z-index: 1050;
+	width: auto;
+	margin: 10px
+}
+
+.modal-content {
+	position: relative;
+	background-color: #fff;
+	border: 1px solid #999;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 6px;
+	outline: 0;
+	-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+	background-clip: padding-box
+}
+
+.modal-backdrop {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1030;
+	background-color: #000
+}
+
+.modal-backdrop.fade {
+	opacity: 0;
+	filter: alpha(opacity = 0)
+}
+
+.modal-backdrop.in {
+	opacity: .5;
+	filter: alpha(opacity = 50)
+}
+
+.modal-header {
+	min-height: 16.428571429px;
+	padding: 15px;
+	border-bottom: 1px solid #e5e5e5
+}
+
+.modal-header .close {
+	margin-top: -2px
+}
+
+.modal-title {
+	margin: 0;
+	line-height: 1.428571429
+}
+
+.modal-body {
+	position: relative;
+	padding: 20px
+}
+
+.modal-footer {
+	padding: 19px 20px 20px;
+	margin-top: 15px;
+	text-align: right;
+	border-top: 1px solid #e5e5e5
+}
+
+.modal-footer:before, .modal-footer:after {
+	display: table;
+	content: " "
+}
+
+.modal-footer:after {
+	clear: both
+}
+
+.modal-footer:before, .modal-footer:after {
+	display: table;
+	content: " "
+}
+
+.modal-footer:after {
+	clear: both
+}
+
+.modal-footer .btn+.btn {
+	margin-bottom: 0;
+	margin-left: 5px
+}
+
+.modal-footer .btn-group .btn+.btn {
+	margin-left: -1px
+}
+
+.modal-footer .btn-block+.btn-block {
+	margin-left: 0
+}
+
+@media screen and (min-width:768px) {
+	.modal-dialog {
+		width: 600px;
+		margin: 30px auto
+	}
+	.modal-content {
+		-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
+	}
+}
+	
+	</style>
+	
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" id="exampleModalContent">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Speak Up!!!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h5>5초간 음성 인식이 시작됩니다. 수행명령을 말하세요.</h5>
+		<div id="speech_box"></div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+	
+</div>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+$(document).ready(function () {
+	
+	/* 		 //음성인식에서 키워드 추출
+	 function keyword(data){
+		 var check = {
+				 "1" : {"1","일"},
+				 "2" : {"2"."이"},
+				 "3" : {"3","삼"},
+				 "4" : {"4","사"},
+				 "5" : {"5","오"},
+				 "6" : {"6","육"},
+				 "7" : {"7","칠"},
+				 "8" : {"8","팔"},
+				 "9" : {"9","구"},
+				 "0" : {"0","영","공"}
+		 }
+		 
+		 
+	 } */
+	 
+	 //음성 메세지 DB에 저장할 경우
+	 function sendVoice(data,callback,error){
+		 console.log("send voice.........");
+		 
+		 $.ajax({
+			 type:'post',
+				url:'/sendVoice',
+				data:JSON.stringify(data),
+				contentType: "application/json; charset=utf-8",
+				success: function(result,status,xhr){
+					if(callback){
+						callback(result);
+					}
+				},
+				error: function(xhr,status,er){
+					if(error){
+						error(er);
+					}
+				}
+		 });
+	 }//end sendVoice
+	 
+	 
+	 //음성 메세지 푸시 알람
+	 function pushMessage(data){
+		 console.log("push message.........");
+		 
+		 $.ajax({
+			 type:'post',
+				url:'https://fcm.googleapis.com/fcm/send',
+				headers:{
+					"Content-Type" : "application/json",
+					"Authorization" : "key=AAAAgHRKKlg:APA91bHCHmYkU1PANUYZgctP5dBZ1EuZZ5VfS4_fXUicesDas88tm6Rs1y35YMmLuOzAu3xmQqfI0KtR17UcdGR2ZuYrxhLJ2QasccO4xsO3kEBC98lO-Np1nIrxCa_mgE_DnnPCaxCe"
+				},
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				data:JSON.stringify({
+				    "notification" : {
+				        "body" : data,
+				        "title" : "FCM Message", 
+				        "click_action": "https://gorany-df5bd.firebaseapp.com",
+				        "icon": "http://url-to-an-icon/icon.png"
+				        },
+				      "to": "cHFUupbfKDs:APA91bHGYhS1DRdmTJfYcDesPJHKAgsaOF330GGNFtufAD28hhsJMkjAlIPBmkD1DB7dz3oXCGGzLFmeC1xz_cXogDwfwAIuS3XuFbpvOY-bO4Uftn6pkygtf0qMCs0aLuSYMVJcGfGd"
+				  }),
+				success: function(result,status,xhr){
+					if(callback){
+						callback(result);
+					}
+				},
+				error: function(xhr,status,er){
+					if(error){
+						error(er);
+					}
+				}
+		 });
+	 }
+	 
+	
+	var ws;
+	
+	$(function () {
+	     
+    	 console.log("connect complete.....");
+	});	 
+
+
+	function setConnected(connected) { 
+		 $("#Disconnected").prop("disabled", !connected);
+		 
+		if (connected){			
+			$("#conversation").show();
+			$("#greetings").html("");
+		}
+		else{
+			ws.close();
+			console.log("Disconnected");
+			
+		}
+
+	}
+
+	function connect() {
+		ws = new WebSocket('ws://localhost:8080/name');
+		ws.onmessage = function(data){
+			showGreeting(data.data);
+		}
+		 setConnected(true);
+	}
+	
+	
+	
+ 	function disconnect() {
+	    if (ws != null) {
+	        ws.close();
+	    }
+	    setConnected(false);
+	} 
+
+ 	function sendName() {
+		var data = JSON.stringify({'myDevice': '00000000089c4f68'})
+		
+		console.log(ws);
+		
+		ws.onopen = function() {
+		
+			console.log("websocket opened....");
+			ws.send(data);
+			
+		}
+	    
+	} 
+
+
+	function showGreeting(message) {
+	    console.log("showGreeting..............");
+	    $("#greetings").append("<tr><td> " + message + "</td></tr>");
+	    $("#myModal").modal("show");
+			
+			var tempMsg = "";
+			
+			 if(!('webkitSpeechRecognition' in window)) $('#myModal').html('<strong>지원하지 않는 브라우저입니다.</strong>');
+			 
+			  else{
+			    var mic = new webkitSpeechRecognition();
+			    mic.continuous = true;
+			    mic.interimResults = true;
+			    mic.lang = 'ko-KR';
+			    
+			    mic.onresult = function(e) {
+			      var b = '', c = false;
+			      for(var i = e.resultIndex; i < e.results.length; ++i) {
+			        b += e.results[i][0].transcript;
+			        c = e.results[i].isFinal;
+			      }
+			      if($('#speech_box .text').length < 1) $('#speech_box').append('<span class="text"></span>');
+			      $('#speech_box .text').text(b);
+			      if(c) $('#speech_box .text').removeClass('text');
+			      
+			      tempMsg = b;
+			    };
+					 
+	    	    <!--마이크 end 일 때-->
+	    	    mic.onend = function() {
+	    	    	
+	    	    console.log(tempMsg);
+	  
+	    	  	mic.stop();
+	    	  	pushMessage(tempMsg);
+	    	  	
+	    	    $('.modal-body').removeClass('on');
+	    	    	$("#speech_box").text("");
+	    	      
+	    	    };
+	    	    
+			    
+			    <!--마이크 on 일 때-->
+			    $(".modal-body").show(function () {
+			      if($('.modal-body').hasClass('on')) mic.stop();
+			      else {
+			        mic.start();
+			        console.log("mic start.............");
+			        
+			      $('.modal-body').toggleClass('on');
+			      window.setTimeout(function () {
+			    	  	mic.stop();
+				        $("#myModal").modal("hide");
+				      $('.modal-body').removeClass('on');
+				    },5000);
+			      <!-- close else -->
+			      }
+			     
+			    <!-- close function -->
+			    });
+			      
+			      
+			  <!-- close else -->
+			  }
+			 
+	};
+	
+	$(function () {
+		 $( "#Disconnected" ).click(function() { disconnect(); });	
+	});	
+	
+	 window.onload = function(){
+		 connect();
+		 sendName(); 
+	 };
+
+});
+</script>
+</th:block>

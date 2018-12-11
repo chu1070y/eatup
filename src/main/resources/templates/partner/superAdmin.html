@@ -1,0 +1,235 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout1}">
+
+<div layout:fragment="content">
+	<style>
+#content-wrapper {
+	background-image: url("/agency/img/we.jpg");
+}
+
+#gorany {
+	color: white;
+	text-align: center;
+	font-size: 10em;
+	position: static;
+}
+</style>
+	<div id="gorany">익명의 고라니</div>
+	<div id="gorany">문지인</div>
+	<div id="gorany">박고은</div>
+	<div id="gorany">박가영</div>
+	<div id="gorany">추연훈</div>
+	<div id="gorany">김가익</div>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active">공지사항</li>
+	</ol>
+
+	<!-- DataTables Example -->
+	<div class="card mb-3">
+		<div class="card-header">
+			<i class="fas fa-table"></i> 우리의 공지는?
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%"
+					cellspacing="0">
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>수정날짜</th>
+							<th>등록날짜</th>
+							<th>지울것</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Tiger Nixon</td>
+							<td>System Architect</td>
+							<td>Edinburgh</td>
+							<td>61</td>
+							<td>2011/04/25</td>
+							<td>$320,800</td>
+						</tr>
+						<tr>
+							<td>Garrett Winters</td>
+							<td>Accountant</td>
+							<td>Tokyo</td>
+							<td>63</td>
+							<td>2011/07/25</td>
+							<td>$170,750</td>
+						</tr>
+						<tr>
+							<td>Ashton Cox</td>
+							<td>Junior Technical Author</td>
+							<td>San Francisco</td>
+							<td>66</td>
+							<td>2009/01/12</td>
+							<td>$86,000</td>
+						</tr>
+						<tr>
+							<td>Cedric Kelly</td>
+							<td>Senior Javascript Developer</td>
+							<td>Edinburgh</td>
+							<td>22</td>
+							<td>2012/03/29</td>
+							<td>$433,060</td>
+						</tr>
+						<tr>
+							<td>Airi Satou</td>
+							<td>Accountant</td>
+							<td>Tokyo</td>
+							<td>33</td>
+							<td>2008/11/28</td>
+							<td>$162,700</td>
+						</tr>
+						<tr>
+							<td>Brielle Williamson</td>
+							<td>Integration Specialist</td>
+							<td>New York</td>
+							<td>61</td>
+							<td>2012/12/02</td>
+							<td>$372,000</td>
+						</tr>
+						<tr>
+							<td>Herrod Chandler</td>
+							<td>Sales Assistant</td>
+							<td>San Francisco</td>
+							<td>59</td>
+							<td>2012/08/06</td>
+							<td>$137,500</td>
+						</tr>
+						<tr>
+							<td>Rhona Davidson</td>
+							<td>Integration Specialist</td>
+							<td>Tokyo</td>
+							<td>55</td>
+							<td>2010/10/14</td>
+							<td>$327,900</td>
+						</tr>
+						<tr>
+							<td>Colleen Hurst</td>
+							<td>Javascript Developer</td>
+							<td>San Francisco</td>
+							<td>39</td>
+							<td>2009/09/15</td>
+							<td>$205,500</td>
+						</tr>
+						<tr>
+							<td>Sonya Frost</td>
+							<td>Software Engineer</td>
+							<td>Edinburgh</td>
+							<td>23</td>
+							<td>2008/12/13</td>
+							<td>$103,600</td>
+						</tr>
+						<tr>
+							<td>Jena Gaines</td>
+							<td>Office Manager</td>
+							<td>London</td>
+							<td>30</td>
+							<td>2008/12/19</td>
+							<td>$90,560</td>
+						</tr>
+						<tr>
+							<td>Quinn Flynn</td>
+							<td>Support Lead</td>
+							<td>Edinburgh</td>
+							<td>22</td>
+							<td>2013/03/03</td>
+							<td>$342,000</td>
+						</tr>
+					</tbody>
+				</table>
+				<div>
+					<button class="btn btn-primary btn-block registerBtn">공지 등록하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active">메뉴 추가하기</li>
+	</ol>
+
+	<div class="card mb-3">
+		<div class="card-header">
+			<i class="fas fa-tachometer-alt "></i> 메뉴 추가하기
+		</div>
+		<div class="card-body"></div>
+	</div>
+
+
+
+ <!-- 공지 Modal -->
+   <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+      aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <input type="hidden" id="rnoValue" value="rnoValue">
+               <h4 class="modal-title" id="myModalLabel">공지 등록하기</h4>
+            </div>
+            <div class="modal-body"></div>
+            
+            <div class="form-group">
+            	<label>제목</label>
+            	<input class="form-control" name="title">
+            </div>
+            <div class="form-group">
+            	<label>내용</label>
+            	<input class="form-control" name="content">
+            </div>
+            <div class="form-group">
+            	<label>작성자</label>
+            	<input class="form-control" name="id" value="고라니컴퍼니 " readonly="readonly">
+            </div>
+            
+            <div class="modal-footer">
+            
+               <sec:authentication property="principal" var="pinfo"/>
+
+        	 	<button id="modalModBtn" type="button" class="btn btn-warning" data-dismiss="modal">수정하기</button>
+           		<button id="modalRemoveBtn" type="button" class="btn btn-danger" data-dismiss="modal">삭제하기</button>
+                <button id="modalRegisterBtn" type="button" class="btn btn-primary" data-dismiss="modal">등록하기</button>
+                <button id="modalCloseBtn" type="button" class="btn btn-default" data-dismiss="modal">창 닫기</button>
+            </div>
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+
+
+
+</div>
+
+
+
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		$(document).ready(function(){
+			
+			//공지 모달창
+			var modal = $("#modal");
+			var modalModBtn = $("#modalModBtn");
+			var modalRemoveBtn = $("#modalRemoveBtn");
+			var modalRegisterBtn = $("#modalRegisterBtn");
+			
+			
+			$(".registerBtn").on("click",function(e){
+				
+				modalModBtn.hide();
+				modalRemoveBtn.hide();
+				modal.modal("show");
+				
+				
+			});
+			
+		});
+	</script>
+</th:block>

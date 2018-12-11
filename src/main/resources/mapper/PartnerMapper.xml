@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="ga.eatup.partner.mapper.PartnerMapper">
+ 
+ 
+ 	<resultMap type="ga.eatup.partner.domain.PartnerVO" id="partnerMap">
+ 		<id property="pid" column="pid" />
+ 		<result property="ppw" column="ppw" />
+ 		<result property="pmail" column="pmail" />
+ 		<result property="owner_name" column="owner_name" />
+ 		<result property="owner_num" column="owner_num" />
+ 		<collection property="authList" resultMap="authMap"></collection>
+ 	</resultMap>
+ 	
+ 	<resultMap type="ga.eatup.partner.domain.AuthVO" id="authMap">
+ 	 	<result property="pid" column="pid" />
+ 		<result property="auth" column="auth" />
+ 	</resultMap>
+
+	<select id="getPartner" resultMap="partnerMap">
+	 	select partner.pid, ppw, pmail, owner_name, owner_num, auth.pid, auth
+		from partner partner left outer join partner_auth auth
+		on partner.pid = auth.pid
+		where partner.pid = #{pid}
+	</select>
+
+ 	
+ 	<select id="getPartnerList" resultType="ga.eatup.partner.domain.PartnerVO">
+ 		select * from partner
+ 	</select>
+ 	
+ 	<insert id="registerPartner">
+	INSERT INTO partner (pid, ppw, pmail, owner_name, owner_num)
+	values (#{pid}, #{ppw}, #{pmail}, #{owner_name}, #{owner_num})
+ 	</insert>
+ 	
+ 	<insert id="registerAuth">
+ 	INSERT INTO partner_auth (pid, auth)
+	values (#{pid}, 'ROLE_GENERAL')
+ 	</insert>
+ 	
+ 	<select id="getPartnerBySerialNum" resultType="ga.eatup.partner.domain.PartnerVO">
+ 		select * from partner where serialNum = #{serialNum}
+ 	</select>
+ 	
+ </mapper>
+
+ 

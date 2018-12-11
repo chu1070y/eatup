@@ -1,0 +1,100 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout1}">
+
+<div layout:fragment="content">
+
+<style>
+
+#content-wrapper{
+	background-image: url("/agency/img/header-bg.jpg");
+
+}
+
+
+
+</style>
+
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="#">(가게이름)</a></li>
+		<li class="breadcrumb-item active">메뉴정보</li>
+	</ol>
+
+	<div class="row">
+
+		<!-- 메뉴목록 -->
+		<div class="col-xl-3 col-sm-6 mb-3">
+			<div class="card o-hidden h-100">
+				<div class="card-body">
+					<div align="center">메뉴 그림1</div>
+				</div>
+				<div align="center">메뉴이름</div>
+				<div align="center">
+					주문량: <input type="number" id="usernumber" name="usernumber"
+						value="5" step="1" min="0" max="1000">
+					<button>설정</button>
+				</div>
+				<button>품절</button>
+			</div>
+		</div>
+
+		<!-- 메뉴목록 -->
+		<div class="col-xl-3 col-sm-6 mb-3">
+			<div class="card o-hidden h-100">
+				<div class="card-body">
+					<div align="center">메뉴 그림1</div>
+				</div>
+				<div align="center">메뉴이름</div>
+				<div align="center">
+					주문량: <input type="number" id="usernumber" name="usernumber"
+						value="5" step="1" min="0" max="1000">
+					<button>설정</button>
+				</div>
+				<button>품절</button>
+			</div>
+		</div>
+
+		<!-- 메뉴목록 -->
+		<div class="col-xl-3 col-sm-6 mb-3">
+			<div class="card o-hidden h-100">
+				<div class="card-body">
+					<div align="center">메뉴 그림1</div>
+				</div>
+				<div align="center">메뉴이름</div>
+				<div align="center">
+					주문량: <input type="number" id="usernumber" name="usernumber"
+						value="5" step="1" min="0" max="1000">
+					<button>설정</button>
+				</div>
+				<button>품절</button>
+			</div>
+		</div>
+
+		<!-- 메뉴목록 -->
+		<div class="col-xl-3 col-sm-6 mb-3">
+			<div class="card o-hidden h-100">
+				<div class="card-body">
+					<div align="center">메뉴 그림1</div>
+				</div>
+				<div align="center">메뉴이름</div>
+				<div align="center">
+					주문량: <input type="number" id="usernumber" name="usernumber"
+						value="5" step="1" min="0" max="1000">
+					<button>설정</button>
+				</div>
+				<button>품절</button>
+			</div>
+		</div>
+
+
+
+
+	</div>
+</div>
+
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		
+	</script>
+</th:block>

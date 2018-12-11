@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1 id="order"></h1>
+
+<h1> 파이어 메세지</h1>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAKegY8LM_wqmn2twvBsMh0LsvGwsUjS6E",
+    authDomain: "gorany-df5bd.firebaseapp.com",
+    databaseURL: "https://gorany-df5bd.firebaseio.com",
+    projectId: "gorany-df5bd",
+    storageBucket: "gorany-df5bd.appspot.com",
+    messagingSenderId: "551706831448"
+  };
+  firebase.initializeApp(config);
+
+  const messaging = firebase.messaging();
+  
+  //token값 알아내기
+   messaging.requestPermission()
+  	.then(function(){
+  		console.log("Have permission");
+  		return messaging.getToken();
+  	}) 
+  	.then(function(token){
+  		console.log(token);
+  	})
+  	.catch(function(arr){
+  		console.log("Error Occured");
+  	}) 
+  
+  messaging.onMessage(function(payload){
+	 console.log('onMessage: ', payload); 
+	 console.log(payload.data.status);
+	 $("#order").append(payload.data.status+"<br/>");
+  });
+  
+</script>
+
+</body>
+</html>

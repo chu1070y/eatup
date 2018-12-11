@@ -1,0 +1,55 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+<div class="container" id="main">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default content-main">
+              	<div class="form-group">		
+				<label for="username">Username</label>
+				<input type="text" id="pid" class="form-control" placeholder="">
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" id="ppw" class="form-control" placeholder="">
+			</div>
+			<div class="form-check">
+				<button class="loginBtn" id="loginBtn">Submit</button>
+			</div>
+        </div>
+    </div>
+</div>
+<form id="actionForm">
+  <input type ="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> 
+</form>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$(document).ready(function(){
+	
+	var btnLogin = $("#loginBtn");
+	var pid = $("#pid");
+	var ppw = $("#ppw");
+	var actionForm = $("#actionForm");
+	
+	btnLogin.on("click", function(e){
+		e.preventDefault();
+		
+		var str = "";
+		
+		str += "<input type='hidden' name='username' value='" + pid.val() +"'>";
+		str += "<input type='hidden' name='password' value='" + ppw.val() +"'>";
+		
+		actionForm.append(str);
+		actionForm.attr("method", "post").attr("action", "/partner/login/customLogin").submit();
+	})	
+	
+});
+</script>
+</body>
+</html>

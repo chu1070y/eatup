@@ -1,0 +1,148 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout1}">
+
+<style>
+.col-lg-9 {
+	text-align: center;
+}
+
+.f1 {
+	background-color: #E9CC44;
+	height: 100px;
+}
+
+.f2 {
+	text-align: center;
+}
+
+.cartBtn {
+	height: 100px;
+	width: 100%;
+	background-color: transparent;
+}
+
+.checked {
+	color: orange;
+}
+</style>
+
+<div layout:fragment="content">
+
+	<!-- content -->
+	<div class="col-lg-9">
+
+		<h1>결제하기</h1>
+
+		<h4>주문정보</h4>
+
+
+		<div class="col-lg-9">
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">메뉴</th>
+						<th scope="col">수량</th>
+						<th scope="col">가격</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td>아메리카노</td>
+						<td>1</td>
+						<td>2000</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td>카페라떼</td>
+						<td>2</td>
+						<td>5000</td>
+					</tr>
+					<tr>
+						<th scope="row">3</th>
+						<td>치킨파니니</td>
+						<td>1</td>
+						<td>4300</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<div class="row">
+				<h3>TOTAL 11300원</h3>
+			</div>
+
+
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text">요청사항</span>
+				</div>
+				<textarea class="form-control" aria-label="With textarea"></textarea>
+			</div>
+
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input"
+					id="customCheck1"> <label class="custom-control-label"
+					for="customCheck1">바로 주문</label>
+
+			</div>
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input"
+					id="customCheck2"> <label class="custom-control-label"
+					for="customCheck2">예약 주문</label> <select>
+					<option selected>오전/오후</option>
+					<option value="1">오전</option>
+					<option value="2">오후</option>
+
+				</select> <select>
+					<option selected>시</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+
+				</select> <select>
+					<option selected>분</option>
+					<option value="1">10</option>
+					<option value="2">20</option>
+					<option value="3">30</option>
+					<option value="4">40</option>
+					<option value="5">50</option>
+					<option value="6">00</option>
+				</select>
+			</div>
+			<div class="row">
+				<h4>결제수단</h4>
+
+			</div>
+
+
+			<div class="col-lg-9">
+
+				<div class="facet f1">
+				<form method="post" action="/user/kakaoPay">
+					<button class="btn" ><img  src="/imgs/kakao-pay.png"/></button>
+				</form>
+
+
+
+			</div>
+
+
+			<!-- end content -->
+		</div>
+	</div>
+
+	<th:block layout:fragment="script">
+
+	</th:block>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ga.eatup.user.mapper.SearchMapper">
+
+	<select id="searchMenu" resultType="ga.eatup.user.domain.MenuVO">
+		select
+		*
+		from
+		partner_store_menu
+		where
+		mname like concat("%",#{keyword},"%")
+	</select>
+
+	<select id="searchStore" resultType="ga.eatup.user.domain.StoreVO">
+		select
+		*
+		from
+		partner_store
+		where
+		sname like concat("%",#{keyword},"%")
+	</select>
+
+	<select id="getMenuName" resultType="String">
+		select mname from
+		partner_store_menu
+	</select>
+
+	<select id="getStoreName" resultType="String">
+		select sname from
+		partner_store
+	</select>
+</mapper>
+ 
+ 
