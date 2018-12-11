@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.service.PartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,9 @@ public class PartnerController {
 	@Setter(onMethod_=@Autowired)
 	private PartnerService service;
 	
+	@Autowired
+	PasswordEncoder encoder;
+	
 	@GetMapping("/welcome")
 	public void welcome() {
 		log.info("회원가입....");
@@ -31,7 +35,8 @@ public class PartnerController {
 		log.info("파트너 계정생성 완료....");
 		log.info("파트너 회원가입 정보: " + vo);
 		
-		
+		String enPw = encoder.encode(vo.getPpw());
+		vo.setPpw(enPw);		
 		
 		service.registerPartner(vo);
 	}
