@@ -30,6 +30,9 @@ public class PartnerController {
 	public void partnercreate(PartnerVO vo) {
 		log.info("파트너 계정생성 완료....");
 		log.info("파트너 회원가입 정보: " + vo);
+		
+		
+		
 		service.registerPartner(vo);
 	}
 	

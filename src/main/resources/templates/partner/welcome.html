@@ -42,7 +42,10 @@
 <form id="actionForm">
   <input type ="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> 
 </form>
-
+	
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	
 <script>
 $(document).ready(function(){
 	
@@ -73,7 +76,7 @@ $(document).ready(function(){
 			str += "<input type='hidden' name='owner_name' value='" + owner_name.val() +"'>";
 			
 			actionForm.append(str);
-			actionForm.attr("method", "post").attr("action", "/partnercreate").submit();
+			actionForm.attr("method", "post").attr("action", "/partner/partnercreate").submit();
 		}
 		
 	});

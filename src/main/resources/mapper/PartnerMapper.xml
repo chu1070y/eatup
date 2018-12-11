@@ -39,7 +39,7 @@
  	
  	<insert id="registerAuth">
  	INSERT INTO partner_auth (pid, auth)
-	values (#{pid}, 'ROLE_GENERAL')
+	values (#{pid}, 'ROLE_PARTNER')
  	</insert>
  	
  	<select id="getPartnerBySerialNum" resultType="ga.eatup.partner.domain.PartnerVO">
