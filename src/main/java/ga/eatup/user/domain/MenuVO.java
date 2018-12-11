@@ -10,6 +10,6 @@ public class MenuVO {
 	private int sno, mno;
 	private String mname, mcat, fname;
 	private int mprice;
-	private Date regdate, updatedate;
+	private Date regdate;
 	
 }
