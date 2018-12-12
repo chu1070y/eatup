@@ -16,7 +16,7 @@
 		where allorder.sno = 1
 		and MONTH(`approved_at`) = 11
 		group by orderdate
-		order by orderdate;
+		order by orderdate
 	
 	</select>
 	
@@ -34,7 +34,7 @@
 		on gorany.order.tid = allorder.tid
 		where sno = 1
 		group by week
-		order by start;
+		order by start
 	</select>
 	
 	<select id="getMonthlySales" resultType="ga.eatup.partner.domain.SalesVO">
@@ -48,7 +48,7 @@
 		on gorany.order_info.mno = gorany.partner_store_menu.mno) allorder
 		on gorany.order.tid = allorder.tid
 		where sno = 1
-		GROUP BY `month`;
+		GROUP BY `month`
 	</select>
 </mapper>
 

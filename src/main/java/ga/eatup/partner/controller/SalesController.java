@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +20,8 @@ import ga.eatup.partner.service.SalesService;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
+
+@RequestMapping("/partner/*")
 @Controller
 @Log
 public class SalesController {
@@ -28,11 +31,13 @@ public class SalesController {
 	@Setter(onMethod_=@Autowired)
 	private SalesService service;
 	
-	@RequestMapping(value = "sales", method = RequestMethod.GET)
+	@GetMapping(value = "sales")
 	public String Sales(Locale locale, Model model) {
 		log.info("sales page....");
-		return "Sales";
+		return "/partner/sales";
 	}
+	
+	
 	
 	@RequestMapping(value = "salesList", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String dailyList(Locale locale, Model model) {
