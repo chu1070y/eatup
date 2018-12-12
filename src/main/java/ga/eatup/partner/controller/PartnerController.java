@@ -1,16 +1,17 @@
 package ga.eatup.partner.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-import ga.eatup.partner.domain.PartnerVO;
-import ga.eatup.partner.service.PartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ga.eatup.partner.domain.OrderVO;
+import ga.eatup.partner.domain.PartnerVO;
+import ga.eatup.partner.mapper.OrderMapper;
+import ga.eatup.partner.service.PartnerService;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -21,6 +22,10 @@ public class PartnerController {
 
 	@Setter(onMethod_=@Autowired)
 	private PartnerService service;
+	
+	//order
+	@Setter(onMethod_= @Autowired)
+	private OrderMapper ordermapper;
 	
 	@Autowired
 	PasswordEncoder encoder;
@@ -47,8 +52,11 @@ public class PartnerController {
 	}
 	
 	@GetMapping("/index")
-	public void index() {
+	public void index(Model model, OrderVO order) {
 		log.info("index......................page");
+		
+		model.addAttribute("result", ordermapper.getOrder(order));
+		System.out.println("-=------------------------------>"+model);
 	}
 	
 	@GetMapping("/sales")
