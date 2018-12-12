@@ -5,7 +5,7 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 // Daily Chart
 var chartLabels = [];
 var chartData = [];
-$.getJSON("http://localhost:8080/dailyList", function(data){
+$.getJSON("http://localhost:8080/partner/salesList", function(data){
 	
 	$.each(data, function(inx, obj){
 		chartLabels.push(obj.orderdate);
@@ -39,7 +39,7 @@ var lineChartData = {
 
 
 function createChart(){
-	var ctx = document.getElementById("mydailyChart").getContext("2d");
+	var ctx = document.getElementById("myAreaChart").getContext("2d");
 	LineChartDemo = Chart.Line(ctx,{
 		data : lineChartData,
 		options :{
