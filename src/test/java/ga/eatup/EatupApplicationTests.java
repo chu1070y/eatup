@@ -77,7 +77,7 @@ public class EatupApplicationTests {
 	
 	@Test
 	public void searchSno() {
-		superadminMapper.searchSno("커피점방");
+		log.info(""+superadminMapper.searchSno("커피점방"));
 	}
 
 }

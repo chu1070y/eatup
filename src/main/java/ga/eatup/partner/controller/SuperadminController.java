@@ -29,13 +29,13 @@ public class SuperadminController {
 		
 	}
 	
-	@GetMapping("/{sname}")
+/*	@GetMapping("/{sname}")
 	@ResponseBody
 	public ResponseEntity<String> searchSno(@PathVariable("sname") String sname){
 		log.info("searchSno get.....");
 		log.info(""+service.searchMenu(sname));
 		
 		return new ResponseEntity<>(service.searchMenu(keyword),HttpStatus.OK);
-	}
+	}*/
 
 }
