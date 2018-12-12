@@ -15,6 +15,66 @@
 	position: static;
 }
 </style>
+
+<style>
+	.uploadResult{
+		width: 100%;
+		background-color: gray;
+	}
+	
+	.uploadResult ul{
+		display: flex;
+		flex-flow: row;
+		justify-content: center;
+		align-items: center;
+		color: white;
+	}
+	
+	.uploadResult ul li{
+		list-style: none;
+		padding: 20px;
+		align-centent: center;
+		text-align: center;
+	}
+	
+	.uploadResult ul li img{
+	display:inline;
+	height: 100px;
+	}
+	
+	.uploadResult ul li span{
+	color: white;
+	}
+	
+	.bigPictureWrapper{
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: gray;
+	z-index: 100;
+	background: rgba(255,255,255,0.5);
+	}
+	
+	.bigPicture{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	}
+	
+	.bigPicture img{
+	width:600px;
+	}
+	
+	#submission {
+ 	 text-align: center;
+ 	}
+</style>
+
 	<div id="gorany">익명의 고라니</div>
 	<div id="gorany">문지인</div>
 	<div id="gorany">박고은</div>
@@ -144,20 +204,21 @@
 					</tbody>
 				</table>
 				<div>
-					<button class="btn btn-primary btn-block registerBtn">공지 등록하기</button>
+					<button class="btn btn-primary btn-block registerBtn">공지
+						등록하기</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item active">1:1문의사항 목록</li>
 	</ol>
-	
-		<!-- DataTables Example -->
+
+	<!-- DataTables Example -->
 	<div class="card mb-3">
 		<div class="card-header">
-			<i class="fas fa-table"></i> 파트너의 소리함
+			<i class="fas fa-table"></i> 파트너 소리함
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -219,9 +280,9 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	
+
+
+
 
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item active">메뉴 추가하기</li>
@@ -231,50 +292,122 @@
 		<div class="card-header">
 			<i class="fas fa-tachometer-alt "></i> 메뉴 추가하기
 		</div>
+		<div class="card-body">
+			<div class="container">
+				<div class="row"></div>
+				<div class="row">
+					<div class="col-lg-12">
+						<form id="menuAddForm" >
+								<div class="col-md-12">
+									<div class="form-group">
+										<input class="form-control" id="sname" name="sname"
+											placeholder="가게 명(sname)">
+									</div>
+									<div class="form-group">
+										<input class="form-control" id="mname" name="mname"
+											placeholder="메뉴 명(mname)">
+									</div>
+									<div class="form-group">
+										<input class="form-control" id="mcat" name="mcat"
+											placeholder="메뉴 종류(mcat)">
+									</div>
+									<div class="form-group">
+										<input class="form-control" id="mprice" name="mprice"
+											placeholder="메뉴 가격(mprice)">
+									</div>
+									<div class="form-group">
+										<input class="form-control" id="introduction" name="introduction"
+											placeholder="한줄소개(introduction)">
+									</div>
+									<div class="form-group">
+										메뉴 이미지 업로드
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="panel panel-default">
+													<div class="panel-body">
+														<div class="uploadDiv col-lg-2">
+															<input type='file' name='uploadfile' multiple>
+														</div>
+														<br />
+														<div class='uploadResult col-lg-12'>
+															<ul>
+
+															</ul>
+														</div>
+
+														<button id='uploadBtn'>Upload</button>
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+								<div class="col-lg-12 text-center">
+									<div>
+										<button class="btn btn-primary btn-block menuRegisterBtn">메뉴
+											추가하기</button>
+									</div>
+								</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="card-body"></div>
 	</div>
+	
+<div class='bigPictureWrapper'>
+	<div class="bigPicture">
+	</div>
+</div>
 
 
+	<!-- 공지 Modal -->
+	<div class="modal fade" id="modal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<input type="hidden" id="rnoValue" value="rnoValue">
+					<h4 class="modal-title" id="myModalLabel">공지 등록하기</h4>
+				</div>
+				<div class="modal-body"></div>
 
- <!-- 공지 Modal -->
-   <div class="modal fade" id="modal" tabindex="-1" role="dialog"
-      aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-         <div class="modal-content">
-            <div class="modal-header">
-               <input type="hidden" id="rnoValue" value="rnoValue">
-               <h4 class="modal-title" id="myModalLabel">공지 등록하기</h4>
-            </div>
-            <div class="modal-body"></div>
-            
-            <div class="form-group">
-            	<label>제목</label>
-            	<input class="form-control" name="title" placeholder="공지제목 입력">
-            </div>
-            <div class="form-group">
-            	<label>내용</label>
-            	<textarea class="form-control" id="message" placeholder="공지내용 입력" required="required"></textarea>
-            </div>
-            <div class="form-group">
-            	<label>작성자</label>
-            	<input class="form-control" name="id" value="고라니컴퍼니 " readonly="readonly">
-            </div>
-            
-            <div class="modal-footer">
-            
-               <sec:authentication property="principal" var="pinfo"/>
+				<div class="form-group">
+					<label>제목</label> <input class="form-control" name="title"
+						placeholder="공지제목 입력">
+				</div>
+				<div class="form-group">
+					<label>내용</label>
+					<textarea class="form-control" id="message" placeholder="공지내용 입력"
+						required="required"></textarea>
+				</div>
+				<div class="form-group">
+					<label>작성자</label> <input class="form-control" name="id"
+						value="고라니컴퍼니 " readonly="readonly">
+				</div>
 
-        	 	<button id="modalModBtn" type="button" class="btn btn-warning" data-dismiss="modal">수정하기</button>
-           		<button id="modalRemoveBtn" type="button" class="btn btn-danger" data-dismiss="modal">삭제하기</button>
-                <button id="modalRegisterBtn" type="button" class="btn btn-primary" data-dismiss="modal">등록하기</button>
-                <button id="modalCloseBtn" type="button" class="btn btn-default" data-dismiss="modal">창 닫기</button>
-            </div>
-         </div>
-         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-   </div>
-   <!-- /.modal -->
+				<div class="modal-footer">
+
+					<sec:authentication property="principal" var="pinfo" />
+
+					<button id="modalModBtn" type="button" class="btn btn-warning"
+						data-dismiss="modal">수정하기</button>
+					<button id="modalRemoveBtn" type="button" class="btn btn-danger"
+						data-dismiss="modal">삭제하기</button>
+					<button id="modalRegisterBtn" type="button" class="btn btn-primary"
+						data-dismiss="modal">등록하기</button>
+					<button id="modalCloseBtn" type="button" class="btn btn-default"
+						data-dismiss="modal">창 닫기</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
 
 
 
@@ -285,24 +418,227 @@
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-		$(document).ready(function(){
+		$(document).ready(function() {
 			
+			//메뉴 추가
+			var menuAddForm = $("#menuAddForm");
+			
+			$(".menuRegisterBtn").on("click",function(e){
+				e.preventDefault();
+				
+				 var sname = $("#sname").val();
+		      	 var mname =  $("#mname").val();
+		         var mcat =  $("#mcat").val();
+		         var mprice =  $("#mprice").val();
+		         var introduction =  $("#introduction").val();
+		         
+				console.log("등록버튼 클릭");
+				
+		      	 if(sname == ""){
+		      		console.log("-------------1");
+		       		 alert("가게이름을 입력해주세요.");
+		       		 return;
+		       	 }
+		      	 
+		      	 if(mname == ""){
+		      		console.log("-------------2");
+		       		 alert("메뉴이름을 입력해주세요.");
+		      		 return;
+		       	 }
+		      	 
+		      	 if(mcat == ""){
+		      		 console.log("-------------3");
+		       		 alert("메뉴종류를 입력해주세요.");
+		      		 return;
+		       	 }
+		      	 
+		      	 if(mprice == ""){
+		      		 console.log("-------------3");
+		       		 alert("가격를 입력해주세요.");
+		      		 return;
+		       	 }
+		      	 
+		      	 if(introduction == ""){
+		      		 console.log("-------------3");
+		       		 alert("한줄소개를 입력해주세요.");
+		      		 return;
+		       	 }
+		      	 
+		      	$.ajax({
+		            type: 'get',
+		            url: "/user/searchMenu/" + keyword,
+		            success: function(result,status,xhr){
+						if(callback){
+							callback(result);
+						}
+					}
+				});//end ajax
+		      	 
+
+		 		var str = "";
+		 		
+		 		$(".uploadResult ul li").each(function(i,obj){
+		 			var jobj = $(obj);
+		 			console.dir(jobj);
+		 			
+		 			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+		 			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+		 			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+		 			str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+jobj.data("type")+"'>";
+
+				});
+		 		menuAddForm.append(str).attr("action","/superadmin/menuadd").attr("method","post").submit();
+				
+				
+			});
+			
+			
+			
+			
+			
+			//csrf처리
+			var csrfHearderName = [[${_csrf.headerName}]];
+			var csrfTokenValue = [[${_csrf.token}]];
+			
+			$(document).ajaxSend(function(e,xhr,options){
+				xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+			});
+
 			//공지 모달창
 			var modal = $("#modal");
 			var modalModBtn = $("#modalModBtn");
 			var modalRemoveBtn = $("#modalRemoveBtn");
 			var modalRegisterBtn = $("#modalRegisterBtn");
-			
-			
-			$(".registerBtn").on("click",function(e){
-				
+
+			$(".registerBtn").on("click", function(e) {
+
 				modalModBtn.hide();
 				modalRemoveBtn.hide();
 				modal.modal("show");
-				
-				
+
 			});
 			
+			
+			//이미지 삭제
+			$(".uploadResult").on("click","button",function(e){
+				e.preventDefault();
+				
+				var targetFile = $(this).data("file");
+				var type = $(this).data("type");
+				
+				var targetLi = $(this).closest("li");
+				$.ajax({
+					url: '/upload/deleteFile',
+					data: {fileName: targetFile, type:type},
+					dataType:'text',
+					type:'POST',
+					success: function(result){
+						targetLi.remove();
+					}
+				});
+			});
+			
+			//이미지 사리지는 이벤트
+			$(".bigPictureWrapper").on("click",function(e){
+				$(".bigPicture").animate({width:'0%', height:'0%'},1000);
+				setTimeout(function(){
+					$('.bigPictureWrapper').hide();
+				},1000);
+			});
+			
+			
+			//첨부파일 이미지 보여주기 & 다운로드 처리
+			var uploadResult = $(".uploadResult ul");
+			
+			function showUploadedFile(uploadResultArr){
+				console.log("showUploadedFile");
+				console.log($(uploadResultArr));
+				var str ="";
+				
+				$(uploadResultArr).each(function(i,obj){
+					
+
+						console.log("================================1");
+						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fname);
+						
+						var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
+						
+						str += "<li class='li' data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fname+"' data-type='"+obj.image+"'>";
+						str += "<div>";
+						str += "<span>" + obj.fname + "</span>";
+						str += "<button type='button' data-type='"+obj.image+"' data-file=\'" + fileCallPath + "\' data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+						str += "<img src='/upload/display?fileName="+fileCallPath+"'>";
+						str += "</div>";
+						str += "</il>";
+
+					console.log("================================2");
+				});
+				console.log("================================3");
+				uploadResult.append(str);
+				console.log("================================4");
+			}
+			
+			
+			//첨부파일 확장자나 크기 사전 처리
+			var regex = new RegExp("(.*?)\.(jpg|png|jpeg)");
+			var maxSize = 5242880; //5메가바이트
+			
+			function checkExtension(fileName, fileSize){
+				if(fileSize >= maxSize){
+					alert("파일 사이즈 초과");
+					return false;
+				}
+				
+				if(!regex.test(fileName)){
+					alert("해당 종류의 파일은 업로드 할 수 없습니다.");
+					return false;
+				}
+				return true;
+			}
+			
+			var cloneObj = $(".uploadDiv").clone();
+			//csrf처리
+			
+			//Upload 버튼
+			$("#uploadBtn").on("click",function(e){
+				e.preventDefault();
+				
+				var formData = new FormData();
+				var inputFile = $("input[name='uploadfile']");
+				var files = inputFile[0].files;
+				
+				console.log(files);
+				
+				//form태그에 파일 추가하기
+				for(var i = 0; i < files.length; i++){
+					
+					if(!checkExtension(files[i].name, files[i].size)){
+						return false;
+					}
+					
+					formData.append("uploadfile",files[i]);	
+				
+				}
+				
+				$.ajax({
+					url: '/upload/uploadAjaxAction',
+					processData : false,
+					contentType : false,
+					data : formData,
+					type : 'POST',
+					success : function(result){
+						console.log(result);
+						 
+						showUploadedFile(result);
+						
+						$(".uploadDiv").html(cloneObj.html());
+						
+					}
+				});// end ajax
+				
+				
+			});// end Upload 버튼
+
 		});
 	</script>
 </th:block>

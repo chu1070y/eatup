@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ga.eatup.partner.mapper.PartnerMapper;
+import ga.eatup.partner.mapper.SuperadminMapper;
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.mapper.MenuMapper;
 import ga.eatup.user.mapper.UserMapper;
@@ -39,6 +40,9 @@ public class EatupApplicationTests {
 	
 	@Setter(onMethod_=@Autowired)
 	private UserMapper userMapper;
+	
+	@Setter(onMethod_=@Autowired)
+	private SuperadminMapper superadminMapper;
 	
 	@Test
 	public void contextLoads() {
@@ -69,6 +73,11 @@ public class EatupApplicationTests {
 	@Test
 	public void test2() {
 		log.info("" + partnerMapper.getPartner("manofin"));
+	}
+	
+	@Test
+	public void searchSno() {
+		log.info(""+superadminMapper.searchSno("커피점방"));
 	}
 
 }

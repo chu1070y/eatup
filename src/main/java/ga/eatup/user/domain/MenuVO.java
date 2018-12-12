@@ -12,4 +12,7 @@ public class MenuVO {
 	private int mprice;
 	private Date regdate;
 	
+	private String uuid;
+	private String uploadPath;
+	
 }
