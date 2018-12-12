@@ -52,10 +52,6 @@ public class PartnerController {
 		log.info("index......................page");
 	}
 	
-	@GetMapping("/sales")
-	public void sales() {
-		log.info("sales......................page");
-	}
 	
 	@GetMapping("/menu")
 	public void menu() {
