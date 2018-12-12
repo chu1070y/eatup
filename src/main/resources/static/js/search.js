@@ -10,7 +10,7 @@ var searchService = (function(){
 		
 		$.ajax({
             type: 'post',
-            url: "/autocomplete",
+            url: "/user/autocomplete",
             dataType: "json",
             success: function(result,status,xhr){
 				if(callback){
@@ -30,7 +30,7 @@ var searchService = (function(){
 		
 		$.ajax({
             type: 'get',
-            url: "/searchMenu/" + keyword,
+            url: "/user/searchMenu/" + keyword,
             success: function(result,status,xhr){
 				if(callback){
 					callback(result);
@@ -49,7 +49,7 @@ var searchService = (function(){
 		
 		$.ajax({
             type: 'get',
-            url: "/searchStore/" + keyword,
+            url: "/user/searchStore/" + keyword,
             success: function(result,status,xhr){
 				if(callback){
 					callback(result);

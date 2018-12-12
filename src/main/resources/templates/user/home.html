@@ -332,6 +332,14 @@ function getLocation() {
 	
 	$(document).ready(function(){
 		
+		//csrf처리
+		var csrfHearderName = [[${_csrf.headerName}]];
+		var csrfTokenValue = [[${_csrf.token}]];
+		
+		$(document).ajaxSend(function(e,xhr,options){
+			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+		});
+		
 		//검색창 자동완성
 		function display(data){
 			$( "#tags" ).autocomplete({
@@ -352,6 +360,8 @@ function getLocation() {
 	 	
 			
 		searchService.autoComplete(function(result){
+			console.log("auto??");
+			console.log(result);
 			display(result);
 		}); 
 		

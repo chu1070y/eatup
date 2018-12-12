@@ -126,23 +126,26 @@
 
 			</div>
 
-
 			<div class="col-lg-9">
 
 				<div class="facet f1">
-				<form method="post" action="/user/kakaoPay">
-					<button class="btn" ><img  src="/imgs/kakao-pay.png"/></button>
-				</form>
+					<form method="post" action="/user/kakaoPay">
+						<input type="hidden" id="csrfToken" th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}" />
+						<button class="btn">
+							<img src="/imgs/kakao-pay.png" />
+						</button>
+					</form>
+				</div>
 
 
-
+				<!-- end content -->
 			</div>
-
-
-			<!-- end content -->
 		</div>
-	</div>
 
-	<th:block layout:fragment="script">
+		<th:block layout:fragment="script">
+			<script th:inline="javascript">
+				
+			</script>
 
-	</th:block>
+		</th:block>
