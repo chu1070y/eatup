@@ -3,11 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
- <mapper namespace="ga.eatup.user.mapper.SuperadminMapper">
+ <mapper namespace="ga.eatup.partner.mapper.SuperadminMapper">
  
  	<select id="searchSno" resultType="int">
  		select sno from partner_store where sname = #{sname}
  	</select>
+ 	
+ 	<insert id="menuAdd" parameterType="ga.eatup.user.domain.MenuVO">
+		INSERT INTO partner_store_menu (sno, mname, mcat, introduction, fname, uuid, upload_path)
+			values (#{sno}, #{mname}, #{mcat}, #{introduction}, #{fname}, #{uuid}, #{upload_path})
+ 	</insert>
  	
  </mapper>
  
