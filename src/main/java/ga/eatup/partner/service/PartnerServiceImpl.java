@@ -34,4 +34,10 @@ public class PartnerServiceImpl implements PartnerService {
 		return mapper.registerPartner(vo);
 	}
 
+	@Override
+	public int registerAuth(PartnerVO vo) {
+
+		return mapper.registerAuth(vo);
+	}
+
 }

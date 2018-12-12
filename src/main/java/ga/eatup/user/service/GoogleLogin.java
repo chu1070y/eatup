@@ -106,9 +106,8 @@ public class GoogleLogin {
 		
 		UserVO vo = new UserVO();
 		vo.setSns_id(userInfo.path("sub").asText());
-		vo.setName(userInfo.path("name").asText());
+		vo.setNickname(userInfo.path("name").asText());
 		vo.setEmail(userInfo.path("email").asText());
-		vo.setSex(userInfo.path("gender").asText());
 		// locale 도 있는데 넣을곳이 없다.
 		log.info("vo : " + vo);
 		return vo;

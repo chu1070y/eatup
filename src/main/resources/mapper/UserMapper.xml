@@ -9,10 +9,21 @@
  		select * from user
  	</select>
 
+	<select id="getUser" resultType="ga.eatup.user.domain.UserVO">
+	 	select uid, upw from user
+		where uid = #{uid}
+	</select>
+	
  	<insert id="registerUser">
  		insert into user (uid, upw, nickname, email, sns_id, status)
  		values ("user_kakao", "12345678", #{nickname}, #{email}, #{sns_id}, #{status})
- 	</insert> 
+ 	</insert>
+ 	
+ 	 	
+ 	<update id='update'>
+ 		UPDATE user SET upw=#{upw} WHERE uid='user_kakao'
+ 	</update>
+ 	
  </mapper>
 
  

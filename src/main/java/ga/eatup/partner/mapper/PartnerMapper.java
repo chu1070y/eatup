@@ -14,5 +14,5 @@ public interface PartnerMapper {
 	public int registerPartner(PartnerVO vo);
 	
 	public int registerAuth(PartnerVO vo);
-	
+		
 }

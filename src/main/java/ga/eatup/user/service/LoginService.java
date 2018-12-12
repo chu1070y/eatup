@@ -11,4 +11,6 @@ public interface LoginService {
 	public List<UserVO> getUserList();
 	
 	public int registerUser(UserVO vo);
+	
+	public UserVO getUser(String uid);
 }

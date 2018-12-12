@@ -103,8 +103,6 @@ public class KakaoLogin {
 		System.out.println("userInfo: " + userInfo);
 		vo.setStatus('O');
 		vo.setSns_id(userInfo.path("id").asText()); // id -> vo 넣기
-//		if (userInfo.path("kaccount_email_verified").asText().equals("true")) { // 이메일 받기 허용 한 경우
-//			vo.setUser_email(userInfo.path("kaccount_email").asText()); // email -> vo 넣기
 
 		JsonNode kakao_account = userInfo.path("kakao_account");
 		System.out.println("kakao_account는?: " + kakao_account);

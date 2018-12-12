@@ -113,12 +113,9 @@ public class NaverLogin {
 		vo.setSns_id(properties.path("id").asText());
 		
 		if(properties.has("nickname")) {
-			vo.setName(properties.path("nickname").asText());
-			vo.setAge(properties.path("age").asText());
-			vo.setSex(properties.path("gender").asText());
+			vo.setNickname(properties.path("nickname").asText());
 			vo.setEmail(properties.path("email").asText());
 		}
-		
 		
 		log.info("vo : " + vo);
 		return vo;

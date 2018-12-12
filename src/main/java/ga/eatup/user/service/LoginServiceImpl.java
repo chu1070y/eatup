@@ -27,4 +27,9 @@ public class LoginServiceImpl implements LoginService {
 		
 		return mapper.registerUser(vo);
 	}
+
+	@Override
+	public UserVO getUser(String uid) {
+		return mapper.getUser(uid);
+	}
 }

@@ -39,6 +39,7 @@ public class PartnerController {
 		vo.setPpw(enPw);		
 		
 		service.registerPartner(vo);
+		service.registerAuth(vo);
 	}
 	
 	@PostMapping("/usercreate")
