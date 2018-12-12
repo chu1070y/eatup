@@ -1,4 +1,4 @@
-package ga.eatup.config;
+package ga.eatup.partner.config;
 
 import java.io.IOException;
 

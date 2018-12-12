@@ -1,4 +1,4 @@
-package ga.eatup.config;
+package ga.eatup.ws.config;
 
 import ga.eatup.ws.controller.GreetingController;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package ga.eatup.config.domain;
+package ga.eatup.partner.config.domain;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
