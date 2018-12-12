@@ -26,7 +26,7 @@ import lombok.extern.java.Log;
 @Log
 public class SalesController {
 
-	//private static final Logger logger = LoggerFactory.getLogger(SalesController.class);
+	private static final Logger logger = LoggerFactory.getLogger(SalesController.class);
 
 	@Setter(onMethod_=@Autowired)
 	private SalesService service;
