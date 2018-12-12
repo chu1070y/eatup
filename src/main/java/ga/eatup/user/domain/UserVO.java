@@ -13,7 +13,6 @@ public class UserVO {
 	private String email;
 	private String sns_id;
 	private Date regdate;
-	private Date updatedate;
 	private char status;
 	
 }

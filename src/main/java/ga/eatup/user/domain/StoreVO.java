@@ -10,5 +10,5 @@ public class StoreVO {
 	private String sname, saddress, b_field;
 	private String qr_uuid, qu_fname;
 	private double lat, lng;
-	private Date regdate, updatedate;
+	private Date regdate;
 }
