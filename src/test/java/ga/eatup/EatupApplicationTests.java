@@ -8,9 +8,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import ga.eatup.partner.mapper.PartnerMapper;
+import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.mapper.MenuMapper;
+import ga.eatup.user.mapper.UserMapper;
 import lombok.Cleanup;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -21,14 +25,31 @@ import lombok.extern.java.Log;
 @Log
 public class EatupApplicationTests {
 
+	@Autowired
+	PasswordEncoder encoder;
+	
 	@Setter(onMethod_=@Autowired)
 	private DataSource ds;
 	
 	@Setter(onMethod_=@Autowired)
 	private MenuMapper menuMapper;
 	
+	@Setter(onMethod_=@Autowired)
+	private PartnerMapper partnerMapper;
+	
+	@Setter(onMethod_=@Autowired)
+	private UserMapper userMapper;
+	
 	@Test
 	public void contextLoads() {
+		
+	}
+	
+	@Test
+	public void encodeTest() {
+		UserVO vo = userMapper.getUser("user_kakao");
+		String enPw = encoder.encode(vo.getUpw());
+		userMapper.update(enPw);
 	}
 	
 	@Test
@@ -43,6 +64,11 @@ public class EatupApplicationTests {
 	@Test
 	public void test1() {
 		System.out.println(menuMapper.getMenu());
+	}
+	
+	@Test
+	public void test2() {
+		log.info("" + partnerMapper.getPartner("manofin"));
 	}
 
 }
