@@ -208,10 +208,10 @@ public class UploadController {
 					Thumbnailator.createThumbnail(file.getInputStream(), thumbnail, 200,200);
 					
 					thumbnail.close();
-					
-					list.add(menuVO);
-					
+
 				}
+				
+				list.add(menuVO);
 				
 				
 			}catch(Exception e) {

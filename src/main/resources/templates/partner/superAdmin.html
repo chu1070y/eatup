@@ -462,24 +462,6 @@
 				});
 			});
 			
-			//이미지 보여주기
-					$(".uploadResult").on("click","img",function(e){
-					e.preventDefault();
-					
-					console.log("view image");
-					
-					var liObj = $(this).closest("li");
-					
-					var path = encodeURIComponent(liObj.data("path")+"/"+liObj.data("uuid")+"_"+liObj.data("filename"));
-					
-					if(liObj.data("type")){
-						showImage(path.replace(new RegExp(/\\/g),"/"));
-					}else{
-					
-					}
-				});
-			
-			
 			//이미지 사리지는 이벤트
 			$(".bigPictureWrapper").on("click",function(e){
 				$(".bigPicture").animate({width:'0%', height:'0%'},1000);
@@ -493,47 +475,36 @@
 			var uploadResult = $(".uploadResult ul");
 			
 			function showUploadedFile(uploadResultArr){
-				
+				console.log("showUploadedFile");
+				console.log($(uploadResultArr));
 				var str ="";
 				
 				$(uploadResultArr).each(function(i,obj){
 					
-					if(obj.image){
-						
-						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+						console.log("================================1");
+						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fname);
 						
 						var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
 						
-						str += "<li class='li' data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'>";
+						str += "<li class='li' data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fname+"' data-type='"+obj.image+"'>";
 						str += "<div>";
-						str += "<span>" + obj.fileName + "</span>";
+						str += "<span>" + obj.fname + "</span>";
 						str += "<button type='button' data-type='"+obj.image+"' data-file=\'" + fileCallPath + "\' data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
 						str += "<img src='/upload/display?fileName="+fileCallPath+"'>";
 						str += "</div>";
 						str += "</il>";
-						
-						
-					}else{
-						var fileCallPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
-						
-						var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
-						
-						str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'>";
-						str += "<div>";
-						str += "<span>" + obj.fileName + "</span>";
-						str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='file' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
-						str += "<img src='/resources/img2/aaa.png'></a>";
-						str += "</div>";
-						str += "</il>";
-					}
+
+					console.log("================================2");
 				});
-				
+				console.log("================================3");
 				uploadResult.append(str);
+				console.log("================================4");
 			}
 			
 			
 			//첨부파일 확장자나 크기 사전 처리
-			var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)");
+			var regex = new RegExp("(.*?)\.(jpg|png|jpeg)");
 			var maxSize = 5242880; //5메가바이트
 			
 			function checkExtension(fileName, fileSize){
@@ -542,7 +513,7 @@
 					return false;
 				}
 				
-				if(regex.test(fileName)){
+				if(!regex.test(fileName)){
 					alert("해당 종류의 파일은 업로드 할 수 없습니다.");
 					return false;
 				}
@@ -573,7 +544,6 @@
 				
 				}
 				
-				console.log("------------1");
 				$.ajax({
 					url: '/upload/uploadAjaxAction',
 					processData : false,
@@ -589,8 +559,6 @@
 						
 					}
 				});// end ajax
-				
-				console.log("------------2");
 				
 				
 			});// end Upload 버튼
