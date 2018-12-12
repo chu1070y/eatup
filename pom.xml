@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.1.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ga.eatup</groupId>
 	<artifactId>tempproject</artifactId>
@@ -89,7 +90,7 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.5</version>
 		</dependency>
-		
+
 		<!-- httpcore(카카오) -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -116,6 +117,20 @@
 			<groupId>com.google.cloud</groupId>
 			<artifactId>google-cloud-speech</artifactId>
 			<version>0.71.0-beta</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>0.4.8</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.5</version>
 		</dependency>
 
 
@@ -167,5 +182,5 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-	
+
 </project>
