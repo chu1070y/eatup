@@ -1,6 +1,6 @@
-package ga.eatup.partner.config;
+package ga.eatup.config;
 
-import ga.eatup.partner.config.domain.CustomUser;
+import ga.eatup.config.domain.CustomUser;
 import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.mapper.PartnerMapper;
 import org.springframework.beans.factory.annotation.Autowired;

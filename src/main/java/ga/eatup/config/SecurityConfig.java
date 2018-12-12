@@ -1,4 +1,4 @@
-package ga.eatup.partner.config;
+package ga.eatup.config;
 
 import javax.sql.DataSource;
 
