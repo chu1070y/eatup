@@ -300,23 +300,23 @@
 						<form id="menuAddForm" >
 								<div class="col-md-12">
 									<div class="form-group">
-										<input class="form-control" id="sname"
+										<input class="form-control" id="sname" name="sname"
 											placeholder="가게 명(sname)">
 									</div>
 									<div class="form-group">
-										<input class="form-control" id="mname"
+										<input class="form-control" id="mname" name="mname"
 											placeholder="메뉴 명(mname)">
 									</div>
 									<div class="form-group">
-										<input class="form-control" id="mcat"
+										<input class="form-control" id="mcat" name="mcat"
 											placeholder="메뉴 종류(mcat)">
 									</div>
 									<div class="form-group">
-										<input class="form-control" id="mprice"
+										<input class="form-control" id="mprice" name="mprice"
 											placeholder="메뉴 가격(mprice)">
 									</div>
 									<div class="form-group">
-										<input class="form-control" id="introduction"
+										<input class="form-control" id="introduction" name="introduction"
 											placeholder="한줄소개(introduction)">
 									</div>
 									<div class="form-group">
@@ -419,6 +419,82 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		$(document).ready(function() {
+			
+			//메뉴 추가
+			var menuAddForm = $("#menuAddForm");
+			
+			$(".menuRegisterBtn").on("click",function(e){
+				e.preventDefault();
+				
+				 var sname = $("#sname").val();
+		      	 var mname =  $("#mname").val();
+		         var mcat =  $("#mcat").val();
+		         var mprice =  $("#mprice").val();
+		         var introduction =  $("#introduction").val();
+		         
+				console.log("등록버튼 클릭");
+				
+		      	 if(sname == ""){
+		      		console.log("-------------1");
+		       		 alert("가게이름을 입력해주세요.");
+		       		 return;
+		       	 }
+		      	 
+		      	 if(mname == ""){
+		      		console.log("-------------2");
+		       		 alert("메뉴이름을 입력해주세요.");
+		      		 return;
+		       	 }
+		      	 
+		      	 if(mcat == ""){
+		      		 console.log("-------------3");
+		       		 alert("메뉴종류를 입력해주세요.");
+		      		 return;
+		       	 }
+		      	 
+		      	 if(mprice == ""){
+		      		 console.log("-------------3");
+		       		 alert("가격를 입력해주세요.");
+		      		 return;
+		       	 }
+		      	 
+		      	 if(introduction == ""){
+		      		 console.log("-------------3");
+		       		 alert("한줄소개를 입력해주세요.");
+		      		 return;
+		       	 }
+		      	 
+		      	$.ajax({
+		            type: 'get',
+		            url: "/user/searchMenu/" + keyword,
+		            success: function(result,status,xhr){
+						if(callback){
+							callback(result);
+						}
+					}
+				});//end ajax
+		      	 
+
+		 		var str = "";
+		 		
+		 		$(".uploadResult ul li").each(function(i,obj){
+		 			var jobj = $(obj);
+		 			console.dir(jobj);
+		 			
+		 			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+		 			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+		 			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+		 			str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+jobj.data("type")+"'>";
+
+				});
+		 		menuAddForm.append(str).attr("action","/superadmin/menuadd").attr("method","post").submit();
+				
+				
+			});
+			
+			
+			
+			
 			
 			//csrf처리
 			var csrfHearderName = [[${_csrf.headerName}]];
