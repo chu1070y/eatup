@@ -11,6 +11,7 @@ public class MenuVO {
 	private String mname, mcat, fname;
 	private int mprice;
 	private Date regdate;
+	private String introduction;
 	
 	private String uuid;
 	private String uploadPath;

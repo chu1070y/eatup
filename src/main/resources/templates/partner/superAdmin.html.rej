@@ -1,0 +1,9 @@
+diff a/src/main/resources/templates/partner/superAdmin.html b/src/main/resources/templates/partner/superAdmin.html	(rejected hunks)
+@@ -576,7 +576,6 @@
+ 						str += "</il>";
+ 
+ 				});
+-				uploadResult.append(str);
+ 
+ 			}
+ 			

@@ -10,8 +10,8 @@
  	</select>
  	
  	<insert id="menuAdd" parameterType="ga.eatup.user.domain.MenuVO">
-		INSERT INTO partner_store_menu (sno, mname, mcat, introduction, fname, uuid, upload_path)
-			values (#{sno}, #{mname}, #{mcat}, #{introduction}, #{fname}, #{uuid}, #{upload_path})
+		INSERT INTO partner_store_menu (sno, mname, mcat, mprice, introduction, fname, uuid, upload_path)
+			values (#{sno}, #{mname}, #{mcat}, #{mprice},#{introduction}, #{fname}, #{uuid}, #{uploadPath})
  	</insert>
  	
  </mapper>
