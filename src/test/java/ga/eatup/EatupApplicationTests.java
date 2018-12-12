@@ -50,6 +50,14 @@ public class EatupApplicationTests {
 	}
 	
 	@Test
+	public void getUserTest() {
+		
+		UserVO vo = userMapper.getUser("manofin");
+		log.info("" + vo);
+
+	}
+	
+	@Test
 	public void encodeTest() {
 		UserVO vo = userMapper.getUser("user_kakao");
 		String enPw = encoder.encode(vo.getUpw());

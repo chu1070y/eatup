@@ -10,7 +10,7 @@
  	</select>
 
 	<select id="getUser" resultType="ga.eatup.user.domain.UserVO">
-	 	select uid, upw from user
+	 	select uid, upw, nickname, email, sns_id, status from user
 		where uid = #{uid}
 	</select>
 	
