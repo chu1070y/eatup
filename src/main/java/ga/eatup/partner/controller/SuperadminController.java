@@ -7,10 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ga.eatup.partner.domain.EmailVO;
+import ga.eatup.partner.service.EmailServiceImpl;
 import ga.eatup.partner.service.SuperadminService;
 import ga.eatup.user.domain.MenuVO;
 import lombok.Setter;
@@ -24,7 +27,21 @@ public class SuperadminController {
 	@Setter(onMethod_ = @Autowired)
 	private SuperadminService service;
 	
+	@Setter(onMethod_ = @Autowired)
+	private EmailServiceImpl emailService;
+	
 	private static MenuVO menuVO;
+	
+	@PostMapping("/sendEmail")
+	public ResponseEntity<String> sendEmail(@RequestBody EmailVO vo) {
+		log.info("sendEmail......................");
+		
+		log.info(""+vo);
+		emailService.sendSimpleMessage(vo.getName(),vo.getEmail(),vo.getPhone(),vo.getMsg());
+		
+		return null;
+
+	}
 	
 	@PostMapping("menuadd")
 	public String menuAdd(MenuVO vo, RedirectAttributes redirect) {
