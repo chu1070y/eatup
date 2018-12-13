@@ -19,10 +19,29 @@
 
 	<!-- <option th:each="n : ${tidlist}" th:value="${n}" th:text="${n} + ss"/> -->
 	
-	<option th:each="n : ${tidlist}" th:value="${n}" > sss</option> 
+	<!-- <option th:each="n : ${tidlist}" > sss</option>  -->
+	<!-- <option th:each="n : ${tidlist}" > <td th:text="${n}"></td></option>  -->
+	
+	<p><button id="go">Run »</button></p>
+	<!-- <div class="block"> -->
 	
 	
+  <div th:each="n : ${tidlist}"  th:class="block" th:text="${n}"></div> </option> 
+  
+
+
+	
+
 	<style>
+	.block { 
+	position: relative; 
+	background-color: #abc; 
+	width: 40px; 
+	height: 40px; 
+	float: left; 
+	margin: 5px; }
+
+
 	
 	.modal-open {
 	overflow: hidden
