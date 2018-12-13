@@ -1,5 +1,8 @@
 package ga.eatup.partner.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -58,6 +61,26 @@ public class PartnerController {
 		
 		model.addAttribute("result", ordermapper.getOrder(order));
 		System.out.println("-=------------------------------>"+model);
+		
+		List<String> tidlist = new ArrayList<String>();
+		List<OrderVO> list  = ordermapper.getOrder(order);
+		
+		System.out.println("사이쥬ㅜ를 알려드리조,,," + list.size());
+		
+		
+		for(int i=0; i<list.size(); i++) {
+			
+			//System.out.println(list.get(i).getTid());
+			if(!tidlist.contains(list.get(i).getTid())) {
+			tidlist.add(list.get(i).getTid());
+			}
+		}
+		
+		
+		System.out.println(tidlist);
+		model.addAttribute("tidlist", tidlist);
+		
+		
 	}
 	
 	@GetMapping("/sales")

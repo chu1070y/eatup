@@ -8,10 +8,10 @@
 		select sno,od.tid,uno,mno,quantity
 		from gorany.order as od, gorany.order_info as info
 		where od.tid = info.tid
-		<!-- and sno = 1
-		and od.tid = "tid55" -->
-		 and sno = #{sno}
-		and od.tid = #{tid} 
+		 and sno = 1
+		<!--and od.tid = "tid55" 
+		  and sno = #{sno}
+		and od.tid = #{tid}  -->
 	</select>
 </mapper>
 
