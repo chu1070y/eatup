@@ -26,7 +26,7 @@ var tip = d3.tip()
   return "<strong>"+ d.orderdate +": </strong> <span style='color:red'>" + d.total + "</span>";
 })
 
-var svg = d3.select("#chart").append("svg")
+var svg = d3.select("#dailychart").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -67,7 +67,7 @@ d3.json("salesList", function(error, data) {
 
   svg.selectAll(".bar")
       .data(data)
-    .enter().append("rect")
+      .enter().append("rect")
       .attr("class", "bar")
       .attr("x", function(d) { return x(d.orderdate); })
       .attr("width", x.rangeBand())
