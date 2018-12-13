@@ -83,10 +83,6 @@ public class PartnerController {
 		
 	}
 	
-	@GetMapping("/sales")
-	public void sales() {
-		log.info("sales......................page");
-	}
 	
 	@GetMapping("/menu")
 	public void menu() {

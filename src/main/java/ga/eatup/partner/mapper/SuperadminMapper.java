@@ -1,7 +1,11 @@
 package ga.eatup.partner.mapper;
 
+import ga.eatup.user.domain.MenuVO;
+
 public interface SuperadminMapper {
 	
-	public int searchSno(String sname);
+	public Integer searchSno(String sname);
+	
+	public int menuAdd(MenuVO vo);
 
 }

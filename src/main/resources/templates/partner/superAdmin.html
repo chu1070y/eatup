@@ -46,30 +46,6 @@
 	color: white;
 	}
 	
-	.bigPictureWrapper{
-	position: absolute;
-	display: none;
-	justify-content: center;
-	align-items: center;
-	top: 0%;
-	width: 100%;
-	height: 100%;
-	background-color: gray;
-	z-index: 100;
-	background: rgba(255,255,255,0.5);
-	}
-	
-	.bigPicture{
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	}
-	
-	.bigPicture img{
-	width:600px;
-	}
-	
 	#submission {
  	 text-align: center;
  	}
@@ -319,6 +295,8 @@
 										<input class="form-control" id="introduction" name="introduction"
 											placeholder="한줄소개(introduction)">
 									</div>
+									<input type="hidden" id="csrfToken" th:name="${_csrf.parameterName}"
+										th:value="${_csrf.token}" />
 									<div class="form-group">
 										메뉴 이미지 업로드
 										<div class="row">
@@ -348,6 +326,10 @@
 									<div>
 										<button class="btn btn-primary btn-block menuRegisterBtn">메뉴
 											추가하기</button>
+										<button class="btn btn-success btn-block menuRegisterBtn">메뉴
+											수정하기</button>
+										<button class="btn btn-danger btn-block menuRegisterBtn">메뉴
+											삭제하기</button>
 									</div>
 								</div>
 						</form>
@@ -357,11 +339,6 @@
 		</div>
 		<div class="card-body"></div>
 	</div>
-	
-<div class='bigPictureWrapper'>
-	<div class="bigPicture">
-	</div>
-</div>
 
 
 	<!-- 공지 Modal -->
@@ -391,8 +368,6 @@
 
 				<div class="modal-footer">
 
-					<sec:authentication property="principal" var="pinfo" />
-
 					<button id="modalModBtn" type="button" class="btn btn-warning"
 						data-dismiss="modal">수정하기</button>
 					<button id="modalRemoveBtn" type="button" class="btn btn-danger"
@@ -419,6 +394,14 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		$(document).ready(function() {
+			
+			//csrf처리
+			var csrfHearderName = [[${_csrf.headerName}]];
+			var csrfTokenValue = [[${_csrf.token}]];
+			
+			$(document).ajaxSend(function(e,xhr,options){
+				xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+			});
 			
 			//메뉴 추가
 			var menuAddForm = $("#menuAddForm");
@@ -466,11 +449,14 @@
 		      	 
 		      	$.ajax({
 		            type: 'get',
-		            url: "/user/searchMenu/" + keyword,
+		            url: "/superadmin/" + sname,
 		            success: function(result,status,xhr){
-						if(callback){
-							callback(result);
+						console.log("???" + result);
+						if(result===""){
+							alert("가게이름 오류");
+							return;
 						}
+						
 					}
 				});//end ajax
 		      	 
@@ -481,28 +467,15 @@
 		 			var jobj = $(obj);
 		 			console.dir(jobj);
 		 			
-		 			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
-		 			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
-		 			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
-		 			str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+jobj.data("type")+"'>";
+		 			str += "<input type='hidden' name='fname' value='"+jobj.data("filename")+"'>";
+		 			str += "<input type='hidden' name='uuid' value='"+jobj.data("uuid")+"'>";
+		 			str += "<input type='hidden' name='uploadPath' value='"+jobj.data("path")+"'>";
 
 				});
 		 		menuAddForm.append(str).attr("action","/superadmin/menuadd").attr("method","post").submit();
 				
-				
 			});
 			
-			
-			
-			
-			
-			//csrf처리
-			var csrfHearderName = [[${_csrf.headerName}]];
-			var csrfTokenValue = [[${_csrf.token}]];
-			
-			$(document).ajaxSend(function(e,xhr,options){
-				xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
-			});
 
 			//공지 모달창
 			var modal = $("#modal");
@@ -538,14 +511,6 @@
 				});
 			});
 			
-			//이미지 사리지는 이벤트
-			$(".bigPictureWrapper").on("click",function(e){
-				$(".bigPicture").animate({width:'0%', height:'0%'},1000);
-				setTimeout(function(){
-					$('.bigPictureWrapper').hide();
-				},1000);
-			});
-			
 			
 			//첨부파일 이미지 보여주기 & 다운로드 처리
 			var uploadResult = $(".uploadResult ul");
@@ -556,9 +521,9 @@
 				var str ="";
 				
 				$(uploadResultArr).each(function(i,obj){
+						
+						$(".uploadResult ul").empty();
 					
-
-						console.log("================================1");
 						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fname);
 						
 						var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
@@ -571,11 +536,9 @@
 						str += "</div>";
 						str += "</il>";
 
-					console.log("================================2");
 				});
-				console.log("================================3");
 				uploadResult.append(str);
-				console.log("================================4");
+
 			}
 			
 			
@@ -597,7 +560,7 @@
 			}
 			
 			var cloneObj = $(".uploadDiv").clone();
-			//csrf처리
+			
 			
 			//Upload 버튼
 			$("#uploadBtn").on("click",function(e){
@@ -611,14 +574,14 @@
 				
 				//form태그에 파일 추가하기
 				for(var i = 0; i < files.length; i++){
-					
 					if(!checkExtension(files[i].name, files[i].size)){
 						return false;
 					}
-					
-					formData.append("uploadfile",files[i]);	
 				
 				}
+				
+				
+				formData.append("uploadfile",files[0]);
 				
 				$.ajax({
 					url: '/upload/uploadAjaxAction',

@@ -1,14 +1,11 @@
 package ga.eatup.user.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import ga.eatup.user.domain.UserVO;
-import ga.eatup.user.service.GoogleLogin;
-import ga.eatup.user.service.KakaoLogin;
-import ga.eatup.user.service.LoginService;
-import ga.eatup.user.service.NaverLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import ga.eatup.user.domain.UserVO;
+import ga.eatup.user.service.GoogleLogin;
+import ga.eatup.user.service.KakaoLogin;
+import ga.eatup.user.service.LoginService;
+import ga.eatup.user.service.NaverLogin;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -39,15 +41,35 @@ public class KakaoLoginController {
 	  System.out.println("profile: " + profile);
 	  
 	  UserVO vo = KakaoLogin.changeData(profile);
-	  service.registerUser(vo);
+	  List<UserVO> userList = service.getUserList();
 	  
-	  //이건 왜 하는거지?
-	  session.setAttribute("login", vo);
+	  log.info("==========================================");
+	  log.info("" + vo);
+	  log.info("" + vo.getNickname());
+	  log.info("" + userList);
+	  log.info("" + userList.size());
+	  log.info("" + userList.get(8).getNickname());
+
+	  log.info("==========================================");
 	  
-	  System.out.println("session: " + session);
-	  System.out.println(vo.toString());
-		  
-	  response.sendRedirect("/user/home");
+	  for(int i = 0; i < userList.size(); i++) {
+		  if(userList.get(i).getNickname() == vo.getNickname()) {
+			  response.sendRedirect("/user/home");
+		  }
+	  }
+	  
+	  response.sendRedirect("/user/welcome");
+	  
+	  
+//	  service.registerUser(vo);
+	  
+////	  이건 왜 하는거지?
+//	  session.setAttribute("login", vo);
+//	  
+//	  System.out.println("session: " + session);
+//	  System.out.println(vo.toString());
+//		  
+//	  response.sendRedirect("/user/home");
 	  return "redirect:/user/home";
 	}
 	

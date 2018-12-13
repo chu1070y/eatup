@@ -14,7 +14,9 @@
 				<div class="btn-group" role="group"
 					aria-label="Button group with nested dropdown">
 					
-					<button type=button class='btn btn-light'><td th:text="${location != null} ? ${location} : '위치를 설정하세요'"></td></button>
+					<button type=button class='btn btn-light' id="get-mylocation">
+<!-- 					<td th:text="${location != null} ? ${location} : '위치를 설정하세요'"></td>
+ -->					</button>
 
 					<div class="btn-group" role="group">
 						<button id="btnGroupDrop1" type="button"
@@ -328,9 +330,48 @@ function getLocation() {
 <th:block layout:fragment="script">
 	
 	<script th:inline="javascript" src="/js/search.js"></script>
+	<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyC_kINIsADnuEgImakqQvzMK9PhiglfDO8&ver=3.exp"></script>
 	<script th:inline="javascript">
 	
 	$(document).ready(function(){
+		
+		// 내위치 주소변환(Geolocation)
+		var mylocation = "";
+		
+		 $("#get-mylocation").show( function(e) {
+		        /* HTML5 Geolocation */
+		        navigator.geolocation.getCurrentPosition(
+		            function( position ){ // success cb
+		 
+		                /* Current Coordinate */
+		                var lat = position.coords.latitude;
+		                var lng = position.coords.longitude;
+		                var google_map_pos = new google.maps.LatLng( lat, lng );
+		 
+		                /* Use Geocoder to get address */
+		                var google_maps_geocoder = new google.maps.Geocoder();
+		                google_maps_geocoder.geocode(
+		                    { 'latLng': google_map_pos },
+		                    function( results, status ) {
+		                        if ( status == google.maps.GeocoderStatus.OK && results[2] ) {
+		                            var streetAddress = results[2].address_components[1].long_name;
+		                            var city= results[2].address_components[2].long_name;
+		                            var state = results[2].address_components[3].long_name;
+		                            mylocation = state + " " + city + " " + streetAddress
+		                            console.log("내위치 : " + mylocation);
+		                            $("#get-mylocation").append(mylocation);
+		                            
+		                        }
+		                    }
+		                );
+		            },
+		            function(){ // fail cb
+		            	console.log("fail cb");
+		            }
+		        );
+		        
+		        
+		    });
 		
 		//csrf처리
 		var csrfHearderName = [[${_csrf.headerName}]];
