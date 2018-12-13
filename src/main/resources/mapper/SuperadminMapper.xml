@@ -10,7 +10,7 @@
 		from partner_store_menu
 		where sno = (select ifnull(sno,0) from
 		partner_store where sname = #{sname})
-		and mname = #{mname}) count
+		and mname = #{mname} and status='O') count
 		from
 		partner_store where sname = #{sname}
 	</select>
@@ -31,7 +31,7 @@
 		where sno = (select ifnull(sno,0) from partner_store where sname =
 		#{sname})
 		and
-		mname = #{mname}) count
+		mname = #{mname} and status='O') count
 		from partner_store_menu
 		where sno =
 		(select ifnull(sno,0)
