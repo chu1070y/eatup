@@ -7,8 +7,14 @@ import ga.eatup.user.domain.MenuVO;
 @Service
 public interface SuperadminService {
 	
-	public Integer searchSno(String sname);
+	public MenuVO searchSno(String sname, String mname);
 	
 	public int menuAdd(MenuVO vo);
+	
+	public MenuVO searchSnoMno(String sname, String mname);
+	
+	public int menuUpdate(MenuVO vo);
+	
+	public int menuRemove(int mno);
 
 }

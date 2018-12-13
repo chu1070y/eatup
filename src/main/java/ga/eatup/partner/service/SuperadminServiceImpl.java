@@ -15,15 +15,33 @@ public class SuperadminServiceImpl implements SuperadminService{
 	private SuperadminMapper mapper;
 	
 	@Override
-	public Integer searchSno(String sname) {
-		// TODO Auto-generated method stub
-		return mapper.searchSno(sname);
-	}
-
-	@Override
 	public int menuAdd(MenuVO vo) {
 		// TODO Auto-generated method stub
 		return mapper.menuAdd(vo);
+	}
+
+	@Override
+	public MenuVO searchSno(String sname, String mname) {
+		// TODO Auto-generated method stub
+		return mapper.searchSno(sname, mname);
+	}
+
+	@Override
+	public MenuVO searchSnoMno(String sname, String mname) {
+		// TODO Auto-generated method stub
+		return mapper.searchSnoMno(sname, mname);
+	}
+
+	@Override
+	public int menuUpdate(MenuVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.menuUpdate(vo);
+	}
+
+	@Override
+	public int menuRemove(int mno) {
+		// TODO Auto-generated method stub
+		return mapper.menuRemove(mno);
 	}
 
 	

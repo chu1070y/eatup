@@ -7,13 +7,15 @@ import lombok.Data;
 @Data
 public class MenuVO {
 
-	private int sno, mno;
+	private Integer sno, mno;
 	private String mname, mcat, fname;
-	private int mprice;
+	private Integer mprice;
 	private Date regdate;
 	private String introduction;
 	
 	private String uuid;
 	private String uploadPath;
+	
+	private Integer count;
 	
 }
