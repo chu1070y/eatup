@@ -37,8 +37,6 @@ public class SalesController {
 		return "/partner/sales";
 	}
 	
-	
-	
 	@RequestMapping(value = "salesList", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String dailyList(Locale locale, Model model) {
 		Gson gson = new Gson();

@@ -10,15 +10,26 @@
 			<li class="breadcrumb-item"><a href="#">Home</a></li>
 			<li class="breadcrumb-item active">매출</li>
 		</ol>
-
+		<div class="btn-group btn-group-justified" role="group"
+			aria-label="...">
+			<div class="btn-group" role="group">
+				<button type="button" class="btn btn-danger">일간매출</button>
+			</div>
+			<div class="btn-group" role="group">
+				<button type="button" class="btn btn-danger">주간매출</button>
+			</div>
+			<div class="btn-group" role="group">
+				<button type="button" class="btn btn-danger">월간매출</button>
+			</div>
+		</div>
 		<!-- Area Chart Example-->
 		<div class="card mb-3">
 			<div class="card-header">
 				<i class="fas fa-chart-area"></i> 매출 그래프
 			</div>
-			
+
 			<div class="card-body">
-				<canvas id="myAreaChart" width="100%" height="30"></canvas>
+				
 			</div>
 			<div class="card-footer small text-muted">Updated yesterday at
 				11:59 PM</div>
@@ -45,13 +56,13 @@
 	<script src="../admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Page level plugin JavaScript-->
-	<script src="../admin/vendor/chart.js/Chart.min.js"></script>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
 
 	<!-- Custom scripts for all pages-->
 	<script src="../admin/js/sb-admin.min.js"></script>
 
 	<!-- Demo scripts for this page-->
-	<script src="../admin/js/demo/daily.js"></script>
+	
 	<script th:inline="javascript">
 		
 	</script>

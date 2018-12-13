@@ -83,9 +83,5 @@ public class EatupApplicationTests {
 		log.info("" + partnerMapper.getPartner("manofin"));
 	}
 	
-	@Test
-	public void searchSno() {
-		log.info(""+superadminMapper.searchSno("커피점방"));
-	}
 
 }
