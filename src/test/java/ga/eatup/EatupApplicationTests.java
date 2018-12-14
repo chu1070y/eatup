@@ -87,9 +87,9 @@ public class EatupApplicationTests {
 		log.info("" + partnerMapper.getPartner("manofin"));
 	}
 	
+
 //	@Test
 //	public void sendEmail() {
-//		emailService.sendSimpleMessage("고라니컴퍼니입니다.","죄송합니다. 이전에 보낸 당첨메일이 잘못 전송되었습니다.");
 //		
 //	}
 	
