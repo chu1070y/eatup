@@ -59,11 +59,13 @@ public class PartnerController {
 	public void index(Model model, OrderVO order) {
 		log.info("index......................page");
 		
-		model.addAttribute("result", ordermapper.getOrder(order));
+		/*model.addAttribute("result", ordermapper.getOrder(order));*/
 		System.out.println("-=------------------------------>"+model);
 		
 		List<String> tidlist = new ArrayList<String>();
 		List<OrderVO> list  = ordermapper.getOrder(order);
+		
+		model.addAttribute("result", list);
 		
 		System.out.println("사이쥬ㅜ를 알려드리조,,," + list.size());
 		
