@@ -95,7 +95,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/gorany")
-	public void sample1(Model model) {
+	public void gorany(Model model) {
 		
 		model.addAttribute("menu", service.getMenu());
 		
@@ -109,7 +109,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/home")
-	public void sample3(String location, Model model) {
+	public void home(String location, Model model) {
 	
 		log.info("" + location);
 		
@@ -118,7 +118,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/store")
-	public void index(Model model){
+	public void store(Model model){
 		
 		model.addAttribute("menu", service.getMenu());
 	

@@ -6,7 +6,7 @@
  <mapper namespace="ga.eatup.user.mapper.MenuMapper">
  
  	<select id="getMenu" resultType="ga.eatup.user.domain.MenuVO">
- 		select * from partner_store_menu
+ 		select * from partner_store_menu where 
  	</select>
  	
  </mapper>

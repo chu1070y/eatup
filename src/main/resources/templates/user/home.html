@@ -26,8 +26,8 @@ border-radius: 50%;
 					aria-label="Button group with nested dropdown">
 
 					<button type=button class='btn btn-light' id="get-mylocation">
-						<!-- 					<td th:text="${location != null} ? ${location} : '위치를 설정하세요'"></td>
- -->
+						 					<td th:text="${location != null} ? ${location} : ''"></td>
+
 					</button>
 
 					<div class="btn-group" role="group">
@@ -59,7 +59,7 @@ border-radius: 50%;
 			</div>
 		</div>
 
-		<div class="owl-carousel owl-theme">
+<!-- 		<div class="owl-carousel owl-theme">
 			<div class="item">
 				<img src="../agency/img/1.jpg">
 			</div>
@@ -69,7 +69,7 @@ border-radius: 50%;
 			<div class="item">
 				<img src="../agency/img/3.jpg">
 			</div>
-
+ -->
 
 			<!-- Services -->
 			<section id="services">
@@ -336,10 +336,7 @@ border-radius: 50%;
 	<!-- google Geolocation -->
 		<script type="text/javascript"
 			src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCOjYqPJ97sckNjih-R8q07zMO9e8R-VJU&ver=3.exp"></script>
-			
-		<!-- Owl carousel -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="../js/owl.carousel.min.js"></script>
+		
 		
 
 
@@ -347,28 +344,6 @@ border-radius: 50%;
 
 	
 	$(document).ready(function(){
-		
-		if($.isFunction('owlCarousel')){
-	$('.owl-carousel').owlCarousel({
-		items: 3.7,
-		loop : true,
-		margin : 50,
-		nav : true,
-		responsive : {
-			0 : {
-				items : 3.7
-			},
-			600 : {
-				items : 3.7
-			},
-			1000 : {
-				items : 3.7
-			}
-		}
-	});
-	}
-		
-	
 
 		// 내위치 주소변환(Geolocation)
 		var mylocation = "";
@@ -409,13 +384,13 @@ border-radius: 50%;
 		    });
 		
 		//csrf처리
- 		var csrfHearderName = [[${_csrf.headerName}]];
+  		var csrfHearderName = [[${_csrf.headerName}]];
 		var csrfTokenValue = [[${_csrf.token}]];
 		
 		$(document).ajaxSend(function(e,xhr,options){
 			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
 		}); 
-		
+		 
 		//검색창 자동완성
 		function display(data){
 			$( "#tags" ).autocomplete({
