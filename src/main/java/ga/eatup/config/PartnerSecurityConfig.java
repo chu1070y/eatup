@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,7 +17,8 @@ import lombok.extern.java.Log;
 
 @Log
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@Order(value= 1)
+public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	DataSource dataSource;
@@ -27,9 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		//경로 및 권한 생성하기
 		http
+			.antMatcher("/partner/**")
 			.authorizeRequests()
-				.antMatchers("/user/**").permitAll()
-				.antMatchers("/upload/**").permitAll()
+				.antMatchers("/partner/upload/**").permitAll()
 				.antMatchers("/partner/partnercreate").permitAll()
 				.antMatchers("/partner/welcome").permitAll()
 				.antMatchers("/partner/login/**").permitAll()
@@ -46,7 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.formLogin()
 				.loginPage("/partner/login/customLogin");
-		}
+		
+		
+
+	}
 	
 	
 	@Bean

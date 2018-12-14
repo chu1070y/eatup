@@ -33,6 +33,7 @@ mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:/mapper/*.xml  
   
+
 logging:
   level:
     org.hibernate: debug

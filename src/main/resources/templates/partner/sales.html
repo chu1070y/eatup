@@ -28,18 +28,103 @@
 				<i class="fas fa-chart-area"></i> 매출 그래프
 			</div>
 			<div class="card-body">
-			<div id="dailychart"></div>
-			<div id="weeklychart">
-			<p>weekly</p>
-			</div>
-			<div id="monthlychart">
-			<p>monthly</p>
-			</div>
+				<div id="dailychart"></div>
+				<div id="weeklychart"></div>
+				<div id="monthlychart"></div>
 			</div>
 
 		</div>
-		<div class="card-footer small text-muted">Updated yesterday at
-			11:59 PM</div>
+		
+		<!-- DataTables Example -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              매출 데이터</div>
+            <div class="card-body">
+              <div id="dailytable" class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>daily</th>
+                      <th>Position</th>
+                      <th>Office</th>
+                      <th>Age</th>
+                      <th>Start date</th>
+                      <th>Salary</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                    <tr>
+                      <td>Tiger Nixon</td>
+                      <td>System Architect</td>
+                      <td>Edinburgh</td>
+                      <td>61</td>
+                      <td>2011/04/25</td>
+                      <td>$320,800</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+              </div>
+              
+              <div id="weeklytable" class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>weekly</th>
+                      <th>Position</th>
+                      <th>Office</th>
+                      <th>Age</th>
+                      <th>Start date</th>
+                      <th>Salary</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                    <tr>
+                      <td>Tiger Nixon</td>
+                      <td>System Architect</td>
+                      <td>Edinburgh</td>
+                      <td>61</td>
+                      <td>2011/04/25</td>
+                      <td>$320,800</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+              </div>
+              
+              <div id="monthlytable" class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>monthly</th>
+                      <th>Position</th>
+                      <th>Office</th>
+                      <th>Age</th>
+                      <th>Start date</th>
+                      <th>Salary</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                    <tr>
+                      <td>Tiger Nixon</td>
+                      <td>System Architect</td>
+                      <td>Edinburgh</td>
+                      <td>61</td>
+                      <td>2011/04/25</td>
+                      <td>$320,800</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          </div>
+		
 	</div>
 
 </div>
@@ -75,11 +160,14 @@
 	<script src="../admin/js/demo/daily.js"></script>
 
 	<script th:inline="javascript">
+	
 	$( document ).ready(function() {
 	    console.log( "ready!" );
-	    $('#dailychart').show();
+	  
 		$('#weeklychart').hide();
 		$('#monthlychart').hide();
+		$('#weeklytable').hide();
+		$('#monthlytable').hide();
 	
 	});
 
@@ -89,6 +177,10 @@
 			$('#weeklychart').hide();
 			$('#monthlychart').hide();
 			
+			$('#dailytable').show();
+			$('#weeklytable').hide();
+			$('#monthlytable').hide();
+			
 		});
 	
 	$('#weekly').click(function(){
@@ -96,6 +188,10 @@
 		$('#dailychart').hide();
 		$('#weeklychart').show();
 		$('#monthlychart').hide();
+		
+		$('#dailytable').hide();
+		$('#weeklytable').show();
+		$('#monthlytable').hide();
 		
 	});
 	
@@ -105,7 +201,13 @@
 		$('#weeklychart').hide();
 		$('#monthlychart').show();
 		
+		$('#dailytable').hide();
+		$('#weeklytable').hide();
+		$('#monthlytable').show();
+		
 	});
+	
+
 	
 	</script>
 

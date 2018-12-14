@@ -49,6 +49,7 @@
 #submission {
 	text-align: center;
 }
+
 </style>
 
 	<div id="gorany">익명의 고라니</div>
@@ -75,8 +76,8 @@
 							<th>번호</th>
 							<th>제목</th>
 							<th>작성자</th>
-							<th>수정날짜</th>
 							<th>등록날짜</th>
+							<th>수정날짜</th>
 							<th>지울것</th>
 						</tr>
 					</thead>
@@ -179,13 +180,13 @@
 						</tr>
 					</tbody>
 				</table>
-				<div>
+				<form action="/partner/notice/register">
 					<button class="btn btn-primary btn-block registerBtn">공지
 						등록하기</button>
-				</div>
+				</form>
 			</div>
-			</br>
-			<div class="left">
+			<br/>
+			<div class="center">
 				<ul class="pagination">
 					<li class="page-item disabled"><a class="page-link" href="#"
 						tabindex="-1">Previous</a></li>
@@ -244,7 +245,7 @@
 											<div class="panel panel-default">
 												<div class="panel-body">
 													<div class="uploadDiv col-lg-2">
-														<input type='file' name='uploadfile' multiple>
+														<input type='file' name='uploadfile'>
 													</div>
 													<br />
 													<div class='uploadResult col-lg-12'>
@@ -281,48 +282,7 @@
 	</div>
 
 
-	<!-- 공지 Modal -->
-	<div class="modal fade" id="modal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<input type="hidden" id="rnoValue" value="rnoValue">
-					<h4 class="modal-title" id="myModalLabel">공지 등록하기</h4>
-				</div>
-				<div class="modal-body"></div>
 
-				<div class="form-group">
-					<label>제목</label> <input class="form-control" name="title"
-						placeholder="공지제목 입력">
-				</div>
-				<div class="form-group">
-					<label>내용</label>
-					<textarea class="form-control" id="message" placeholder="공지내용 입력"
-						required="required"></textarea>
-				</div>
-				<div class="form-group">
-					<label>작성자</label> <input class="form-control" name="id"
-						value="고라니컴퍼니 " readonly="readonly">
-				</div>
-
-				<div class="modal-footer">
-
-					<button id="modalModBtn" type="button" class="btn btn-warning"
-						data-dismiss="modal">수정하기</button>
-					<button id="modalRemoveBtn" type="button" class="btn btn-danger"
-						data-dismiss="modal">삭제하기</button>
-					<button id="modalRegisterBtn" type="button" class="btn btn-primary"
-						data-dismiss="modal">등록하기</button>
-					<button id="modalCloseBtn" type="button" class="btn btn-default"
-						data-dismiss="modal">창 닫기</button>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
 
 
 
@@ -522,19 +482,7 @@
 
 			
 
-			//공지 모달창
-			var modal = $("#modal");
-			var modalModBtn = $("#modalModBtn");
-			var modalRemoveBtn = $("#modalRemoveBtn");
-			var modalRegisterBtn = $("#modalRegisterBtn");
 
-			$(".registerBtn").on("click", function(e) {
-
-				modalModBtn.hide();
-				modalRemoveBtn.hide();
-				modal.modal("show");
-
-			});
 			
 			
 			//이미지 삭제

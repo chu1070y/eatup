@@ -1,6 +1,7 @@
 package ga.eatup.user.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.service.LoginService;
@@ -35,6 +37,15 @@ public class UserController {
 		log.info("speech.......");
 	}
 	
+	@GetMapping("/login/customLoginTemp")
+	public void temptemp(@RequestParam String username, @RequestParam String password, Model model) {
+		log.info("===========임시 로그인페이지 ===============");
+		log.info(username);
+		log.info(password);
+		model.addAttribute("username", username);
+		model.addAttribute("password", password);
+	}
+	
 	@PostMapping("/login/customLogin")
 	public void customLogin(UserVO vo, HttpServletRequest request, HttpServletResponse response, HttpSession session)throws IOException {
 
@@ -48,11 +59,11 @@ public class UserController {
         String uId = dbVo.getUid();
         String uPw = dbVo.getUpw();
         
-        log.info("" + (inputPw.toString()=="12345678"));
-        log.info("" + (uPw.toString()=="12345678"));
-        log.info("" + (inputPw.trim() != uPw.trim()));
+        log.info("" + (inputPw =="12345678"));
+        log.info("" + (uPw =="12345678"));
+        log.info("같은지 체크: " + inputPw.equals(uPw));
 
-        if (inputPw != uPw) {
+        if (!inputPw.equals(uPw)) {
             response.sendRedirect("/user/pay");
         } 
         
@@ -95,7 +106,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/gorany")
-	public void sample1(Model model) {
+	public void gorany(Model model) {
 		
 		model.addAttribute("menu", service.getMenu());
 		
@@ -109,7 +120,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/home")
-	public void sample3(String location, Model model) {
+	public void home(String location, Model model) {
 	
 		log.info("" + location);
 		
@@ -118,7 +129,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/store")
-	public void index(Model model){
+	public void store(Model model){
 		
 		model.addAttribute("menu", service.getMenu());
 	
