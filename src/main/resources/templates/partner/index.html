@@ -34,11 +34,11 @@
 
 
 
-<div th:each="n : ${tidlist}" th:id="block" th:class="block+${n}" th:text="${n}" ></div> 
+<!--<div th:each="n : ${tidlist}" th:id="block" th:class="block+${n}" th:text="${n}" ></div>  -->
 
 
 
-
+<div th:each="n : ${tidlist}" th:id="block" th:class="block" th:text="${n}" ></div>
 
 
 	<style>
@@ -58,12 +58,12 @@
 }
 
 
-#block {
+.block {
 	  position: relative;
  	background-color: #abc;
 	width: 400px;
 	height: 600px;
-     float: left;
+      float: left; 
 	margin: 5px;
 	white-space: nowrap;
 }
@@ -239,16 +239,18 @@
 
 <th:block layout:fragment="script">
 
-	<script>
+	 <script>
 $("#go").click(function(){
 	console.log("cliccccccccck");
-	$("#block:first").animate({"right": "+=50px"},{
-		step:function(now,fx){
-			$("#block:gt(0)").css("left",now);
-		}
+	$(".block:first").animate({"bottom": "+=1000px"},{
+		
+		step: function( now, fx ){ $( ".block:gt(0)" ).css({"left": "-=13.4px"}); }
+
+	
+		
 	});
 })
-</script>
+</script> 
 
 
 	<script th:inline="javascript">
