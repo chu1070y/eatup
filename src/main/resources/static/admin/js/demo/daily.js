@@ -1,6 +1,6 @@
 /* -------------------- daily chart ------------------------*/
 
-var margin = {top: 40, right: 40, bottom: 60, left: 80},
+var margin = {top: 40, right: 80, bottom: 60, left: 100},
 	width = 1100 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
@@ -31,6 +31,7 @@ var tip = d3.tip()
 var svg = d3.select("#dailychart").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .call(responsivefy)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -91,7 +92,26 @@ d3.json("salesList", function(error, data) {
   
 });
  
- 
+ //반응형
+function responsivefy(svg){
+	var container = d3.select(svg.node().parentNode),
+		width = parseInt(svg.style("width")),
+		height = parseInt(svg.style("height")),
+		aspect = width / height;
+	
+	svg.attr("viewBox","0 0 "+ width +" "+ height)
+		.attr("preserveAspectRatio","xMinYMid")
+		.call(resize);
+	
+	d3.select(window).on("resize." + container.attr("id"),resize);
+	
+	function resize(){
+		var containerWidth = parseInt(container.style("width"));
+		var targetWidth = containerWidth? containerWidth : parseInt(svg.style("width"));
+		svg.attr("width", targetWidth);
+		svg.attr("height", Math.round(targetWidth/aspect));
+	}
+}
 
   
 function type(d) {
@@ -107,6 +127,7 @@ function type(d) {
 var svg2 = d3.select("#weeklychart").append("svg")
 .attr("width", width + margin.left + margin.right)
 .attr("height", height + margin.top + margin.bottom)
+.call(responsivefy)
 .append("g")
 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -157,8 +178,8 @@ d3.json("weeklyList", function(error, data2) {
   .attr("width", x.rangeBand())
   .attr("y", height)
   .attr("height", 0)
-  .on('mouseover', tip.show)
-  .on('mouseout', tip.hide)
+  .on('mouseover', tip2.show)
+  .on('mouseout', tip2.hide)
   .transition()
 		.ease("linear")
 		.duration(700)
@@ -174,6 +195,7 @@ d3.json("weeklyList", function(error, data2) {
 var svg3 = d3.select("#monthlychart").append("svg")
 .attr("width", width + margin.left + margin.right)
 .attr("height", height + margin.top + margin.bottom)
+.call(responsivefy)
 .append("g")
 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -217,8 +239,8 @@ d3.json("monthlyList", function(error, data3) {
   .attr("width",x.rangeBand())
   .attr("y", height)
   .attr("height", 0)
-  .on('mouseover', tip.show)
-  .on('mouseout', tip.hide)
+  .on('mouseover', tip3.show)
+  .on('mouseout', tip3.hide)
   .transition()
 		.ease("linear")
 		.duration(700)
