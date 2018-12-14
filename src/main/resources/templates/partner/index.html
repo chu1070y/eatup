@@ -9,41 +9,69 @@
 		<div id="greetings"></div>
 		<button id="Disconnected">연결종료</button>
 	</div>
-	
-	<span th:text="${result}"></span>
-	<span th:text="${tidlist.size()}"></span>
-	
 
-  
-    <!-- <option th:each="n : ${#numbers.sequence(1,53)}" th:value="${n}" th:text="${n}"/> -->
+	<span th:text="${result}"></span> 
+	<p><span th:text="${tidlist.size()}"></span>
+
+
+
+	<!-- <option th:each="n : ${#numbers.sequence(1,53)}" th:value="${n}" th:text="${n}"/> -->
 
 	<!-- <option th:each="n : ${tidlist}" th:value="${n}" th:text="${n} + ss"/> -->
-	
-	<!-- <option th:each="n : ${tidlist}" > sss</option>  -->
+
 	<!-- <option th:each="n : ${tidlist}" > <td th:text="${n}"></td></option>  -->
-	
-	<p><button id="go">Run »</button></p>
+
+	 <p>
+		<button id="go">Run »</button>
+	</p> 
 	<!-- <div class="block"> -->
 	
-	
-  <div th:each="n : ${tidlist}"  th:class="block" th:text="${n}"></div> </option> 
-  
 
 
-	
+	<!--  <option th:each="p : 1">   
+	 <div th:each="n : ${tidlist}" th:id="block" th:class="block+${n}" th:text="${n}" ></div>  
+	 </option> -->
+
+
+
+<!--<div th:each="n : ${tidlist}" th:id="block" th:class="block+${n}" th:text="${n}" ></div>  -->
+
+
+
+<div th:each="n : ${tidlist}" th:id="block" th:class="block" th:text="${n}" ></div>
+
 
 	<style>
-	.block { 
-	position: relative; 
-	background-color: #abc; 
-	width: 40px; 
-	height: 40px; 
-	float: left; 
-	margin: 5px; }
 
+/*네모네모 */
+
+#wrapper {
+	
+	/* overflow:scroll;
+	 overflow-y:hidden; 
+	overflow-x:auto; */
+	background-color: yellow;
+	white-space: nowrap;
+	position : fixed;
 
 	
-	.modal-open {
+}
+
+
+.block {
+	  position: relative;
+ 	background-color: #abc;
+	width: 400px;
+	height: 600px;
+      float: left; 
+	 margin: 10px; 
+	white-space: nowrap;
+	
+}
+
+
+
+.modal-open {
 	overflow: hidden
 }
 
@@ -182,38 +210,77 @@
 		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
 	}
 }
-	
-	</style>
-	
+</style>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" id="exampleModalContent">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Speak Up!!!</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <h5>5초간 음성 인식이 시작됩니다. 수행명령을 말하세요.</h5>
-		<div id="speech_box"></div>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
-	
-	
-	
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" id="exampleModalContent">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Speak Up!!!</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h5>5초간 음성 인식이 시작됩니다. 수행명령을 말하세요.</h5>
+					<div id="speech_box"></div>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+		</div>
+	</div>
+
+
+
 </div>
 
 <th:block layout:fragment="script">
-	<script th:inline="javascript">
-$(document).ready(function () {
+
+<script>
+$("#go").click(function(){
+	console.log("cliccccccccck");
+	/* $(".block:eq(0)").animate({"bottom": "+=1000px"},{
+		
+ 		 
 	
+		    step: function( now, fx ){ $( ".block:gt(0)" ).css({"left": "-=13.4px"}); }    
+		
+	
+		
+	});//animate  
+	
+	$( ".block:gt(0)" ).animate({"left": "-=300px"});
+	
+		    $(".block:eq(0)").remove();    */
+		    
+
+  $(".block:eq(1)").animate({"bottom":"1000px"});  
+  $( ".block:gt(1)" ).animate({"left": "-=420px"});     
+/* $( ".block:gt(0)" ).animate({"left": "-=50px"},{
+	step: function( unit, fx ){ $( ".block:eq(0)" )remove(); }
+})   */
+  /*  $(".block:first").remove();  */
+ 
+ 
+ /* $(".block:eq(0)").animate({"bottom":"1000px"}).promise(),then(function(){
+	 return $(".block:first").delete();
+ })); 
+ */
+ 
+	 
+	
+});
+</script> 
+
+
+	<script th:inline="javascript">
+	
+$(document).ready(function () {
+			
 	/* 		 //음성인식에서 키워드 추출
 	 function keyword(data){
 		 var check = {
@@ -290,7 +357,7 @@ $(document).ready(function () {
 		 });
 	 }
 	 
-	
+	 
 	var ws;
 	
 	$(function () {

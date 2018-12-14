@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ga.eatup.partner.mapper.PartnerMapper;
 import ga.eatup.partner.mapper.SuperadminMapper;
+import ga.eatup.partner.service.EmailServiceImpl;
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.mapper.MenuMapper;
 import ga.eatup.user.mapper.UserMapper;
@@ -44,6 +45,9 @@ public class EatupApplicationTests {
 	@Setter(onMethod_=@Autowired)
 	private SuperadminMapper superadminMapper;
 	
+	@Setter(onMethod_=@Autowired)
+	private EmailServiceImpl emailService;
+	
 	@Test
 	public void contextLoads() {
 		
@@ -59,7 +63,7 @@ public class EatupApplicationTests {
 	
 	@Test
 	public void encodeTest() {
-		UserVO vo = userMapper.getUser("user_kakao");
+		UserVO vo = userMapper.getUser("gaiga");
 		String enPw = encoder.encode(vo.getUpw());
 		userMapper.update(enPw);
 	}
@@ -82,6 +86,12 @@ public class EatupApplicationTests {
 	public void test2() {
 		log.info("" + partnerMapper.getPartner("manofin"));
 	}
+	
+
+//	@Test
+//	public void sendEmail() {
+//		
+//	}
 	
 
 }
