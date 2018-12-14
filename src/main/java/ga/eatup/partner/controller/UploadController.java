@@ -203,6 +203,8 @@ public class UploadController {
 				//image ��������üũ
 				if(checkImageType(saveFile)) {
 					
+					menuVO.setImage(true);
+					
 					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath,"s_" + uploadFileName));
 					
 					Thumbnailator.createThumbnail(file.getInputStream(), thumbnail, 200,200);

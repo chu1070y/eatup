@@ -18,4 +18,6 @@ public class MenuVO {
 	
 	private Integer count;
 	
+	private boolean image = false;
+	
 }

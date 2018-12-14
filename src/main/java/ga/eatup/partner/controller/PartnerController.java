@@ -115,4 +115,19 @@ public class PartnerController {
 		log.info("custom login.........");
 	}
 	
+	@GetMapping("/notice/register")
+	public void noticeRegister() {
+		log.info("notice register page....");
+	}
+	
+	@GetMapping("/notice/read")
+	public void noticeRead() {
+		log.info("notice read page....");
+	}
+	
+	@GetMapping("/notice/modify")
+	public void noticeModify() {
+		log.info("notice modify page....");
+	}
+	
 }
