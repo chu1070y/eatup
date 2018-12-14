@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ga.eatup.partner.domain.NoticePageDTO;
+import ga.eatup.partner.domain.NoticeUploadVO;
 import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.partner.mapper.SuperadminMapper;
 import ga.eatup.user.domain.MenuVO;
@@ -69,9 +71,27 @@ public class SuperadminServiceImpl implements SuperadminService{
 	}
 
 	@Override
-	public List<NoticeVO> noticeList() {
+	public List<NoticeVO> noticeList(NoticePageDTO dto) {
 		// TODO Auto-generated method stub
-		return mapper.noticeList();
+		return mapper.noticeList(dto);
+	}
+
+	@Override
+	public NoticeVO noticeRead(int nno) {
+		// TODO Auto-generated method stub
+		return mapper.noticeRead(nno);
+	}
+
+	@Override
+	public List<NoticeUploadVO> uploadRead(int nno) {
+		// TODO Auto-generated method stub
+		return mapper.uploadRead(nno);
+	}
+
+	@Override
+	public int noticeCount() {
+		// TODO Auto-generated method stub
+		return mapper.noticeCount();
 	}
 
 	

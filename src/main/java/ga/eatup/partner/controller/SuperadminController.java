@@ -1,7 +1,10 @@
 package ga.eatup.partner.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ga.eatup.partner.domain.EmailVO;
+import ga.eatup.partner.domain.NoticeUploadVO;
 import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.partner.service.EmailServiceImpl;
 import ga.eatup.partner.service.SuperadminService;
@@ -33,12 +37,21 @@ public class SuperadminController {
 	
 	private static MenuVO menuVO;
 	
+	@GetMapping(value="/getUploadList", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<NoticeUploadVO>> getUploadList(int nno){
+		
+		return new ResponseEntity<>(service.uploadRead(nno),HttpStatus.OK);
+	}
+	
 	@PostMapping("/noticeadd")
 	public String noticeAdd(NoticeVO vo,RedirectAttributes redirect) {
 		log.info("notice add........");
+		log.info("" + vo.getUploadList().get(0).getFiletype());
 		
 		if(vo.getUploadList() != null) {
-			vo.getUploadList().forEach(attach -> log.info(""+attach));
+			vo.getUploadList().forEach(upload -> log.info(""+upload));
+			vo.getUploadList().forEach(upload -> log.info(""+upload.getFiletype()));
 		}
 		
 		int result = service.noticeAdd(vo);

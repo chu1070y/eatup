@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import ga.eatup.partner.domain.NoticePageDTO;
+import ga.eatup.partner.domain.NoticeUploadVO;
 import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.user.domain.MenuVO;
 
@@ -22,6 +24,13 @@ public interface SuperadminService {
 	
 	public int noticeAdd(NoticeVO vo);
 	
-	public List<NoticeVO> noticeList();
+	public List<NoticeVO> noticeList(NoticePageDTO dto);
+	
+	public NoticeVO noticeRead(int nno);
+	
+	public List<NoticeUploadVO> uploadRead(int nno);
+	
+	public int noticeCount();
+
 
 }

@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import ga.eatup.partner.domain.NoticePageDTO;
 import ga.eatup.partner.domain.OrderVO;
 import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.mapper.OrderMapper;
@@ -94,10 +96,13 @@ public class PartnerController {
 	}
 	
 	@GetMapping("/superAdmin")
-	public void superAdmin(Model model) {
+	public void superAdmin(Model model, NoticePageDTO dto) {
 		log.info("superAdmin......................page");
+		log.info("dto.." + dto);
+		dto.setTotal(superadminService.noticeCount());
 		
-		model.addAttribute("noticeList", superadminService.noticeList());
+		model.addAttribute("noticeList", superadminService.noticeList(dto));
+		model.addAttribute("dto", dto);
 		
 	}
 	
@@ -128,8 +133,10 @@ public class PartnerController {
 	}
 	
 	@GetMapping("/notice/read")
-	public void noticeRead() {
-		log.info("notice read page....");
+	public void noticeRead(Model model, @RequestParam("nno") int nno) {
+		log.info("notice read page...." + nno);
+		
+		model.addAttribute("notice",superadminService.noticeRead(nno));
 	}
 	
 	@GetMapping("/notice/modify")

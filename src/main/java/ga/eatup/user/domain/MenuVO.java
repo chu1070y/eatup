@@ -14,7 +14,7 @@ public class MenuVO {
 	private String introduction;
 	
 	private String uuid;
-	private String uploadPath;
+	private String upload_path;
 	
 	private Integer count;
 	
