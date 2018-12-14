@@ -15,6 +15,7 @@ import ga.eatup.partner.domain.OrderVO;
 import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.mapper.OrderMapper;
 import ga.eatup.partner.service.PartnerService;
+import ga.eatup.partner.service.SuperadminService;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -25,6 +26,9 @@ public class PartnerController {
 
 	@Setter(onMethod_=@Autowired)
 	private PartnerService service;
+	
+	@Setter(onMethod_=@Autowired)
+	private SuperadminService superadminService;
 	
 	//order
 	@Setter(onMethod_= @Autowired)
@@ -90,8 +94,11 @@ public class PartnerController {
 	}
 	
 	@GetMapping("/superAdmin")
-	public void superAdmin() {
+	public void superAdmin(Model model) {
 		log.info("superAdmin......................page");
+		
+		model.addAttribute("noticeList", superadminService.noticeList());
+		
 	}
 	
 	@GetMapping("/notice")

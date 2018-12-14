@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ga.eatup.partner.domain.EmailVO;
+import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.partner.service.EmailServiceImpl;
 import ga.eatup.partner.service.SuperadminService;
 import ga.eatup.user.domain.MenuVO;
@@ -31,6 +32,21 @@ public class SuperadminController {
 	private EmailServiceImpl emailService;
 	
 	private static MenuVO menuVO;
+	
+	@PostMapping("/noticeadd")
+	public String noticeAdd(NoticeVO vo,RedirectAttributes redirect) {
+		log.info("notice add........");
+		
+		if(vo.getUploadList() != null) {
+			vo.getUploadList().forEach(attach -> log.info(""+attach));
+		}
+		
+		int result = service.noticeAdd(vo);
+		
+		redirect.addFlashAttribute("addResult", result);
+		
+		return "redirect:/partner/superAdmin";
+	}
 	
 	@PostMapping("/sendEmail")
 	public ResponseEntity<String> sendEmail(@RequestBody EmailVO vo) {
@@ -98,7 +114,6 @@ public class SuperadminController {
 		if(!(service.searchSnoMno(sname, mname)==null)) {
 			menuVO = service.searchSnoMno(sname, mname);
 		}else {
-			log.info("??????????????????????????");
 			menuVO = new MenuVO();
 		}
 		
