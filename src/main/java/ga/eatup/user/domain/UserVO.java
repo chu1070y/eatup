@@ -1,6 +1,7 @@
 package ga.eatup.user.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -12,8 +13,12 @@ public class UserVO {
 	private String nickname;
 	private String email;
 	private String sns_id;
+	private String defaultkey;
 	private Date regdate;
 	private Date updatedate;
 	private char status;
+	
+	private List<UserAuthVO> authList;
+
 	
 }

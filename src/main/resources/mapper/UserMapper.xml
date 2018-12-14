@@ -4,15 +4,45 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="ga.eatup.user.mapper.UserMapper">
- 
+ 	
+ 	<resultMap type="ga.eatup.user.domain.UserVO" id="userMap">
+ 		<id property="uid" column="uid" />
+ 		<result property="upw" column="upw" />
+ 		<result property="nickname" column="nickname" />
+ 		<result property="email" column="email" />
+ 		<result property="sns_id" column="sns_id" />
+ 		<result property="defaultkey" column="defaultkey" />
+ 		<collection property="authList" resultMap="authMap"></collection>
+ 	</resultMap>
+ 	
+ 	<resultMap type="ga.eatup.user.domain.UserAuthVO" id="authMap">
+ 	 	<result property="uid" column="uid" />
+ 		<result property="auth" column="auth" />
+ 	</resultMap>
+ 	
+ 	<select id="getUser" resultMap="userMap">
+	 	select user.uid, upw, nickname, email, sns_id, defaultkey, auth.uid, auth
+	 	from user user left outer join user_auth auth
+	 	on user.uid = auth.uid
+		where user.uid = #{uid}
+	</select>
+	
+	<update id = 'setDefaultkey'>
+		Update user SET defaultkey = '1' WHERE sns_id = #{snsId}
+	</update>
+	
+	<update id = 'encodeDefaultkey'>
+		update user set defaultkey = #{defaultkey} WHERE sns_id = #{sns_id}
+	</update>
+	
+	<update id = 'nullDefaultkey'>
+		update user set defaultkey = null where uid = #{uid}
+	</update>
+	
  	<select id="getUserList" resultType="ga.eatup.user.domain.UserVO">
  		select * from user
  	</select>
 
-	<select id="getUser" resultType="ga.eatup.user.domain.UserVO">
-	 	select uid, upw, nickname, email, sns_id, status from user
-		where uid = #{uid}
-	</select>
 	
  	<insert id="registerUser">
  		insert into user (uid, upw, nickname, email, sns_id, status)
@@ -21,7 +51,7 @@
  	
  	 	
  	<update id='update'>
- 		UPDATE user SET upw=#{upw} WHERE uid='user_kakao'
+ 		UPDATE user SET upw=#{upw} WHERE uid='gaiga'
  	</update>
  	
  </mapper>

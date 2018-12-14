@@ -2,8 +2,9 @@ package ga.eatup.user.service;
 
 import java.util.List;
 
-import ga.eatup.user.domain.UserVO;
 import org.springframework.stereotype.Service;
+
+import ga.eatup.user.domain.UserVO;
 
 @Service
 public interface LoginService {
@@ -13,4 +14,10 @@ public interface LoginService {
 	public int registerUser(UserVO vo);
 	
 	public UserVO getUser(String uid);
+	
+	public int setDefaultkey(String sns_id);
+	
+	public int encodeDefaultkey(UserVO vo);
+	
+	public int nullDefaultkey(String uid);
 }
