@@ -40,6 +40,7 @@ public class UserSecurityConfig  extends WebSecurityConfigurerAdapter {
 			.formLogin()
 				.loginPage("/user/login/customLogin")
 				.successHandler(successHandler())
+				.defaultSuccessUrl("/user/home")
 				.failureHandler(failHandler());
 
 	}
