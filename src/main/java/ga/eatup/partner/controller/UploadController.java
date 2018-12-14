@@ -168,11 +168,11 @@ public class UploadController {
 		
 		String uploadFolderPath = getFolder();
 		//make folder
-		File uploadPath = new File(uploadFolder, uploadFolderPath);
-		log.info("upload path: " + uploadPath);
+		File upload_path = new File(uploadFolder, uploadFolderPath);
+		log.info("upload path: " + upload_path);
 		
-		if(uploadPath.exists() == false) {
-			uploadPath.mkdirs();
+		if(upload_path.exists() == false) {
+			upload_path.mkdirs();
 		}
 		
 		
@@ -194,18 +194,18 @@ public class UploadController {
 			uploadFileName = uuid.toString() + "_" + uploadFileName;
 			
 			try {
-				File saveFile = new File(uploadPath, uploadFileName);
+				File saveFile = new File(upload_path, uploadFileName);
 				file.transferTo(saveFile);
 				
 				menuVO.setUuid(uuid.toString());
-				menuVO.setUploadPath(uploadFolderPath);
+				menuVO.setUpload_path(uploadFolderPath);
 				
 				//image ��������üũ
 				if(checkImageType(saveFile)) {
 					
 					menuVO.setImage(true);
 					
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath,"s_" + uploadFileName));
+					FileOutputStream thumbnail = new FileOutputStream(new File(upload_path,"s_" + uploadFileName));
 					
 					Thumbnailator.createThumbnail(file.getInputStream(), thumbnail, 200,200);
 					

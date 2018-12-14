@@ -16,7 +16,7 @@ public class MenuVO {
 	private int max_quantity;
 	
 	private String uuid;
-	private String uploadPath;
+	private String upload_path;
 	
 
 	private String status;

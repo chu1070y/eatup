@@ -90,18 +90,17 @@
 					<form id="regisForm">
 						<div class="form-group">
 							<label>제목</label> <input id="title" name="title"
-								class="form-control">
+								class="form-control" th:value="${notice.title}" >
 						</div>
-
 						<div class="form-group">
 							<label>작성자</label> <input id="writer" name="writer"
-								class="form-control" value="고라니컴퍼니">
+								class="form-control" th:value="${notice.writer}" >
 						</div>
 
 						<div class="form-group">
 							<label>내용</label>
-							<textarea class="form-control" id="content" name="content"
-								rows="10"></textarea>
+							<textarea class="form-control" id="content" name="content" 
+								rows="10">[[${notice.content}]]</textarea>
 						</div>
 
 						<input type="hidden" id="csrfToken"
@@ -187,13 +186,30 @@
 		 			str += "<input type='hidden' name='uploadList["+i+"].fname' value='"+jobj.data("filename")+"'>";
 		 			str += "<input type='hidden' name='uploadList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
 		 			str += "<input type='hidden' name='uploadList["+i+"].upload_path' value='"+jobj.data("path")+"'>";
-		 			str += "<input type='hidden' name='uploadList["+i+"].filetype' value='"+jobj.data("type")+"'>";
 
 				});
 		 		
 		 		regisForm.append(str).attr("action","/superadmin/noticeadd").attr("method","post").submit();
 				
 			});
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 
 			
 			
@@ -233,10 +249,10 @@
 						
 						var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
 						
-						str += "<li class='li' data-path='"+obj.upload_path+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fname+"' data-type=0>";
+						str += "<li class='li' data-path='"+obj.upload_path+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fname+"' data-type='"+obj.image+"'>";
 						str += "<div>";
 						str += "<span>" + obj.fname + "</span>";
-						str += "<button type='button' data-type=0 data-file=\'" + fileCallPath + "\'  class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+						str += "<button type='button' data-type='"+obj.image+"' data-file=\'" + fileCallPath + "\' data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
 						str += "<img src='/upload/display?fileName="+fileCallPath+"'>";
 						str += "</div>";
 						str += "</il>";
@@ -247,10 +263,10 @@
 						
 						var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
 						
-						str += "<li data-path='"+obj.upload_path+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fname+"' data-type=1>";
+						str += "<li data-path='"+obj.upload_path+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fname+"' data-type='"+obj.image+"'>";
 						str += "<div>";
 						str += "<span>" + obj.fname + "</span>";
-						str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type=1 class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+						str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='file' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
 						str += "<img src='/imgs/folder.jpg'></a>";
 						str += "</div>";
 						str += "</il>";

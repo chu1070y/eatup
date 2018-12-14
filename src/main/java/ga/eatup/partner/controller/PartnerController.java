@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import ga.eatup.partner.domain.NoticePageDTO;
 import ga.eatup.partner.domain.OrderVO;
 import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.mapper.OrderMapper;
@@ -19,6 +21,7 @@ import ga.eatup.partner.service.PartnerService;
 import ga.eatup.user.domain.MenuVO;
 import ga.eatup.user.mapper.MenuMapper;
 import ga.eatup.user.service.MenuService;
+import ga.eatup.partner.service.SuperadminService;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -31,6 +34,9 @@ public class PartnerController {
 	
 	@Setter(onMethod_=@Autowired)
 	private PartnerService service;
+	
+	@Setter(onMethod_=@Autowired)
+	private SuperadminService superadminService;
 	
 	//order
 	@Setter(onMethod_= @Autowired)
@@ -113,7 +119,14 @@ public class PartnerController {
 	
 	@GetMapping("/superAdmin")
 	public void superAdmin() {
+	public void superAdmin(Model model, NoticePageDTO dto) {
 		log.info("superAdmin......................page");
+		log.info("dto.." + dto);
+		dto.setTotal(superadminService.noticeCount());
+		
+		model.addAttribute("noticeList", superadminService.noticeList(dto));
+		model.addAttribute("dto", dto);
+		
 	}
 	
 	@GetMapping("/notice")
@@ -145,6 +158,10 @@ public class PartnerController {
 	@GetMapping("/notice/read")
 	public void noticeRead() {
 		log.info("notice read page....");
+	public void noticeRead(Model model, @RequestParam("nno") int nno) {
+		log.info("notice read page...." + nno);
+		
+		model.addAttribute("notice",superadminService.noticeRead(nno));
 	}
 	
 	@GetMapping("/notice/modify")

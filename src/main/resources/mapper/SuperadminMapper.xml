@@ -5,12 +5,46 @@
 
 <mapper namespace="ga.eatup.partner.mapper.SuperadminMapper">
 
+	<select id="noticeCount" resultType="int">
+		select count(*) count from notice
+	</select>
+
+	<select id="uploadRead" resultType="ga.eatup.partner.domain.NoticeUploadVO">
+		select * from notice_upload where nno = #{nno}
+	</select>
+
+	<select id="noticeRead" resultType="ga.eatup.partner.domain.NoticeVO">
+		select * from notice where nno = #{nno} 
+	</select>
+
+	<select id="noticeList" resultType="ga.eatup.partner.domain.NoticeVO" parameterType="ga.eatup.partner.domain.NoticePageDTO">
+		select * from notice where status='O' order by nno desc limit #{skip}, #{display}
+	</select>
+
+	<insert id="noticeAdd"
+		parameterType="ga.eatup.partner.domain.NoticeVO">
+		insert into notice(title,writer,content)
+		values(#{title},#{writer},#{content})
+		
+		<selectKey order="AFTER" resultType="int" keyProperty="nno">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<insert id="uploadAdd"
+		parameterType="ga.eatup.partner.domain.NoticeUploadVO">
+		insert into
+		notice_upload(nno,fname,uuid,upload_path,filetype)
+		values(#{nno},#{fname},#{uuid},#{upload_path},#{filetype})
+	</insert>
+
 	<select id="searchSno" resultType="ga.eatup.user.domain.MenuVO">
 		select sno, (select count(*)
 		from partner_store_menu
 		where sno = (select ifnull(sno,0) from
 		partner_store where sname = #{sname})
-		and mname = #{mname} and status='O') count
+		and mname = #{mname} and
+		status='O') count
 		from
 		partner_store where sname = #{sname}
 	</select>
@@ -21,7 +55,7 @@
 		uuid, upload_path)
 		values (#{sno}, #{mname}, #{mcat},
 		#{mprice},#{introduction}, #{fname},
-		#{uuid}, #{uploadPath})
+		#{uuid}, #{upload_path})
 	</insert>
 
 	<select id="searchSnoMno"
@@ -32,10 +66,12 @@
 		#{sname})
 		and
 		mname = #{mname} and status='O') count
-		from partner_store_menu
+		from
+		partner_store_menu
 		where sno =
 		(select ifnull(sno,0)
-		from partner_store where sname = #{sname})
+		from partner_store
+		where sname = #{sname})
 		and
 		mname = #{mname} and status='O'
 		group by sno
@@ -45,16 +81,20 @@
 		parameterType="ga.eatup.user.domain.MenuVO">
 		update partner_store_menu
 		set
-		mprice = ifnull(#{mprice},mprice),
+		mprice =
+		ifnull(#{mprice},mprice),
 		mcat = ifnull(#{mcat},mcat),
-		fname = ifnull(#{fname},fname),
+		fname =
+		ifnull(#{fname},fname),
 		uuid = ifnull(#{uuid},uuid),
-		upload_path = ifnull(#{uploadPath},upload_path)
+		upload_path =
+		ifnull(#{upload_path},upload_path)
 		where mno = #{mno}
 	</update>
-	
+
 	<update id="menuRemove" parameterType="int">
-		update partner_store_menu set status = 'X' where mno = #{mno}
+		update partner_store_menu
+		set status = 'X' where mno = #{mno}
 	</update>
 
 </mapper>
