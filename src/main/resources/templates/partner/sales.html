@@ -28,18 +28,13 @@
 				<i class="fas fa-chart-area"></i> 매출 그래프
 			</div>
 			<div class="card-body">
-			<div id="dailychart"></div>
-			<div id="weeklychart">
-			<p>weekly</p>
-			</div>
-			<div id="monthlychart">
-			<p>monthly</p>
-			</div>
+				<div id="dailychart"></div>
+				<div id="weeklychart"></div>
+				<div id="monthlychart"></div>
 			</div>
 
 		</div>
-		<div class="card-footer small text-muted">Updated yesterday at
-			11:59 PM</div>
+		
 	</div>
 
 </div>
@@ -75,9 +70,10 @@
 	<script src="../admin/js/demo/daily.js"></script>
 
 	<script th:inline="javascript">
+	
 	$( document ).ready(function() {
 	    console.log( "ready!" );
-	    $('#dailychart').show();
+	  
 		$('#weeklychart').hide();
 		$('#monthlychart').hide();
 	
@@ -106,6 +102,7 @@
 		$('#monthlychart').show();
 		
 	});
+	
 	
 	</script>
 

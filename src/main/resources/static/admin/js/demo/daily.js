@@ -1,3 +1,5 @@
+/* -------------------- daily chart ------------------------*/
+
 var margin = {top: 40, right: 40, bottom: 60, left: 80},
     width = 1100 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
@@ -75,6 +77,139 @@ d3.json("salesList", function(error, data) {
       .attr("height", function(d) { return height - y(d.total); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
+
+});
+
+function type(d) {
+	  d.total = +d.total;
+	  return d;
+	}
+
+
+
+/* -------------------- weekly chart ------------------------*/
+
+var svg2 = d3.select("#weeklychart").append("svg")
+.attr("width", width + margin.left + margin.right)
+.attr("height", height + margin.top + margin.bottom)
+.append("g")
+.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var tip2 = d3.tip()
+.attr('class', 'd3-tip')
+.offset([-10, 0])
+.html(function(d) {
+  return "<strong>"+ d.start +": </strong> <span style='color:red'>" + d.total + "</span>";
+})
+
+svg2.call(tip2);
+
+d3.json("weeklyList", function(error, data2) {
+	  x.domain(data2.map(function(d) {
+	    return d.start
+	  }));
+	  y.domain([0, d3.max(data2, function(d) {
+	    return d.total
+	  })]);
+	  
+  svg2.append("g")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + height + ")")
+  .call(xAxis)
+  .selectAll("text")
+  	.style("text-anchor","end")
+  	.attr("dx","-.8em")
+  	.attr("dy", ".15em")
+  	.attr("transform", function(d) {
+  		return "rotate(-65)"
+  	});
+  
+  svg2.append("g")
+  .attr("class", "y axis")
+  .call(yAxis)
+  .append("text")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 6)
+  .attr("dy", ".71em")
+  .style("text-anchor", "end"); 
+  
+  
+  svg2.selectAll(".bar")
+  .data(data2)
+  .enter().append("rect")
+  .attr("class", "bar")
+  .attr("x", function(d) { return x(d.start); })
+  .attr("width", x.rangeBand())
+  .attr("y", function(d) { return y(d.total); })
+  .attr("height", function(d) { return height - y(d.total); })
+  .on('mouseover', tip2.show)
+  .on('mouseout', tip2.hide)
+
+});
+
+function type(d) {
+	  d.total = +d.total;
+	  return d;
+	}
+
+
+/* -------------------- monthly chart ------------------------*/
+
+var svg3 = d3.select("#monthlychart").append("svg")
+.attr("width", width + margin.left + margin.right)
+.attr("height", height + margin.top + margin.bottom)
+.append("g")
+.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var tip3 = d3.tip()
+.attr('class', 'd3-tip')
+.offset([-10, 0])
+.html(function(d) {
+  return "<strong>"+ d.month +": </strong> <span style='color:red'>" + d.total + "</span>";
+})
+
+svg3.call(tip3);
+
+d3.json("monthlyList", function(error, data3) {
+	  x.domain(data3.map(function(d) {
+	    return d.month
+	  }));
+	  y.domain([0, d3.max(data3, function(d) {
+	    return d.total
+	  })]);
+	  
+  svg3.append("g")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + height + ")")
+  .call(xAxis)
+  .selectAll("text")
+  	.style("text-anchor","end")
+  	.attr("dx","-.8em")
+  	.attr("dy", ".15em")
+  	.attr("transform", function(d) {
+  		return "rotate(-65)"
+  	});
+  
+  svg3.append("g")
+  .attr("class", "y axis")
+  .call(yAxis)
+  .append("text")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 6)
+  .attr("dy", ".71em")
+  .style("text-anchor", "end"); 
+  
+  
+  svg3.selectAll(".bar")
+  .data(data3)
+  .enter().append("rect")
+  .attr("class", "bar")
+  .attr("x", function(d) { return x(d.month); })
+  .attr("width", x.rangeBand())
+  .attr("y", function(d) { return y(d.total); })
+  .attr("height", function(d) { return height - y(d.total); })
+  .on('mouseover', tip3.show)
+  .on('mouseout', tip3.hide)
 
 });
 
