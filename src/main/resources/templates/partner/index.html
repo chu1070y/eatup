@@ -64,8 +64,9 @@
 	width: 400px;
 	height: 600px;
       float: left; 
-	margin: 5px;
+	 margin: 10px; 
 	white-space: nowrap;
+	
 }
 
 
@@ -239,23 +240,47 @@
 
 <th:block layout:fragment="script">
 
-	 <script>
+<script>
 $("#go").click(function(){
 	console.log("cliccccccccck");
-	$(".block:first").animate({"bottom": "+=1000px"},{
+	/* $(".block:eq(0)").animate({"bottom": "+=1000px"},{
 		
-		step: function( now, fx ){ $( ".block:gt(0)" ).css({"left": "-=13.4px"}); }
-
+ 		 
+	
+		    step: function( now, fx ){ $( ".block:gt(0)" ).css({"left": "-=13.4px"}); }    
+		
 	
 		
-	});
-})
+	});//animate  
+	
+	$( ".block:gt(0)" ).animate({"left": "-=300px"});
+	
+		    $(".block:eq(0)").remove();    */
+		    
+
+  $(".block:eq(1)").animate({"bottom":"1000px"});  
+  $( ".block:gt(1)" ).animate({"left": "-=420px"});     
+/* $( ".block:gt(0)" ).animate({"left": "-=50px"},{
+	step: function( unit, fx ){ $( ".block:eq(0)" )remove(); }
+})   */
+  /*  $(".block:first").remove();  */
+ 
+ 
+ /* $(".block:eq(0)").animate({"bottom":"1000px"}).promise(),then(function(){
+	 return $(".block:first").delete();
+ })); 
+ */
+ 
+	 
+	
+});
 </script> 
 
 
 	<script th:inline="javascript">
-$(document).ready(function () {
 	
+$(document).ready(function () {
+			
 	/* 		 //음성인식에서 키워드 추출
 	 function keyword(data){
 		 var check = {
@@ -332,7 +357,7 @@ $(document).ready(function () {
 		 });
 	 }
 	 
-	
+	 
 	var ws;
 	
 	$(function () {
