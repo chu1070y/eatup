@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,17 +107,17 @@ public class UserController {
 	}
 	
 	@GetMapping("/gorany")
-	public void gorany(Model model) {
+	public void gorany(@ModelAttribute("sno") int sno, Model model) {
 		
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 		
 	}
 	
 	@GetMapping("/sample2")
-	public void sample2(Model model) {
+	public void sample2(@ModelAttribute("sno") int sno,Model model) {
 		log.info("sample2.....");
 		
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 	}
 	
 	@GetMapping("/home")
@@ -129,25 +130,25 @@ public class UserController {
 	}
 	
 	@GetMapping("/store")
-	public void store(Model model){
+	public void store(@ModelAttribute("sno") int sno,Model model){
 		
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 	
 	}
 	
 	@GetMapping("/cart")
-	public void cart(Model model){
+	public void cart(@ModelAttribute("sno") int sno,Model model){
 		
 		log.info("cartPage....");
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 	
 	}
 	
 	@GetMapping("/pay")
-	public void pay(Model model){
+	public void pay(@ModelAttribute("sno") int sno, Model model){
 		
 		log.info("payPage....");
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 	
 	}
 	

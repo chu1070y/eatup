@@ -9,16 +9,16 @@
 	background-image: url("/agency/img/header-bg.jpg");
 }
 
-.col-centered{
-    float: none;
-    margin: 0 auto;
+.col-centered {
+	float: none;
+	margin: 0 auto;
 }
-
 </style>
 
 	<!-- <h1 th:text="${partner.sno}"></h1> -->
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item">메뉴<a href="/partner/menu?sno=${partner.sno}"></a></li>
+		<li class="breadcrumb-item">메뉴<a
+			href="/partner/menu?sno=${partner.sno}"></a></li>
 		<li class="breadcrumb-item active">메뉴보기</li>
 	</ol>
 
@@ -33,22 +33,23 @@
 					<div th:text="${partner.fname}" align="center"></div>
 					<div th:text="${partner.mname}" align="center"></div>
 					<div th:text="${partner.mprice}" align="center"></div>
-					<div th:text="${partner.introduction}" align="center"></div></br>
+					<div th:text="${partner.introduction}" align="center"></div>
+					</br>
 
 					<div class="row">
 						<div class="col-xl-3 col-sm-6 mb-3 col-centered">
-							<div class="input-group">주문량
-								<input class="form-control" aria-label="Default"
+							<div class="input-group">
+								주문량 <input class="form-control" aria-label="Default"
 									aria-describedby="inputGroup-sizing-default" type="number"
 									id="usernumber" name="usernumber" value="5" step="1" min="0"
-									max="1000">  <span class="input-group-btn"> 
+									max="1000"> <span class="input-group-btn">
 									<button type="button" class="btn btn-dark">설정</button>
-								 </span> 
+								</span>
 							</div>
 						</div>
 					</div>
 				</div>
-				<button type="button" class="btn btn-danger">품절</button>
+				<button id="soldout" type="button" class="btn btn-danger">품절</button>
 			</div>
 		</div>
 
@@ -63,10 +64,6 @@
 	
 	$(document).ready(function(){
 		
-
-		
-});
-	
-		
+	});
 	</script>
 </th:block>

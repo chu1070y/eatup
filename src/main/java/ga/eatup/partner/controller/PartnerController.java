@@ -11,15 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import ga.eatup.partner.domain.OrderVO;
-import ga.eatup.partner.domain.PartnerMenuVO;
 import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.mapper.OrderMapper;
-import ga.eatup.partner.mapper.PartnerMenuMapper;
-import ga.eatup.partner.service.PartnerMenuService;
 import ga.eatup.partner.service.PartnerService;
+import ga.eatup.user.domain.MenuVO;
+import ga.eatup.user.mapper.MenuMapper;
+import ga.eatup.user.service.MenuService;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -28,8 +27,7 @@ import lombok.extern.java.Log;
 @Log
 public class PartnerController {
 
-	@Setter(onMethod_=@Autowired)
-	private PartnerMenuService menuservice;
+
 	
 	@Setter(onMethod_=@Autowired)
 	private PartnerService service;
@@ -38,8 +36,13 @@ public class PartnerController {
 	@Setter(onMethod_= @Autowired)
 	private OrderMapper ordermapper;
 	
+	//menu service
 	@Setter(onMethod_=@Autowired)
-	private PartnerMenuMapper menumapper;
+	private MenuService menuservice;
+	
+	//menu mapper
+	@Setter(onMethod_=@Autowired)
+	private MenuMapper menumapper;
 	
 	@Autowired
 	PasswordEncoder encoder;
@@ -98,7 +101,7 @@ public class PartnerController {
 	public void menu(@ModelAttribute("sno") int sno, Model model) {
 		log.info("menu......................page");
 		
-		List<PartnerMenuVO> list = menuservice.getMenu(sno);
+		List<MenuVO> list = menuservice.getMenu(sno);
 		model.addAttribute("partner", list);
 		
 		log.info("메뉴 : " + list);
