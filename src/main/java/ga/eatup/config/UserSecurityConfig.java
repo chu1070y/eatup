@@ -35,8 +35,7 @@ public class UserSecurityConfig  extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 				.antMatchers("/upload/**").permitAll()
-				.antMatchers("/user/home").authenticated()
-				.antMatchers("/user/pay").authenticated()
+				.antMatchers("/user/**").permitAll()
 				.and()
 			.formLogin()
 				.loginPage("/user/login/customLogin")
