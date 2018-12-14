@@ -88,6 +88,10 @@ public class EatupApplicationTests {
 	}
 	
 
+//	@Test
+//	public void sendEmail() {
+//		
+//	}
 	
 
 }
