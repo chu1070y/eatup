@@ -32,4 +32,19 @@ public class LoginServiceImpl implements LoginService {
 	public UserVO getUser(String uid) {
 		return mapper.getUser(uid);
 	}
+
+	@Override
+	public int setDefaultkey(String sns_id) {
+		return mapper.setDefaultkey(sns_id);
+	}
+
+	@Override
+	public int encodeDefaultkey(UserVO vo) {
+		return mapper.encodeDefaultkey(vo);
+	}
+
+	@Override
+	public int nullDefaultkey(String uid) {
+		return mapper.nullDefaultkey(uid);
+	}
 }

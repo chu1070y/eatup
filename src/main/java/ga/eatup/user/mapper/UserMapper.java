@@ -15,4 +15,9 @@ public interface UserMapper {
 	
 	public int update(String enPw);
 
+	public int setDefaultkey(String sns_id);
+	
+	public int encodeDefaultkey(UserVO vo);
+	
+	public int nullDefaultkey(String uid);
 }

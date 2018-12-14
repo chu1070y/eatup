@@ -63,7 +63,7 @@ public class EatupApplicationTests {
 	
 	@Test
 	public void encodeTest() {
-		UserVO vo = userMapper.getUser("user_kakao");
+		UserVO vo = userMapper.getUser("gaiga");
 		String enPw = encoder.encode(vo.getUpw());
 		userMapper.update(enPw);
 	}
