@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ga.eatup.partner.mapper.PartnerMapper;
 import ga.eatup.partner.mapper.SuperadminMapper;
+import ga.eatup.partner.service.EmailServiceImpl;
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.mapper.MenuMapper;
 import ga.eatup.user.mapper.UserMapper;
@@ -43,6 +44,9 @@ public class EatupApplicationTests {
 	
 	@Setter(onMethod_=@Autowired)
 	private SuperadminMapper superadminMapper;
+	
+	@Setter(onMethod_=@Autowired)
+	private EmailServiceImpl emailService;
 	
 	@Test
 	public void contextLoads() {
@@ -83,9 +87,11 @@ public class EatupApplicationTests {
 		log.info("" + partnerMapper.getPartner("manofin"));
 	}
 	
-	@Test
-	public void searchSno() {
-		log.info(""+superadminMapper.searchSno("커피점방"));
-	}
+//	@Test
+//	public void sendEmail() {
+//		emailService.sendSimpleMessage("고라니컴퍼니입니다.","죄송합니다. 이전에 보낸 당첨메일이 잘못 전송되었습니다.");
+//		
+//	}
+	
 
 }

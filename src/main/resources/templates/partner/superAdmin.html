@@ -16,39 +16,39 @@
 }
 </style>
 
-<style>
-	.uploadResult{
-		width: 100%;
-		background-color: gray;
-	}
-	
-	.uploadResult ul{
-		display: flex;
-		flex-flow: row;
-		justify-content: center;
-		align-items: center;
-		color: white;
-	}
-	
-	.uploadResult ul li{
-		list-style: none;
-		padding: 20px;
-		align-centent: center;
-		text-align: center;
-	}
-	
-	.uploadResult ul li img{
-	display:inline;
-	height: 100px;
-	}
-	
-	.uploadResult ul li span{
+	<style>
+.uploadResult {
+	width: 100%;
+	background-color: gray;
+}
+
+.uploadResult ul {
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
 	color: white;
-	}
-	
-	#submission {
- 	 text-align: center;
- 	}
+}
+
+.uploadResult ul li {
+	list-style: none;
+	padding: 20px;
+	align-centent: center;
+	text-align: center;
+}
+
+.uploadResult ul li img {
+	display: inline;
+	height: 100px;
+}
+
+.uploadResult ul li span {
+	color: white;
+}
+
+#submission {
+	text-align: center;
+}
 </style>
 
 	<div id="gorany">익명의 고라니</div>
@@ -184,80 +184,20 @@
 						등록하기</button>
 				</div>
 			</div>
-		</div>
-	</div>
-
-	<ol class="breadcrumb">
-		<li class="breadcrumb-item active">1:1문의사항 목록</li>
-	</ol>
-
-	<!-- DataTables Example -->
-	<div class="card mb-3">
-		<div class="card-header">
-			<i class="fas fa-table"></i> 파트너 소리함
-		</div>
-		<div class="card-body">
-			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable" width="100%"
-					cellspacing="0">
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>등록날짜</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>System Architect</td>
-							<td>Edinburgh</td>
-							<td>2011/04/25</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>Accountant</td>
-							<td>Tokyo</td>
-							<td>2011/07/25</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>Junior Technical Author</td>
-							<td>San Francisco</td>
-							<td>2009/01/12</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>Senior Javascript Developer</td>
-							<td>Edinburgh</td>
-							<td>2012/03/29</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>Accountant</td>
-							<td>Tokyo</td>
-							<td>2008/11/28</td>
-						</tr>
-						<tr>
-							<td>6</td>
-							<td>Integration Specialist</td>
-							<td>New York</td>
-							<td>2012/12/02</td>
-						</tr>
-						<tr>
-							<td>7</td>
-							<td>Sales Assistant</td>
-							<td>San Francisco</td>
-							<td>2012/08/06</td>
-						</tr>
-					</tbody>
-				</table>
+			</br>
+			<div class="left">
+				<ul class="pagination">
+					<li class="page-item disabled"><a class="page-link" href="#"
+						tabindex="-1">Previous</a></li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item active"><a class="page-link" href="#">2
+					</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
 			</div>
 		</div>
 	</div>
-
-
 
 
 	<ol class="breadcrumb">
@@ -273,65 +213,65 @@
 				<div class="row"></div>
 				<div class="row">
 					<div class="col-lg-12">
-						<form id="menuAddForm" >
-								<div class="col-md-12">
-									<div class="form-group">
-										<input class="form-control" id="sname" name="sname"
-											placeholder="가게 명(sname)">
-									</div>
-									<div class="form-group">
-										<input class="form-control" id="mname" name="mname"
-											placeholder="메뉴 명(mname)">
-									</div>
-									<div class="form-group">
-										<input class="form-control" id="mcat" name="mcat"
-											placeholder="메뉴 종류(mcat)">
-									</div>
-									<div class="form-group">
-										<input class="form-control" id="mprice" name="mprice"
-											placeholder="메뉴 가격(mprice)">
-									</div>
-									<div class="form-group">
-										<input class="form-control" id="introduction" name="introduction"
-											placeholder="한줄소개(introduction)">
-									</div>
-									<input type="hidden" id="csrfToken" th:name="${_csrf.parameterName}"
-										th:value="${_csrf.token}" />
-									<div class="form-group">
-										메뉴 이미지 업로드
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="panel panel-default">
-													<div class="panel-body">
-														<div class="uploadDiv col-lg-2">
-															<input type='file' name='uploadfile' multiple>
-														</div>
-														<br />
-														<div class='uploadResult col-lg-12'>
-															<ul>
-
-															</ul>
-														</div>
-
-														<button id='uploadBtn'>Upload</button>
-
+						<form id="menuForm">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input class="form-control" id="sname" name="sname"
+										placeholder="가게 명(sname)">
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="mname" name="mname"
+										placeholder="메뉴 명(mname)">
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="mcat" name="mcat"
+										placeholder="메뉴 종류(mcat)">
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="mprice" name="mprice"
+										placeholder="메뉴 가격(mprice)">
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="introduction"
+										name="introduction" placeholder="한줄소개(introduction)">
+								</div>
+								<input type="hidden" id="csrfToken"
+									th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+								<div class="form-group">
+									<메뉴 이미지> - 1개의 이미지만 업로드 할 수 있습니다.
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="panel panel-default">
+												<div class="panel-body">
+													<div class="uploadDiv col-lg-2">
+														<input type='file' name='uploadfile' multiple>
 													</div>
+													<br />
+													<div class='uploadResult col-lg-12'>
+														<ul>
+
+														</ul>
+													</div>
+
+													<button class=" btn btn-primary" id='uploadBtn'>Upload</button>
+
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="clearfix"></div>
-								<div class="col-lg-12 text-center">
-									<div>
-										<button class="btn btn-primary btn-block menuRegisterBtn">메뉴
-											추가하기</button>
-										<button class="btn btn-success btn-block menuRegisterBtn">메뉴
-											수정하기</button>
-										<button class="btn btn-danger btn-block menuRegisterBtn">메뉴
-											삭제하기</button>
-									</div>
+							</div>
+							<div class="clearfix"></div>
+							<div class="col-lg-12 text-center">
+								<div>
+									<button class="btn btn-primary btn-block menuRegisterBtn">메뉴
+										추가하기</button>
+									<button class="btn btn-success btn-block menuModifyBtn">메뉴
+										수정하기</button>
+									<button class="btn btn-danger btn-block menuRemoveBtn">메뉴
+										삭제하기</button>
 								</div>
+							</div>
 						</form>
 					</div>
 				</div>
@@ -403,17 +343,23 @@
 				xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
 			});
 			
-			//메뉴 추가
-			var menuAddForm = $("#menuAddForm");
-			
+			//메뉴 추가하기 form태그
+			var menuForm = $("#menuForm");
+			var sname;
+	      	var mname;
+	        var mcat;
+	        var mprice;
+	        var introduction;
+
+			//메뉴 추가하기 버튼
 			$(".menuRegisterBtn").on("click",function(e){
 				e.preventDefault();
 				
-				 var sname = $("#sname").val();
-		      	 var mname =  $("#mname").val();
-		         var mcat =  $("#mcat").val();
-		         var mprice =  $("#mprice").val();
-		         var introduction =  $("#introduction").val();
+				sname = $("#sname").val();
+		        mname =  $("#mname").val();
+		        mcat =  $("#mcat").val();
+		        mprice =  $("#mprice").val();
+		        introduction =  $("#introduction").val();
 		         
 				console.log("등록버튼 클릭");
 				
@@ -449,32 +395,131 @@
 		      	 
 		      	$.ajax({
 		            type: 'get',
-		            url: "/superadmin/" + sname,
+		            url: "/superadmin/menuadd/" + sname + "/" + mname,
 		            success: function(result,status,xhr){
-						console.log("???" + result);
-						if(result===""){
-							alert("가게이름 오류");
+		            	console.log("sno: "+result.sno);
+		            	console.log("count: "+result.count);
+						if(result.sno==null){
+							alert("[실패]가게이름 오류");
 							return;
 						}
 						
+						if(result.count!=0){
+							alert("[실패]해당 가게에 동일한 메뉴가 있습니다.");
+							return;
+						}
+						
+						menuAdd();
 					}
 				});//end ajax
-		      	 
 
+			});
+			
+			function menuAdd(){
 		 		var str = "";
 		 		
 		 		$(".uploadResult ul li").each(function(i,obj){
 		 			var jobj = $(obj);
-		 			console.dir(jobj);
 		 			
 		 			str += "<input type='hidden' name='fname' value='"+jobj.data("filename")+"'>";
 		 			str += "<input type='hidden' name='uuid' value='"+jobj.data("uuid")+"'>";
 		 			str += "<input type='hidden' name='uploadPath' value='"+jobj.data("path")+"'>";
 
 				});
-		 		menuAddForm.append(str).attr("action","/superadmin/menuadd").attr("method","post").submit();
+		 		menuForm.append(str).attr("action","/superadmin/menuadd").attr("method","post").submit();
+			}
+			
+			
+			//메뉴 수정하기 버튼
+			$(".menuModifyBtn").on("click",function(e){
+				e.preventDefault();
 				
+				sname = $("#sname").val();
+		        mname =  $("#mname").val();
+		        mcat =  $("#mcat").val();
+		        mprice =  $("#mprice").val();
+		        introduction =  $("#introduction").val();
+		        
+		        if(sname == ""){
+		      		console.log("-------------1");
+		       		 alert("가게이름을 입력해주세요.");
+		       		 return;
+		       	 }
+		      	 
+		      	 if(mname == ""){
+		      		console.log("-------------2");
+		       		 alert("메뉴이름을 입력해주세요.");
+		      		 return;
+		       	 }
+		      	 
+			     $.ajax({
+			          type: 'get',
+			          url: "/superadmin/menumodify/" + sname + "/" +mname,
+			          success: function(result,status,xhr){
+						console.log("???" + result.sno);
+						console.log("???" + result.mno);
+						console.log("???" + result.count);
+						if(result.sno==null){
+							alert("[실패]가게이름, 메뉴이름을 확인해주세요");
+							return;
+						}
+							
+						menuModify();
+				      }
+				 });//end ajax
 			});
+			
+			function menuModify(){
+		 		var str = "";
+		 		
+		 		$(".uploadResult ul li").each(function(i,obj){
+		 			var jobj = $(obj);
+		 			
+		 			str += "<input type='hidden' name='fname' value='"+jobj.data("filename")+"'>";
+		 			str += "<input type='hidden' name='uuid' value='"+jobj.data("uuid")+"'>";
+		 			str += "<input type='hidden' name='uploadPath' value='"+jobj.data("path")+"'>";
+
+				});
+		 		menuForm.append(str).attr("action","/superadmin/menumodify").attr("method","post").submit();
+			}
+			
+			
+			//메뉴 삭제하기 버튼
+			$(".menuRemoveBtn").on("click",function(e){
+				e.preventDefault();
+				
+				sname = $("#sname").val();
+		        mname =  $("#mname").val();
+		        
+		        if(sname == ""){
+		      		console.log("-------------1");
+		       		 alert("가게이름을 입력해주세요.");
+		       		 return;
+		       	 }
+		      	 
+		      	 if(mname == ""){
+		      		console.log("-------------2");
+		       		 alert("메뉴이름을 입력해주세요.");
+		      		 return;
+		       	 }
+		      	 
+			     $.ajax({
+			          type: 'get',
+			          url: "/superadmin/menumodify/" + sname + "/" +mname,
+			          success: function(result,status,xhr){
+			        	  console.log(result.mno);
+			        	  console.log(result.sno);
+						if(result.sno==null){
+							alert("[실패]가게이름, 메뉴이름을 확인해주세요");
+							return;
+						}
+							
+						menuForm.attr("action","/superadmin/menuremove").attr("method","post").submit()
+				      }
+				 });//end ajax
+			});
+			
+
 			
 
 			//공지 모달창
@@ -591,7 +636,7 @@
 					type : 'POST',
 					success : function(result){
 						console.log(result);
-						 
+						
 						showUploadedFile(result);
 						
 						$(".uploadDiv").html(cloneObj.html());
@@ -601,7 +646,20 @@
 				
 				
 			});// end Upload 버튼
+			
+			
+			if([[${menuAddResult}]]==1){
+				alert("메뉴가 추가되었습니다.")
+			}
 
+			if([[${menuModifyResult}]]==1){
+				alert("메뉴가 수정되었습니다.")
+			}
+			
+			if([[${menuRemoveResult}]]==1){
+				alert("메뉴가 삭제되었습니다.")
+			}
+			
 		});
 	</script>
 </th:block>
