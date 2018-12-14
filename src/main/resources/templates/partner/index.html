@@ -38,7 +38,12 @@
 
 
 
-<div th:each="n : ${tidlist}" th:id="block" th:class="block" th:text="${n}" ></div>
+<div th:each="n : ${tidlist}" th:id="block+${n}" th:class="block" >
+
+<div th:each="vo : ${result}">
+<table> <td>[[${vo.tid}]] / </td>  <td> [[${vo.mno}]] / </td>  <td> [[${vo.quantity}]]</td> </table>
+</div>
+</div>
 
 
 	<style>
@@ -50,9 +55,9 @@
 	/* overflow:scroll;
 	 overflow-y:hidden; 
 	overflow-x:auto; */
-	background-color: yellow;
-	white-space: nowrap;
-	position : fixed;
+	/* background-color: yellow; */
+	  white-space: nowrap;  
+	  position : fixed;  
 
 	
 }
@@ -243,6 +248,15 @@
 <script>
 $("#go").click(function(){
 	console.log("cliccccccccck");
+	
+
+	
+	
+	
+	
+	
+	
+	
 	/* $(".block:eq(0)").animate({"bottom": "+=1000px"},{
 		
  		 
@@ -280,6 +294,16 @@ $("#go").click(function(){
 	<script th:inline="javascript">
 	
 $(document).ready(function () {
+	
+	
+	
+    var query =[[${result}]];
+    console.log(query[0]);
+
+	
+    //$("#blocktid1").html(""+[[${result[0]}]]);
+    /*$("#blocktid1").html(query[1]);
+	 $("#greetings").html(""); */
 			
 	/* 		 //음성인식에서 키워드 추출
 	 function keyword(data){
