@@ -1,4 +1,4 @@
-package ga.eatup;
+/*package ga.eatup;
 
 import java.util.List;
 
@@ -45,3 +45,4 @@ public class MenuTests {
 	}
 
 }
+*/

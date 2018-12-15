@@ -29,8 +29,6 @@ import lombok.extern.java.Log;
 @RequestMapping("/partner/*")
 @Log
 public class PartnerController {
-
-
 	
 	@Setter(onMethod_=@Autowired)
 	private PartnerService service;
@@ -118,7 +116,6 @@ public class PartnerController {
 	
 	
 	@GetMapping("/superAdmin")
-	public void superAdmin() {
 	public void superAdmin(Model model, NoticePageDTO dto) {
 		log.info("superAdmin......................page");
 		log.info("dto.." + dto);
@@ -156,8 +153,6 @@ public class PartnerController {
 	}
 	
 	@GetMapping("/notice/read")
-	public void noticeRead() {
-		log.info("notice read page....");
 	public void noticeRead(Model model, @RequestParam("nno") int nno) {
 		log.info("notice read page...." + nno);
 		
