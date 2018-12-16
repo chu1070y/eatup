@@ -19,4 +19,5 @@ public class NoticeVO {
 	
 	private List<NoticeUploadVO> uploadList;
 
+
 }

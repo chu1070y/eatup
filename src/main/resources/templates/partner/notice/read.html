@@ -75,7 +75,7 @@
 }
 </style>
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item active">공지 등록하기</li>
+		<li class="breadcrumb-item active">공지 읽기</li>
 	</ol>
 
 	<!-- DataTables Example -->
@@ -130,12 +130,8 @@
 
 			</div>
 
-
-
-			<button class="btn btn-primary btn-block registerBtn">공지 수정하기</button>
-			<form action="/partner/superAdmin">
-			<button class="btn page-link btn-block">돌아가기</button>
-			</form>
+			<button class="btn btn-primary btn-block modifyBtn">공지 수정하기</button>
+			<button class="btn page-link btn-block backBtn">돌아가기</button>
 
 		</div>
 
@@ -145,16 +141,41 @@
 	<div class='bigPictureWrapper'>
 		<div class="bigPicture"></div>
 	</div>
+	
+	
+	<form class="actionform">
+		<input type="hidden" id="page" name="page" th:field="${dto.page}">
+		<input type="hidden" id="display" name="display" th:field="${dto.display}">
+		<input type="hidden" id="keyword" name="keyword" th:field="${dto.keyword}">
+		<input type="hidden" id="type" name="type" th:field="${dto.type}">
+		<input type="hidden" id="page" name="page" th:field="${dto.nno}">
+	</form>
+
+	
 
 
 </div>
 
 
 
-
+ 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		$(document).ready(function() {
+			
+			var actionform = $(".actionform");
+			
+			//수정하기 버튼
+			$(".modifyBtn").on("click",function(e){
+				e.preventDefault();
+				actionform.attr("action","/partner/notice/modify").attr("method","get").submit();
+			});
+			
+			//돌아가기 버튼
+			$(".backBtn").on("click",function(e){
+				e.preventDefault();
+				actionform.attr("action","/partner/superAdmin").attr("method","get").submit();
+			});
 			
 			//csrf처리
 			var csrfHearderName = [[${_csrf.headerName}]];

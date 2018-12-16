@@ -5,6 +5,22 @@
 
 <mapper namespace="ga.eatup.partner.mapper.SuperadminMapper">
 
+	<update id="removeNotice" parameterType="ga.eatup.partner.domain.NoticeVO">
+		update notice set status="X" where nno = #{nno}
+	</update>
+
+	<delete id="removeNoticeUpload" parameterType="ga.eatup.partner.domain.NoticeVO">
+		delete from notice_upload where nno = #{nno}
+	</delete>
+
+	<select id="uploadCount" resultType="int" parameterType="ga.eatup.partner.domain.NoticeVO">
+		select count(*) count from notice_upload where nno = #{nno}
+	</select>
+
+	<update id="modifyNotice" parameterType="ga.eatup.partner.domain.NoticeVO">
+		update notice set title = #{title}, writer = #{writer}, content = #{content} where nno = #{nno}
+	</update>
+
 	<select id="noticeCount" resultType="int">
 		select count(*) count from notice
 	</select>

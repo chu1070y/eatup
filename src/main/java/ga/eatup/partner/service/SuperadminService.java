@@ -31,6 +31,10 @@ public interface SuperadminService {
 	public List<NoticeUploadVO> uploadRead(int nno);
 	
 	public int noticeCount();
+	
+	public int noticeModify(NoticeVO vo);
+	
+	public int noticeRemove(NoticeVO vo);
 
 
 }

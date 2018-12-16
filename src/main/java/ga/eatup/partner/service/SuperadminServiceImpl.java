@@ -1,5 +1,8 @@
 package ga.eatup.partner.service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +19,11 @@ import lombok.extern.java.Log;
 
 @Log
 @Service
-public class SuperadminServiceImpl implements SuperadminService{
-	
+public class SuperadminServiceImpl implements SuperadminService {
+
 	@Setter(onMethod_ = @Autowired)
 	private SuperadminMapper mapper;
-	
+
 	@Override
 	public int menuAdd(MenuVO vo) {
 		// TODO Auto-generated method stub
@@ -55,18 +58,18 @@ public class SuperadminServiceImpl implements SuperadminService{
 	@Override
 	public int noticeAdd(NoticeVO vo) {
 		log.info("noticeAdd......... service");
-		
-		if(vo.getUploadList() == null || vo.getUploadList().size() <= 0) {
+
+		if (vo.getUploadList() == null || vo.getUploadList().size() <= 0) {
 			return mapper.noticeAdd(vo);
 		}
-		
+
 		int result = mapper.noticeAdd(vo);
-		
+
 		vo.getUploadList().forEach(upload -> {
 			upload.setNno(vo.getNno());
 			mapper.uploadAdd(upload);
 		});
-		
+
 		return result;
 	}
 
@@ -94,6 +97,73 @@ public class SuperadminServiceImpl implements SuperadminService{
 		return mapper.noticeCount();
 	}
 
-	
-	
+	@Transactional
+	@Override
+	public int noticeModify(NoticeVO vo) {
+		log.info("notice modify service.....");
+		
+		mapper.removeNoticeUpload(vo);
+
+		if (vo.getUploadList() == null || vo.getUploadList().size() <= 0) {
+			return mapper.modifyNotice(vo);
+		}
+
+		int nno = vo.getNno();
+		
+
+		vo.getUploadList().forEach((upload) -> {
+			upload.setNno(nno);
+			mapper.uploadAdd(upload);
+		});
+
+		return mapper.modifyNotice(vo);
+	}
+
+	@Transactional
+	@Override
+	public int noticeRemove(NoticeVO vo) {
+		log.info("notice remove service.....");
+
+		mapper.removeNoticeUpload(vo);
+		
+		deleteFiles(vo.getUploadList());
+
+		return mapper.removeNotice(vo);
+	}
+
+	private void deleteFiles(List<NoticeUploadVO> uploadList) {
+
+		if (uploadList == null || uploadList.size() == 0) {
+			return;
+		}
+
+		log.info("delete attach files..............");
+		log.info(uploadList+"");
+
+		uploadList.forEach(upload -> {
+
+			try {
+				Path file = Paths.get(
+						"C:\\upload\\" + upload.getUpload_path() + "\\" + upload.getUuid() + "_" + upload.getFname());
+
+				Files.deleteIfExists(file);
+
+				if (Files.probeContentType(file).startsWith("image")) {
+
+					Path thumbNail = Paths.get("C:\\upload\\" + upload.getUpload_path() + "\\s_" + upload.getUuid() + "_"
+							+ upload.getFname());
+
+					Files.delete(thumbNail);
+
+				}
+
+			} catch (Exception e) {
+				log.info("delete file error");
+				e.printStackTrace();
+			} // end catch
+
+		});// end foreach
+
+	}
+
 }

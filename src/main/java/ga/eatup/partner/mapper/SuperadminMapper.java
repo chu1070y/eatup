@@ -30,5 +30,14 @@ public interface SuperadminMapper {
 	public List<NoticeUploadVO> uploadRead(int nno);
 	
 	public int noticeCount();
+	
+	public int modifyNotice(NoticeVO vo);
+	
+	public int uploadCount(NoticeVO vo);
+	
+	public int removeNotice(NoticeVO vo);
+	
+	public int removeNoticeUpload(NoticeVO vo);
+	
 
 }
