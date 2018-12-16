@@ -47,11 +47,6 @@ public class PartnerController {
 		service.registerAuth(vo);
 	}
 	
-	@PostMapping("/usercreate")
-	public void usercreate() {
-		log.info("유저 계정생성 완료....");
-	}
-	
 	@GetMapping("/index")
 	public void index(Model model, OrderVO order) {
 		log.info("index......................page");

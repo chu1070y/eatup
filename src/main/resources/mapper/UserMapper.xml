@@ -42,13 +42,16 @@
  	<select id="getUserList" resultType="ga.eatup.user.domain.UserVO">
  		select * from user
  	</select>
-
 	
  	<insert id="registerUser">
  		insert into user (uid, upw, nickname, email, sns_id, status)
- 		values ("user_kakao", "12345678", #{nickname}, #{email}, #{sns_id}, #{status})
+ 		values ("#{uid}", "#{upw}", #{nickname}, #{email}, #{sns_id}, #{status})
  	</insert>
  	
+ 	<insert id="registerAuth">
+ 	INSERT INTO user_auth (uid, auth)
+	values (#{uid}, 'ROLE_USER')
+ 	</insert>
  	 	
  	<update id='update'>
  		UPDATE user SET upw=#{upw} WHERE uid='gaiga'
