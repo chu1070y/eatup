@@ -76,19 +76,22 @@ public class KakaoLoginController {
 			  // defaultKey 암호화 후 곧바로 redirect
 			  response.sendRedirect(redirectPage);
 			  break;
-		  }
+			  
+		  } else { 
 		  
 		  // sns_id와 맵핑된 유저 데이터가 DB에 없을 시 회원가입 페이지로 이동 
 		  // flashmap에데이터 전달 
 		  fm.put("nickname", nickname);
 		  fm.put("email", email);
+		  fm.put("snsId", snsId);
+		  log.info("map: " + fm);
+
 		  redirectPage = "/user/welcome";
 		  //이 코드 때문에 몇시간을 날렸는지... FlashMap에 파라미터로 이동하는URL, request, response를 주어야 함.
           RequestContextUtils.saveOutputFlashMap(redirectPage, request, response);
-
+		  }
 	  }//end for
 	  
-	  log.info("map: " + fm);
 	  log.info("redirect page: " + redirectPage);
 	  // /user/welcome 즉 회원가입 페이지로 리다이렉트. UserController에서 FlashMap 받아서 다시 html로 뿌려주어야 함. 
 	  response.sendRedirect(redirectPage);

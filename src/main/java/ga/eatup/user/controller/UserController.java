@@ -111,6 +111,7 @@ public class UserController {
 		if (inputFlashMap != null) {
 			vo.setNickname((String) inputFlashMap.get("nickname"));
 			vo.setEmail((String) inputFlashMap.get("email"));
+			vo.setSns_id((String) inputFlashMap.get("snsId"));
 			log.info("UserVO: " + vo);
 		}
 		model.addAttribute("vo", vo);
