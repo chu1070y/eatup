@@ -34,7 +34,22 @@
 	</select>
 
 	<select id="noticeList" resultType="ga.eatup.partner.domain.NoticeVO" parameterType="ga.eatup.partner.domain.NoticePageDTO">
-		select * from notice where status='O' order by nno desc limit #{skip}, #{display}
+		select * from notice where status='O'
+		
+		<foreach collection="typeArr" item="item" separator="or"
+			open="and (" close=")">
+
+			<if test="item == 't'.toString() ">
+				title like concat("%",#{keyword},"%")
+			</if>
+
+			<if test="item == 'c'.toString() ">
+				content like concat("%",#{keyword},"%")
+			</if>
+
+		</foreach>
+		
+		order by nno desc limit #{skip}, #{display}
 	</select>
 
 	<insert id="noticeAdd"
