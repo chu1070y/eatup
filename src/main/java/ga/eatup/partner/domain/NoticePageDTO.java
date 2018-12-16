@@ -47,6 +47,10 @@ public class NoticePageDTO {
 			this.prev = false;
 		}
 		
+		if(this.end == 0) {
+			this.end = 1;
+		}
+		
 	}
 	
 	public String[] getTypeArr() {

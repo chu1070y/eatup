@@ -113,15 +113,14 @@ a {
 					<li class="page-item disabled" th:unless="${dto.prev}"><a
 						class="page-link" href="#">Previous</a></li>
 
-					<li class="page-item"
-						th:each="page : ${#numbers.sequence( __${dto.start}__, __${dto.end}__)}">
+					<li class="page-item" th:each="page : ${#numbers.sequence( __${dto.start}__, __${dto.end}__)}">
 						<a class="page-link btn-primary" style="color: white;"
-						th:if="${dto.page} == ${page}"
-						th:href="@{'/partner/superAdmin?page=' + ${page}}"
-						th:text="${page}"></a> <a class="page-link"
-						th:unless="${dto.page} == ${page}"
-						th:href="@{'/partner/superAdmin?page=' + ${page}}"
-						th:text="${page}"></a>
+						th:if="${dto.page} == ${page}" th:href="@{'/partner/superAdmin?page=' + ${page}}" th:text="${page}">
+						</a>
+						
+						<a class="page-link" 
+						th:unless="${dto.page} == ${page}" th:href="@{'/partner/superAdmin?page=' + ${page}}" th:text="${page}">
+						</a>
 					</li>
 
 					<li class="page-item" th:if="${dto.next}"><a class="page-link"

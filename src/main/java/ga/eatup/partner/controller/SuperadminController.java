@@ -47,7 +47,6 @@ public class SuperadminController {
 	@PostMapping("/noticeadd")
 	public String noticeAdd(NoticeVO vo,RedirectAttributes redirect) {
 		log.info("notice add........");
-		log.info("" + vo.getUploadList().get(0).getFiletype());
 		
 		if(vo.getUploadList() != null) {
 			vo.getUploadList().forEach(upload -> log.info(""+upload));
