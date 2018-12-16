@@ -1,8 +1,6 @@
 package ga.eatup.user.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -41,12 +41,8 @@ public class KakaoLoginController {
 	@RequestMapping(value = "/kakaologin" , produces = "application/json", method = {RequestMethod.GET, RequestMethod.POST})
 	public String kakaoLogin(@RequestParam("code") String code, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 
-	  JsonNode token = KakaoLogin.getAccessToken(code);
-	  log.info("=====" + code);
-	  log.info("=====" + token);
-	  
+	  JsonNode token = KakaoLogin.getAccessToken(code);  
 	  JsonNode profile = KakaoLogin.getKakaoUserInfo(token.path("access_token").toString());
-	  System.out.println("profile: " + profile);
 	  
 	  UserVO vo = KakaoLogin.changeData(profile);
 	  String nickname = vo.getNickname();
@@ -60,7 +56,8 @@ public class KakaoLoginController {
 	  String uid = "";
 	  String upw = "";
 	  
-	  Map<String, String> map = new HashMap<String, String>();
+	  //DB에 저장된 sns_id 없을 때, 회원가입 페이지로 넘길 정보 (FlashMap 객체 생성)
+	  FlashMap fm = RequestContextUtils.getOutputFlashMap(request);
 
 	  //sns_id와 맵핑된 유저 데이터가 DB에 있는지 확인하는 작업. 
 	  for(int i = 0; i < userList.size(); i++) {
@@ -72,28 +69,32 @@ public class KakaoLoginController {
 			  upw = service.getUser(uid).getDefaultkey();
 			  redirectPage = "/user/login/customLoginTemp?username=" + uid + "&password=" + upw;
 			  
-			  // 파라미터 전달은 1로 주고, 이후에 DB 내 defaultKey는 암호화 업데이트
+			  // 파라미터 전달은 1로 준 이후에 DB 내 defaultKey는 암호화 업데이트
 			  String defaultKey = encoder.encode(upw);
 			  vo.setDefaultkey(defaultKey);
 			  service.encodeDefaultkey(vo);
-			  
+			  // defaultKey 암호화 후 곧바로 redirect
+			  response.sendRedirect(redirectPage);
 			  break;
 		  }
+		  
 		  // sns_id와 맵핑된 유저 데이터가 DB에 없을 시 회원가입 페이지로 이동 
-		  map.put("nickname", nickname);
-		  map.put("email", email);
+		  // flashmap에데이터 전달 
+		  fm.put("nickname", nickname);
+		  fm.put("email", email);
 		  redirectPage = "/user/welcome";
-		  redirectAttributes.addFlashAttribute("userVO", map);
+		  //이 코드 때문에 몇시간을 날렸는지... FlashMap에 파라미터로 이동하는URL, request, response를 주어야 함.
+          RequestContextUtils.saveOutputFlashMap(redirectPage, request, response);
+
 	  }//end for
 	  
+	  log.info("map: " + fm);
+	  log.info("redirect page: " + redirectPage);
+	  // /user/welcome 즉 회원가입 페이지로 리다이렉트. UserController에서 FlashMap 받아서 다시 html로 뿌려주어야 함. 
 	  response.sendRedirect(redirectPage);
-	  	  
-////	  이건 왜 하는거지?
-//	  session.setAttribute("login", vo);
-//	  
-//	  System.out.println("session: " + session);
-//	  System.out.println(vo.toString());
-	  return "";
+
+	  //사실상 이 return은 의미없... html에서는 작동 안하는 듯... redirect 기능은 모두 response.sendRedirect로 시킴. 
+	  return "redirect:" + redirectPage;
 	}
 	
 	@RequestMapping(value = "/naverlogin", produces = "application/json", method = { RequestMethod.GET,

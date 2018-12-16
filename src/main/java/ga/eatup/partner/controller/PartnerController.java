@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ga.eatup.partner.domain.NoticePageDTO;
+import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.partner.domain.OrderVO;
 import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.mapper.OrderMapper;
@@ -19,6 +23,7 @@ import ga.eatup.partner.service.PartnerService;
 import ga.eatup.user.domain.MenuVO;
 import ga.eatup.user.mapper.MenuMapper;
 import ga.eatup.user.service.MenuService;
+import ga.eatup.partner.service.SuperadminService;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -26,11 +31,12 @@ import lombok.extern.java.Log;
 @RequestMapping("/partner/*")
 @Log
 public class PartnerController {
-
-
 	
 	@Setter(onMethod_=@Autowired)
 	private PartnerService service;
+	
+	@Setter(onMethod_=@Autowired)
+	private SuperadminService superadminService;
 	
 	//order
 	@Setter(onMethod_= @Autowired)
@@ -112,8 +118,14 @@ public class PartnerController {
 	
 	
 	@GetMapping("/superAdmin")
-	public void superAdmin() {
+	public void superAdmin(Model model, NoticePageDTO dto){
 		log.info("superAdmin......................page");
+		log.info("dto.." + dto);
+		dto.setTotal(superadminService.noticeCount());
+		
+		model.addAttribute("noticeList", superadminService.noticeList(dto));
+		model.addAttribute("dto", dto);
+		
 	}
 	
 	@GetMapping("/notice")
@@ -143,13 +155,41 @@ public class PartnerController {
 	}
 	
 	@GetMapping("/notice/read")
-	public void noticeRead() {
-		log.info("notice read page....");
+	public void noticeRead(Model model, NoticePageDTO dto) {
+		log.info("notice read page...." + dto.getNno());
+		
+		model.addAttribute("notice",superadminService.noticeRead(dto.getNno()));
+		model.addAttribute("dto", dto);
 	}
 	
 	@GetMapping("/notice/modify")
-	public void noticeModify() {
+	public void noticeModify(Model model, NoticePageDTO dto) {
 		log.info("notice modify page....");
+		model.addAttribute("notice",superadminService.noticeRead(dto.getNno()));
+		model.addAttribute("dto", dto);
+	}
+	
+	@PostMapping("/notice/modify")
+	public String noticeModifyPost(RedirectAttributes redirect, NoticeVO vo, NoticePageDTO dto) {
+		log.info("notice modify post....." + dto);
+		log.info("notice modify post....." + vo);
+		
+		int result = superadminService.noticeModify(vo);
+		
+		redirect.addFlashAttribute("result", result);
+		
+		return dto.getLink("redirect:/partner/notice/read");
+	}
+	
+	@PostMapping("/notice/remove")
+	public String noticeRemovePost(RedirectAttributes redirect, NoticeVO vo) {
+		log.info("notice remove post....." + vo);
+		
+		int result = superadminService.noticeRemove(vo);
+		
+		redirect.addFlashAttribute("result", result);
+		
+		return "redirect:/partner/superAdmin";
 	}
 	
 }

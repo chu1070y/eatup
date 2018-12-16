@@ -41,10 +41,12 @@ public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/partner/notice").authenticated()
 				.antMatchers("/partner/oneByone").authenticated()
 				.antMatchers("/partner/sales").authenticated()
+				.antMatchers("/partner/notice/read").authenticated()
 				.antMatchers("/partner/salesList").hasRole("ADMIN")
 				.antMatchers("/partner/weeklyList").hasRole("ADMIN")
 				.antMatchers("/partner/monthlyList").hasRole("ADMIN")
 				.antMatchers("/partner/superAdmin").hasRole("ADMIN")
+				.antMatchers("/partner/notice/modify").hasRole("ADMIN")
 				.and()
 			.formLogin()
 				.loginPage("/partner/login/customLogin");
