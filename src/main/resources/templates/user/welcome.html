@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <div class="container" id="main">
     <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-default content-main">
@@ -24,8 +25,8 @@
                     <input type="password" class="form-control" id="ppw2" placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <label for="name">이름</label>
-                    <input class="form-control" id="owner_name" placeholder="Name">
+                    <label for="name">닉네임</label>
+                    <input class="form-control" id="owner_name" th:placeholder="${vo.nickname}">
                 </div>
                 <div class="form-group">
                     <label for="name">전화번호</label>
@@ -33,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">이메일</label>
-                    <input type="email" class="form-control" id="pmail" placeholder="Email">
+                    <input type="email" class="form-control" id="pmail" th:placeholder="${vo.email}">
                 </div>
                 <button id="joinBtn" class="btn btn-success clearfix pull-right">회원가입</button>
         </div>
