@@ -1,7 +1,7 @@
 package ga.eatup.user.controller;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.service.LoginService;
@@ -95,10 +98,24 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/welcome")
-	public void welcome() {
+	@RequestMapping(value = "/welcome",
+			method = {RequestMethod.POST, RequestMethod.GET})
+	public void welcome(HttpServletRequest req, Model model) {
+				
+		//KakaoLoginController에서 FlashMap으로 전송한 데이터 받기 위해서는 request를 파라미터로 한 inputFlashMap 객체를 생성해야 함. 
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(req);
+		log.info("inputFlashMap: " + inputFlashMap);
 		
+		//받은 정보를 UserVO 인스턴스 vo에 담아서 welcome.html(회원가입 페이지)로 전달. 
+		UserVO vo = new UserVO();
+		if (inputFlashMap != null) {
+			vo.setNickname((String) inputFlashMap.get("nickname"));
+			vo.setEmail((String) inputFlashMap.get("email"));
+			log.info("UserVO: " + vo);
+		}
+		model.addAttribute("vo", vo);
 	}
+	
 	
 	@GetMapping("/map")
 	public void map() {
@@ -106,21 +123,21 @@ public class UserController {
 	}
 	
 	@GetMapping("/gorany")
-	public void sample1(Model model) {
+	public void gorany(@ModelAttribute("sno") int sno, Model model) {
 		
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 		
 	}
 	
 	@GetMapping("/sample2")
-	public void sample2(Model model) {
+	public void sample2(@ModelAttribute("sno") int sno,Model model) {
 		log.info("sample2.....");
 		
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 	}
 	
 	@GetMapping("/home")
-	public void sample3(String location, Model model) {
+	public void home(String location, Model model) {
 	
 		log.info("" + location);
 		
@@ -129,25 +146,25 @@ public class UserController {
 	}
 	
 	@GetMapping("/store")
-	public void index(Model model){
+	public void store(@ModelAttribute("sno") int sno,Model model){
 		
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 	
 	}
 	
 	@GetMapping("/cart")
-	public void cart(Model model){
+	public void cart(@ModelAttribute("sno") int sno,Model model){
 		
 		log.info("cartPage....");
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 	
 	}
 	
 	@GetMapping("/pay")
-	public void pay(Model model){
+	public void pay(@ModelAttribute("sno") int sno, Model model){
 		
 		log.info("payPage....");
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 	
 	}
 	

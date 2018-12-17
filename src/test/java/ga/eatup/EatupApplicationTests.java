@@ -77,10 +77,10 @@ public class EatupApplicationTests {
 		
 	}
 	
-	@Test
+/*	@Test
 	public void test1() {
 		System.out.println(menuMapper.getMenu());
-	}
+	}*/
 	
 	@Test
 	public void test2() {
