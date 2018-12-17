@@ -47,4 +47,9 @@ public class LoginServiceImpl implements LoginService {
 	public int nullDefaultkey(String uid) {
 		return mapper.nullDefaultkey(uid);
 	}
+
+	@Override
+	public int registerAuth(UserVO vo) {
+		return mapper.registerAuth(vo);
+	}
 }

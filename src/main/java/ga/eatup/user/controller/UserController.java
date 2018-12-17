@@ -1,20 +1,26 @@
 package ga.eatup.user.controller;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
+import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.service.LoginService;
 import ga.eatup.user.service.MenuService;
@@ -36,6 +42,9 @@ public class UserController {
 	public void speech() {
 		log.info("speech.......");
 	}
+	
+	@Autowired
+	PasswordEncoder encoder;
 	
 	@GetMapping("/login/customLoginTemp")
 	public void temptemp(@RequestParam String username, @RequestParam String password, Model model) {
@@ -70,24 +79,7 @@ public class UserController {
         else {
             response.sendRedirect("/user/home");		
         }
-//        
-//        //이건 카카오 구현할 때 쓸 것. 아직 하지 않음. 카카오에서 정보 가져와서 특정 칸에 넣어주는 건 해야함. 흑. 
-//        if (Uid == null) {
-//        	response.sendRedirect("/user/welcome/");
-//        }
-        
-        /*
-        if 같지 않으면 다시 돌리기. 
-        같으면 home으로 redirect 시키기. 
-        */
-                
-        //session으로 계정 데이터 계속해서 물고 가야함.(아직 구현 X)
-              
-        //원래는 모든 페이지에서 로그인이 가능해야하고 로그인 후 그 페이지로 돌려줘야겠지만
-        //일단은 홈에서 하는 경우만 생각하고 만듦. 
-//        response.sendRedirect("/user/home");		
 	}
-	
 	
 	@GetMapping("/login/customLogin")
 	public void login() {
@@ -95,10 +87,39 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/welcome")
-	public void welcome() {
+	@PostMapping("/usercreate")
+	public void usercreate(UserVO vo) {
+		log.info("유저 계정생성 완료....");
+		log.info("유저 회원가입 정보: " + vo);
 		
+		String enPw = encoder.encode(vo.getUpw());
+		vo.setUpw(enPw);		
+		
+		loginService.registerUser(vo);
+		loginService.registerAuth(vo);
 	}
+	
+	@RequestMapping(value = "/welcome",
+			method = {RequestMethod.POST, RequestMethod.GET})
+	public void welcome(HttpServletRequest req, Model model) {
+				
+		//KakaoLoginController에서 FlashMap으로 전송한 데이터 받기 위해서는 request를 파라미터로 한 inputFlashMap 객체를 생성해야 함. 
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(req);
+		log.info("inputFlashMap: " + inputFlashMap);
+		
+		
+		//받은 정보를 UserVO 인스턴스 vo에 담아서 welcome.html(회원가입 페이지)로 전달. 
+		UserVO vo = new UserVO();
+		vo.setSns_id("0");
+		if (inputFlashMap != null) {
+			vo.setNickname((String) inputFlashMap.get("nickname"));
+			vo.setEmail((String) inputFlashMap.get("email"));
+			vo.setSns_id((String) inputFlashMap.get("snsId"));
+			log.info("UserVO: " + vo);
+		}
+		model.addAttribute("vo", vo);
+	}
+	
 	
 	@GetMapping("/map")
 	public void map() {
@@ -106,17 +127,17 @@ public class UserController {
 	}
 	
 	@GetMapping("/gorany")
-	public void gorany(Model model) {
+	public void gorany(@ModelAttribute("sno") int sno, Model model) {
 		
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 		
 	}
 	
 	@GetMapping("/sample2")
-	public void sample2(Model model) {
+	public void sample2(@ModelAttribute("sno") int sno,Model model) {
 		log.info("sample2.....");
 		
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 	}
 	
 	@GetMapping("/home")
@@ -129,25 +150,25 @@ public class UserController {
 	}
 	
 	@GetMapping("/store")
-	public void store(Model model){
+	public void store(@ModelAttribute("sno") int sno,Model model){
 		
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 	
 	}
 	
 	@GetMapping("/cart")
-	public void cart(Model model){
+	public void cart(@ModelAttribute("sno") int sno,Model model){
 		
 		log.info("cartPage....");
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 	
 	}
 	
 	@GetMapping("/pay")
-	public void pay(Model model){
+	public void pay(@ModelAttribute("sno") int sno, Model model){
 		
 		log.info("payPage....");
-		model.addAttribute("menu", service.getMenu());
+		model.addAttribute("menu", service.getMenu(sno));
 	
 	}
 	

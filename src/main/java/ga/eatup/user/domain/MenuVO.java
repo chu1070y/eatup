@@ -7,16 +7,22 @@ import lombok.Data;
 @Data
 public class MenuVO {
 
-	private Integer sno, mno;
+	private int sno, mno;
 	private String mname, mcat, fname;
-	private Integer mprice;
+	private int mprice;
 	private Date regdate;
+	private Date updatedate;
 	private String introduction;
+	private int max_quantity;
 	
 	private String uuid;
-	private String uploadPath;
+	private String upload_path;
 	
-	private Integer count;
+
+	private String status;
+	private String soldout;
+	
+	private int count;
 	
 	private boolean image = false;
 	

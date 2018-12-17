@@ -50,14 +50,10 @@
 	text-align: center;
 }
 
+a {
+	color: blue;
+}
 </style>
-
-	<div id="gorany">익명의 고라니</div>
-	<div id="gorany">문지인</div>
-	<div id="gorany">박고은</div>
-	<div id="gorany">박가영</div>
-	<div id="gorany">추연훈</div>
-	<div id="gorany">김가익</div>
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item active">공지사항</li>
 	</ol>
@@ -67,10 +63,10 @@
 		<div class="card-header">
 			<i class="fas fa-table"></i> 우리의 공지는?
 		</div>
+
 		<div class="card-body">
 			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable" width="100%"
-					cellspacing="0">
+				<table class="table table-bordered" id="dataTable">
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -78,123 +74,59 @@
 							<th>작성자</th>
 							<th>등록날짜</th>
 							<th>수정날짜</th>
-							<th>지울것</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Tiger Nixon</td>
-							<td>System Architect</td>
-							<td>Edinburgh</td>
-							<td>61</td>
-							<td>2011/04/25</td>
-							<td>$320,800</td>
+						<tr th:each="notice : ${noticeList}">
+							<td th:text="${notice.nno}"></td>
+							<td><a class="notice" th:href="${notice.nno}"
+								th:text="${notice.title}"></a></td>
+							<td th:text="${notice.writer}"></td>
+							<td th:text="${#dates.format(notice.regdate,'yyyy-MM-dd')}"></td>
+							<td th:text="${#dates.format(notice.updatedate,'yyyy-MM-dd')}"></td>
 						</tr>
-						<tr>
-							<td>Garrett Winters</td>
-							<td>Accountant</td>
-							<td>Tokyo</td>
-							<td>63</td>
-							<td>2011/07/25</td>
-							<td>$170,750</td>
-						</tr>
-						<tr>
-							<td>Ashton Cox</td>
-							<td>Junior Technical Author</td>
-							<td>San Francisco</td>
-							<td>66</td>
-							<td>2009/01/12</td>
-							<td>$86,000</td>
-						</tr>
-						<tr>
-							<td>Cedric Kelly</td>
-							<td>Senior Javascript Developer</td>
-							<td>Edinburgh</td>
-							<td>22</td>
-							<td>2012/03/29</td>
-							<td>$433,060</td>
-						</tr>
-						<tr>
-							<td>Airi Satou</td>
-							<td>Accountant</td>
-							<td>Tokyo</td>
-							<td>33</td>
-							<td>2008/11/28</td>
-							<td>$162,700</td>
-						</tr>
-						<tr>
-							<td>Brielle Williamson</td>
-							<td>Integration Specialist</td>
-							<td>New York</td>
-							<td>61</td>
-							<td>2012/12/02</td>
-							<td>$372,000</td>
-						</tr>
-						<tr>
-							<td>Herrod Chandler</td>
-							<td>Sales Assistant</td>
-							<td>San Francisco</td>
-							<td>59</td>
-							<td>2012/08/06</td>
-							<td>$137,500</td>
-						</tr>
-						<tr>
-							<td>Rhona Davidson</td>
-							<td>Integration Specialist</td>
-							<td>Tokyo</td>
-							<td>55</td>
-							<td>2010/10/14</td>
-							<td>$327,900</td>
-						</tr>
-						<tr>
-							<td>Colleen Hurst</td>
-							<td>Javascript Developer</td>
-							<td>San Francisco</td>
-							<td>39</td>
-							<td>2009/09/15</td>
-							<td>$205,500</td>
-						</tr>
-						<tr>
-							<td>Sonya Frost</td>
-							<td>Software Engineer</td>
-							<td>Edinburgh</td>
-							<td>23</td>
-							<td>2008/12/13</td>
-							<td>$103,600</td>
-						</tr>
-						<tr>
-							<td>Jena Gaines</td>
-							<td>Office Manager</td>
-							<td>London</td>
-							<td>30</td>
-							<td>2008/12/19</td>
-							<td>$90,560</td>
-						</tr>
-						<tr>
-							<td>Quinn Flynn</td>
-							<td>Support Lead</td>
-							<td>Edinburgh</td>
-							<td>22</td>
-							<td>2013/03/03</td>
-							<td>$342,000</td>
-						</tr>
+
 					</tbody>
 				</table>
+				<div  class="col-lg-12 text-center">
 				<form action="/partner/notice/register">
-					<button class="btn btn-primary btn-block registerBtn">공지
+					<button class="btn btn-success btn-block registerBtn">공지
 						등록하기</button>
 				</form>
+				<br />
+				<select class="form-control type">
+					<option value="">검색조건을 선택하세요</option>
+					<option value="t" th:selected="${dto.type == 't'}">제목</option>
+					<option value="c" th:selected="${dto.type == 'c'}">내용</option>
+					<option value="tc" th:selected="${dto.type == 'tc'}">제목 + 내용</option>
+				</select>
+				<input class="form-control" id="skeyword" th:value="${dto.keyword}" placeholder="검색 내용을 입력하세요" > 
+					<button class="btn btn-success btn-block searchBtn">검색하기</button> 
 			</div>
-			<br/>
+			<br />
+			</div>
 			<div class="center">
 				<ul class="pagination">
-					<li class="page-item disabled"><a class="page-link" href="#"
-						tabindex="-1">Previous</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item active"><a class="page-link" href="#">2
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+
+					<li class="page-item" th:if="${dto.prev}"><a class="page-link"
+						th:href="@{'/partner/superAdmin?page=' + ${dto.start-1}}">Previous</a></li>
+					<li class="page-item disabled" th:unless="${dto.prev}"><a
+						class="page-link" href="#">Previous</a></li>
+
+					<li class="page-item" th:each="page : ${#numbers.sequence( __${dto.start}__, __${dto.end}__)}">
+						<a class="page-link btn-primary" style="color: white;"
+						th:if="${dto.page} == ${page}" th:href="@{'/partner/superAdmin?page=' + ${page}}" th:text="${page}">
+						</a>
+						
+						<a class="page-link" 
+						th:unless="${dto.page} == ${page}" th:href="@{'/partner/superAdmin?page=' + ${page}}" th:text="${page}">
+						</a>
+					</li>
+
+					<li class="page-item" th:if="${dto.next}"><a class="page-link"
+						th:href="@{'/partner/superAdmin?page=' + ${dto.end+1}}">Next</a></li>
+					<li class="page-item disabled" th:unless="${dto.next}"><a
+						class="page-link" href="#">Next</a></li>
 				</ul>
 			</div>
 		</div>
@@ -203,6 +135,7 @@
 
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item active">메뉴 추가하기</li>
+
 	</ol>
 
 	<div class="card mb-3">
@@ -236,8 +169,6 @@
 									<input class="form-control" id="introduction"
 										name="introduction" placeholder="한줄소개(introduction)">
 								</div>
-								<input type="hidden" id="csrfToken"
-									th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 								<div class="form-group">
 									<메뉴 이미지> - 1개의 이미지만 업로드 할 수 있습니다.
 									<div class="row">
@@ -245,7 +176,7 @@
 											<div class="panel panel-default">
 												<div class="panel-body">
 													<div class="uploadDiv col-lg-2">
-														<input type='file' name='uploadfile'>
+														<input type='file' id="file" name='uploadfile'>
 													</div>
 													<br />
 													<div class='uploadResult col-lg-12'>
@@ -254,7 +185,6 @@
 														</ul>
 													</div>
 
-													<button class=" btn btn-primary" id='uploadBtn'>Upload</button>
 
 												</div>
 											</div>
@@ -281,7 +211,21 @@
 		<div class="card-body"></div>
 	</div>
 
-
+	<form class="actionform">
+		<input type="hidden" id="page" name="page" th:field="${dto.page}">
+		<input type="hidden" id="display" name="display" th:field="${dto.display}">
+		<input type="hidden" id="keyword" name="keyword" th:field="${dto.keyword}">
+		<input type="hidden" id="type" name="type" th:field="${dto.type}">
+		<input type="hidden" id="csrfToken" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	</form>
+	
+	
+	<div id="gorany">익명의 고라니</div>
+	<div id="gorany">문지인</div>
+	<div id="gorany">박고은</div>
+	<div id="gorany">박가영</div>
+	<div id="gorany">추연훈</div>
+	<div id="gorany">김가익</div>
 
 
 
@@ -295,12 +239,51 @@
 	<script th:inline="javascript">
 		$(document).ready(function() {
 			
+			var actionform = $(".actionform");
+			
 			//csrf처리
 			var csrfHearderName = [[${_csrf.headerName}]];
 			var csrfTokenValue = [[${_csrf.token}]];
 			
 			$(document).ajaxSend(function(e,xhr,options){
 				xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+			});
+			
+			//검색버튼클릭
+			$(".searchBtn").on("click",function(e){
+				e.preventDefault();
+		         
+		       	var keyword = $("#skeyword").val();
+		       	var type =  $(".type").val();
+		       	
+		       	if(type == ""){
+		       		alert("카테고리를 입력해주세요.");
+		       		return;
+		       	}else if(keyword==""){
+		       		alert("검색할 내용을 입력해주세요.");
+		      		return;
+		       	}
+		       	
+		       	$("#keyword").val(keyword);
+		       	$("#type").val(type);
+		       	$("#page").val(1);
+				
+		        actionform
+		        .attr("action", "/partner/superAdmin")
+		        .attr("method", "get")
+		        .submit(); 
+		        
+			});
+			
+			
+			//공지 제목 클릭 -> 공지 읽기
+			$(".notice").on("click",function(e){
+				e.preventDefault();
+				
+				var nno = $(this).attr("href");
+				
+				actionform.append("<input type='hidden' id='nno' name='nno' value='"+ nno +"'>");
+				actionform.attr("action","/partner/notice/read").attr("method","get").submit();
 			});
 			
 			//메뉴 추가하기 form태그
@@ -383,7 +366,7 @@
 		 			
 		 			str += "<input type='hidden' name='fname' value='"+jobj.data("filename")+"'>";
 		 			str += "<input type='hidden' name='uuid' value='"+jobj.data("uuid")+"'>";
-		 			str += "<input type='hidden' name='uploadPath' value='"+jobj.data("path")+"'>";
+		 			str += "<input type='hidden' name='upload_path' value='"+jobj.data("path")+"'>";
 
 				});
 		 		menuForm.append(str).attr("action","/superadmin/menuadd").attr("method","post").submit();
@@ -437,7 +420,7 @@
 		 			
 		 			str += "<input type='hidden' name='fname' value='"+jobj.data("filename")+"'>";
 		 			str += "<input type='hidden' name='uuid' value='"+jobj.data("uuid")+"'>";
-		 			str += "<input type='hidden' name='uploadPath' value='"+jobj.data("path")+"'>";
+		 			str += "<input type='hidden' name='upload_path' value='"+jobj.data("path")+"'>";
 
 				});
 		 		menuForm.append(str).attr("action","/superadmin/menumodify").attr("method","post").submit();
@@ -517,11 +500,11 @@
 						
 						$(".uploadResult ul").empty();
 					
-						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fname);
+						var fileCallPath = encodeURIComponent(obj.upload_path + "/s_" + obj.uuid + "_" + obj.fname);
 						
 						var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
 						
-						str += "<li class='li' data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fname+"' data-type='"+obj.image+"'>";
+						str += "<li class='li' data-path='"+obj.upload_path+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fname+"' data-type='"+obj.image+"'>";
 						str += "<div>";
 						str += "<span>" + obj.fname + "</span>";
 						str += "<button type='button' data-type='"+obj.image+"' data-file=\'" + fileCallPath + "\' data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
@@ -556,7 +539,7 @@
 			
 			
 			//Upload 버튼
-			$("#uploadBtn").on("click",function(e){
+			$("#file").on("change",function(e){
 				e.preventDefault();
 				
 				var formData = new FormData();
@@ -607,6 +590,11 @@
 			if([[${menuRemoveResult}]]==1){
 				alert("메뉴가 삭제되었습니다.")
 			}
+			
+			if([[${addResult}]]==1){
+				alert("공지가 등록되었습니다.")
+			}
+			
 			
 		});
 	</script>

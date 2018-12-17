@@ -2,11 +2,12 @@ package ga.eatup.user.service;
 
 import java.util.List;
 
-import ga.eatup.user.domain.MenuVO;
-import ga.eatup.user.mapper.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import ga.eatup.user.domain.MenuVO;
+import ga.eatup.user.mapper.MenuMapper;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -18,9 +19,10 @@ public class MenuServiceImpl implements MenuService {
 	private MenuMapper mapper;
 
 	@Override
-	public List<MenuVO> getMenu() {
-		
-		return mapper.getMenu();
+	public List<MenuVO> getMenu(@RequestParam("sno") int sno) {
+
+		log.info("menu service implement...........");
+		return mapper.getMenu(sno);
 	}
 
 

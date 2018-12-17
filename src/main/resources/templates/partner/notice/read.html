@@ -1,0 +1,294 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout_partner}">
+
+<div layout:fragment="content">
+	<style>
+#content-wrapper {
+	background-image: url("/agency/img/we.jpg");
+}
+
+#gorany {
+	color: white;
+	text-align: center;
+	font-size: 10em;
+	position: static;
+}
+</style>
+
+	<style>
+.uploadResult {
+	width: 100%;
+	background-color: gray;
+}
+
+.uploadResult ul {
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
+	color: white;
+}
+
+.uploadResult ul li {
+	list-style: none;
+	padding: 20px;
+	align-centent: center;
+	text-align: center;
+}
+
+.uploadResult ul li img {
+	display: inline;
+	height: 100px;
+}
+
+.uploadResult ul li span {
+	color: white;
+}
+
+#submission {
+	text-align: center;
+}
+
+.bigPictureWrapper {
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: gray;
+	z-index: 100;
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.bigPicture {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.bigPicture img {
+	width: 600px;
+}
+</style>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active">공지 읽기</li>
+	</ol>
+
+	<!-- DataTables Example -->
+	<div class="card mb-3">
+		<div class="card-header">
+			<i class="fas fa-table"></i> 오늘도 열심히 달리자~!
+		</div>
+		<div class="card-body">
+
+			<div class="row">
+				<div class="col-lg-12">
+					<form id="regisForm">
+						<div class="form-group">
+							<label>제목</label> <input id="title" name="title"
+								class="form-control" th:value="${notice.title}" readonly>
+						</div>
+						<div class="form-group">
+							<label>작성자</label> <input id="writer" name="writer"
+								class="form-control" th:value="${notice.writer}" readonly>
+						</div>
+
+						<div class="form-group">
+							<label>내용</label>
+							<textarea class="form-control" id="content" name="content" readonly
+								rows="10">[[${notice.content}]]</textarea>
+						</div>
+
+						<input type="hidden" id="csrfToken"
+							th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+						<span class="form-control">파일명을 클릭하면 다운로드가 가능합니다^^</span>
+						<br/>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="panel panel-default">
+										<div class="panel-body">
+											<div class='uploadResult col-lg-12'>
+												<ul>
+
+												</ul>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</form>
+				</div>
+
+			</div>
+			
+			<div></div>
+			
+			<div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+			<div sec:authorize="hasRole('USER')">Text visible to user.</div>
+				<button class="btn btn-primary btn-block modifyBtn">공지 수정하기</button>
+				<button class="btn page-link btn-block backBtn">돌아가기</button>
+
+		</div>
+
+	</div>
+
+
+	<div class='bigPictureWrapper'>
+		<div class="bigPicture"></div>
+	</div>
+	
+	
+	<form class="actionform">
+		<input type="hidden" id="page" name="page" th:field="${dto.page}">
+		<input type="hidden" id="display" name="display" th:field="${dto.display}">
+		<input type="hidden" id="keyword" name="keyword" th:field="${dto.keyword}">
+		<input type="hidden" id="type" name="type" th:field="${dto.type}">
+		<input type="hidden" id="page" name="page" th:field="${dto.nno}">
+	</form>
+
+	
+
+
+</div>
+
+
+
+ 
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			
+			var actionform = $(".actionform");
+			
+			//수정하기 버튼
+			$(".modifyBtn").on("click",function(e){
+				e.preventDefault();
+				actionform.attr("action","/partner/notice/modify").attr("method","get").submit();
+			});
+			
+			//돌아가기 버튼
+			$(".backBtn").on("click",function(e){
+				e.preventDefault();
+				actionform.attr("action","/partner/superAdmin").attr("method","get").submit();
+			});
+			
+			//csrf처리
+			var csrfHearderName = [[${_csrf.headerName}]];
+			var csrfTokenValue = [[${_csrf.token}]];
+			
+			$(document).ajaxSend(function(e,xhr,options){
+				xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+			});
+
+			
+			
+
+		 	//이미지 보여주기
+			$(".uploadResult").on("click","img",function(e){
+			
+			console.log("click");
+			
+			var liObj = $(this).closest("li");
+			
+			var path = encodeURIComponent(liObj.data("path")+"/"+liObj.data("uuid")+"_"+liObj.data("filename"));
+			
+			if(liObj.data("type")==0){
+				
+				showImage(path.replace(new RegExp(/\\/g),"/"));
+				
+			}else{
+				//download
+				self.location = "/upload/download?fileName="+path;
+				}
+			});
+		 	
+			function showImage(fileCallPath){
+				console.log(encodeURI(fileCallPath));
+				
+				$(".bigPictureWrapper").css("display","flex").show();
+				$(".bigPicture")
+				.html("<img src='/upload/display?fileName="+ fileCallPath+"'>")
+				.animate({width:'100%',height:'100%'},1000);
+			} 
+		 	
+			
+			//이미지 사리지는 이벤트
+			$(".bigPictureWrapper").on("click",function(e){
+				$(".bigPicture").animate({width:'0%', height:'0%'},1000);
+				setTimeout(function(){
+					$('.bigPictureWrapper').hide();
+				},1000);
+			});	
+			
+
+			
+			//다운로드
+			$(".uploadResult").on("click","span",function(e){
+				e.preventDefault();
+				console.log("view image");
+				
+				var liObj = $(this).closest("li");
+				
+				var path = encodeURIComponent(liObj.data("path")+"/"+liObj.data("uuid")+"_"+liObj.data("filename"));
+				self.location = "/upload/download?fileName="+path;
+				
+			});
+			
+
+			//첨부파일 보여주기
+			(function(){
+				
+				var nno = [[${notice.nno}]];
+				
+				$.getJSON("/superadmin/getUploadList",{nno:nno},function(arr){
+					console.log(arr);
+					
+					var str = "";
+					
+					$(arr).each(function(i,upload){
+						
+						//image type
+						if(upload.filetype == 0){
+							console.log("이미지");
+							var fileCallPath = encodeURIComponent(upload.upload_path+"/s_"+upload.uuid+"_"+upload.fname);
+							
+							str += "<li data-path='"+upload.upload_path+"' data-uuid='"+upload.uuid+"' data-filename='"+upload.fname+"' data-type=0>";
+							str += "<div>";
+							str += "<span>" + upload.fname + "</span><br/>";
+							str += "<img src='/upload/display?fileName="+fileCallPath+"'>";
+							str += "</div>";
+							str += "</li>";
+						}else{
+							
+							str += "<li data-path='"+upload.upload_path+"' data-uuid='"+upload.uuid+"' data-filename='"+upload.fname+"' data-type=1>";
+							str += "<div>";
+							str += "<span>"+upload.fname+"</span><br/>";
+							str += "<img src='/imgs/folder.jpg'>";
+							str += "</div>";
+							str += "</li>";
+						}
+					});
+					
+					$(".uploadResult ul").html(str);
+					
+					
+				});// end getjson
+				
+			})();//end function
+
+			
+			
+			
+			
+		});
+	</script>
+</th:block>

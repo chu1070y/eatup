@@ -13,6 +13,8 @@ public interface UserMapper {
 	
 	public int registerUser(UserVO vo);
 	
+	public int registerAuth(UserVO vo);
+	
 	public int update(String enPw);
 
 	public int setDefaultkey(String sns_id);
