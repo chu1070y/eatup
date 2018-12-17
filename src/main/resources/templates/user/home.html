@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layout/layout1}">
+	layout:decorate="~{/layout/layout2}">
 
 <style>
 .item img {
@@ -15,6 +15,41 @@ border-radius: 50%;
 </style>
 
 <div layout:fragment="content">
+<style>
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
+</style>
+
+
 
 
 	<!-- Current Location -->
@@ -46,15 +81,34 @@ border-radius: 50%;
 				</div>
 			</div>
 		</div>
+		
+		<br/>
+		<!-- 검색기능 -->
+<div class="container">
+	<div class="row">
+        <div class="col-md-12">
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="form-control input-lg" id="tags" placeholder="식당명이나 메뉴명을 입력하세요" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg searchBtn" type="button">
+                            <i class="fas fa-search glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
 
 
 		<!-- 검색기능 -->
-		<div class="ui-widget">
+<!-- 		<div class="ui-widget">
 			<fieldset>
 			<label for="tags">검색내용: </label> <input id="tags"> <a
 				class="btn btn-info searchBtn" href="#">검색하기</a>
 			</fieldset>
-		</div>
+		</div> -->
 
 		<div class="searchResult">
 			<div class="searchResultStore">
