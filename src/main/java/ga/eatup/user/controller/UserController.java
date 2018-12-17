@@ -1,6 +1,7 @@
 package ga.eatup.user.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,22 +9,27 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import ga.eatup.partner.domain.PartnerVO;
+import ga.eatup.user.domain.StoreVO;
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.service.LoginService;
 import ga.eatup.user.service.MenuService;
+import ga.eatup.user.service.StoreService;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -38,14 +44,15 @@ public class UserController {
 	@Setter(onMethod_=@Autowired)
 	private LoginService loginService;
 	
+	@Autowired
+	PasswordEncoder encoder;
+	
+	
 	@GetMapping("/speech")
 	public void speech() {
 		log.info("speech.......");
 	}
-	
-	@Autowired
-	PasswordEncoder encoder;
-	
+
 	@GetMapping("/login/customLoginTemp")
 	public void temptemp(@RequestParam String username, @RequestParam String password, Model model) {
 		log.info("===========임시 로그인페이지 ===============");
@@ -86,6 +93,7 @@ public class UserController {
 		
 		
 	}
+	
 	
 	@PostMapping("/usercreate")
 	public void usercreate(UserVO vo) {

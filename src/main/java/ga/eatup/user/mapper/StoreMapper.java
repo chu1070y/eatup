@@ -1,6 +1,10 @@
 package ga.eatup.user.mapper;
 
+import java.util.List;
+
+import ga.eatup.user.domain.StoreVO;
+
 public interface StoreMapper {
 
-	public String getStore();
+	public List<StoreVO> getStore();
 }
