@@ -78,12 +78,6 @@ public class UserController {
         else {
             response.sendRedirect("/user/home");		
         }
-<<<<<<< HEAD
-
-	}
-=======
->>>>>>> 5ab4aa053fcf7ef1b84e35709942eb24683eeaef
-	
 	}
 	
 	@GetMapping("/login/customLogin")
@@ -92,18 +86,6 @@ public class UserController {
 		
 	}
 	
-<<<<<<< HEAD
-	@GetMapping("/welcome")
-	public void welcome(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
-		
-		
-		Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(request);
-		String nickname = null;
-		if(redirectMap != null) {
-			modelMap.put("userVO", (String)redirectMap.get("nickname"));
-		}
-		log.info("--------------------------" +  modelMap);
-=======
 	@PostMapping("/usercreate")
 	public void usercreate(UserVO vo) {
 		log.info("유저 계정생성 완료....");
@@ -114,7 +96,6 @@ public class UserController {
 		
 		loginService.registerUser(vo);
 		loginService.registerAuth(vo);
->>>>>>> 5ab4aa053fcf7ef1b84e35709942eb24683eeaef
 	}
 	
 	@RequestMapping(value = "/welcome",
@@ -125,8 +106,10 @@ public class UserController {
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(req);
 		log.info("inputFlashMap: " + inputFlashMap);
 		
+		
 		//받은 정보를 UserVO 인스턴스 vo에 담아서 welcome.html(회원가입 페이지)로 전달. 
 		UserVO vo = new UserVO();
+		vo.setSns_id("0");
 		if (inputFlashMap != null) {
 			vo.setNickname((String) inputFlashMap.get("nickname"));
 			vo.setEmail((String) inputFlashMap.get("email"));

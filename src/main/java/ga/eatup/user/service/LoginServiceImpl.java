@@ -50,6 +50,6 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public int registerAuth(UserVO vo) {
-		return mapper.registerUser(vo);
+		return mapper.registerAuth(vo);
 	}
 }

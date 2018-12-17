@@ -44,8 +44,8 @@
  	</select>
 	
  	<insert id="registerUser">
- 		insert into user (uid, upw, nickname, email, sns_id, status)
- 		values ("#{uid}", "#{upw}", #{nickname}, #{email}, #{sns_id}, #{status})
+ 		insert into user (uid, upw, nickname, email, sns_id)
+ 		values (#{uid}, #{upw}, #{nickname}, #{email}, #{sns_id})
  	</insert>
  	
  	<insert id="registerAuth">

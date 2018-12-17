@@ -56,14 +56,9 @@ public class KakaoLoginController {
 	  String uid = "";
 	  String upw = "";
 	  
-<<<<<<< HEAD
-	  Map<String, String> map = new HashMap<String, String>();
-	  FlashMap fm = RequestContextUtils.getOutputFlashMap(request);
-=======
 	  //DB에 저장된 sns_id 없을 때, 회원가입 페이지로 넘길 정보 (FlashMap 객체 생성)
 	  FlashMap fm = RequestContextUtils.getOutputFlashMap(request);
 
->>>>>>> 5ab4aa053fcf7ef1b84e35709942eb24683eeaef
 	  //sns_id와 맵핑된 유저 데이터가 DB에 있는지 확인하는 작업. 
 	  for(int i = 0; i < userList.size(); i++) {
 		  if(userList.get(i).getSns_id().equals(snsId)) {
@@ -78,19 +73,13 @@ public class KakaoLoginController {
 			  String defaultKey = encoder.encode(upw);
 			  vo.setDefaultkey(defaultKey);
 			  service.encodeDefaultkey(vo);
-			  // defaultKey 암호화 후 곧바로 redirect
-			  response.sendRedirect(redirectPage);
+
 			  break;
 			  
 		  } else { 
 		  
 		  // sns_id와 맵핑된 유저 데이터가 DB에 없을 시 회원가입 페이지로 이동 
-<<<<<<< HEAD
-		  fm.put("nickname", nickname);
-		  fm.put("email", email);
-		  redirectPage = "/user/welcome";
-		  redirectAttributes.addFlashAttribute("userMap", map);
-=======
+
 		  // flashmap에데이터 전달 
 		  fm.put("nickname", nickname);
 		  fm.put("email", email);
@@ -101,21 +90,16 @@ public class KakaoLoginController {
 		  //이 코드 때문에 몇시간을 날렸는지... FlashMap에 파라미터로 이동하는URL, request, response를 주어야 함.
           RequestContextUtils.saveOutputFlashMap(redirectPage, request, response);
 		  }
->>>>>>> 5ab4aa053fcf7ef1b84e35709942eb24683eeaef
 	  }//end for
 	  
 	  log.info("redirect page: " + redirectPage);
 	  // /user/welcome 즉 회원가입 페이지로 리다이렉트. UserController에서 FlashMap 받아서 다시 html로 뿌려주어야 함. 
 	  response.sendRedirect(redirectPage);
-<<<<<<< HEAD
 	  	  
-	  return "";
-=======
-
 	  //사실상 이 return은 의미없... html에서는 작동 안하는 듯... redirect 기능은 모두 response.sendRedirect로 시킴. 
 	  return "redirect:" + redirectPage;
->>>>>>> 5ab4aa053fcf7ef1b84e35709942eb24683eeaef
 	}
+	
 	
 	@RequestMapping(value = "/naverlogin", produces = "application/json", method = { RequestMethod.GET,
 			RequestMethod.POST })
