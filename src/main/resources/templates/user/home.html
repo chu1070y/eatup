@@ -24,12 +24,16 @@ border-radius: 50%;
 
 				<div class="btn-group" role="group"
 					aria-label="Button group with nested dropdown">
-
-					<button type=button class='btn btn-light' id="get-mylocation">
-					<table><tr><td th:text="${location != null} ? ${location} : ''"></td></tr></table>
-
-					</button>
-
+					
+					<div th:if="${location == null}">
+						<button type=button class='btn btn-light'  id="get-mylocation">
+						</button>
+					</div>
+					<div th:if="${location != null}">
+						<button type=button class='btn btn-light'>
+							<table><tr><td th:text="${location != null} ? ${location} : ''"></td></tr></table>
+						</button>
+					</div>
 					<div class="btn-group" role="group">
 						<button id="btnGroupDrop1" type="button"
 							class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
