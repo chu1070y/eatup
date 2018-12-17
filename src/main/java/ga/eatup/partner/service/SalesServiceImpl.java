@@ -47,6 +47,38 @@ public class SalesServiceImpl implements SalesService {
 		
 		return mapper.getDailytableData_date();
 	}
+
+
+	@Override
+	public List<SalesVO> getWeeklytableData() {
+		 
+		return mapper.getWeeklytableData();
+	}
+
+
+	@Override
+	public List<SalesVO> getWeeklytableData_date() {
+		
+		return mapper.getWeeklytableData_date();
+	}
+
+
+	@Override
+	public List<SalesVO> getMonthlytableData() {
+		
+		return mapper.getMonthlytableData();
+	}
+
+
+	@Override
+	public List<SalesVO> getMonthlytableData_date() {
+		
+		return mapper.getMonthlytableData_date();
+	}
+	
+	
+	
+	
 	
 	
 

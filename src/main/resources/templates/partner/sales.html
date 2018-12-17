@@ -45,7 +45,7 @@
 					<div class="row">
 						<div class="col-sm-12 col-md-6">
 							<div class="dataTables_length" id="dataTable_length">
-								<label>Show <select id="dataTable_type" onchange="changeType()"
+								<label>일간 매출 <select id="dailyTable_type" onchange="changeType()"
 									aria-controls="dataTable"
 									class="custom-select custom-select-sm form-control form-control-sm"><option
 											value="menu">메뉴별</option>
@@ -54,13 +54,7 @@
 								</label>
 							</div>
 						</div>
-						<div class="col-sm-12 col-md-6">
-							<div id="dataTable_filter" class="dataTables_filter">
-								<label>Search:<input type="search"
-									class="form-control form-control-sm" placeholder=""
-									aria-controls="dataTable"></label>
-							</div>
-						</div>
+						
 					</div>
 					<table class="table table-bordered" id="dailyTable" width="100%"
 						cellspacing="0">
@@ -81,61 +75,38 @@
 						</tbody>
 					</table>
 					
-					<table class="table table-bordered" id="dailyTable_date" width="100%"
-						cellspacing="0">
-						<thead>
-							<tr></tr>
-						</thead>
-
-						<tbody>
-							<tr></tr>
-						</tbody>
-					</table>
+					
 				</div>
 
 				<div id="weeklytable" class="table-responsive">
 				<div class="row">
 						<div class="col-sm-12 col-md-6">
 							<div class="dataTables_length" id="dataTable_length">
-								<label>Show <select name="dataTable_length"
+								<label>주간 매출  <select id="weeklyTable_type" onchange="wchangeType()"
 									aria-controls="dataTable"
 									class="custom-select custom-select-sm form-control form-control-sm"><option
-											value="10">10</option>
-										<option value="25">25</option>
-										<option value="50">50</option>
-										<option value="100">100</option></select> entries
+											value="wmenu">메뉴별</option>
+										<option value="wdate">일자별</option>
+										</select> 
 								</label>
 							</div>
 						</div>
-						<div class="col-sm-12 col-md-6">
-							<div id="dataTable_filter" class="dataTables_filter">
-								<label>Search:<input type="search"
-									class="form-control form-control-sm" placeholder=""
-									aria-controls="dataTable"></label>
-							</div>
-						</div>
+						
 					</div>
 					<table class="table table-bordered" id="weeklyTable" width="100%"
 						cellspacing="0">
 						<thead>
 							<tr>
-								<th>weekly</th>
-								<th>Position</th>
-								<th>Office</th>
-								<th>Age</th>
-								<th>Start date</th>
-								<th>Salary</th>
+								<th>날짜</th>
+								<th>메뉴명</th>
+								<th>수량</th>
+								<th>소계</th>
 							</tr>
 						</thead>
 
 						<tbody>
 							<tr>
-								<td>Tiger Nixon</td>
-								<td>System Architect</td>
-								<td>Edinburgh</td>
-								<td>61</td>
-								<td>2011/04/25</td>
-								<td>$320,800</td>
+								
 							</tr>
 
 						</tbody>
@@ -146,45 +117,30 @@
 				<div class="row">
 						<div class="col-sm-12 col-md-6">
 							<div class="dataTables_length" id="dataTable_length">
-								<label>Show <select name="dataTable_length"
+								<label>월간 매출 <select id="monthlyTable_type" onchange="mchangeType()"
 									aria-controls="dataTable"
 									class="custom-select custom-select-sm form-control form-control-sm"><option
-											value="10">10</option>
-										<option value="25">25</option>
-										<option value="50">50</option>
-										<option value="100">100</option></select> entries
+											value="mmenu">메뉴별</option>
+										<option value="mdate">일자별</option>
+										</select>  
 								</label>
 							</div>
 						</div>
-						<div class="col-sm-12 col-md-6">
-							<div id="dataTable_filter" class="dataTables_filter">
-								<label>Search:<input type="search"
-									class="form-control form-control-sm" placeholder=""
-									aria-controls="dataTable"></label>
-							</div>
-						</div>
+						
 					</div>
 					<table class="table table-bordered" id="monthlyTable" width="100%"
 						cellspacing="0">
 						<thead>
 							<tr>
-								<th>monthly</th>
-								<th>Position</th>
-								<th>Office</th>
-								<th>Age</th>
-								<th>Start date</th>
-								<th>Salary</th>
+								<th>월</th>
+								<th>메뉴명</th>
+								<th>수량</th>
+								<th>소계</th>
 							</tr>
 						</thead>
 
 						<tbody>
 							<tr>
-								<td>Tiger Nixon</td>
-								<td>System Architect</td>
-								<td>Edinburgh</td>
-								<td>61</td>
-								<td>2011/04/25</td>
-								<td>$320,800</td>
 							</tr>
 
 						</tbody>
@@ -238,6 +194,26 @@
 			$('#monthlychart').hide();
 			$('#weeklytable').hide();
 			$('#monthlytable').hide();
+			
+			/* daily data (메뉴별) */
+			$.getJSON("dailydata", function(data) {
+
+				console.log(data);
+				var str = "";
+
+				$.each(data, function(i, value) {
+
+					str += "<tr>"
+					str += "<td>" + value.orderdate + "</td>"
+					str += "<td>" + value.mname + "</td>"
+					str += "<td>" + value.quantity + "</td>"
+					str += "<td>" + value.total + "</td>"
+					str += "</tr>"
+
+					$('#dailyTable tbody').html(str);
+				});
+
+			});
 
 		});
 		
@@ -263,6 +239,25 @@
 			$('#dailytable').hide();
 			$('#weeklytable').show();
 			$('#monthlytable').hide();
+			
+			/* daily data (메뉴별) */
+			$.getJSON("weeklydata", function(data) {
+				console.log(data);
+				var str = "";
+
+				$.each(data, function(i, value) {
+
+					str += "<tr>"
+					str += "<td>" + value.start +" ~ " + value.end + "</td>"
+					str += "<td>" + value.mname + "</td>"
+					str += "<td>" + value.quantity + "</td>"
+					str += "<td>" + value.total + "</td>"
+					str += "</tr>"
+
+					$('#weeklyTable tbody').html(str);
+				});
+
+			});
 
 		});
 
@@ -275,6 +270,26 @@
 			$('#dailytable').hide();
 			$('#weeklytable').hide();
 			$('#monthlytable').show();
+			
+			/* daily data (메뉴별) */
+			$.getJSON("monthlydata", function(data) {
+
+				console.log(data);
+				var str = "";
+
+				$.each(data, function(i, value) {
+
+					str += "<tr>"
+					str += "<td>" + value.month +"</td>"
+					str += "<td>" + value.mname + "</td>"
+					str += "<td>" + value.quantity + "</td>"
+					str += "<td>" + value.total + "</td>"
+					str += "</tr>"
+
+					$('#monthlyTable tbody').html(str);
+				});
+
+			});
 
 		});
 		

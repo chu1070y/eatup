@@ -76,6 +76,38 @@ public class SalesController {
 		
 		return gson.toJson(list);
 	}
+	
+	@RequestMapping(value = "weeklydata", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public @ResponseBody String weeklydata(Locale locale, Model model) {
+		Gson gson = new Gson();
+		List<SalesVO> list = service.getWeeklytableData();
+		
+		return gson.toJson(list);
+	}
+	
+	@RequestMapping(value = "weeklydata_date", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public @ResponseBody String weeklydata_date(Locale locale, Model model) {
+		Gson gson = new Gson();
+		List<SalesVO> list = service.getWeeklytableData_date();
+		
+		return gson.toJson(list);
+	}
+	
+	@RequestMapping(value = "monthlydata", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public @ResponseBody String monthlydata(Locale locale, Model model) {
+		Gson gson = new Gson();
+		List<SalesVO> list = service.getMonthlytableData();
+		
+		return gson.toJson(list);
+	}
+	
+	@RequestMapping(value = "monthlydata_date", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public @ResponseBody String monthlydata_date(Locale locale, Model model) {
+		Gson gson = new Gson();
+		List<SalesVO> list = service.getMonthlytableData_date();
+		
+		return gson.toJson(list);
+	}
 
 	
 }
