@@ -11,4 +11,7 @@ public interface SalesMapper {
 	public List<SalesVO> getWeeklySales();
 	
 	public List<SalesVO> getMonthlySales();
+	
+	public List<SalesVO> getDailytableData();
+	
 }
