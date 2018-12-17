@@ -33,7 +33,7 @@
 	<!-- content -->
 
 	<div class="col-lg-9">
-		<h1>고라니카페</h1>
+		<h1 th:text="${menu[0].sname}"></h1>
 		<div id="carouselExampleIndicators" class="carousel slide my-4"
 			data-ride="carousel">
 			<ol class="carousel-indicators">
@@ -86,8 +86,9 @@
 				<div class="card h-100">
 					<img class="card-img-top" src="../imgs/cafe4.jpeg" alt="">
 					<div class="card-body">
-						<h4 class="card-title">[[${menu.mname}]]</h4>
-						<h5>[[${menu.mprice}]]</h5>
+						<h4 th:text="${menu.mname}" class="card-title"></h4>
+						<h5 th:text="${menu.mprice}"></h5>
+						<h5 th:text="${menu.introduction}"></h5>
 						<p class="card-text"></p>
 					</div>
 					<div class="card-footer">
