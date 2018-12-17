@@ -5,7 +5,7 @@
 
 
 <div layout:fragment="content">
-<style>
+	<style>
 .col-lg-9 {
 	text-align: center;
 }
@@ -110,7 +110,9 @@
 	<div class="container">
 		<div class="wrapper">
 			<div class="facet f1">
-				<button class="cartBtn" onclick="location.href='/user/cart'">장바구니</button>
+				<button 
+				th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|"
+				id="cartBtn" class="cartBtn">장바구니</button>
 			</div>
 		</div>
 
@@ -154,10 +156,14 @@
 
 		<!-- end content -->
 	</div>
-	</div>
+</div>
 
-	<th:block layout:fragment="script">
-		<script th:inline="javascript">
-			
-		</script>
-	</th:block>
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+	
+	$(document).ready(function() {
+
+	
+});
+	</script>
+</th:block>
