@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -61,7 +63,7 @@ public class KakaoLoginController {
 	  String upw = "";
 	  
 	  Map<String, String> map = new HashMap<String, String>();
-
+	  FlashMap fm = RequestContextUtils.getOutputFlashMap(request);
 	  //sns_id와 맵핑된 유저 데이터가 DB에 있는지 확인하는 작업. 
 	  for(int i = 0; i < userList.size(); i++) {
 		  if(userList.get(i).getSns_id().equals(snsId)) {
@@ -80,19 +82,14 @@ public class KakaoLoginController {
 			  break;
 		  }
 		  // sns_id와 맵핑된 유저 데이터가 DB에 없을 시 회원가입 페이지로 이동 
-		  map.put("nickname", nickname);
-		  map.put("email", email);
+		  fm.put("nickname", nickname);
+		  fm.put("email", email);
 		  redirectPage = "/user/welcome";
-		  redirectAttributes.addFlashAttribute("userVO", map);
+		  redirectAttributes.addFlashAttribute("userMap", map);
 	  }//end for
 	  
 	  response.sendRedirect(redirectPage);
 	  	  
-////	  이건 왜 하는거지?
-//	  session.setAttribute("login", vo);
-//	  
-//	  System.out.println("session: " + session);
-//	  System.out.println(vo.toString());
 	  return "";
 	}
 	

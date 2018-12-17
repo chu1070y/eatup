@@ -1,7 +1,7 @@
 package ga.eatup.user.controller;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,10 +10,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.service.LoginService;
@@ -70,22 +72,7 @@ public class UserController {
         else {
             response.sendRedirect("/user/home");		
         }
-//        
-//        //이건 카카오 구현할 때 쓸 것. 아직 하지 않음. 카카오에서 정보 가져와서 특정 칸에 넣어주는 건 해야함. 흑. 
-//        if (Uid == null) {
-//        	response.sendRedirect("/user/welcome/");
-//        }
-        
-        /*
-        if 같지 않으면 다시 돌리기. 
-        같으면 home으로 redirect 시키기. 
-        */
-                
-        //session으로 계정 데이터 계속해서 물고 가야함.(아직 구현 X)
-              
-        //원래는 모든 페이지에서 로그인이 가능해야하고 로그인 후 그 페이지로 돌려줘야겠지만
-        //일단은 홈에서 하는 경우만 생각하고 만듦. 
-//        response.sendRedirect("/user/home");		
+
 	}
 	
 	
@@ -96,8 +83,15 @@ public class UserController {
 	}
 	
 	@GetMapping("/welcome")
-	public void welcome() {
+	public void welcome(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
 		
+		
+		Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(request);
+		String nickname = null;
+		if(redirectMap != null) {
+			modelMap.put("userVO", (String)redirectMap.get("nickname"));
+		}
+		log.info("--------------------------" +  modelMap);
 	}
 	
 	@GetMapping("/map")
