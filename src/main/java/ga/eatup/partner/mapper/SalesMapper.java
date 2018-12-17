@@ -14,4 +14,5 @@ public interface SalesMapper {
 	
 	public List<SalesVO> getDailytableData();
 	
+	public List<SalesVO> getDailytableData_date();
 }

@@ -1,7 +1,7 @@
 /* -------------------- daily chart ------------------------*/
 
 var margin = {top: 40, right: 80, bottom: 60, left: 100},
-	width = 1100 - margin.left - margin.right,
+	width = 1000 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 var formatPercent = d3.format(".0");

@@ -68,6 +68,14 @@ public class SalesController {
 		
 		return gson.toJson(list);
 	}
+	
+	@RequestMapping(value = "dailydata_date", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public @ResponseBody String dailydata_date(Locale locale, Model model) {
+		Gson gson = new Gson();
+		List<SalesVO> list = service.getDailytableData_date();
+		
+		return gson.toJson(list);
+	}
 
 	
 }
