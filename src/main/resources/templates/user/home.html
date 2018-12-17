@@ -26,7 +26,7 @@ border-radius: 50%;
 					aria-label="Button group with nested dropdown">
 
 					<button type=button class='btn btn-light' id="get-mylocation">
-						 					<td th:text="${location != null} ? ${location} : ''"></td>
+					<td th:text="${location != null} ? ${location} : ''"></td>
 
 					</button>
 
@@ -330,6 +330,14 @@ border-radius: 50%;
 
 	
 	$(document).ready(function(){
+		
+		//csrf처리
+		var csrfHearderName = [[${_csrf.headerName}]];
+		var csrfTokenValue = [[${_csrf.token}]];
+		
+		$(document).ajaxSend(function(e,xhr,options){
+			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+		});
 
 		// 내위치 주소변환(Geolocation)
 		var mylocation = "";
@@ -369,13 +377,7 @@ border-radius: 50%;
 		        
 		    });
 		
-		//csrf처리
-  		var csrfHearderName = [[${_csrf.headerName}]];
-		var csrfTokenValue = [[${_csrf.token}]];
-		
-		$(document).ajaxSend(function(e,xhr,options){
-			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
-		}); 
+
 		 
 		//검색창 자동완성
 		function display(data){
