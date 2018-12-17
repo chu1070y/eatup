@@ -129,9 +129,13 @@
 				</div>
 
 			</div>
-
-			<button class="btn btn-primary btn-block modifyBtn">공지 수정하기</button>
-			<button class="btn page-link btn-block backBtn">돌아가기</button>
+			
+			<div></div>
+			
+			<div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+			<div sec:authorize="hasRole('USER')">Text visible to user.</div>
+				<button class="btn btn-primary btn-block modifyBtn">공지 수정하기</button>
+				<button class="btn page-link btn-block backBtn">돌아가기</button>
 
 		</div>
 

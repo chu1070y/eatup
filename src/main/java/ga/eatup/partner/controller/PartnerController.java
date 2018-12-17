@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -117,6 +118,7 @@ public class PartnerController {
 	}
 	
 	
+	@Transactional
 	@GetMapping("/superAdmin")
 	public void superAdmin(Model model, NoticePageDTO dto){
 		log.info("superAdmin......................page");
@@ -128,9 +130,16 @@ public class PartnerController {
 		
 	}
 	
+	@Transactional
 	@GetMapping("/notice")
-	public void notice() {
+	public void notice(Model model, NoticePageDTO dto) {
 		log.info("notice......................page");
+		log.info("superAdmin......................page");
+		log.info("dto.." + dto);
+		dto.setTotal(superadminService.noticeCount());
+		
+		model.addAttribute("noticeList", superadminService.noticeList(dto));
+		model.addAttribute("dto", dto);
 	}
 
 	
