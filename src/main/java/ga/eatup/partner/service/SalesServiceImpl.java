@@ -34,4 +34,13 @@ public class SalesServiceImpl implements SalesService {
 		return mapper.getMonthlySales();
 	}
 
+
+	@Override
+	public List<SalesVO> getDailytableData() {
+		
+		return mapper.getDailytableData();
+	}
+	
+	
+
 }

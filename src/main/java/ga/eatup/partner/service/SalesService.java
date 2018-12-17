@@ -11,4 +11,6 @@ public interface SalesService {
 	public List<SalesVO> getWeeklySales();
 	
 	public List<SalesVO> getMonthlySales();
+	
+	public List<SalesVO> getDailytableData();
 }

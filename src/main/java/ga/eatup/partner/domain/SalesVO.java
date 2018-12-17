@@ -12,4 +12,9 @@ public class SalesVO {
 	private String week;
 	private int total;
 	
+	private String mname;
+	private int mprice;
+	private int quantity;
+	
+	
 }
