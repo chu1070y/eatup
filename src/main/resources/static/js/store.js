@@ -7,7 +7,7 @@ var dao = (function (map){
     var arr = new Array();
 	
 	//가게 리스트 불러오기
-	getStore();
+//	getStore();
     
 	function getStore(callback,error){
 		console.log("getStore...............");
@@ -19,9 +19,15 @@ var dao = (function (map){
 			$.each(data, function(i, item){
 				arr[i] = {title: item.sname, lat: item.lat, lng:item.lng};
 			}); //end for
+			
+			if(callback){
+				callback(data);
+			}
+			
 		});//end getJson
 	};//end getStore
 		
+	
     //마커 지우는 역할
     function clearMarkers(){
         for(var store of arr){
@@ -85,6 +91,7 @@ var dao = (function (map){
     //외부에 노출시켜야 하는 것들을 return (흠)
     //return 시 키:값, 키:값,
     return {
+    	getStore:getStore,
         getList:getList,
         showMarker:showMarker,
         findNNStore:findNNStore

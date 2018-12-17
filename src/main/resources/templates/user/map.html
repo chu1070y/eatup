@@ -175,6 +175,8 @@ $(document).ready(function(){
 		console.log(map.getCenter());
 	   	
 		searchInput.val("");
+		
+
 	});
 	
 	
@@ -315,34 +317,43 @@ $(document).ready(function(){
 		var nnstore;
 		
 		//초기 마커 불러오기 위한 함수
-		function markerVisable(){	 
+		function markerVisable(){
+			
+			console.log("------------------------------")
+			dao.getStore(callbackNN);
+			console.log(dao);
+			
 		 	// 지도 중심좌표를 얻어옵니다
 			latlng = map.getCenter();
 		   	
-		 	//자바스크립트 객체 만들기.가까운 곳 찾는 것
-			nnstore = dao.findNNStore({lat:latlng.jb, lng:latlng.ib});
-		
-			for(var i = 0; i < 10; i++) {
-				marker = new daum.maps.Marker({
-				position: new daum.maps.LatLng(nnstore[i].lat, nnstore[i].lng),
-				clickable: true
-				});
-				iwPosition = new daum.maps.LatLng(nnstore[i].lat, nnstore[i].lng);
-				iwContent = '<div style="padding:5px;">' + nnstore[i].title + '<br><a href="http://map.daum.net/link/to/' + nnstore[i].title + ',' + nnstore[i].lat + ',' + nnstore[i].lng + '" style="color:blue" target="_blank">길찾기</a></div>';
-			   	
-			   	// 인포윈도우를 생성하고 지도에 표시
-			   	infowindow = new daum.maps.InfoWindow({
-			   	    position : iwPosition, 
-			   	    content : iwContent,
-			   	    removable : iwRemoveable
-			  	});
-			  	
-				marker.setMap(map);
-				markers.push(marker);
+		 	function callbackNN(data){
+		 	
+		 		//자바스크립트 객체 만들기.가까운 곳 찾는 것
+				nnstore = dao.findNNStore({lat:latlng.jb, lng:latlng.ib});
 			
-				daum.maps.event.addListener(marker, 'click', makeClickListener(map, markers[i], infowindow));
-				setVisible(false);
-			}; //for end    
+				for(var i = 0; i < 10; i++) {
+					marker = new daum.maps.Marker({
+					position: new daum.maps.LatLng(nnstore[i].lat, nnstore[i].lng),
+					clickable: true
+					});
+					iwPosition = new daum.maps.LatLng(nnstore[i].lat, nnstore[i].lng);
+					iwContent = '<div style="padding:5px;">' + nnstore[i].title + '<br><a href="http://map.daum.net/link/to/' + nnstore[i].title + ',' + nnstore[i].lat + ',' + nnstore[i].lng + '" style="color:blue" target="_blank">길찾기</a></div>';
+				   	
+				   	// 인포윈도우를 생성하고 지도에 표시
+				   	infowindow = new daum.maps.InfoWindow({
+				   	    position : iwPosition, 
+				   	    content : iwContent,
+				   	    removable : iwRemoveable
+				  	});
+				  	
+					marker.setMap(map);
+					markers.push(marker);
+				
+					daum.maps.event.addListener(marker, 'click', makeClickListener(map, markers[i], infowindow));
+					setVisible(false);
+				}; //for end
+		 	}
+		 	    
 		};
 		
 		
