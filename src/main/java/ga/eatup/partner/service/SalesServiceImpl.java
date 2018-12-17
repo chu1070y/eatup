@@ -40,6 +40,13 @@ public class SalesServiceImpl implements SalesService {
 		
 		return mapper.getDailytableData();
 	}
+
+
+	@Override
+	public List<SalesVO> getDailytableData_date() {
+		
+		return mapper.getDailytableData_date();
+	}
 	
 	
 

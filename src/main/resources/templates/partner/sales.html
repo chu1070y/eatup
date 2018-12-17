@@ -40,18 +40,17 @@
 			<div class="card-header">
 				<i class="fas fa-table"></i> 매출 데이터
 			</div>
-			<div class="card-body">
+			 <div class="pannel-body">  
 				<div id="dailytable" class="table-responsive">
 					<div class="row">
 						<div class="col-sm-12 col-md-6">
 							<div class="dataTables_length" id="dataTable_length">
-								<label>Show <select name="dataTable_length"
+								<label>Show <select id="dataTable_type" onchange="changeType()"
 									aria-controls="dataTable"
 									class="custom-select custom-select-sm form-control form-control-sm"><option
-											value="10">10</option>
-										<option value="25">25</option>
-										<option value="50">50</option>
-										<option value="100">100</option></select> entries
+											value="menu">메뉴별</option>
+										<option value="date">일자별</option>
+										</select> 
 								</label>
 							</div>
 						</div>
@@ -63,7 +62,7 @@
 							</div>
 						</div>
 					</div>
-					<table class="table table-bordered" id="dataTable" width="100%"
+					<table class="table table-bordered" id="dailyTable" width="100%"
 						cellspacing="0">
 						<thead>
 							<tr>
@@ -77,14 +76,24 @@
 
 						<tbody>
 							<tr>
-								<td>Tiger Nixon</td>
-								<td>System Architect</td>
-								<td>Edinburgh</td>
-								<td>61</td>
+							
+							</tr>
+						</tbody>
+					</table>
+					
+					<table class="table table-bordered" id="dailyTable_date" width="100%"
+						cellspacing="0">
+						<thead>
+							<tr>
+								
 								
 							</tr>
-							<h1></h1>
+						</thead>
 
+						<tbody>
+							<tr>
+							
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -111,7 +120,7 @@
 							</div>
 						</div>
 					</div>
-					<table class="table table-bordered" id="dataTable" width="100%"
+					<table class="table table-bordered" id="weeklyTable" width="100%"
 						cellspacing="0">
 						<thead>
 							<tr>
@@ -160,7 +169,7 @@
 							</div>
 						</div>
 					</div>
-					<table class="table table-bordered" id="dataTable" width="100%"
+					<table class="table table-bordered" id="monthlyTable" width="100%"
 						cellspacing="0">
 						<thead>
 							<tr>
@@ -187,8 +196,7 @@
 					</table>
 				</div>
 			</div>
-			<div class="card-footer small text-muted">Updated yesterday at
-				11:59 PM</div>
+			
 		</div>
 
 	</div>
@@ -216,29 +224,29 @@
 	<!-- Core plugin JavaScript-->
 	<script src="../admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-	<!-- Page level plugin JavaScript-->
+	<!-- Page level plugin JavaScript
 	<script src="../admin/vendor/datatables/jquery.dataTables.js"></script>
-	<script src="../admin/vendor/datatables/dataTables.bootstrap4.js"></script>
+	<script src="../admin/vendor/datatables/dataTables.bootstrap4.js"></script>-->
 
 	<!-- Custom scripts for all pages-->
 	<script src="../admin/js/sb-admin.min.js"></script>
 
 	<!-- Demo scripts for this page-->
 	<script src="../admin/js/demo/daily.js"></script>
-	<script src="../admin/js/demo/dailydata
-	.js"></script>
+	<script src="../admin/js/demo/datatable.js"></script>
 
 	<script th:inline="javascript">
 		$(document).ready(function() {
 			console.log("ready!");
-
+		
 			$('#weeklychart').hide();
 			$('#monthlychart').hide();
 			$('#weeklytable').hide();
 			$('#monthlytable').hide();
 
 		});
-
+		
+		
 		$('#daily').click(function() {
 			console.log("dailychart clicked")
 			$('#dailychart').show();
@@ -274,6 +282,10 @@
 			$('#monthlytable').show();
 
 		});
+		
+		
+		
+		
 	</script>
 
 </th:block>
