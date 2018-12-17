@@ -178,4 +178,10 @@ public class UserController {
 		
 	}
 	
+	@GetMapping("/search")
+	public void search() {
+		log.info("search page......");
+		
+	}
+	
 }
