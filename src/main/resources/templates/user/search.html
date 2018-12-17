@@ -1,0 +1,337 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout2}">
+
+<style>
+.item img {
+
+border:20px solid gold;
+border-radius: 50%;
+-moz-border-radius: 50%;
+-khtml-border-radius: 50%;
+-webkit-border-radius: 50%;
+
+}
+</style>
+
+<div layout:fragment="content">
+<style>
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
+</style>
+
+<br/><br/>
+<!-- 검색기능 -->
+<div class="container">
+	<div class="row">
+        <div class="col-md-12">
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="form-control input-lg" id="tags" placeholder="키워드를 입력하세요" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg searchBtn" type="button">
+                            <i class="fas fa-search glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+
+		<div class="searchResult">
+			<div class="searchResultStore">
+				<ul></ul>
+			</div>
+			<div class="searchResultMenu">
+				<ul></ul>
+			</div>
+		</div>
+
+<br/>
+<div class="container">
+	<div class="row">
+                <div class="input-group">
+						<div class="col-md-12">
+							<h3>빠른검색</h3>
+							<a class="btn btn-primary" href="#">#카페</a> <a
+								class="btn btn-danger" href="#">#커피</a> <a
+								class="btn btn-secondary" href="#">#샌드위치</a> <a
+								class="btn btn-info" href="#">#토스트</a>
+						</div>
+                </div>
+	</div>
+</div>
+		
+
+			<br/><br/>
+			<!-- 가게 검색 결과 -->
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 text-left">
+							<h3 class="section-heading text-uppercase">Stores</h3>
+							<h6 class="section-subheading text-muted">Gorany 가맹점 리스트</h6>
+						</div>
+					</div>
+
+					<!-- Project One -->
+					<div class="row">
+						<div class="col-md-7">
+							<a href="/user/store"> <img
+								class="img-fluid rounded mb-3 mb-md-0"
+								src="../main/img/portfolio/cafe3.jpg" alt="">
+							</a>
+						</div>
+						<div class="col-md-5">
+							<h3>고라니카페</h3>
+							<p>24시 커피전문점, 고라니 카페입니다.</p>
+							<a class="btn btn-primary" href="#">#카페</a> <a
+								class="btn btn-danger" href="#">#커피</a> <a
+								class="btn btn-secondary" href="#">#샌드위치</a> <a
+								class="btn btn-info" href="#">#토스트</a>
+						</div>
+					</div>
+					<!-- /.row -->
+
+					<hr>
+
+					<!-- Project Two -->
+					<div class="row">
+						<div class="col-md-7">
+							<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0"
+								src="../main/img/portfolio/cafe3.jpg" alt="">
+							</a>
+						</div>
+						<div class="col-md-5">
+							<h3>고라니카페</h3>
+							<p>24시 커피전문점, 고라니 카페입니다.</p>
+							<a class="btn btn-primary" href="#">#카페</a> <a
+								class="btn btn-danger" href="#">#커피</a> <a
+								class="btn btn-secondary" href="#">#샌드위치</a> <a
+								class="btn btn-info" href="#">#토스트</a>
+						</div>
+					</div>
+					<!-- /.row -->
+					<hr>
+				</div>
+				<!-- /.container -->
+			
+			<!-- 메뉴 검색 결과 -->
+			<br/><br/>
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 text-left">
+							<h3 class="section-heading text-uppercase">Menu</h3>
+							<h6 class="section-subheading text-muted">메뉴 리스트</h6>
+						</div>
+					</div>
+
+					<!-- Project One -->
+					<div class="row">
+						<div class="col-md-7">
+							<a href="/user/store"> <img
+								class="img-fluid rounded mb-3 mb-md-0"
+								src="../main/img/portfolio/cafe3.jpg" alt="">
+							</a>
+						</div>
+						<div class="col-md-5">
+							<h3>고라니카페</h3>
+							<p>24시 커피전문점, 고라니 카페입니다.</p>
+							<a class="btn btn-primary" href="#">#카페</a> <a
+								class="btn btn-danger" href="#">#커피</a> <a
+								class="btn btn-secondary" href="#">#샌드위치</a> <a
+								class="btn btn-info" href="#">#토스트</a>
+						</div>
+					</div>
+					<!-- /.row -->
+
+					<hr>
+
+					<!-- Project Two -->
+					<div class="row">
+						<div class="col-md-7">
+							<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0"
+								src="../main/img/portfolio/cafe3.jpg" alt="">
+							</a>
+						</div>
+						<div class="col-md-5">
+							<h3>고라니카페</h3>
+							<p>24시 커피전문점, 고라니 카페입니다.</p>
+							<a class="btn btn-primary" href="#">#카페</a> <a
+								class="btn btn-danger" href="#">#커피</a> <a
+								class="btn btn-secondary" href="#">#샌드위치</a> <a
+								class="btn btn-info" href="#">#토스트</a>
+						</div>
+					</div>
+					<!-- /.row -->
+					<hr>
+				</div>
+				<!-- /.container -->
+
+
+
+
+			<!-- Footer -->
+			<footer>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4">
+							<span class="copyright">Copyright &copy; Gorany Company
+								Website 2018</span>
+						</div>
+						<div class="col-md-4">
+							<ul class="list-inline social-buttons">
+							</ul>
+						</div>
+						<div class="col-md-4">
+							<ul class="list-inline quicklinks">
+								<li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+								<li class="list-inline-item"><a href="#">Terms of Use</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+	
+
+	<th:block layout:fragment="script">
+
+	<!-- google Geolocation -->
+		<script type="text/javascript"
+			src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCOjYqPJ97sckNjih-R8q07zMO9e8R-VJU&ver=3.exp"></script>
+
+
+<script th:inline="javascript">
+
+	
+$(document).ready(function(){
+		
+
+		//csrf처리
+		var csrfHearderName = [[${_csrf.headerName}]];
+		var csrfTokenValue =  [[${_csrf.token}]];
+
+		$(document).ajaxSend(function(e,xhr,options){
+			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+		});
+		 
+		//검색창 자동완성
+		function display(data){
+			$( "#tags" ).autocomplete({
+				source: data,
+				matchContains: true, 
+				focus: function( event, ui ) {
+					return false;
+				},
+				select: function( event, ui ) {
+					event.stopPropagation();
+					console.log(ui.item.value);
+					$("#tags").val(ui.item.value);
+				}
+			});//end autocomplete
+			
+		};//end function
+	 	
+			
+		searchService.autoComplete(function(result){
+			console.log("auto??");
+			console.log(result);
+			display(result);
+		}); 
+		
+		//엔터 이벤트
+		$("#tags").keydown(function(event){
+			
+			if(event.keyCode == 13){
+				console.log("엔터");
+				event.preventDefault();
+				search();
+				}
+			}
+		);
+		
+	 	//검색하기 with 버튼
+		$(".searchBtn").on("click",function(e){
+			e.preventDefault();
+			console.log("searchBtn........")
+			search();
+		});
+		
+		//검색하기
+		function search(){
+			
+			var keyword = $("#tags").val();
+			
+			$(".searchResultStore ul").empty();
+			$(".searchResultMenu ul").empty();
+			
+			if(keyword===""){
+				$(".searchResultStore ul").append("검색어를 입력해주세요");
+				return;
+			}
+			
+			searchService.searchStore(keyword,function(result){
+				
+				$(".searchResultStore ul").append("---------상점검색결과---------");
+				if(result==""){
+					$(".searchResultStore ul").append("</br>해당되는 상점이 없습니다.");
+				}
+				$.each(result, function (index, item) {
+					$(".searchResultStore ul").append("<li>" + item.sname + "</li>");
+					});
+			});
+			
+			searchService.searchMenu(keyword,function(result){
+				
+				$(".searchResultMenu ul").append("---------메뉴검색결과---------");
+				if(result==""){
+					$(".searchResultMenu ul").append("</br>해당되는 메뉴가 없습니다.");
+				}
+				$.each(result, function (index, item) {
+					$(".searchResultMenu ul").append("<li>" + item.mname + ", 가격: " + item.mprice + "</li>");
+					});
+			});
+			
+		}
+
+	 	
+
+	});
+	
+
+	
+		  
+		  
+	</script>
+	</th:block>
