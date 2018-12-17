@@ -143,7 +143,7 @@ public class UserController {
 	@GetMapping("/home")
 	public void home(String location, Model model) {
 	
-		log.info("" + location);
+//		log.info("" + location);
 		
 		model.addAttribute("location", location);
 		

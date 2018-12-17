@@ -67,7 +67,7 @@ public class KakaoLoginController {
 			  service.setDefaultkey(snsId);
 			  //defaultKey에 넣어준 1값을 password 파라미터로 전달 
 			  upw = service.getUser(uid).getDefaultkey();
-			  redirectPage = "/user/login/customLoginTemp?username=" + uid + "&password=" + upw;
+			  redirectPage = "/user/login/customLoginTemp?username=" + uid + "&pas =" + upw;
 			  
 			  // 파라미터 전달은 1로 준 이후에 DB 내 defaultKey는 암호화 업데이트
 			  String defaultKey = encoder.encode(upw);
