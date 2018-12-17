@@ -129,8 +129,7 @@
 				</div>
 
 			</div>
-			
-				<button class="btn btn-primary btn-block modifyBtn">공지 수정하기</button>
+
 				<button class="btn page-link btn-block backBtn">돌아가기</button>
 
 		</div>
@@ -165,16 +164,10 @@
 			
 			var actionform = $(".actionform");
 			
-			//수정하기 버튼
-			$(".modifyBtn").on("click",function(e){
-				e.preventDefault();
-				actionform.attr("action","/partner/notice/modify").attr("method","get").submit();
-			});
-			
 			//돌아가기 버튼
 			$(".backBtn").on("click",function(e){
 				e.preventDefault();
-				actionform.attr("action","/partner/superAdmin").attr("method","get").submit();
+				actionform.attr("action","/partner/notice").attr("method","get").submit();
 			});
 			
 			//csrf처리
@@ -184,8 +177,6 @@
 			$(document).ajaxSend(function(e,xhr,options){
 				xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
 			});
-
-			
 			
 
 		 	//이미지 보여주기

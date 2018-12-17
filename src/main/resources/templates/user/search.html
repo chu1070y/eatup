@@ -1,0 +1,309 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout2}">
+
+<style>
+.item img {
+
+border:20px solid gold;
+border-radius: 50%;
+-moz-border-radius: 50%;
+-khtml-border-radius: 50%;
+-webkit-border-radius: 50%;
+
+}
+</style>
+
+<div layout:fragment="content">
+<style>
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
+
+/* body{
+	background-image: url("/main/img/portfolio/04-full.jpg");
+	color: white;
+} */
+
+</style>
+
+<br/><br/>
+<!-- 검색기능 -->
+<div class="container">
+	<div class="row">
+        <div class="col-md-12">
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="form-control input-lg" id="tags" placeholder="키워드를 입력하세요" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg searchBtn" type="button">
+                            <i class="fas fa-search glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+
+		<div class="searchResult">
+			<div class="searchResultStore">
+				<ul></ul>
+			</div>
+			<div class="searchResultMenu">
+				<ul></ul>
+			</div>
+		</div>
+
+<br/>
+<div class="container">
+	<div class="row">
+                <div class="input-group quickSearch">
+						<div class="col-md-12">
+							<h3>빠른검색</h3>
+							<a class="btn btn-primary" href="#">#카페</a> <a
+								class="btn btn-danger" href="#">#커피</a> <a
+								class="btn btn-secondary" href="#">#샌드위치</a> <a
+								class="btn btn-info" href="#">#도시락</a>
+						</div>
+                </div>
+	</div>
+</div>
+		
+
+
+<!-- 상점 검색 결과 -->
+<div class="container">
+	<div class="row">
+        <div class="col-md-12">
+
+                <div class="storeResult hidden">
+					<div class="row">
+						<div class="col-lg-12 text-left">
+							<h2 class="section-heading text-uppercase">상점 검색 결과</h2>
+							<hr>
+						</div>
+					</div>
+					
+					<div id="storelist"></div>
+					
+                </div>
+
+        </div>
+	</div>
+</div>
+
+
+			
+			<br/><br/>
+<!-- 메뉴 검색 결과 -->
+<div class="container">
+	<div class="row">
+        <div class="col-md-12">
+
+                <div class="menuResult hidden">
+					<div class="row">
+						<div class="col-lg-12 text-left">
+							<h2 class="section-heading text-uppercase">메뉴 검색 결과</h2>
+							<hr>
+						</div>
+					</div>
+					
+					<div id="menulist"></div>
+					
+                </div>
+
+        </div>
+	</div>
+</div>
+
+
+
+
+
+
+
+	</div>
+	
+
+	<th:block layout:fragment="script">
+
+	<!-- google Geolocation -->
+		<script type="text/javascript"
+			src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCOjYqPJ97sckNjih-R8q07zMO9e8R-VJU&ver=3.exp"></script>
+
+
+<script th:inline="javascript">
+
+	
+$(document).ready(function(){
+		
+
+		//csrf처리
+		var csrfHearderName = [[${_csrf.headerName}]];
+		var csrfTokenValue =  [[${_csrf.token}]];
+
+		$(document).ajaxSend(function(e,xhr,options){
+			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+		});
+		 
+		//검색창 자동완성
+		function display(data){
+			$( "#tags" ).autocomplete({
+				source: data,
+				matchContains: true, 
+				focus: function( event, ui ) {
+					return false;
+				},
+				select: function( event, ui ) {
+					event.stopPropagation();
+					console.log(ui.item.value);
+					$("#tags").val(ui.item.value);
+				}
+			});//end autocomplete
+			
+		};//end function
+	 	
+
+		searchService.autoComplete(function(result){
+			console.log(result);
+			display(result);
+		}); 
+		
+		//엔터 이벤트
+		$("#tags").keydown(function(event){
+			
+			if(event.keyCode == 13){
+				console.log("엔터");
+				event.preventDefault();
+				search();
+				}
+			}
+		);
+		
+	 	//검색하기 with 버튼
+		$(".searchBtn").on("click",function(e){
+			e.preventDefault();
+			console.log("searchBtn........")
+			search();
+		});
+		
+		//검색하기
+		function search(){
+			
+			$(".quickSearch").attr("class","input-group quickSearch hidden");
+			
+			var keyword = $("#tags").val();
+			
+			$("#storelist").html("");
+			$("#menulist").html("");
+			
+			if(keyword===""){
+				$(".searchResultStore ul").append("검색어를 입력해주세요");
+				return;
+			}
+			
+			searchService.searchStore(keyword,function(result){
+				
+				if(result==""){
+					$(".searchResultStore ul").append("</br>해당되는 상점이 없습니다.");
+				}
+				
+				console.log(result);
+				
+				$.each(result, function (index, item) {
+					storelist(item);
+				});
+				
+			});
+			
+			searchService.searchMenu(keyword,function(result){
+				
+				if(result==""){
+					$(".searchResultMenu ul").append("</br>해당되는 메뉴가 없습니다.");
+				}
+				
+				console.log(result);
+				
+				$.each(result, function (index, item) {
+					menulist(item);
+				});
+				
+			});
+			
+		}
+		
+		function storelist(data){
+			
+				$(".storeResult").attr("class","storeResult");	
+			
+				var str = "<div class='row'><div class='col-md-7'>"
+						+ "<a href='/user/store'>"
+						+ "<img data-sno="+data.sno+" class='img-fluid rounded mb-3 mb-md-0' src='../main/img/portfolio/cafe3.jpg'>"
+						+ "</a></div><div class='col-md-5'>"
+						+ "<h4 id='sname'>"+data.sname+"</h4>"
+						+ "<p id='saddress'>"+data.saddress+"</p>"
+						+ "<a class='btn btn-primary' style='color: white; margin: 2px;'>#카페</a>"
+						+ "<a class='btn btn-danger' style='color: white; margin: 2px;'>#커피</a>"
+						+ "<a class='btn btn-secondary' style='color: white; margin: 2px;'>#샌드위치</a>"
+						+ "<a class='btn btn-info' style='color: white; margin: 2px;'>#토스트</a></div></div><hr>";
+				
+				$("#storelist").append(str);
+		}
+		
+		function menulist(data){
+			
+			$(".menuResult").attr("class","menuResult");	
+		
+			var str = "<div class='row'><div class='col-md-7'>"
+					+ "<a href='/user/store'>"
+					+ "<img data-sno="+data.sno+" class='img-fluid rounded mb-3 mb-md-0' src='/imgs/cafe6.jpg'>"
+					+ "</a></div><div class='col-md-5'>"
+					+ "<h4 id='sname'>"+data.mname+"</h4>"
+					+ "<p id='saddress'>"+data.introduction+"</p>"
+					+ "<a class='btn btn-primary' style='color: white; margin: 2px;'>#카페</a>"
+					+ "<a class='btn btn-danger' style='color: white; margin: 2px;'>#커피</a>"
+					+ "<a class='btn btn-secondary' style='color: white; margin: 2px;'>#샌드위치</a>"
+					+ "<a class='btn btn-info' style='color: white; margin: 2px;'>#토스트</a></div></div><hr>";
+			
+			$("#menulist").append(str);
+	}
+
+	 	
+
+	});
+	
+
+	
+		  
+		  
+	</script>
+	</th:block>

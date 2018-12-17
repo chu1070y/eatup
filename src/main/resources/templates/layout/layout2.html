@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>실시간 주문&예약 시스템 고라니 입니다.</title>
+
+<!-- Bootstrap core CSS -->
+<link href="../main/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+
+
+<!-- Custom fonts for this template -->
+<link href="../main/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+<!-- Custom styles for this template -->
+<link href="../main/css/agency.min.css" rel="stylesheet">
+<link href="../main/css/simple-sidebar.css" rel="stylesheet">
+<link href="../main/css/sb-admin.css" rel="stylesheet">
+
+<!-- 자동완성 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+
+<style>
+.hidden{
+	display: none;
+}
+
+</style>
+
+<body id="page-top">
+
+	<nav class="navbar navbar-expand-lg navbar-dark navbar-shrink" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="/user/home">Eat Up!</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger active" href="#services">내 정보</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#portfolio">주문내역</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">가맹점 문의</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#team">고객센터</a>
+            </li>
+		<!-- Navbar Search -->
+ 		<li class="nav-item dropdown no-arrow mx-1">
+				<a class="nav-link dropdown-toggle" href="/user/search" id="search">
+				<i class="fas fa-search"></i></a>
+			</li> 
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+
+	<!-- <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+		<button class="btn btn-link btn-sm text-white order-1 order-sm-0"
+			id="sidebarToggle" href="#">
+			<i class="fas fa-bars"></i>
+		</button>
+		<div class="ml-auto">
+			<a class="navbar-brand js-scroll-trigger" href="home">Eat Up!</a>
+		</div>
+		Navbar Search
+		<ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
+			<li class="nav-item dropdown no-arrow mx-1"><a
+				class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="fas fa-search"></i>
+			</a></li>
+
+			Navbar
+			<li class="nav-item dropdown no-arrow mx-1"><a
+				class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <span
+					class="badge badge-danger">1</span>
+			</a>
+
+		</ul>
+
+	</nav> -->
+
+	<div id="wrapper">
+
+		<ul class="sidebar navbar-nav hidden">
+			<li class="nav-item"><a class="nav-link" href="#"> <i
+					class="fas fa-user-circle fa-fw"></i> <span>내정보</span>
+			</a></li>
+			<li class="nav-item"><a class="nav-link" href="#"> <i
+					class="fas fa-fw fa-tachometer-alt"></i> <span>주문내역</span>
+			</a></li>
+			<li class="nav-item"><a class="nav-link" href="#"> <i
+					class="fas fa-fw fa-folder"></i> <span>리뷰</span>
+			</a></li>
+			<li class="nav-item"><a class="nav-link" href="#"> <i
+					class="fas fa-fw fa-chart-area"></i> <span>가맹점 문의</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="#"> <i
+					class="fas fa-fw fa-table"></i> <span>공지사항</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="#"> <i
+					class="fas fa-fw fa-search"></i> <span>서비스소개</span></a></li>
+		</ul>
+
+
+
+
+
+		<div id="content-wrapper">
+			<div class="container-fluid" layout:fragment="content"></div>
+		</div>
+	</div>
+
+
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="../main/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="../js/modal.js"></script>
+	<script src="../js/amount.js"></script>
+
+	<!-- Plugin JavaScript -->
+	<script src="../main/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Page level plugin JavaScript-->
+	<script src="../main/vendor/datatables/jquery.dataTables.js"></script>
+	<script src="../main/vendor/datatables/dataTables.bootstrap4.js"></script>
+
+	<!-- Contact form JavaScript -->
+	<script src="../main/js/jqBootstrapValidation.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script src="../main/js/sb-admin.min.js"></script>
+
+
+
+	<script th:inline="javascript" src="/js/search.js"></script>
+	<script>
+		$(document).ready(function(){
+			var sidebar = 1;
+			
+			$("#sidebarToggle").on("click",function(e){
+				e.preventDefault();
+				
+				if(sidebar==0){
+					$("#wrapper .sidebar").attr("class","sidebar navbar-nav hidden");
+					sidebar = 1;
+				}else{
+					$("#wrapper .sidebar").attr("class","sidebar navbar-nav ");
+					sidebar = 0;
+				}
+				
+			});
+		});
+		
+	</script>
+	<th:block layout:fragment="script"></th:block>
+
+</body>
+</html>

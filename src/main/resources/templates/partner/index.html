@@ -38,12 +38,25 @@
 
 
 
-<div th:each="n : ${tidlist}" th:id="block+${n}" th:class="block" >
+ 
+
+
+<div th:each="n : ${tidlist}" th:id="${n}" th:class="block" >
+<h2 th:text="${n}"></h2>
+<h3>메뉴번호 &nbsp수량</h3>
 
 <div th:each="vo : ${result}">
-<table> <td>[[${vo.tid}]] / </td>  <td> [[${vo.mno}]] / </td>  <td> [[${vo.quantity}]]</td> </table>
+<div th:if="${n} == ${vo.tid}" >
+
+<table>
+<td><h2>&nbsp&nbsp&nbsp&nbsp[[${vo.mno}]]&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h2></td>   <td><h2>[[${vo.quantity}]]</h2></td> </table>
+
 </div>
 </div>
+</div>
+
+
+
 
 
 	<style>
@@ -250,7 +263,12 @@ $("#go").click(function(){
 	console.log("cliccccccccck");
 	
 
-	
+    var number= 2;
+    
+    console.log([[${tidlist[0]}]]);
+
+$(".block").eq(number).animate({"bottom":"1000px"});
+$(".block").slice(number).animate({"left": "-=420px"});
 	
 	
 	
@@ -272,8 +290,16 @@ $("#go").click(function(){
 		    $(".block:eq(0)").remove();    */
 		    
 
-  $(".block:eq(1)").animate({"bottom":"1000px"});  
-  $( ".block:gt(1)" ).animate({"left": "-=420px"});     
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 /* $( ".block:gt(0)" ).animate({"left": "-=50px"},{
 	step: function( unit, fx ){ $( ".block:eq(0)" )remove(); }
 })   */
@@ -297,13 +323,10 @@ $(document).ready(function () {
 	
 	
 	
-    var query =[[${result}]];
-    console.log(query[0]);
+   
 
 	
-    //$("#blocktid1").html(""+[[${result[0]}]]);
-    /*$("#blocktid1").html(query[1]);
-	 $("#greetings").html(""); */
+ 
 			
 	/* 		 //음성인식에서 키워드 추출
 	 function keyword(data){
@@ -387,6 +410,8 @@ $(document).ready(function () {
 	$(function () {
 	     
     	 console.log("connect complete.....");
+    	 
+    	 
 	});	 
 
 
@@ -434,12 +459,28 @@ $(document).ready(function () {
 			
 		}
 	    
-	} 
+	}
+ 	
+ 	//음성 인식 후 주문 날리기
+ 	function checkOrder(number){
+ 		
+ 		console.log(" 여기는 체크오더이고,," + number);
+ 		
+ 		var menuNumber = number - 1;
+ 		
+ 		console.log("일본이면 어쩔꺼야" + menuNumber);
+ 		
+ 		if( menuNumber.toString() !== 'NaN'){
+ 		$(".block").eq(menuNumber).animate({"bottom":"1000px"},"slow");
+ 		$(".block").slice(number).animate({"left": "-=420px"}); 
+ 		}
+ 		
+ 	}
 
 
 	function showGreeting(message) {
 	    console.log("showGreeting..............");
-	    $("#greetings").append("<tr><td> " + message + "</td></tr>");
+	   // $("#greetings").append("<tr><td> " + message + "</td></tr>"); //연결 메세지 화면 출력
 	    $("#myModal").modal("show");
 			
 			var tempMsg = "";
@@ -463,6 +504,14 @@ $(document).ready(function () {
 			      if(c) $('#speech_box .text').removeClass('text');
 			      
 			      tempMsg = b;
+			      
+			      console.log(tempMsg);
+			      
+			      
+			      
+			     
+			      
+			  
 			    };
 					 
 	    	    <!--마이크 end 일 때-->
@@ -475,6 +524,14 @@ $(document).ready(function () {
 	    	  	
 	    	    $('.modal-body').removeClass('on');
 	    	    	$("#speech_box").text("");
+	    	    	
+	    	    	
+	    	    	 //문자열에서 숫자만 빼기
+				    var splittempmsg =tempMsg.split("번" , 1);
+				    var splitmsg = splittempmsg.toString();
+				    console.log("숫자만 빼보았슴다,,,?" + splitmsg);
+				    
+				    checkOrder(splitmsg);
 	    	      
 	    	    };
 	    	    

@@ -5,7 +5,7 @@
 <div layout:fragment="content">
 	<style>
 #content-wrapper {
-	background-image: url("/agency/img/we.jpg");
+	background-image: url("/imgs/we.jpg");
 }
 
 #gorany {
@@ -54,13 +54,6 @@ a {
 	color: blue;
 }
 </style>
-
-	<div id="gorany">익명의 고라니</div>
-	<div id="gorany">문지인</div>
-	<div id="gorany">박고은</div>
-	<div id="gorany">박가영</div>
-	<div id="gorany">추연훈</div>
-	<div id="gorany">김가익</div>
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item active">공지사항</li>
 	</ol>
@@ -68,7 +61,7 @@ a {
 	<!-- DataTables Example -->
 	<div class="card mb-3">
 		<div class="card-header">
-			<i class="fas fa-table"></i> 우리의 공지는? [[${dto}]]
+			<i class="fas fa-table"></i> 우리의 공지는?
 		</div>
 
 		<div class="card-body">
@@ -86,8 +79,7 @@ a {
 					<tbody>
 						<tr th:each="notice : ${noticeList}">
 							<td th:text="${notice.nno}"></td>
-							<td><a class="notice"
-								th:href="${notice.nno}"
+							<td><a class="notice" th:href="${notice.nno}"
 								th:text="${notice.title}"></a></td>
 							<td th:text="${notice.writer}"></td>
 							<td th:text="${#dates.format(notice.regdate,'yyyy-MM-dd')}"></td>
@@ -96,12 +88,23 @@ a {
 
 					</tbody>
 				</table>
+				<div  class="col-lg-12 text-center">
 				<form action="/partner/notice/register">
-					<button class="btn btn-primary btn-block registerBtn">공지
+					<button class="btn btn-success btn-block registerBtn">공지
 						등록하기</button>
 				</form>
+				<br />
+				<select class="form-control type">
+					<option value="">검색조건을 선택하세요</option>
+					<option value="t" th:selected="${dto.type == 't'}">제목</option>
+					<option value="c" th:selected="${dto.type == 'c'}">내용</option>
+					<option value="tc" th:selected="${dto.type == 'tc'}">제목 + 내용</option>
+				</select>
+				<input class="form-control" id="skeyword" th:value="${dto.keyword}" placeholder="검색 내용을 입력하세요" > 
+					<button class="btn btn-success btn-block searchBtn">검색하기</button> 
 			</div>
 			<br />
+			</div>
 			<div class="center">
 				<ul class="pagination">
 
@@ -110,15 +113,14 @@ a {
 					<li class="page-item disabled" th:unless="${dto.prev}"><a
 						class="page-link" href="#">Previous</a></li>
 
-					<li class="page-item"
-						th:each="page : ${#numbers.sequence( __${dto.start}__, __${dto.end}__)}">
+					<li class="page-item" th:each="page : ${#numbers.sequence( __${dto.start}__, __${dto.end}__)}">
 						<a class="page-link btn-primary" style="color: white;"
-						th:if="${dto.page} == ${page}"
-						th:href="@{'/partner/superAdmin?page=' + ${page}}"
-						th:text="${page}"></a> <a class="page-link"
-						th:unless="${dto.page} == ${page}"
-						th:href="@{'/partner/superAdmin?page=' + ${page}}"
-						th:text="${page}"></a>
+						th:if="${dto.page} == ${page}" th:href="@{'/partner/superAdmin?page=' + ${page}}" th:text="${page}">
+						</a>
+						
+						<a class="page-link" 
+						th:unless="${dto.page} == ${page}" th:href="@{'/partner/superAdmin?page=' + ${page}}" th:text="${page}">
+						</a>
 					</li>
 
 					<li class="page-item" th:if="${dto.next}"><a class="page-link"
@@ -216,6 +218,14 @@ a {
 		<input type="hidden" id="type" name="type" th:field="${dto.type}">
 		<input type="hidden" id="csrfToken" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 	</form>
+	
+	
+	<div id="gorany">익명의 고라니</div>
+	<div id="gorany">문지인</div>
+	<div id="gorany">박고은</div>
+	<div id="gorany">박가영</div>
+	<div id="gorany">추연훈</div>
+	<div id="gorany">김가익</div>
 
 
 
@@ -238,6 +248,33 @@ a {
 			$(document).ajaxSend(function(e,xhr,options){
 				xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
 			});
+			
+			//검색버튼클릭
+			$(".searchBtn").on("click",function(e){
+				e.preventDefault();
+		         
+		       	var keyword = $("#skeyword").val();
+		       	var type =  $(".type").val();
+		       	
+		       	if(type == ""){
+		       		alert("카테고리를 입력해주세요.");
+		       		return;
+		       	}else if(keyword==""){
+		       		alert("검색할 내용을 입력해주세요.");
+		      		return;
+		       	}
+		       	
+		       	$("#keyword").val(keyword);
+		       	$("#type").val(type);
+		       	$("#page").val(1);
+				
+		        actionform
+		        .attr("action", "/partner/superAdmin")
+		        .attr("method", "get")
+		        .submit(); 
+		        
+			});
+			
 			
 			//공지 제목 클릭 -> 공지 읽기
 			$(".notice").on("click",function(e){

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -70,11 +71,6 @@ public class PartnerController {
 		service.registerAuth(vo);
 	}
 	
-	@PostMapping("/usercreate")
-	public void usercreate() {
-		log.info("유저 계정생성 완료....");
-	}
-	
 	@GetMapping("/index")
 	public void index(Model model, OrderVO order) {
 		log.info("index......................page");
@@ -117,6 +113,7 @@ public class PartnerController {
 	}
 	
 	
+	@Transactional
 	@GetMapping("/superAdmin")
 	public void superAdmin(Model model, NoticePageDTO dto){
 		log.info("superAdmin......................page");
@@ -128,9 +125,16 @@ public class PartnerController {
 		
 	}
 	
+	@Transactional
 	@GetMapping("/notice")
-	public void notice() {
+	public void notice(Model model, NoticePageDTO dto) {
 		log.info("notice......................page");
+		log.info("superAdmin......................page");
+		log.info("dto.." + dto);
+		dto.setTotal(superadminService.noticeCount());
+		
+		model.addAttribute("noticeList", superadminService.noticeList(dto));
+		model.addAttribute("dto", dto);
 	}
 
 	
@@ -190,6 +194,14 @@ public class PartnerController {
 		redirect.addFlashAttribute("result", result);
 		
 		return "redirect:/partner/superAdmin";
+	}
+	
+	@GetMapping("/notice/partnerRead")
+	public void partnerRead(Model model, NoticePageDTO dto) {
+		log.info("notice partner read page...." + dto.getNno());
+		
+		model.addAttribute("notice",superadminService.noticeRead(dto.getNno()));
+		model.addAttribute("dto", dto);
 	}
 	
 }

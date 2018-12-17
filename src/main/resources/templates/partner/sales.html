@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layout/layout_partner}">
+	layout:decorate="~{/layout/layout_partner_sales}">
 
 <div layout:fragment="content">
 	<div class="container-fluid">
@@ -34,97 +34,167 @@
 			</div>
 
 		</div>
-		
+
 		<!-- DataTables Example -->
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-table"></i>
-              매출 데이터</div>
-            <div class="card-body">
-              <div id="dailytable" class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>daily</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
-                    </tr>
-                  </thead>
-                  
-                  <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
-              </div>
-              
-              <div id="weeklytable" class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>weekly</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
-                    </tr>
-                  </thead>
-                  
-                  <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
-              </div>
-              
-              <div id="monthlytable" class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>monthly</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
-                    </tr>
-                  </thead>
-                  
-                  <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-          </div>
-		
+		<div class="card mb-3">
+			<div class="card-header">
+				<i class="fas fa-table"></i> 매출 데이터
+			</div>
+			 <div class="pannel-body">  
+				<div id="dailytable" class="table-responsive">
+					<div class="row">
+						<div class="col-sm-12 col-md-6">
+							<div class="dataTables_length" id="dataTable_length">
+								<label>일간 매출 <select id="dailyTable_type" onchange="changeType()"
+									aria-controls="dataTable"
+									class="custom-select custom-select-sm form-control form-control-sm"><option
+											value="menu">메뉴별</option>
+										<option value="date">일자별</option>
+										</select> 
+								</label>
+							</div>
+							
+						</div>
+						<div class="col-sm-12 col-md-6">
+							<div class="select_month" id="select_month">
+								<label>month <select id="dailyTable_month" onchange="changeMonth()"
+									aria-controls="dataTable"
+									class="custom-select custom-select-sm form-control form-control-sm"><option
+											value="1">1월</option>
+										<option value="2">2월</option>
+										<option value="3">3월</option>
+										<option value="4">4월</option>
+										<option value="5">5월</option>
+										<option value="6">6월</option>
+										<option value="7">7월</option>
+										<option value="8">8월</option>
+										<option value="9">9월</option>
+										<option value="10">10월</option>
+										<option value="11">11월</option>
+										<option value="12">12월</option>
+										</select> 
+								</label>
+							</div>
+							
+						</div>
+						
+						
+					</div>
+					<table class="table table-bordered" id="dailyTable" width="100%"
+						cellspacing="0">
+						<thead>
+							<tr>
+								<th>날짜</th>
+								<th>메뉴명</th>
+								<th>수량</th>
+								<th>소계</th>
+								
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+							
+							</tr>
+						</tbody>
+					</table>
+					
+					
+				</div>
+
+				<div id="weeklytable" class="table-responsive">
+				<div class="row">
+						<div class="col-sm-12 col-md-6">
+							<div class="dataTables_length" id="dataTable_length">
+								<label>주간 매출  <select id="weeklyTable_type" onchange="wchangeType()"
+									aria-controls="dataTable"
+									class="custom-select custom-select-sm form-control form-control-sm"><option
+											value="wmenu">메뉴별</option>
+										<option value="wdate">일자별</option>
+										</select> 
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-6">
+							<div class="select_month" id="select_month">
+								<label>month <select id="weeklyTable_month" onchange="wchangeMonth()"
+									aria-controls="dataTable"
+									class="custom-select custom-select-sm form-control form-control-sm"><option
+											value="1">1월</option>
+										<option value="2">2월</option>
+										<option value="3">3월</option>
+										<option value="4">4월</option>
+										<option value="5">5월</option>
+										<option value="6">6월</option>
+										<option value="7">7월</option>
+										<option value="8">8월</option>
+										<option value="9">9월</option>
+										<option value="10">10월</option>
+										<option value="11">11월</option>
+										<option value="12">12월</option>
+										</select> 
+								</label>
+							</div>
+							
+						</div>
+					</div>
+					<table class="table table-bordered" id="weeklyTable" width="100%"
+						cellspacing="0">
+						<thead>
+							<tr>
+								<th>날짜</th>
+								<th>메뉴명</th>
+								<th>수량</th>
+								<th>소계</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+
+				<div id="monthlytable" class="table-responsive">
+				<div class="row">
+						<div class="col-sm-12 col-md-6">
+							<div class="dataTables_length" id="dataTable_length">
+								<label>월간 매출 <select id="monthlyTable_type" onchange="mchangeType()"
+									aria-controls="dataTable"
+									class="custom-select custom-select-sm form-control form-control-sm"><option
+											value="mmenu">메뉴별</option>
+										<option value="mdate">일자별</option>
+										</select>  
+								</label>
+							</div>
+						</div>
+						
+					</div>
+					<table class="table table-bordered" id="monthlyTable" width="100%"
+						cellspacing="0">
+						<thead>
+							<tr>
+								<th>월</th>
+								<th>메뉴명</th>
+								<th>수량</th>
+								<th>소계</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+		</div>
+
 	</div>
 
 </div>
@@ -140,75 +210,126 @@
 
 
 <th:block layout:fragment="script">
-	<!-- Bootstrap core JavaScript-->
-	<script src="../admin/vendor/jquery/jquery.min.js"></script>
+
 	<script src="https://d3js.org/d3.v3.min.js"></script>
 	<script
-		src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-	<script src="../admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
-	<!-- Core plugin JavaScript-->
-	<script src="../admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-	<!-- Page level plugin JavaScript-->
-
-
-	<!-- Custom scripts for all pages-->
-	<script src="../admin/js/sb-admin.min.js"></script>
 
 	<!-- Demo scripts for this page-->
 	<script src="../admin/js/demo/daily.js"></script>
+	<script src="../admin/js/demo/datatable.js"></script>
 
 	<script th:inline="javascript">
-	
-	$( document ).ready(function() {
-	    console.log( "ready!" );
-	  
-		$('#weeklychart').hide();
-		$('#monthlychart').hide();
-		$('#weeklytable').hide();
-		$('#monthlytable').hide();
-	
-	});
+		$(document).ready(function() {
+			console.log("ready!");
+		
+			$('#weeklychart').hide();
+			$('#monthlychart').hide();
+			$('#weeklytable').hide();
+			$('#monthlytable').hide();
+			
+			/* daily data (메뉴별) */
+			$.getJSON("dailydata", function(data) {
 
-	  $('#daily').click(function(){
+				console.log(data);
+				var str = "";
+
+				$.each(data, function(i, value) {
+
+					str += "<tr>"
+					str += "<td>" + value.orderdate + "</td>"
+					str += "<td>" + value.mname + "</td>"
+					str += "<td>" + value.quantity + "</td>"
+					str += "<td>" + value.total + "</td>"
+					str += "</tr>"
+
+					$('#dailyTable tbody').html(str);
+				});
+
+			});
+
+		});
+		
+		
+		$('#daily').click(function() {
 			console.log("dailychart clicked")
 			$('#dailychart').show();
 			$('#weeklychart').hide();
 			$('#monthlychart').hide();
-			
+
 			$('#dailytable').show();
 			$('#weeklytable').hide();
 			$('#monthlytable').hide();
-			
-		});
-	
-	$('#weekly').click(function(){
-		console.log("weeklychart clicked")
-		$('#dailychart').hide();
-		$('#weeklychart').show();
-		$('#monthlychart').hide();
-		
-		$('#dailytable').hide();
-		$('#weeklytable').show();
-		$('#monthlytable').hide();
-		
-	});
-	
-	$('#monthly').click(function(){
-		console.log("monthlychart clicked")
-		$('#dailychart').hide();
-		$('#weeklychart').hide();
-		$('#monthlychart').show();
-		
-		$('#dailytable').hide();
-		$('#weeklytable').hide();
-		$('#monthlytable').show();
-		
-	});
-	
 
-	
+		});
+
+		$('#weekly').click(function() {
+			console.log("weeklychart clicked")
+			$('#dailychart').hide();
+			$('#weeklychart').show();
+			$('#monthlychart').hide();
+
+			$('#dailytable').hide();
+			$('#weeklytable').show();
+			$('#monthlytable').hide();
+			
+			/* daily data (메뉴별) */
+			$.getJSON("weeklydata", function(data) {
+				console.log(data);
+				var str = "";
+
+				$.each(data, function(i, value) {
+
+					str += "<tr>"
+					str += "<td>" + value.start +" ~ " + value.end + "</td>"
+					str += "<td>" + value.mname + "</td>"
+					str += "<td>" + value.quantity + "</td>"
+					str += "<td>" + value.total + "</td>"
+					str += "</tr>"
+
+					$('#weeklyTable tbody').html(str);
+				});
+
+			});
+
+		});
+
+		$('#monthly').click(function() {
+			console.log("monthlychart clicked")
+			$('#dailychart').hide();
+			$('#weeklychart').hide();
+			$('#monthlychart').show();
+
+			$('#dailytable').hide();
+			$('#weeklytable').hide();
+			$('#monthlytable').show();
+			
+			/* daily data (메뉴별) */
+			$.getJSON("monthlydata", function(data) {
+
+				console.log(data);
+				var str = "";
+
+				$.each(data, function(i, value) {
+
+					str += "<tr>"
+					str += "<td>" + value.month +"</td>"
+					str += "<td>" + value.mname + "</td>"
+					str += "<td>" + value.quantity + "</td>"
+					str += "<td>" + value.total + "</td>"
+					str += "</tr>"
+
+					$('#monthlyTable tbody').html(str);
+				});
+
+			});
+
+		});
+		
+		
+		
+		
 	</script>
 
 </th:block>
