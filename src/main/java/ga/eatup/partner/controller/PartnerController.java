@@ -201,4 +201,12 @@ public class PartnerController {
 		return "redirect:/partner/superAdmin";
 	}
 	
+	@GetMapping("/notice/partnerRead")
+	public void partnerRead(Model model, NoticePageDTO dto) {
+		log.info("notice partner read page...." + dto.getNno());
+		
+		model.addAttribute("notice",superadminService.noticeRead(dto.getNno()));
+		model.addAttribute("dto", dto);
+	}
+	
 }
