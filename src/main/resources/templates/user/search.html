@@ -47,6 +47,16 @@ border-radius: 50%;
 #custom-search-input .glyphicon-search{
     font-size: 23px;
 }
+
+.section-heading{
+	color: red;
+}
+
+/* body{
+	background-image: url("/main/img/portfolio/04-full.jpg");
+	color: white;
+} */
+
 </style>
 
 <br/><br/>
@@ -94,134 +104,57 @@ border-radius: 50%;
 		
 
 			<br/><br/>
-			<!-- 가게 검색 결과 -->
-				<div class="container">
+<!-- 상점 검색 결과 -->
+<div class="container">
+	<div class="row">
+        <div class="col-md-12">
+
+                <div class="storeResult hidden">
 					<div class="row">
 						<div class="col-lg-12 text-left">
-							<h3 class="section-heading text-uppercase">Stores</h3>
-							<h6 class="section-subheading text-muted">Gorany 가맹점 리스트</h6>
+							<h2 class="section-heading text-uppercase">상점 검색 결과</h2>
+							<hr>
 						</div>
 					</div>
+					
+					<div id="storelist"></div>
+					
+                </div>
 
-					<!-- Project One -->
-					<div class="row">
-						<div class="col-md-7">
-							<a href="/user/store"> <img
-								class="img-fluid rounded mb-3 mb-md-0"
-								src="../main/img/portfolio/cafe3.jpg" alt="">
-							</a>
-						</div>
-						<div class="col-md-5">
-							<h3>고라니카페</h3>
-							<p>24시 커피전문점, 고라니 카페입니다.</p>
-							<a class="btn btn-primary" href="#">#카페</a> <a
-								class="btn btn-danger" href="#">#커피</a> <a
-								class="btn btn-secondary" href="#">#샌드위치</a> <a
-								class="btn btn-info" href="#">#토스트</a>
-						</div>
-					</div>
-					<!-- /.row -->
+        </div>
+	</div>
+</div>
 
-					<hr>
-
-					<!-- Project Two -->
-					<div class="row">
-						<div class="col-md-7">
-							<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0"
-								src="../main/img/portfolio/cafe3.jpg" alt="">
-							</a>
-						</div>
-						<div class="col-md-5">
-							<h3>고라니카페</h3>
-							<p>24시 커피전문점, 고라니 카페입니다.</p>
-							<a class="btn btn-primary" href="#">#카페</a> <a
-								class="btn btn-danger" href="#">#커피</a> <a
-								class="btn btn-secondary" href="#">#샌드위치</a> <a
-								class="btn btn-info" href="#">#토스트</a>
-						</div>
-					</div>
-					<!-- /.row -->
-					<hr>
-				</div>
-				<!-- /.container -->
 			
-			<!-- 메뉴 검색 결과 -->
+			
 			<br/><br/>
-				<div class="container">
+<!-- 메뉴 검색 결과 -->
+<div class="container">
+	<div class="row">
+        <div class="col-md-12">
+
+                <div class="menuResult hidden">
 					<div class="row">
 						<div class="col-lg-12 text-left">
-							<h3 class="section-heading text-uppercase">Menu</h3>
-							<h6 class="section-subheading text-muted">메뉴 리스트</h6>
+							<h2 class="section-heading text-uppercase">메뉴 검색 결과</h2>
+							<hr>
 						</div>
 					</div>
+					
+					<div id="menulist"></div>
+					
+                </div>
 
-					<!-- Project One -->
-					<div class="row">
-						<div class="col-md-7">
-							<a href="/user/store"> <img
-								class="img-fluid rounded mb-3 mb-md-0"
-								src="../main/img/portfolio/cafe3.jpg" alt="">
-							</a>
-						</div>
-						<div class="col-md-5">
-							<h3>고라니카페</h3>
-							<p>24시 커피전문점, 고라니 카페입니다.</p>
-							<a class="btn btn-primary" href="#">#카페</a> <a
-								class="btn btn-danger" href="#">#커피</a> <a
-								class="btn btn-secondary" href="#">#샌드위치</a> <a
-								class="btn btn-info" href="#">#토스트</a>
-						</div>
-					</div>
-					<!-- /.row -->
-
-					<hr>
-
-					<!-- Project Two -->
-					<div class="row">
-						<div class="col-md-7">
-							<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0"
-								src="../main/img/portfolio/cafe3.jpg" alt="">
-							</a>
-						</div>
-						<div class="col-md-5">
-							<h3>고라니카페</h3>
-							<p>24시 커피전문점, 고라니 카페입니다.</p>
-							<a class="btn btn-primary" href="#">#카페</a> <a
-								class="btn btn-danger" href="#">#커피</a> <a
-								class="btn btn-secondary" href="#">#샌드위치</a> <a
-								class="btn btn-info" href="#">#토스트</a>
-						</div>
-					</div>
-					<!-- /.row -->
-					<hr>
-				</div>
-				<!-- /.container -->
+        </div>
+	</div>
+</div>
 
 
 
 
-			<!-- Footer -->
-			<footer>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-4">
-							<span class="copyright">Copyright &copy; Gorany Company
-								Website 2018</span>
-						</div>
-						<div class="col-md-4">
-							<ul class="list-inline social-buttons">
-							</ul>
-						</div>
-						<div class="col-md-4">
-							<ul class="list-inline quicklinks">
-								<li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-								<li class="list-inline-item"><a href="#">Terms of Use</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
-		</div>
+
+
+
 	</div>
 	
 
@@ -263,9 +196,8 @@ $(document).ready(function(){
 			
 		};//end function
 	 	
-			
+
 		searchService.autoComplete(function(result){
-			console.log("auto??");
 			console.log(result);
 			display(result);
 		}); 
@@ -303,27 +235,69 @@ $(document).ready(function(){
 			
 			searchService.searchStore(keyword,function(result){
 				
-				$(".searchResultStore ul").append("---------상점검색결과---------");
 				if(result==""){
 					$(".searchResultStore ul").append("</br>해당되는 상점이 없습니다.");
 				}
+				
+				console.log(result);
+				
 				$.each(result, function (index, item) {
-					$(".searchResultStore ul").append("<li>" + item.sname + "</li>");
-					});
+					storelist(item);
+				});
+				
 			});
 			
 			searchService.searchMenu(keyword,function(result){
 				
-				$(".searchResultMenu ul").append("---------메뉴검색결과---------");
 				if(result==""){
 					$(".searchResultMenu ul").append("</br>해당되는 메뉴가 없습니다.");
 				}
+				
+				console.log(result);
+				
 				$.each(result, function (index, item) {
-					$(".searchResultMenu ul").append("<li>" + item.mname + ", 가격: " + item.mprice + "</li>");
-					});
+					menulist(item);
+				});
+				
 			});
 			
 		}
+		
+		function storelist(data){
+			
+				$(".storeResult").attr("class","storeResult");	
+			
+				var str = "<div class='row'><div class='col-md-7'>"
+						+ "<a href='/user/store'>"
+						+ "<img data-sno="+data.sno+" class='img-fluid rounded mb-3 mb-md-0' src='../main/img/portfolio/cafe3.jpg'>"
+						+ "</a></div><div class='col-md-5'>"
+						+ "<h4 id='sname'>"+data.sname+"</h4>"
+						+ "<p id='saddress'>"+data.saddress+"</p>"
+						+ "<a class='btn btn-primary' style='color: white; margin: 2px;'>#카페</a>"
+						+ "<a class='btn btn-danger' style='color: white; margin: 2px;'>#커피</a>"
+						+ "<a class='btn btn-secondary' style='color: white; margin: 2px;'>#샌드위치</a>"
+						+ "<a class='btn btn-info' style='color: white; margin: 2px;'>#토스트</a></div></div><hr>";
+				
+				$("#storelist").append(str);
+		}
+		
+		function menulist(data){
+			
+			$(".menuResult").attr("class","menuResult");	
+		
+			var str = "<div class='row'><div class='col-md-7'>"
+					+ "<a href='/user/store'>"
+					+ "<img data-sno="+data.sno+" class='img-fluid rounded mb-3 mb-md-0' src='/imgs/cafe6.jpg'>"
+					+ "</a></div><div class='col-md-5'>"
+					+ "<h4 id='sname'>"+data.mname+"</h4>"
+					+ "<p id='saddress'>"+data.introduction+"</p>"
+					+ "<a class='btn btn-primary' style='color: white; margin: 2px;'>#카페</a>"
+					+ "<a class='btn btn-danger' style='color: white; margin: 2px;'>#커피</a>"
+					+ "<a class='btn btn-secondary' style='color: white; margin: 2px;'>#샌드위치</a>"
+					+ "<a class='btn btn-info' style='color: white; margin: 2px;'>#토스트</a></div></div><hr>";
+			
+			$("#menulist").append(str);
+	}
 
 	 	
 
