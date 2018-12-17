@@ -38,12 +38,24 @@
 
 
 
-<div th:each="n : ${tidlist}" th:id="block+${n}" th:class="block" >
+ 
+
+
+<div th:each="n : ${tidlist}" th:id="${n}" th:class="block" >
+<h3>메뉴번호 &nbsp 수량</h3>
 
 <div th:each="vo : ${result}">
-<table> <td>[[${vo.tid}]] / </td>  <td> [[${vo.mno}]] / </td>  <td> [[${vo.quantity}]]</td> </table>
+<div th:if="${n} == ${vo.tid}" >
+
+<table>
+<td> [[${vo.mno}]]  &nbsp&nbsp&nbsp </td>   <td> [[${vo.quantity}]]</td> </table>
+
 </div>
 </div>
+</div>
+
+
+
 
 
 	<style>
