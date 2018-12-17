@@ -48,10 +48,6 @@ border-radius: 50%;
     font-size: 23px;
 }
 
-.section-heading{
-	color: red;
-}
-
 /* body{
 	background-image: url("/main/img/portfolio/04-full.jpg");
 	color: white;
@@ -90,20 +86,20 @@ border-radius: 50%;
 <br/>
 <div class="container">
 	<div class="row">
-                <div class="input-group">
+                <div class="input-group quickSearch">
 						<div class="col-md-12">
 							<h3>빠른검색</h3>
 							<a class="btn btn-primary" href="#">#카페</a> <a
 								class="btn btn-danger" href="#">#커피</a> <a
 								class="btn btn-secondary" href="#">#샌드위치</a> <a
-								class="btn btn-info" href="#">#토스트</a>
+								class="btn btn-info" href="#">#도시락</a>
 						</div>
                 </div>
 	</div>
 </div>
 		
 
-			<br/><br/>
+
 <!-- 상점 검색 결과 -->
 <div class="container">
 	<div class="row">
@@ -125,7 +121,7 @@ border-radius: 50%;
 	</div>
 </div>
 
-			
+
 			
 			<br/><br/>
 <!-- 메뉴 검색 결과 -->
@@ -223,10 +219,12 @@ $(document).ready(function(){
 		//검색하기
 		function search(){
 			
+			$(".quickSearch").attr("class","input-group quickSearch hidden");
+			
 			var keyword = $("#tags").val();
 			
-			$(".searchResultStore ul").empty();
-			$(".searchResultMenu ul").empty();
+			$("#storelist").html("");
+			$("#menulist").html("");
 			
 			if(keyword===""){
 				$(".searchResultStore ul").append("검색어를 입력해주세요");
