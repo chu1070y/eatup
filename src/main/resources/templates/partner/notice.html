@@ -8,7 +8,12 @@
 a {
 	color: blue;
 }
+
+#content-wrapper {
+	background-image: url("/agency/img/header-bg.jpg");
+}
 </style>
+	
 
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item active">공지사항</li>
@@ -145,7 +150,7 @@ a {
 				var nno = $(this).attr("href");
 				
 				actionform.append("<input type='hidden' id='nno' name='nno' value='"+ nno +"'>");
-				actionform.attr("action","/partner/notice/read").attr("method","get").submit();
+				actionform.attr("action","/partner/notice/partnerRead").attr("method","get").submit();
 			});
 
 		});

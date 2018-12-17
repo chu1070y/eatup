@@ -67,35 +67,39 @@ public class KakaoLoginController {
 			  service.setDefaultkey(snsId);
 			  //defaultKey에 넣어준 1값을 password 파라미터로 전달 
 			  upw = service.getUser(uid).getDefaultkey();
-			  redirectPage = "/user/login/customLoginTemp?username=" + uid + "&password=" + upw;
+			  redirectPage = "/user/login/customLoginTemp?username=" + uid + "&pas =" + upw;
 			  
 			  // 파라미터 전달은 1로 준 이후에 DB 내 defaultKey는 암호화 업데이트
 			  String defaultKey = encoder.encode(upw);
 			  vo.setDefaultkey(defaultKey);
 			  service.encodeDefaultkey(vo);
-			  // defaultKey 암호화 후 곧바로 redirect
-			  response.sendRedirect(redirectPage);
+
 			  break;
-		  }
+			  
+		  } else { 
 		  
 		  // sns_id와 맵핑된 유저 데이터가 DB에 없을 시 회원가입 페이지로 이동 
+
 		  // flashmap에데이터 전달 
 		  fm.put("nickname", nickname);
 		  fm.put("email", email);
+		  fm.put("snsId", snsId);
+		  log.info("map: " + fm);
+
 		  redirectPage = "/user/welcome";
 		  //이 코드 때문에 몇시간을 날렸는지... FlashMap에 파라미터로 이동하는URL, request, response를 주어야 함.
           RequestContextUtils.saveOutputFlashMap(redirectPage, request, response);
-
+		  }
 	  }//end for
 	  
-	  log.info("map: " + fm);
 	  log.info("redirect page: " + redirectPage);
 	  // /user/welcome 즉 회원가입 페이지로 리다이렉트. UserController에서 FlashMap 받아서 다시 html로 뿌려주어야 함. 
 	  response.sendRedirect(redirectPage);
-
+	  	  
 	  //사실상 이 return은 의미없... html에서는 작동 안하는 듯... redirect 기능은 모두 response.sendRedirect로 시킴. 
 	  return "redirect:" + redirectPage;
 	}
+	
 	
 	@RequestMapping(value = "/naverlogin", produces = "application/json", method = { RequestMethod.GET,
 			RequestMethod.POST })

@@ -26,7 +26,7 @@ border-radius: 50%;
 					aria-label="Button group with nested dropdown">
 
 					<button type=button class='btn btn-light' id="get-mylocation">
-						 					<td th:text="${location != null} ? ${location} : ''"></td>
+					<table><tr><td th:text="${location != null} ? ${location} : ''"></td></tr></table>
 
 					</button>
 
@@ -35,8 +35,8 @@ border-radius: 50%;
 							class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false"></button>
 						<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-							<a class="dropdown-item" href="#">내 위치로 찾기</a> <a
-								class="dropdown-item" href="https://eatup.ga/map">지도로 찾기</a>
+							<a class="dropdown-item" href="#">내 위치로 찾기</a> 
+							<a class="dropdown-item" href="http://localhost:8080/user/map">지도로 찾기</a>
 						</div>
 					</div>
 				</div>
@@ -330,12 +330,21 @@ border-radius: 50%;
 
 	
 	$(document).ready(function(){
+		
+		//csrf처리
+		var csrfHearderName = [[${_csrf.headerName}]];
+		var csrfTokenValue = [[${_csrf.token}]];
+		
+		$(document).ajaxSend(function(e,xhr,options){
+			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+		});
 
 		// 내위치 주소변환(Geolocation)
 		var mylocation = "";
 		
 		 $("#get-mylocation").show( function(e) {
 		        /* HTML5 Geolocation */
+		        console.log("location을 찾습니다.")
 		        navigator.geolocation.getCurrentPosition(
 		            function( position ){ // success cb
 		 
@@ -366,16 +375,9 @@ border-radius: 50%;
 		            }
 		        );
 		        
-		        
 		    });
 		
-		//csrf처리
-  		var csrfHearderName = [[${_csrf.headerName}]];
-		var csrfTokenValue = [[${_csrf.token}]];
-		
-		$(document).ajaxSend(function(e,xhr,options){
-			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
-		}); 
+
 		 
 		//검색창 자동완성
 		function display(data){

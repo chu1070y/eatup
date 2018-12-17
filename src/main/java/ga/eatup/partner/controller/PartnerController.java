@@ -71,11 +71,6 @@ public class PartnerController {
 		service.registerAuth(vo);
 	}
 	
-	@PostMapping("/usercreate")
-	public void usercreate() {
-		log.info("유저 계정생성 완료....");
-	}
-	
 	@GetMapping("/index")
 	public void index(Model model, OrderVO order) {
 		log.info("index......................page");
@@ -199,6 +194,14 @@ public class PartnerController {
 		redirect.addFlashAttribute("result", result);
 		
 		return "redirect:/partner/superAdmin";
+	}
+	
+	@GetMapping("/notice/partnerRead")
+	public void partnerRead(Model model, NoticePageDTO dto) {
+		log.info("notice partner read page...." + dto.getNno());
+		
+		model.addAttribute("notice",superadminService.noticeRead(dto.getNno()));
+		model.addAttribute("dto", dto);
 	}
 	
 }
