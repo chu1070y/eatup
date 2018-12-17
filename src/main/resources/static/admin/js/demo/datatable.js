@@ -161,3 +161,10 @@ function changeMonth(){
 	var d_month = $("#dailyTable_month option:selected").val(); 
 	console.log(d_month);
 }
+
+function wchangeMonth(){
+	var w_month = $("#weeklyTable_month option:selected").val(); 
+	console.log(w_month);
+	
+}
+
