@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.service.LoginService;
 import ga.eatup.user.service.MenuService;
@@ -39,6 +42,9 @@ public class UserController {
 	public void speech() {
 		log.info("speech.......");
 	}
+	
+	@Autowired
+	PasswordEncoder encoder;
 	
 	@GetMapping("/login/customLoginTemp")
 	public void temptemp(@RequestParam String username, @RequestParam String password, Model model) {
@@ -73,29 +79,24 @@ public class UserController {
         else {
             response.sendRedirect("/user/home");		
         }
-//        
-//        //이건 카카오 구현할 때 쓸 것. 아직 하지 않음. 카카오에서 정보 가져와서 특정 칸에 넣어주는 건 해야함. 흑. 
-//        if (Uid == null) {
-//        	response.sendRedirect("/user/welcome/");
-//        }
-        
-        /*
-        if 같지 않으면 다시 돌리기. 
-        같으면 home으로 redirect 시키기. 
-        */
-                
-        //session으로 계정 데이터 계속해서 물고 가야함.(아직 구현 X)
-              
-        //원래는 모든 페이지에서 로그인이 가능해야하고 로그인 후 그 페이지로 돌려줘야겠지만
-        //일단은 홈에서 하는 경우만 생각하고 만듦. 
-//        response.sendRedirect("/user/home");		
 	}
-	
 	
 	@GetMapping("/login/customLogin")
 	public void login() {
 		
 		
+	}
+	
+	@PostMapping("/usercreate")
+	public void usercreate(UserVO vo) {
+		log.info("유저 계정생성 완료....");
+		log.info("유저 회원가입 정보: " + vo);
+		
+		String enPw = encoder.encode(vo.getUpw());
+		vo.setUpw(enPw);		
+		
+		loginService.registerUser(vo);
+		loginService.registerAuth(vo);
 	}
 	
 	@RequestMapping(value = "/welcome",
@@ -106,11 +107,14 @@ public class UserController {
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(req);
 		log.info("inputFlashMap: " + inputFlashMap);
 		
+		
 		//받은 정보를 UserVO 인스턴스 vo에 담아서 welcome.html(회원가입 페이지)로 전달. 
 		UserVO vo = new UserVO();
+		vo.setSns_id("0");
 		if (inputFlashMap != null) {
 			vo.setNickname((String) inputFlashMap.get("nickname"));
 			vo.setEmail((String) inputFlashMap.get("email"));
+			vo.setSns_id((String) inputFlashMap.get("snsId"));
 			log.info("UserVO: " + vo);
 		}
 		model.addAttribute("vo", vo);
