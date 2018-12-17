@@ -1,3 +1,5 @@
+// -------- select data ------------ //
+
 //daily
 
 function changeType() {
@@ -153,3 +155,9 @@ function mchangeType(){
 	
 }
 
+// -------- select month ------------ //
+
+function changeMonth(){
+	var d_month = $("#dailyTable_month option:selected").val(); 
+	console.log(d_month);
+}
