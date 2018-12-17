@@ -60,6 +60,9 @@ border-radius: 50%;
 				<div class="btn-group" role="group"
 					aria-label="Button group with nested dropdown">
 					
+					<!--csrf.token을 불러오지 못하는 문제가 있어서, 일단 여기서 한번 호출해두는 것 (스크립트에서 이 값을 빼서 쓰진 않음)-->
+					<input type = "hidden" id="token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+					
 					<div th:if="${location == null}">
 						<button type=button class='btn btn-light'  id="get-mylocation">
 						</button>
@@ -348,13 +351,13 @@ border-radius: 50%;
 		<script type="text/javascript"
 			src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCOjYqPJ97sckNjih-R8q07zMO9e8R-VJU&ver=3.exp"></script>
 
+	
 
 <script th:inline="javascript">
 
 	
 $(document).ready(function(){
 		
-
 		//csrf처리
 		var csrfHearderName = [[${_csrf.headerName}]];
 		var csrfTokenValue =  [[${_csrf.token}]];
