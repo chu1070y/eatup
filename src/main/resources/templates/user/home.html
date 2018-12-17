@@ -314,7 +314,7 @@ border-radius: 50%;
 			</footer>
 		</div>
 	</div>
-
+	
 	<!-- Portfolio Modals -->
 
 	<!-- end content -->
@@ -326,15 +326,16 @@ border-radius: 50%;
 			src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCOjYqPJ97sckNjih-R8q07zMO9e8R-VJU&ver=3.exp"></script>
 
 
-	<script th:inline="javascript">
+<script th:inline="javascript">
 
 	
-	$(document).ready(function(){
+$(document).ready(function(){
 		
+
 		//csrf처리
 		var csrfHearderName = [[${_csrf.headerName}]];
-		var csrfTokenValue = [[${_csrf.token}]];
-		
+		var csrfTokenValue =  [[${_csrf.token}]];
+
 		$(document).ajaxSend(function(e,xhr,options){
 			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
 		});
