@@ -19,7 +19,7 @@
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item">메뉴<a
 			href="/partner/menu?sno=${partner.sno}"></a></li>
-		<li class="breadcrumb-item active">메뉴보기</li>
+		<li th:text="${partner[0].sname}" class="breadcrumb-item active">메뉴보기</li>
 	</ol>
 
 	<div class="row">
@@ -61,9 +61,8 @@
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-	
-	$(document).ready(function(){
-		
-	});
+		$(document).ready(function() {
+
+		});
 	</script>
 </th:block>
