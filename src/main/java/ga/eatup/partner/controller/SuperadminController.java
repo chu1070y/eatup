@@ -88,7 +88,7 @@ public class SuperadminController {
 	@GetMapping("/menuadd/{sname}/{mname}")
 	@ResponseBody
 	public ResponseEntity<MenuVO> searchSno(@PathVariable("sname") String sname, @PathVariable("mname") String mname){
-		log.info("searchSno get.....");
+		log.info("searchSno get....." + service.searchSno(sname,mname));
 		
 		if(!(service.searchSno(sname,mname)==null)) {
 			menuVO = service.searchSno(sname,mname);
