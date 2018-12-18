@@ -4,31 +4,30 @@
 var dao = (function (map){
 
     var map = map;
-    var arr = [
-        {title:'고기팩토리',lat:37.569820, lng: 126.986001},
-        {title:'갓덴스시',lat:37.569081,lng:126.985591},
-        {title:'코다차야',lat:37.569949,lng:126.985049},
-        {title:'롯데리아',lat:37.569857,lng:126.984923},
-        {title:'초밥의신부타',lat:37.569440,lng:126.987367},
-        {title:'청진식당',lat:37.570515,lng:126.985710},
-        {title:'에머이',lat:37.570031,lng:126.984601},
-        {title:'쿠킨스테이크',lat:37.569934,lng:126.985787},
-        {title:'서브웨이',lat:37.570325,lng:126.985932},
-        {title:'미스터시래기',lat:37.573029,lng:126.985420},
-        {title: '종로설렁탕', lat:37.570130,lng:126.989828},
-        {title: '휘황', lat:37.570198,lng:126.990204},
-        {title: '미다래', lat:37.570836,lng:126.991599},
-        {title: '한일식당', lat:37.570028,lng:126.991159},
-        {title: '시민식당', lat:37.570921,lng:126.990375},
-        {title: '새마을식당', lat:37.569935,lng:126.988884},
-        {title: '종로돈까스', lat:37.570611,lng:126.990032},
-        {title: '뚜레쥬르', lat:37.567057, lng:126.992175},
-        {title: '고라니샌드위치', lat:37.566874,lng:126.992797},
-        {title: '고라니카페', lat:37.567571,lng:126.992792},
-        {title: '고라니도시락', lat:37.567405,lng:126.99336},
-        {title: '고라니쥬스', lat:37.566890, lng:126.993377}
-    ];
-
+    var arr = new Array();
+	
+	//가게 리스트 불러오기
+//	getStore();
+    
+	function getStore(callback,error){
+		console.log("getStore...............");
+		
+		$.getJSON("/storeList", function(data){
+            
+			var storeList = new Array();;
+			
+			$.each(data, function(i, item){
+				arr[i] = {title: item.sname, lat: item.lat, lng:item.lng};
+			}); //end for
+			
+			if(callback){
+				callback(data);
+			}
+			
+		});//end getJson
+	};//end getStore
+		
+	
     //마커 지우는 역할
     function clearMarkers(){
         for(var store of arr){
@@ -43,7 +42,6 @@ var dao = (function (map){
         for(var obj of origin){
             result.push(obj);
         }
-        console.log("가게 리스트: " + result);
         return result;
     }
 
@@ -93,6 +91,7 @@ var dao = (function (map){
     //외부에 노출시켜야 하는 것들을 return (흠)
     //return 시 키:값, 키:값,
     return {
+    	getStore:getStore,
         getList:getList,
         showMarker:showMarker,
         findNNStore:findNNStore

@@ -8,7 +8,7 @@ import lombok.Data;
 public class MenuVO {
 
 	private int sno, mno;
-	private String mname, mcat, fname;
+	private String mname, mcat, fname, sname;
 	private int mprice;
 	private Date regdate;
 	private Date updatedate;
@@ -25,5 +25,7 @@ public class MenuVO {
 	private int count;
 	
 	private boolean image = false;
+	
+	private StoreVO storeVO;
 	
 }

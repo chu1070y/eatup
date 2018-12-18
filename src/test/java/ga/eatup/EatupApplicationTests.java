@@ -16,6 +16,7 @@ import ga.eatup.partner.mapper.SuperadminMapper;
 import ga.eatup.partner.service.EmailServiceImpl;
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.mapper.MenuMapper;
+import ga.eatup.user.mapper.StoreMapper;
 import ga.eatup.user.mapper.UserMapper;
 import lombok.Cleanup;
 import lombok.Setter;
@@ -45,8 +46,20 @@ public class EatupApplicationTests {
 	@Setter(onMethod_=@Autowired)
 	private SuperadminMapper superadminMapper;
 	
+	
 	@Setter(onMethod_=@Autowired)
 	private EmailServiceImpl emailService;
+	
+	@Setter(onMethod_=@Autowired)
+	private StoreMapper storeMapper;
+	
+	@Test
+	public void getStore() {
+		
+		log.info("store 정보를 가져옵니다.");
+		log.info("" + storeMapper.getStore());
+	}
+	
 	
 	@Test
 	public void contextLoads() {

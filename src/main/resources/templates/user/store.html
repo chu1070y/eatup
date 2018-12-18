@@ -6,6 +6,16 @@
 
 <div layout:fragment="content">
 <style>
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.menuContent {
+	item-align: center;
+	text-align: center;
+}
+
 .col-lg-9 {
 	text-align: center;
 }
@@ -27,13 +37,29 @@
 .checked {
 	color: orange;
 }
+
+.FixedLayoutBottom {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+}
+
+.css_layout_Bottom {
+	text-align: center;
+	background-color: yellow;
+	color: black;
+	height: 100px;
+	line-height: 100px;
+}
 </style>
 
 
 	<!-- content -->
 
-	<div class="col-lg-9">
-		<h1>고라니카페</h1>
+
+
+	<div class="menuContent col-lg-9">
+		<h1 th:text="${menu[0].sname}"></h1>
 		<div id="carouselExampleIndicators" class="carousel slide my-4"
 			data-ride="carousel">
 			<ol class="carousel-indicators">
@@ -45,15 +71,15 @@
 			<div class="carousel-inner" role="listbox">
 				<div class="carousel-item active">
 					<img class="d-block img-fluid" src="../imgs/cafe1.jpg"
-						width="750px" alt="First slide">
+						width="750px" height="auto" alt="First slide">
 				</div>
 				<div class="carousel-item">
 					<img class="d-block img-fluid" src="../imgs/cafe2.jpg"
-						width="750px" alt="Second slide">
+						width="750px" height="auto" alt="Second slide">
 				</div>
 				<div class="carousel-item">
 					<img class="d-block img-fluid" src="../imgs/cafe5.jpg"
-						width="750px" alt="Third slide">
+						width="750px" height="auto" alt="Third slide">
 				</div>
 			</div>
 			<a class="carousel-control-prev" href="#carouselExampleIndicators"
@@ -86,8 +112,9 @@
 				<div class="card h-100">
 					<img class="card-img-top" src="../imgs/cafe4.jpeg" alt="">
 					<div class="card-body">
-						<h4 class="card-title">[[${menu.mname}]]</h4>
-						<h5>[[${menu.mprice}]]</h5>
+						<h4 th:text="${menu.mname}" class="card-title"></h4>
+						<h5 th:text="${menu.mprice}"></h5>
+						<h5 th:text="${menu.introduction}"></h5>
 						<p class="card-text"></p>
 					</div>
 					<div class="card-footer">
@@ -109,9 +136,13 @@
 	<div class="container">
 		<div class="wrapper">
 			<div class="facet f1">
-				<button class="cartBtn" onclick="location.href='/user/cart'">장바구니</button>
+				<button
+				
+					id="cartBtn" class="cartBtn">장바구니</button>
 			</div>
 		</div>
+
+
 
 
 	</div>
@@ -153,10 +184,48 @@
 
 		<!-- end content -->
 	</div>
-	</div>
 
-	<th:block layout:fragment="script">
-		<script th:inline="javascript">
+	<div class="FixedLayoutBottom css_layout_Bottom"
+		th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">장바구니</div>
+</div>
+
+
+
+
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+$(document).ready(
+	function() {
+	// 스크롤 위치를 퍼센트로 나타내기
+		$(window).scroll(function() {
+			scrollPercent = (
+				$(window).scrollTop() / (
+						$(document).height() - $(window).height())) * 100;
+				});
+
+			$(window).scroll(function() {
+			// Change this to target a different percentage
+			var targetPercentage = 70;
+			//Change this to the ID of the content you are trying to show.
+			var targetID = "#container-fluid";
+			//Window Math
+			var scrollTo = $(window).scrollTop(), docHeight = $(document).height(), windowHeight = $(window).height();
+			scrollPercent = (scrollTo / (docHeight - windowHeight)) * 100;
+			//스크롤 표시
+			$('#percentageCounter h1').text(scrollPercent+ "%");
+			//네비바 보이기
+			if (scrollPercent > targetPercentage) {
+				$(targetID).css({
+					top : '0'
+				});
+			} else {
+				$(targetID).css(
+				{
+					top : '-'+ $(targetID).height+ 'px'});
+				}
+			}).trigger('scroll');
 			
-		</script>
-	</th:block>
+});
+	</script>
+</th:block>

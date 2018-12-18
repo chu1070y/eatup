@@ -136,9 +136,15 @@
 	</div>
 
 	<form id='actionForm'></form>
-
+	
+	<script src="../main/vendor/jquery/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<!--dao 갖고오기-->
+	<script src="../js/store.js"></script>
+	
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dc56ff6a9fc8065d98b43e87a79e20a4&libraries=services"></script>
+	
 	<script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
@@ -158,10 +164,6 @@
 	
 </script>
 
-	<!--dao 갖고오기-->
-	<script src="../js/store.js"></script>
-	<script src="../main/vendor/jquery/jquery.min.js"></script>
-
 	<script>
 $(document).ready(function(){
 	
@@ -173,20 +175,22 @@ $(document).ready(function(){
 		console.log(map.getCenter());
 	   	
 		searchInput.val("");
+		
+
 	});
 	
 	
-	//키워드 검색 완료 시 호출되는 콜백함수 입니다
+	//키워드 검색 완료 시 호출되는 콜백함수
 	function placesSearchCB (data, status, pagination) {
 	    if (status === daum.maps.services.Status.OK) {
 		     
-	        // LatLngBounds 객체에 좌표를 추가합니다
+	        // LatLngBounds 객체에 좌표 추가
 	        var bounds = new daum.maps.LatLngBounds();
 			
 	        for (var i=0; i<data.length; i++) {
 	            bounds.extend(new daum.maps.LatLng(data[i].y, data[i].x));
 	        }       
-	        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+	        // 검색된 장소 위치를 기준으로 지도 범위 재설정
 	        map.setBounds(bounds);
 	
 	    	//생성되어있는 마커 지우기 + 마커 담은 배열 초기화시키기
@@ -227,7 +231,7 @@ $(document).ready(function(){
 		    tracker.style.display = visible ? 'block' : 'none';
 		}
 	   
-		// trakcer 엘리먼트
+		// trakcer 엘리먼트 (맵 이동 시 중심에 뜨는 것)
 		var tracker = document.createElement('div');
 		tracker.className = 'tracker';
 	
@@ -247,7 +251,7 @@ $(document).ready(function(){
 		tracker.style.top = center.y + 'px';
 		tracker.style.left = center.x + 'px';
 	   
-	   	// 일단 안 보이도록. 
+	   	// 중심 좌표 아이콘은 기본적으로 안 보이되, 맵 이동시에만 뜨도록 해야함. 고로 false 값 부여. 
 		setVisible(false);
 	   
 		var marker;
@@ -313,38 +317,44 @@ $(document).ready(function(){
 		var nnstore;
 		
 		//초기 마커 불러오기 위한 함수
-		function markerVisable(){	 
+		function markerVisable(){
+			
+			console.log("------------------------------")
+			dao.getStore(callbackNN);
+			console.log(dao);
+			
 		 	// 지도 중심좌표를 얻어옵니다
 			latlng = map.getCenter();
 		   	
-		 	//자바스크립트 객체 만들기.가까운 곳 찾는 것
-			nnstore = dao.findNNStore({lat:latlng.jb, lng:latlng.ib});
-		
-			for(var i = 0; i < 10; i++) {
-				marker = new daum.maps.Marker({
-				position: new daum.maps.LatLng(nnstore[i].lat, nnstore[i].lng),
-				clickable: true
-				});
-				iwPosition = new daum.maps.LatLng(nnstore[i].lat, nnstore[i].lng);
-				iwContent = '<div style="padding:5px;">' + nnstore[i].title + '<br><a href="http://map.daum.net/link/to/' + nnstore[i].title + ',' + nnstore[i].lat + ',' + nnstore[i].lng + '" style="color:blue" target="_blank">길찾기</a></div>';
-			   	
-			   	// 인포윈도우를 생성하고 지도에 표시
-			   	infowindow = new daum.maps.InfoWindow({
-			   	    position : iwPosition, 
-			   	    content : iwContent,
-			   	    removable : iwRemoveable
-			  	});
-			  	
-				marker.setMap(map);
-				markers.push(marker);
+		 	function callbackNN(data){
+		 	
+		 		//자바스크립트 객체 만들기.가까운 곳 찾는 것
+				nnstore = dao.findNNStore({lat:latlng.jb, lng:latlng.ib});
 			
-				daum.maps.event.addListener(marker, 'click', makeClickListener(map, markers[i], infowindow));
-				setVisible(false);
-			}; //for end    
+				for(var i = 0; i < 10; i++) {
+					marker = new daum.maps.Marker({
+					position: new daum.maps.LatLng(nnstore[i].lat, nnstore[i].lng),
+					clickable: true
+					});
+					iwPosition = new daum.maps.LatLng(nnstore[i].lat, nnstore[i].lng);
+					iwContent = '<div style="padding:5px;">' + nnstore[i].title + '<br><a href="http://map.daum.net/link/to/' + nnstore[i].title + ',' + nnstore[i].lat + ',' + nnstore[i].lng + '" style="color:blue" target="_blank">길찾기</a></div>';
+				   	
+				   	// 인포윈도우를 생성하고 지도에 표시
+				   	infowindow = new daum.maps.InfoWindow({
+				   	    position : iwPosition, 
+				   	    content : iwContent,
+				   	    removable : iwRemoveable
+				  	});
+				  	
+					marker.setMap(map);
+					markers.push(marker);
+				
+					daum.maps.event.addListener(marker, 'click', makeClickListener(map, markers[i], infowindow));
+					setVisible(false);
+				}; //for end
+		 	}
+		 	    
 		};
-		
-		
-		
 		
 		
 		// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
