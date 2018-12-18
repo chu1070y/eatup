@@ -1,3 +1,4 @@
+console.log("chart module.....")
 /* -------------------- daily chart ------------------------*/
 
 var margin = {top: 40, right: 80, bottom: 60, left: 100},

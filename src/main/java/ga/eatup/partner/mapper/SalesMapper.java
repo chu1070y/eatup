@@ -2,6 +2,8 @@ package ga.eatup.partner.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import ga.eatup.partner.domain.SalesVO;
 
 public interface SalesMapper {
@@ -12,13 +14,13 @@ public interface SalesMapper {
 	
 	public List<SalesVO> getMonthlySales();
 	
-	public List<SalesVO> getDailytableData();
+	public List<SalesVO> getDailytableData(@Param("month")int month);
 	
-	public List<SalesVO> getDailytableData_date();
+	public List<SalesVO> getDailytableData_date(@Param("month")int month);
 	
-	public List<SalesVO> getWeeklytableData();
+	public List<SalesVO> getWeeklytableData(@Param("month")int month);
 	
-	public List<SalesVO> getWeeklytableData_date();
+	public List<SalesVO> getWeeklytableData_date(@Param("month")int month);
 	
 	public List<SalesVO> getMonthlytableData();
 	

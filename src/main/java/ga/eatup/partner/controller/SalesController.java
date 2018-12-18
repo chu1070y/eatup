@@ -6,6 +6,8 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,39 +64,59 @@ public class SalesController {
 		return gson.toJson(list);
 	}
 	
-	@RequestMapping(value = "dailydata", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public @ResponseBody String dailydata(Locale locale, Model model) {
-		
-		Gson gson = new Gson();
-		List<SalesVO> list = service.getDailytableData();
-		
-		return gson.toJson(list);
+	@GetMapping(value = "dailydata/menu/{month}", produces="application/json")
+	public ResponseEntity<List<SalesVO>> getdailydata(@PathVariable("month") int month){
+		return new ResponseEntity<>(service.getDailytableData(month),HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "dailydata/date/{month}", produces="application/json")
+	public ResponseEntity<List<SalesVO>> getdailydata_date(@PathVariable("month") int month){
+		return new ResponseEntity<>(service.getDailytableData_date(month),HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "weeklydata/menu/{month}", produces="application/json")
+	public ResponseEntity<List<SalesVO>> getweeklydata(@PathVariable("month") int month){
+		return new ResponseEntity<>(service.getWeeklytableData(month),HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "weeklydata/date/{month}", produces="application/json")
+	public ResponseEntity<List<SalesVO>> getweeklydata_date(@PathVariable("month") int month){
+		return new ResponseEntity<>(service.getWeeklytableData_date(month),HttpStatus.OK);
+	}
+	
+	
+//	@RequestMapping(value = "dailydata", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+//	public @ResponseBody String dailydata(Locale locale, Model model) {
+//		
+//		Gson gson = new Gson();
+//		List<SalesVO> list = service.getDailytableData();
+//		
+//		return gson.toJson(list);
+//	}	
 
-	@RequestMapping(value = "dailydata_date", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public @ResponseBody String dailydata_date(Locale locale, Model model) {
-		Gson gson = new Gson();
-		List<SalesVO> list = service.getDailytableData_date();
-		
-		return gson.toJson(list);
-	}
-	
-	@RequestMapping(value = "weeklydata", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public @ResponseBody String weeklydata(Locale locale, Model model) {
-		Gson gson = new Gson();
-		List<SalesVO> list = service.getWeeklytableData();
-		
-		return gson.toJson(list);
-	}
-	
-	@RequestMapping(value = "weeklydata_date", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public @ResponseBody String weeklydata_date(Locale locale, Model model) {
-		Gson gson = new Gson();
-		List<SalesVO> list = service.getWeeklytableData_date();
-		
-		return gson.toJson(list);
-	}
+//	@RequestMapping(value = "dailydata_date", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+//	public @ResponseBody String dailydata_date(Locale locale, Model model) {
+//		Gson gson = new Gson();
+//		List<SalesVO> list = service.getDailytableData_date();
+//		
+//		return gson.toJson(list);
+//	}
+//	
+//	@RequestMapping(value = "weeklydata", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+//	public @ResponseBody String weeklydata(Locale locale, Model model) {
+//		Gson gson = new Gson();
+//		List<SalesVO> list = service.getWeeklytableData();
+//		
+//		return gson.toJson(list);
+//	}
+//	
+//	@RequestMapping(value = "weeklydata_date", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+//	public @ResponseBody String weeklydata_date(Locale locale, Model model) {
+//		Gson gson = new Gson();
+//		List<SalesVO> list = service.getWeeklytableData_date();
+//		
+//		return gson.toJson(list);
+//	}
 	
 	@RequestMapping(value = "monthlydata", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String monthlydata(Locale locale, Model model) {

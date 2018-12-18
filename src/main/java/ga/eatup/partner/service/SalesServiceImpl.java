@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import ga.eatup.partner.domain.SalesVO;
 import ga.eatup.partner.mapper.SalesMapper;
 import lombok.Setter;
+import lombok.extern.java.Log;
 
 @Service
+@Log
 public class SalesServiceImpl implements SalesService {
 
 	@Setter(onMethod_=@Autowired)
@@ -36,30 +38,30 @@ public class SalesServiceImpl implements SalesService {
 
 
 	@Override
-	public List<SalesVO> getDailytableData() {
-		
-		return mapper.getDailytableData();
+	public List<SalesVO> getDailytableData(int month) {
+		log.info(month + " daily data menu.ver load..");
+		return mapper.getDailytableData(month);
 	}
 
 
 	@Override
-	public List<SalesVO> getDailytableData_date() {
-		
-		return mapper.getDailytableData_date();
+	public List<SalesVO> getDailytableData_date(int month) {
+		log.info(month + " daily data date.ver load..");
+		return mapper.getDailytableData_date(month);
 	}
 
 
 	@Override
-	public List<SalesVO> getWeeklytableData() {
-		 
-		return mapper.getWeeklytableData();
+	public List<SalesVO> getWeeklytableData(int month) {
+		log.info(month + " weekly data menu.ver load..");
+		return mapper.getWeeklytableData(month);
 	}
 
 
 	@Override
-	public List<SalesVO> getWeeklytableData_date() {
-		
-		return mapper.getWeeklytableData_date();
+	public List<SalesVO> getWeeklytableData_date(int month) {
+		log.info(month + " weekly data date.ver load..");
+		return mapper.getWeeklytableData_date(month);
 	}
 
 

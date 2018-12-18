@@ -53,14 +53,14 @@
 	
 	<select id="getDailytableData" resultType="ga.eatup.partner.domain.SalesVO">
 	
-	select DATE(approved_at) orderdate, mname, sum(quantity) quantity, (mprice*sum(quantity)) total
+	select DATE(approved_at) orderdate, MONTH(`approved_at`) month, mname, sum(quantity) quantity, (mprice*sum(quantity)) total
 	from gorany.partner_store_menu menu join 
 	(select approved_at, sno, mno, quantity
 	from gorany.order od join gorany.order_info info
 	on od.tid = info.tid) allorder
 	on menu.mno = allorder.mno
 	where allorder.sno = 1
-	and MONTH(`approved_at`) = 11
+	and MONTH(`approved_at`) = #{month}
 	group by orderdate, mname;
 	</select>
 	
@@ -72,7 +72,7 @@
 	on od.tid = info.tid) allorder
 	on menu.mno = allorder.mno
 	where allorder.sno = 1
-	and MONTH(`approved_at`) = 11
+	and MONTH(`approved_at`) = #{month}
 	group by orderdate;
 	
 	</select>
@@ -90,7 +90,7 @@
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
 	where sno = 1
-	and MONTH(`approved_at`) = 11
+	and MONTH(`approved_at`) = #{month}
 	group by week,mname
 	order by start;
 	</select>
@@ -108,7 +108,7 @@
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
 	where sno = 1
-	and MONTH(`approved_at`) = 11
+	and MONTH(`approved_at`) = #{month}
 	group by week
 	order by start;
 	
