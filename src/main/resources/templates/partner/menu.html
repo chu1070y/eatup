@@ -6,7 +6,7 @@
 
 	<style>
 #content-wrapper {
-	background-image: url("/agency/img/header-bg.jpg");
+/* 	background-image: url("/agency/img/header-bg.jpg"); */
 }
 
 .col-centered {
@@ -18,22 +18,24 @@
 	<!-- <h1 th:text="${partner.sno}"></h1> -->
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item">메뉴<a
-			href="/partner/menu?sno=${partner.sno}"></a></li>
-		<li th:text="${partner[0].sname}" class="breadcrumb-item active">메뉴보기</li>
+			href="/partner/menu?sno=${menu.sno}"></a></li>
+		<li th:text="${menu[0].sname}" class="breadcrumb-item active"></li>
 	</ol>
 
 	<div class="row">
 
 		<!-- 메뉴목록 -->
 
-		<div th:each="partner : ${partner}" class="col-xl-3 col-sm-6 mb-3"
+		<div th:each="menu : ${menu}" class="col-xl-3 col-sm-6 mb-3"
 			id="menubox">
 			<div class="card o-hidden h-100">
 				<div class="card-body">
-					<div th:text="${partner.fname}" align="center"></div>
-					<div th:text="${partner.mname}" align="center"></div>
-					<div th:text="${partner.mprice}" align="center"></div>
-					<div th:text="${partner.introduction}" align="center"></div>
+				
+					<img th:src="@{${'/upload/display?fileName='+ menu.upload_path +'\'+menu.uuid+'_'+menu.fname}}">
+					<div th:text="${menu.fname}" align="center"></div>
+					<div th:text="${menu.mname}" align="center"></div>
+					<div th:text="${menu.mprice}" align="center"></div>
+					<div th:text="${menu.introduction}" align="center"></div>
 					</br>
 
 					<div class="row">
@@ -52,7 +54,9 @@
 				<button id="soldout" type="button" class="btn btn-danger">품절</button>
 			</div>
 		</div>
-
+		
+		<div class=uploadResult><ul></ul></div>
+		
 
 
 	</div>
@@ -62,6 +66,40 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		$(document).ready(function() {
+			
+
+			//첨부파일 보여주기
+			(function(){
+				
+				var sno = [[${menu[0].sno}]];
+				
+				$.getJSON("/partner/readMenuImg",{sno:sno},function(arr){
+					console.log(arr);
+					
+					var str = "";
+					
+					$(arr).each(function(i,upload){
+						
+						var fileCallPath = encodeURIComponent(upload.upload_path+"/s_"+upload.uuid+"_"+upload.fname);
+						
+						console.log(""+upload.upload_path);
+						
+						str += "<li data-path='"+upload.upload_path+"' data-uuid='"+upload.uuid+"' data-filename='"+upload.fname+"'>";
+						str += "<div>";
+						str += "<span>" + upload.fname + "</span><br/>";
+						str += "<img src='/upload/display?fileName="+fileCallPath+"'>";
+						str += "</div>";
+						str += "</li>";
+						
+
+					});
+					
+					$(".uploadResult ul").append(str);
+					
+					
+				});// end getjson
+				
+			})();//end function
 
 		});
 	</script>

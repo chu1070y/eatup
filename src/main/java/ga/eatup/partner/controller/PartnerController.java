@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,9 +16,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ga.eatup.partner.domain.NoticePageDTO;
+import ga.eatup.partner.domain.NoticeUploadVO;
 import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.partner.domain.OrderVO;
 import ga.eatup.partner.domain.PartnerVO;
@@ -106,10 +111,16 @@ public class PartnerController {
 		log.info("menu......................page");
 		
 		List<MenuVO> list = menuservice.getMenu(sno);
-		model.addAttribute("partner", list);
+		model.addAttribute("menu", list);
 		
 		log.info("메뉴 : " + list);
+	}
+	
+	@GetMapping(value="/readMenuImg", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<MenuVO>> readMenuImg(int sno){
 		
+		return new ResponseEntity<>(menuservice.readMenuImg(sno),HttpStatus.OK);
 	}
 	
 	
