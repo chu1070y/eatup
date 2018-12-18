@@ -14,4 +14,8 @@ public interface SearchMapper {
 	public List<String> getMenuName();
 	
 	public List<String> getStoreName();
+	
+	public List<MenuVO> searchMenuWithSno(int sno);
+	
+	public StoreVO searchStoreWithSno(int sno);
 }
