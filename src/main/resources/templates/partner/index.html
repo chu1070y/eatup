@@ -265,14 +265,48 @@ $("#go").click(function(){
 
     var number= 2;
     
+    
+    /* console.log("------------------------------------------------------")
     console.log([[${tidlist[0]}]]);
+    
+    var tempMsg1 =[[${tidlist[0]}]].id;
+   console.log(tempMsg1);
+   
+     var ssss = tempMsg1.split("d",2);
+     console.log(ssss[1]);
+     console.log("------------------------------------------------------")
+     */
 
+/* 
 $(".block").eq(number).animate({"bottom":"1000px"});
-$(".block").slice(number).animate({"left": "-=420px"});
+$(".block").slice(number).animate({"left": "-=420px"}); */
+
+/* var num2=56;
+var elem2 = document.getElementById('tid'+num2);
+console.log("getelementbyid" + elem); */
+
+
+var num = 58;
+var elem = document.getElementById('tid'+num);
+/* var od = 'tid'+num */
+/* var tid = elem.id */
+ 
+
+/* console.log(od) */
+
+var aa = [[${tidlist}]].indexOf(elem)//[[${tidlist}]].findIndex(k => k==elem);
+
+/* console.log("티아이디 리스트" + [[${tidlist}]])
+console.log(aa);
+console.log("indexof" + [[${tidlist}]].indexOf(elem)); */
+
+
+ $(elem).animate({"bottom":"1000px"}); 
+$(".block").slice(aa).animate({"left": "-=420px"});
 	
 	
-	
-	
+/* console.log("이것....?"+$(".block").attr('id')); */
+
 	
 	
 	/* $(".block:eq(0)").animate({"bottom": "+=1000px"},{
@@ -462,18 +496,33 @@ $(document).ready(function () {
 	}
  	
  	//음성 인식 후 주문 날리기
- 	function checkOrder(number){
+ 	function checkOrder(number){ 
+ 		
+	
  		
  		console.log(" 여기는 체크오더이고,," + number);
  		
- 		var menuNumber = number - 1;
  		
- 		console.log("일본이면 어쩔꺼야" + menuNumber);
  		
- 		if( menuNumber.toString() !== 'NaN'){
- 		$(".block").eq(menuNumber).animate({"bottom":"1000px"},"slow");
- 		$(".block").slice(number).animate({"left": "-=420px"}); 
- 		}
+ 		var elem = document.getElementById('tid'+number); 
+ 		var tid = 'tid'+number
+ 		var index = [[${tidlist}]].indexOf(tid);
+ 		console.log(elem + "   " + index)
+ 		
+ 		
+ 		
+ 		if( number.toString() !== 'NaN'){
+ 			
+ 			
+ 		$(elem).animate({"bottom":"1000px"}); 
+ 		$(".block").slice(index).animate({"left": "-=420px"});
+ 		
+ 		
+ 		
+ 		
+ 
+ 		
+ 		}	
  		
  	}
 
