@@ -48,10 +48,15 @@ border-radius: 50%;
     font-size: 23px;
 }
 
-/* body{
-	background-image: url("/main/img/portfolio/04-full.jpg");
-	color: white;
-} */
+.largeBtn{
+  display: block;
+  width: 100%;
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
 
 </style>
 
@@ -78,12 +83,12 @@ border-radius: 50%;
 <div class="container">
 	<div class="row">
                 <div class="input-group quickSearch">
-						<div class="col-md-12">
+						<div class="col-md-12 ">
 							<h3>빠른검색</h3>
-							<a class="btn btn-primary" href="#">#카페</a> <a
-								class="btn btn-danger" href="#">#커피</a> <a
-								class="btn btn-secondary" href="#">#샌드위치</a> <a
-								class="btn btn-info" href="#">#도시락</a>
+							<a class="btn btn-primary quickSearch1" href="#">#카페</a> <a
+								class="btn btn-danger quickSearch1" href="#">#커피</a> <a
+								class="btn btn-secondary quickSearch1" href="#">#샌드위치</a> <a
+								class="btn btn-info quickSearch1" href="#">#도시락</a>
 						</div>
                 </div>
 	</div>
@@ -105,15 +110,13 @@ border-radius: 50%;
 					</div>
 					<div id="storenone"><h4></h4></div>
 					<div id="storelist"></div>
-					
+					<a class="btn btn-primary largeBtn text-uppercase" id="storeMore" href="#">더보기</a>
                 </div>
 
         </div>
 	</div>
 </div>
-
-
-			
+		
 			<br/><br/>
 <!-- 메뉴 검색 결과 -->
 <div class="container">
@@ -129,7 +132,7 @@ border-radius: 50%;
 					</div>
 					<div id="storenone"><h4></h4></div>
 					<div id="menulist"></div>
-					
+					<a class="btn btn-primary largeBtn text-uppercase" id="menuMore" href="#">더보기</a>
                 </div>
 
         </div>
@@ -157,6 +160,8 @@ border-radius: 50%;
 	
 $(document).ready(function(){
 		
+		var storeSearchList;
+		var menuSearchList;
 
 		//csrf처리
 		var csrfHearderName = [[${_csrf.headerName}]];
@@ -165,7 +170,7 @@ $(document).ready(function(){
 		$(document).ajaxSend(function(e,xhr,options){
 			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
 		});
-		 
+		
 		//검색창 자동완성
 		function display(data){
 			$( "#tags" ).autocomplete({
@@ -187,11 +192,11 @@ $(document).ready(function(){
 		searchService.autoComplete(function(result){
 			console.log(result);
 			display(result);
-		}); 
+		});
 		
 		//엔터 이벤트
 		$("#tags").keydown(function(event){
-			
+		
 			if(event.keyCode == 13){
 				console.log("엔터");
 				event.preventDefault();
@@ -208,11 +213,19 @@ $(document).ready(function(){
 		});
 		
 		//검색하기
-		function search(){
+		function search(data){
+			
+			showList.index = 0;
 			
 			$(".quickSearch").attr("class","input-group quickSearch hidden");
 			
 			var keyword = $("#tags").val();
+			
+			if(!(data==undefined)){
+				keyword = data;
+			}
+			
+			console.log(keyword);
 			
 			$("#storelist").html("");
 			$("#menulist").html("");
@@ -230,11 +243,11 @@ $(document).ready(function(){
 					$("#storenone h4").html("검색조건에 해당되는 결과가 없습니다.");
 				}
 				
-				console.log(result);
+				storeSearchList = result;
 				
-				$.each(result, function (index, item) {
-					storelist(item);
-				});
+				console.log(storeSearchList);
+				
+				showList.showStoreList(storeSearchList);
 				
 			});
 			
@@ -246,16 +259,44 @@ $(document).ready(function(){
 					$("#menunone h4").html("검색조건에 해당되는 결과가 없습니다.");
 				}
 				
-				console.log(result);
+				menuSearchList = result;
 				
-				$.each(result, function (index, item) {
-					menulist(item);
-				});
+				console.log(menuSearchList);
+				
+				showList.showMenuList(menuSearchList);
 				
 			});
 			
+			
 		}
 		
+		//검색 결과 3개씩 화면에 출력
+		var showList={
+				index:0,
+				showStoreList: function(data){
+					for (var i = this.index ; i < this.index + 3 ; i++){
+						storelist(data[i]);
+						if(data.length==(i+1)){
+							$("#storeMore").attr("class","hidden");
+							return;
+						}//end if
+					}//end for
+					this.index += 3;
+				},
+				showMenuList: function(data){
+					for (var i = this.index ; i < this.index + 3 ; i++){
+						menulist(data[i]);
+						if(data.length==(i+1)){
+							$("#menuMore").attr("class","hidden");
+							return;
+						}//end if
+					}//end for
+					this.index += 3;
+				}				
+		}
+		
+
+		//검색 결과 화면에 출력
 		function storelist(data){
 			
 				var str = "<div class='row'><div class='col-md-7'>"
@@ -288,9 +329,28 @@ $(document).ready(function(){
 			$("#menulist").append(str);
 		}
 		
+		$(".quickSearch1").on("click",function(e){
+			e.preventDefault();
+			var keyword = $(this).html().substring(1);
+			search(keyword);
+		});
 		
-	 	
+		
+		$("#storeMore").on("click",function(e){
+			e.preventDefault();
+			console.log("click.... more");
+			showList.showStoreList(storeSearchList);
+		});
+		
+		$("#menuMore").on("click",function(e){
+			e.preventDefault();
+			console.log("click.... more");
+			showList.showMenuList(menuSearchList);
+		});
 
+		
+		
+		
 	});
 	
 
