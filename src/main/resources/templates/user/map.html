@@ -34,6 +34,7 @@
 
 #centerAddr {
 	font-weight: bold;
+	color: rgb(50, 50, 50);
 	display: block;
 	margin-top: 2px;
 }
@@ -69,6 +70,7 @@
 	left: 6px;
 	bottom: 0;
 	width: 25vh;
+	height: 9.5vh;
 	margin: 10px 0 30px 10px;
 	padding: 8px;
 	overflow-y: auto;
@@ -83,24 +85,26 @@
 	background: #fff;
 }
 
-#menu_wrap hr {
-	display: block;
-	height: 1px;
-	border: 0;
-	border-top: 2px solid #5F5F5F;
-	margin: 3px 0;
-}
-
 #menu_wrap .option {
 	text-align: center;
 }
 
-#menu_wrap .option p {
-	margin: 10px 0;
+#keyword {
+	height: 3.5vh;
 }
 
 #menu_wrap .option button {
-	margin-left: 5px;
+	margin-top: 7px;
+	height: 3vh;
+	width: 21.5vh;
+	font-size: 13px;
+	background-color: #555555 ;
+	border: 1px solid gray;
+	color: white;
+	font-weight: bold;
+	display: inline-block;
+	text-align: center;
+	
 }
 </style>
 
@@ -116,15 +120,10 @@
 		<div id="menu_wrap" class="bg_white">
 			<div class="option">
 				<div>
-					<form onsubmit="searchPlaces(); return false;">
-						<div><input type="text" id="keyword" size="28" placeholder="주소, 건물명, 역명 등을 입력하세요"></div>
-						<div><button type="submit">검색하기</button></div>
-					</form>
+					<div><input type="text" id="keyword" size="28" placeholder="주소, 건물명, 역명 등을 입력하세요"></div>
+					<div><button type="submit">검색하기</button></div>
 				</div>
 			</div>
-			<hr>
-			<ul id="placesList"></ul>
-			<div id="pagination"></div>
 		</div>
 		<div>
 			<input type="text" class="search" value=""
