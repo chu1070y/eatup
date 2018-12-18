@@ -108,7 +108,7 @@
 				<div class="row">
 						<div class="col-sm-12 col-md-6">
 							<div class="dataTables_length" id="dataTable_length">
-								<label>주간 매출  <select id="weeklyTable_type"
+								<label>주간 매출 메뉴별/일자별 <select id="weeklyTable_type"
 									aria-controls="dataTable"
 									class="custom-select custom-select-sm form-control form-control-sm">
 										<option value="type">선택하기</option>
@@ -166,7 +166,7 @@
 				<div class="row">
 						<div class="col-sm-12 col-md-6">
 							<div class="dataTables_length" id="dataTable_length">
-								<label>월간 매출 <select id="monthlyTable_type"
+								<label>월간 매출 메뉴별/일자별 <select id="monthlyTable_type"
 									aria-controls="dataTable"
 									class="custom-select custom-select-sm form-control form-control-sm">
 										<option value="type">선택하기</option>
@@ -217,12 +217,11 @@
 <th:block layout:fragment="script">
 
 	<script src="https://d3js.org/d3.v3.min.js"></script>
-	<script
-		src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+	<script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
 
 	<!-- Demo scripts for this page-->
-	<script src="../admin/js/demo/daily.js"></script>
+	<script src="../admin/js/demo/chartdata.js"></script>
 	<script src="../admin/js/demo/datatable.js"></script>
 
 	<script th:inline="javascript">

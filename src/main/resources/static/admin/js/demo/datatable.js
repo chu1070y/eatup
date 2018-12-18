@@ -19,7 +19,11 @@ $("#dailyTable_type").on('change',function(){
 
 				str += "<tr>"
 				str += "<td>" + value.orderdate + "</td>"
-				str += "<td>" + value.mname + "</td>"
+				if(dvalue == "date"){
+					str += "<td>" + value.mname + " 외 </td>"
+					}else {
+						str += "<td>" + value.mname + "</td>"
+					}
 				str += "<td>" + value.quantity + "</td>"
 				str += "<td>" + value.total + "</td>"
 				str += "</tr>"
@@ -50,7 +54,11 @@ $("#dailyTable_month").on('change',function(){
 
 				str += "<tr>"
 				str += "<td>" + value.orderdate + "</td>"
-				str += "<td>" + value.mname + "</td>"
+				if(dvalue == "date"){
+					str += "<td>" + value.mname + " 외 </td>"
+					}else {
+						str += "<td>" + value.mname + "</td>"
+					}
 				str += "<td>" + value.quantity + "</td>"
 				str += "<td>" + value.total + "</td>"
 				str += "</tr>"
@@ -81,7 +89,11 @@ $("#weeklyTable_type").on('change',function(){
 
 				str += "<tr>"
 				str += "<td>" + value.start +" ~ " + value.end + "</td>"
-				str += "<td>" + value.mname + "</td>"
+				if(wvalue == "date"){
+					str += "<td>" + value.mname + " 외 </td>"
+					}else {
+						str += "<td>" + value.mname + "</td>"
+					}
 				str += "<td>" + value.quantity + "</td>"
 				str += "<td>" + value.total + "</td>"
 				str += "</tr>"
@@ -110,7 +122,11 @@ $("#weeklyTable_month").on('change',function(){
 
 				str += "<tr>"
 				str += "<td>" + value.start +" ~ " + value.end + "</td>"
-				str += "<td>" + value.mname + "</td>"
+				if(wvalue == "date"){
+				str += "<td>" + value.mname + " 외 </td>"
+				}else {
+					str += "<td>" + value.mname + "</td>"
+				}
 				str += "<td>" + value.quantity + "</td>"
 				str += "<td>" + value.total + "</td>"
 				str += "</tr>"
@@ -137,7 +153,11 @@ $("#monthlyTable_type").on('change',function(){
 
 			str += "<tr>"
 			str += "<td>" + value.month + "</td>"
-			str += "<td>" + value.mname + "</td>"
+			if(mvalue == "date"){
+				str += "<td>" + value.mname + " 외 </td>"
+				}else {
+					str += "<td>" + value.mname + "</td>"
+				}
 			str += "<td>" + value.quantity + "</td>"
 			str += "<td>" + value.total + "</td>"
 			str += "</tr>"
