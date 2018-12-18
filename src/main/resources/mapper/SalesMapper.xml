@@ -14,6 +14,7 @@
 		on info.mno = menu.mno) allorder
 		on gorany.order.tid = allorder.tid
 		where allorder.sno = 1
+		and YEAR(`approved_at`) = YEAR(curdate())
 		and MONTH(`approved_at`) = MONTH(curdate())
 		group by orderdate
 		order by orderdate
@@ -60,6 +61,7 @@
 	on od.tid = info.tid) allorder
 	on menu.mno = allorder.mno
 	where allorder.sno = 1
+	and YEAR(`approved_at`) = YEAR(curdate())
 	and MONTH(`approved_at`) = #{month}
 	group by orderdate, mname;
 	</select>
@@ -72,6 +74,7 @@
 	on od.tid = info.tid) allorder
 	on menu.mno = allorder.mno
 	where allorder.sno = 1
+	and YEAR(`approved_at`) = YEAR(curdate())
 	and MONTH(`approved_at`) = #{month}
 	group by orderdate;
 	
@@ -90,6 +93,7 @@
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
 	where sno = 1
+	and YEAR(`approved_at`) = YEAR(curdate())
 	and MONTH(`approved_at`) = #{month}
 	group by week,mname
 	order by start;
@@ -108,6 +112,7 @@
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
 	where sno = 1
+	and YEAR(`approved_at`) = YEAR(curdate())
 	and MONTH(`approved_at`) = #{month}
 	group by week
 	order by start;

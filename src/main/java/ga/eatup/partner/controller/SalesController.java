@@ -3,8 +3,6 @@ package ga.eatup.partner.controller;
 import java.util.List;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +27,6 @@ import lombok.extern.java.Log;
 @Log
 public class SalesController {
 
-	private static final Logger logger = LoggerFactory.getLogger(SalesController.class);
-
 	@Setter(onMethod_=@Autowired)
 	private SalesService service;
 	
@@ -39,14 +35,7 @@ public class SalesController {
 		log.info("sales page....");
 		return "/partner/sales";
 	}
-
-//	@GetMapping(value = "dailyList/{month}", produces="application/json")
-//	public ResponseEntity<List<SalesVO>> getdailyList(@PathVariable("month") int month){
-//		return new ResponseEntity<>(service.getDailySales(month),HttpStatus.OK);
-//	}
-//	
-//	
-//		
+	
 	@RequestMapping(value = "salesList", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String dailyList(Locale locale, Model model) {
 		Gson gson = new Gson();
