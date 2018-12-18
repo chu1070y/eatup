@@ -118,7 +118,7 @@ public class SalesController {
 //		return gson.toJson(list);
 //	}
 	
-	@RequestMapping(value = "monthlydata", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@RequestMapping(value = "monthlydata/menu", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String monthlydata(Locale locale, Model model) {
 		Gson gson = new Gson();
 		List<SalesVO> list = service.getMonthlytableData();
@@ -126,7 +126,7 @@ public class SalesController {
 		return gson.toJson(list);
 	}
 	
-	@RequestMapping(value = "monthlydata_date", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@RequestMapping(value = "monthlydata/date", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String monthlydata_date(Locale locale, Model model) {
 		Gson gson = new Gson();
 		List<SalesVO> list = service.getMonthlytableData_date();
