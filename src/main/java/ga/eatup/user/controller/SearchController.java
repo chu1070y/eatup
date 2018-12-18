@@ -44,7 +44,6 @@ public class SearchController {
 	@ResponseBody
 	public ResponseEntity<List<MenuVO>> searchMenu(@PathVariable("keyword") String keyword){
 		log.info("searchMenu post.....");
-		log.info(""+service.searchMenu(keyword));
 		
 		return new ResponseEntity<>(service.searchMenu(keyword),HttpStatus.OK);
 	}
@@ -54,7 +53,6 @@ public class SearchController {
 	public ResponseEntity<List<StoreVO>> searchStore(@PathVariable("keyword") String keyword){
 		log.info("searchStore post.....");
 
-		log.info(""+service.searchStore(keyword));
 		
 		return new ResponseEntity<>(service.searchStore(keyword),HttpStatus.OK);
 	}

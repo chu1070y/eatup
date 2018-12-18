@@ -42,15 +42,29 @@ public class SearchServiceImpl implements SearchService{
 
 	@Override
 	public List<MenuVO> searchMenu(String keyword) {
-		// TODO Auto-generated method stub
-		return mapper.searchMenu(keyword);
+		
+		List<MenuVO> result = mapper.searchMenu(keyword);
+		
+		result.forEach(vo ->{
+			int sno = vo.getSno();
+			vo.setStoreVO(mapper.searchStoreWithSno(sno));
+		});
+		
+		return result;
 	}
 
 
 	@Override
 	public List<StoreVO> searchStore(String keyword) {
 		
-		return mapper.searchStore(keyword);
+		List<StoreVO> result = mapper.searchStore(keyword);
+		
+		result.forEach(vo ->{
+			int sno = vo.getSno();
+			vo.setMenuList(mapper.searchMenuWithSno(sno));
+		});
+		
+		return result;
 	}
 
 }

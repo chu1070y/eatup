@@ -1,6 +1,8 @@
 package ga.eatup.user.domain;
 
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -11,4 +13,6 @@ public class StoreVO {
 	private String qr_uuid, qu_fname;
 	private double lat, lng;
 	private Date regdate;
+	
+	private List<MenuVO> menuList;
 }

@@ -5,6 +5,14 @@
 
 <mapper namespace="ga.eatup.user.mapper.SearchMapper">
 
+	<select id="searchStoreWithSno" resultType="ga.eatup.user.domain.StoreVO">
+		select * from partner_store where sno = #{sno}
+	</select>
+
+	<select id="searchMenuWithSno" resultType="ga.eatup.user.domain.MenuVO">
+		select * from partner_store_menu where sno = #{sno}
+	</select>
+
 	<select id="searchMenu" resultType="ga.eatup.user.domain.MenuVO">
 		select
 		*
