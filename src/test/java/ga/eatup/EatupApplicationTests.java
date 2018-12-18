@@ -15,7 +15,7 @@ import ga.eatup.partner.mapper.PartnerMapper;
 import ga.eatup.partner.mapper.SuperadminMapper;
 import ga.eatup.partner.service.EmailServiceImpl;
 import ga.eatup.user.domain.UserVO;
-import ga.eatup.user.mapper.MenuMapper;
+import ga.eatup.user.mapper.UserMenuMapper;
 import ga.eatup.user.mapper.StoreMapper;
 import ga.eatup.user.mapper.UserMapper;
 import lombok.Cleanup;
@@ -35,7 +35,7 @@ public class EatupApplicationTests {
 	private DataSource ds;
 	
 	@Setter(onMethod_=@Autowired)
-	private MenuMapper menuMapper;
+	private UserMenuMapper menuMapper;
 	
 	@Setter(onMethod_=@Autowired)
 	private PartnerMapper partnerMapper;

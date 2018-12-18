@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,18 +13,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ga.eatup.partner.domain.MenuVO;
 import ga.eatup.partner.domain.NoticePageDTO;
 import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.partner.domain.OrderVO;
 import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.mapper.OrderMapper;
+import ga.eatup.partner.mapper.PartnerMenuMapper;
+import ga.eatup.partner.service.PartnerMenuService;
 import ga.eatup.partner.service.PartnerService;
-import ga.eatup.user.domain.MenuVO;
-import ga.eatup.user.mapper.MenuMapper;
-import ga.eatup.user.service.MenuService;
 import ga.eatup.partner.service.SuperadminService;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -45,11 +45,11 @@ public class PartnerController {
 	
 	//menu service
 	@Setter(onMethod_=@Autowired)
-	private MenuService menuservice;
+	private PartnerMenuService menuservice;
 	
 	//menu mapper
 	@Setter(onMethod_=@Autowired)
-	private MenuMapper menumapper;
+	private PartnerMenuMapper menumapper;
 	
 	@Autowired
 	PasswordEncoder encoder;
@@ -102,8 +102,12 @@ public class PartnerController {
 	}
 	
 	@GetMapping("/menu")
-	public void menu(@ModelAttribute("sno") int sno, Model model) {
+	public void menu(Authentication authentication, Model model) {
 		log.info("menu......................page");
+		
+		//로그인 정보 끌어오는 것. pid로 sno를 뽑아서 sno에 해당하는 menu를 전달 
+		String pid = authentication.getName();
+		int sno = menuservice.getSno(pid);
 		
 		List<MenuVO> list = menuservice.getMenu(sno);
 		model.addAttribute("partner", list);
@@ -152,6 +156,7 @@ public class PartnerController {
 	public void customLogin() {
 		log.info("custom login.........");
 	}
+
 	
 	@GetMapping("/notice/register")
 	public void noticeRegister() {
