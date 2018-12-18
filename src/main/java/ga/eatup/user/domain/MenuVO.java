@@ -26,4 +26,6 @@ public class MenuVO {
 	
 	private boolean image = false;
 	
+	private StoreVO storeVO;
+	
 }
