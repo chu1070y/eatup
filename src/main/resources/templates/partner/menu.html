@@ -17,23 +17,22 @@
 
 	<!-- <h1 th:text="${partner.sno}"></h1> -->
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item">메뉴<a
-			href="/partner/menu?sno=${partner.sno}"></a></li>
-		<li th:text="${partner[0].sname}" class="breadcrumb-item active">메뉴보기</li>
-	</ol>
+		<li class="breadcrumb-item">메뉴</li>
+ 		<li th:text="${menu[0].sname}" class="breadcrumb-item active">메뉴보기</li>
+ 	</ol>
 
 	<div class="row">
 
 		<!-- 메뉴목록 -->
 
-		<div th:each="partner : ${partner}" class="col-xl-3 col-sm-6 mb-3"
+		<div th:each="menu : ${menu}" class="col-xl-3 col-sm-6 mb-3"
 			id="menubox">
 			<div class="card o-hidden h-100">
 				<div class="card-body">
-					<div th:text="${partner.fname}" align="center"></div>
-					<div th:text="${partner.mname}" align="center"></div>
-					<div th:text="${partner.mprice}" align="center"></div>
-					<div th:text="${partner.introduction}" align="center"></div>
+					<div th:text="${menu.fname}" align="center"></div>
+					<div th:text="${menu.mname}" align="center"></div>
+					<div th:text="${menu.mprice}" align="center"></div>
+					<div th:text="${menu.introduction}" align="center"></div>
 					</br>
 
 					<div class="row">

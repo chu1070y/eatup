@@ -4,6 +4,8 @@ import java.util.List;
 
 import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.mapper.PartnerMapper;
+import ga.eatup.user.domain.MenuVO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +41,6 @@ public class PartnerServiceImpl implements PartnerService {
 
 		return mapper.registerAuth(vo);
 	}
+
 
 }

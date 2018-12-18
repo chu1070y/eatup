@@ -58,6 +58,30 @@ border-radius: 50%;
   text-align: center;
 }
 
+.searchResult{
+	padding: 10px;
+}
+
+.searchResult:hover { 
+	background-color: silver;
+}
+
+a{
+	color: black;
+}
+
+a:hover{
+	color: black;
+}
+
+.heading{
+	text-align: center;
+	background-color: gray;
+	padding: 10px;
+	margin: 10px;
+	color: white;
+}
+
 </style>
 
 <br/><br/>
@@ -103,10 +127,10 @@ border-radius: 50%;
 
                 <div class="storeResult hidden">
 					<div class="row">
-						<div class="col-lg-12 text-left">
+						<div class="col-lg-12 text-left heading">
 							<h2 class="section-heading text-uppercase">상점 검색 결과</h2>
-							<hr>
 						</div>
+						<hr>
 					</div>
 					<div id="storenone"><h4></h4></div>
 					<div id="storelist"></div>
@@ -125,10 +149,10 @@ border-radius: 50%;
 
                 <div class="menuResult hidden">
 					<div class="row">
-						<div class="col-lg-12 text-left">
+						<div class="col-lg-12 text-left heading">
 							<h2 class="section-heading text-uppercase">메뉴 검색 결과</h2>
-							<hr>
 						</div>
+						<hr>
 					</div>
 					<div id="storenone"><h4></h4></div>
 					<div id="menulist"></div>
@@ -139,10 +163,7 @@ border-radius: 50%;
 	</div>
 </div>
 
-
-
-
-
+<form id="actionform"></form>
 
 
 	</div>
@@ -245,8 +266,6 @@ $(document).ready(function(){
 				
 				storeSearchList = result;
 				
-				console.log(storeSearchList);
-				
 				showList.showStoreList(storeSearchList);
 				
 			});
@@ -261,8 +280,6 @@ $(document).ready(function(){
 				
 				menuSearchList = result;
 				
-				console.log(menuSearchList);
-				
 				showList.showMenuList(menuSearchList);
 				
 			});
@@ -276,11 +293,13 @@ $(document).ready(function(){
 				showStoreList: function(data){
 					for (var i = this.index ; i < this.index + 3 ; i++){
 						storelist(data[i]);
+						
 						if(data.length==(i+1)){
 							$("#storeMore").attr("class","hidden");
 							return;
 						}//end if
 					}//end for
+					
 					this.index += 3;
 				},
 				showMenuList: function(data){
@@ -292,41 +311,44 @@ $(document).ready(function(){
 						}//end if
 					}//end for
 					this.index += 3;
-				}				
+				}
 		}
 		
 
 		//검색 결과 화면에 출력
 		function storelist(data){
+
+			var str = "<div class='row searchResult'>"
+					+ "<div class='col-md-7'><a href='/user/store?sno="+data.sno+"'>"
+					+ "<img class='img-fluid rounded mb-3 mb-md-0' src='../main/img/portfolio/cafe3.jpg'>"
+					+ "</div><div class='col-md-5 data'>"
+					+ "<h4 id='sname'>"+data.sname+"</h4>"
+					+ "<p id='saddress'>"+data.saddress+"</p>" 
+					+ "<a class='btn btn-primary' style='color: white; margin: 2px;'>#"+data.b_field+"</a>"
+					+ "<a class='btn btn-danger' style='color: white; margin: 2px;'>#"+data.menuList[0].mname+"</a>"
+					+ "<a class='btn btn-secondary' style='color: white; margin: 2px;'>#"+data.menuList[0].mprice+"</a>"
+					+ "<a class='btn btn-info' style='color: white; margin: 2px;'>#맛집</a></a></div></div><hr>";
+
+			$("#storelist").append(str);
 			
-				var str = "<div class='row'><div class='col-md-7'>"
-						+ "<a href='/user/store'>"
-						+ "<img data-sno="+data.sno+" class='img-fluid rounded mb-3 mb-md-0' src='../main/img/portfolio/cafe3.jpg'>"
-						+ "</a></div><div class='col-md-5'>"
-						+ "<h4 id='sname'>"+data.sname+"</h4>"
-						+ "<p id='saddress'>"+data.saddress+"</p>" 
-						+ "<a class='btn btn-primary' style='color: white; margin: 2px;'>#"+data.b_field+"</a>"
-						+ "<a class='btn btn-danger' style='color: white; margin: 2px;'>#"+data.menuList[0].mname+"</a>"
-						+ "<a class='btn btn-secondary' style='color: white; margin: 2px;'>#"+data.menuList[0].mprice+"</a>"
-						+ "<a class='btn btn-info' style='color: white; margin: 2px;'>#맛집</a></div></div><hr>";
 				
-				$("#storelist").append(str);
 		}
 		
 		function menulist(data){
 		
-			var str = "<div class='row'><div class='col-md-7'>"
-					+ "<a href='/user/store'>"
-					+ "<img data-sno="+data.sno+" class='img-fluid rounded mb-3 mb-md-0' src='/imgs/cafe6.jpg'>"
-					+ "</a></div><div class='col-md-5'>"
+			var str = "<div class='row searchResult'><div class='col-md-7'>"
+					+ "<a href='/user/store?sno="+data.sno+"'>"
+					+ "<img class='img-fluid rounded mb-3 mb-md-0' src='/imgs/cafe6.jpg'>"
+					+ "</div><div class='col-md-5'>"
 					+ "<h4 id='sname'>"+data.mname+"</h4>"
 					+ "<p id='saddress'>"+data.introduction+"</p>"
 					+ "<a class='btn btn-primary' style='color: white; margin: 2px;'>#"+data.mcat+"</a>"
 					+ "<a class='btn btn-danger' style='color: white; margin: 2px;'>#"+data.mprice+"</a>"
 					+ "<a class='btn btn-secondary' style='color: white; margin: 2px;'>#"+data.storeVO.saddress.split(' ')[1]+"</a>"
-					+ "<a class='btn btn-info' style='color: white; margin: 2px;'>#"+data.storeVO.sname+"</a></div></div><hr>";
+					+ "<a class='btn btn-info' style='color: white; margin: 2px;'>#"+data.storeVO.sname+"</a></a></div></div><hr>";
 			
 			$("#menulist").append(str);
+			
 		}
 		
 		$(".quickSearch1").on("click",function(e){
@@ -338,17 +360,14 @@ $(document).ready(function(){
 		
 		$("#storeMore").on("click",function(e){
 			e.preventDefault();
-			console.log("click.... more");
 			showList.showStoreList(storeSearchList);
 		});
 		
 		$("#menuMore").on("click",function(e){
 			e.preventDefault();
-			console.log("click.... more");
 			showList.showMenuList(menuSearchList);
 		});
 
-		
 		
 		
 	});

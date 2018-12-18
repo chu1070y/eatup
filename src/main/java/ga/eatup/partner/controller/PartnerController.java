@@ -107,10 +107,12 @@ public class PartnerController {
 		
 		//로그인 정보 끌어오는 것. pid로 sno를 뽑아서 sno에 해당하는 menu를 전달 
 		String pid = authentication.getName();
+		log.info("pid: " + pid);
 		int sno = menuservice.getSno(pid);
+		log.info("sno: " + sno);
 		
 		List<MenuVO> list = menuservice.getMenu(sno);
-		model.addAttribute("partner", list);
+		model.addAttribute("menu", list);
 		
 		log.info("메뉴 : " + list);
 		
