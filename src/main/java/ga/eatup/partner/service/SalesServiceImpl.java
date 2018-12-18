@@ -19,7 +19,7 @@ public class SalesServiceImpl implements SalesService {
 	
 	@Override
 	public List<SalesVO> getDailySales() {
-		
+		log.info("daily chart load..");
 		return mapper.getDailySales();
 	}
 	

@@ -40,6 +40,7 @@ var svg = d3.select("#dailychart").append("svg")
 svg.call(tip);
 
 //json 데이터 가져오기
+
 d3.json("salesList", function(error, data) {
 	  x.domain(data.map(function(d) {
 	    return d.orderdate
@@ -92,7 +93,6 @@ d3.json("salesList", function(error, data) {
 		.attr("height", function(d) { return height - y(d.total); })
   
 });
- 
  //반응형
 function responsivefy(svg){
 	var container = d3.select(svg.node().parentNode),
@@ -249,4 +249,5 @@ d3.json("monthlyList", function(error, data3) {
 		.attr("height", function(d) { return height - y(d.total); })
   
 });
+
 

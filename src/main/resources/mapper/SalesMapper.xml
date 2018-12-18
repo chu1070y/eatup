@@ -14,7 +14,7 @@
 		on info.mno = menu.mno) allorder
 		on gorany.order.tid = allorder.tid
 		where allorder.sno = 1
-		and MONTH(`approved_at`) = 11
+		and MONTH(`approved_at`) = MONTH(curdate())
 		group by orderdate
 		order by orderdate
 	

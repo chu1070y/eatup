@@ -25,8 +25,35 @@
 		<!-- Area Chart Example-->
 		<div class="card mb-3">
 			<div class="card-header">
-				<i class="fas fa-chart-area"></i> 매출 그래프
+				<div class="row">
+					<div class="col-sm-12 col-md-6">
+						<i class="fas fa-chart-area"></i> 매출 그래프
+					</div>
+					<!--  
+					<div class="col-sm-12 col-md-6">
+						<label>month <select id="dailyChart_month" onchange="changeMonth(this)"
+							aria-controls="dataTable"
+							class="custom-select custom-select-sm form-control form-control-sm">
+								<option value="month">선택하기</option>
+								<option value="1">1월</option>
+								<option value="2">2월</option>
+								<option value="3">3월</option>
+								<option value="4">4월</option>
+								<option value="5">5월</option>
+								<option value="6">6월</option>
+								<option value="7">7월</option>
+								<option value="8">8월</option>
+								<option value="9">9월</option>
+								<option value="10">10월</option>
+								<option value="11">11월</option>
+								<option value="12">12월</option>
+						</select>
+						</label>
+					</div>
+					-->
+				</div>           
 			</div>
+
 			<div class="card-body">
 				<div id="dailychart"></div>
 				<div id="weeklychart"></div>
@@ -40,25 +67,25 @@
 			<div class="card-header">
 				<i class="fas fa-table"></i> 매출 데이터
 			</div>
-			 <div class="pannel-body">  
+			<div class="pannel-body">
 				<div id="dailytable" class="table-responsive">
 					<div class="row">
 						<div class="col-sm-12 col-md-6">
 							<div class="dataTables_length" id="dataTable_length">
-								<label>일간 매출 메뉴별/일자별 <select id="dailyTable_type" 
+								<label>일간 매출 메뉴별/일자별 <select id="dailyTable_type"
 									aria-controls="dataTable"
 									class="custom-select custom-select-sm form-control form-control-sm">
-									<option value="type">선택하기</option>
-									<option value="menu">메뉴별</option>
+										<option value="type">선택하기</option>
+										<option value="menu">메뉴별</option>
 										<option value="date">일자별</option>
-										</select> 
+								</select>
 								</label>
 							</div>
-							
+
 						</div>
 						<div class="col-sm-12 col-md-6">
 							<div class="select_month" id="select_month">
-								<label>month <select id="dailyTable_month" 
+								<label>month <select id="dailyTable_month"
 									aria-controls="dataTable"
 									class="custom-select custom-select-sm form-control form-control-sm">
 										<option value="month">선택하기</option>
@@ -74,13 +101,13 @@
 										<option value="10">10월</option>
 										<option value="11">11월</option>
 										<option value="12">12월</option>
-										</select> 
+								</select>
 								</label>
 							</div>
-							
+
 						</div>
-						
-						
+
+
 					</div>
 					<table class="table table-bordered" id="dailyTable" width="100%"
 						cellspacing="0">
@@ -90,22 +117,22 @@
 								<th>메뉴명</th>
 								<th>수량</th>
 								<th>소계</th>
-								
+
 							</tr>
 						</thead>
 
 						<tbody>
 							<tr>
-							
+
 							</tr>
 						</tbody>
 					</table>
-					
-					
+
+
 				</div>
 
 				<div id="weeklytable" class="table-responsive">
-				<div class="row">
+					<div class="row">
 						<div class="col-sm-12 col-md-6">
 							<div class="dataTables_length" id="dataTable_length">
 								<label>주간 매출 메뉴별/일자별 <select id="weeklyTable_type"
@@ -114,7 +141,7 @@
 										<option value="type">선택하기</option>
 										<option value="menu">메뉴별</option>
 										<option value="date">일자별</option>
-										</select> 
+								</select>
 								</label>
 							</div>
 						</div>
@@ -136,10 +163,10 @@
 										<option value="10">10월</option>
 										<option value="11">11월</option>
 										<option value="12">12월</option>
-										</select> 
+								</select>
 								</label>
 							</div>
-							
+
 						</div>
 					</div>
 					<table class="table table-bordered" id="weeklyTable" width="100%"
@@ -155,7 +182,7 @@
 
 						<tbody>
 							<tr>
-								
+
 							</tr>
 
 						</tbody>
@@ -163,7 +190,7 @@
 				</div>
 
 				<div id="monthlytable" class="table-responsive">
-				<div class="row">
+					<div class="row">
 						<div class="col-sm-12 col-md-6">
 							<div class="dataTables_length" id="dataTable_length">
 								<label>월간 매출 메뉴별/일자별 <select id="monthlyTable_type"
@@ -172,11 +199,11 @@
 										<option value="type">선택하기</option>
 										<option value="menu">메뉴별</option>
 										<option value="date">일자별</option>
-										</select>  
+								</select>
 								</label>
 							</div>
 						</div>
-						
+
 					</div>
 					<table class="table table-bordered" id="monthlyTable" width="100%"
 						cellspacing="0">
@@ -197,7 +224,7 @@
 					</table>
 				</div>
 			</div>
-			
+
 		</div>
 
 	</div>
@@ -217,7 +244,8 @@
 <th:block layout:fragment="script">
 
 	<script src="https://d3js.org/d3.v3.min.js"></script>
-	<script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+	<script
+		src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
 
 	<!-- Demo scripts for this page-->
@@ -227,16 +255,14 @@
 	<script th:inline="javascript">
 		$(document).ready(function() {
 			console.log("ready!");
-		
+
 			$('#weeklychart').hide();
 			$('#monthlychart').hide();
 			$('#weeklytable').hide();
 			$('#monthlytable').hide();
-			
-			
+
 		});
-		
-		
+
 		$('#daily').click(function() {
 			console.log("dailychart clicked")
 			$('#dailychart').show();
@@ -258,7 +284,6 @@
 			$('#dailytable').hide();
 			$('#weeklytable').show();
 			$('#monthlytable').hide();
-			
 
 		});
 
@@ -271,13 +296,8 @@
 			$('#dailytable').hide();
 			$('#weeklytable').hide();
 			$('#monthlytable').show();
-			
 
 		});
-		
-		
-		
-		
 	</script>
 
 </th:block>

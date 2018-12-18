@@ -39,7 +39,14 @@ public class SalesController {
 		log.info("sales page....");
 		return "/partner/sales";
 	}
-	
+
+//	@GetMapping(value = "dailyList/{month}", produces="application/json")
+//	public ResponseEntity<List<SalesVO>> getdailyList(@PathVariable("month") int month){
+//		return new ResponseEntity<>(service.getDailySales(month),HttpStatus.OK);
+//	}
+//	
+//	
+//		
 	@RequestMapping(value = "salesList", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String dailyList(Locale locale, Model model) {
 		Gson gson = new Gson();

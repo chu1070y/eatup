@@ -1,4 +1,9 @@
-
+.breadcrumb{
+	font: 12px sans-serif;
+}
+.card-header{
+	font: 14px sans-serif;
+}
 .card-body
  {
   font: 10px sans-serif;
