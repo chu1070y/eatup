@@ -36,6 +36,7 @@ public class SalesController {
 		return "/partner/sales";
 	}
 	
+	// ---------------------- chart ------------------------------- //
 	@RequestMapping(value = "salesList", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String dailyList(Locale locale, Model model) {
 		Gson gson = new Gson();
@@ -60,6 +61,7 @@ public class SalesController {
 		return gson.toJson(list);
 	}
 	
+	// ---------------------- data table ------------------------------- //
 	@GetMapping(value = "dailydata/menu/{month}", produces="application/json")
 	public ResponseEntity<List<SalesVO>> getdailydata(@PathVariable("month") int month){
 		return new ResponseEntity<>(service.getDailytableData(month),HttpStatus.OK);
@@ -97,4 +99,4 @@ public class SalesController {
 	}
 
 	
-}
+}	
