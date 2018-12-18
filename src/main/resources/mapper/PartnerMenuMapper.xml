@@ -6,14 +6,17 @@
 <mapper namespace="ga.eatup.partner.mapper.PartnerMenuMapper">
 	
 	<select id="getMenu" resultType="ga.eatup.partner.domain.MenuVO">
-		select * from partner_store_menu where sno = #{sno}
+		select partner_store.sname sname, partner_store_menu.*
+		from partner_store inner join partner_store_menu
+		on partner_store.sno = partner_store_menu.sno
+		where partner_store_menu.sno = #{sno}
 	</select>
 	
 	<select id="getSno" resultType="int">
-	select sno
-	from partner partner left outer join partner_store store
-	on partner.pno = store.pno
-	where pid=#{pid}
+		select sno
+		from partner partner left outer join partner_store store
+		on partner.pno = store.pno
+		where pid=#{pid}
 	</select>
 	
 </mapper>
