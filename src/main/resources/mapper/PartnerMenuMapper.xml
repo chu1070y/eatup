@@ -9,7 +9,7 @@
 		select partner_store.sname sname, partner_store_menu.*
 		from partner_store inner join partner_store_menu
 		on partner_store.sno = partner_store_menu.sno
-		where partner_store_menu.sno = #{sno}
+		where partner_store_menu.status = 'O' and partner_store_menu.sno = #{sno} 
 	</select>
 	
 	<select id="getSno" resultType="int">

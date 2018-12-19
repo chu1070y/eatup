@@ -1,11 +1,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layout/layout1}">
+	layout:decorate="~{/layout/layout2}">
 
 
 
 <div layout:fragment="content">
-<style>
+	<!-- Add icon library -->
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
 * {
 	margin: 0px;
 	padding: 0px;
@@ -14,6 +17,7 @@
 .menuContent {
 	item-align: center;
 	text-align: center;
+	margin: auto;
 }
 
 .col-lg-9 {
@@ -46,10 +50,23 @@
 
 .css_layout_Bottom {
 	text-align: center;
-	background-color: yellow;
+	background-color: #FFD700;
 	color: black;
 	height: 100px;
 	line-height: 100px;
+	color: black;
+}
+
+.carousel-inner img {
+	margin: auto;
+}
+
+.card h-100 img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	height: auto;
 }
 </style>
 
@@ -60,6 +77,9 @@
 
 	<div class="menuContent col-lg-9">
 		<h1 th:text="${menu[0].sname}"></h1>
+						<span class="fa fa-star checked"></span> <span
+					class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
+				<span class="fa fa-star"></span> <span class="fa fa-star"></span>
 		<div id="carouselExampleIndicators" class="carousel slide my-4"
 			data-ride="carousel">
 			<ol class="carousel-indicators">
@@ -70,16 +90,16 @@
 			</ol>
 			<div class="carousel-inner" role="listbox">
 				<div class="carousel-item active">
-					<img class="d-block img-fluid" src="../imgs/cafe1.jpg"
-						width="750px" height="auto" alt="First slide">
+					<img class=" d-block img-fluid" src="../imgs/cafe1.jpg"
+						width="750px" height="500px" alt="First slide">
 				</div>
 				<div class="carousel-item">
 					<img class="d-block img-fluid" src="../imgs/cafe2.jpg"
-						width="750px" height="auto" alt="Second slide">
+						width="750px" height="500px" alt="Second slide">
 				</div>
 				<div class="carousel-item">
 					<img class="d-block img-fluid" src="../imgs/cafe5.jpg"
-						width="750px" height="auto" alt="Third slide">
+						width="750px" height="500px" alt="Third slide">
 				</div>
 			</div>
 			<a class="carousel-control-prev" href="#carouselExampleIndicators"
@@ -95,31 +115,30 @@
 
 		<div class="container">
 			<div class="wrapper">
-				<!-- Add icon library -->
-				<link rel="stylesheet"
-					href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-				<span class="fa fa-star checked"></span> <span
-					class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
-				<span class="fa fa-star"></span> <span class="fa fa-star"></span>
+
+
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-lg-4 col-md-6 mb-4"
-				th:each="menu, iterState : ${menu}">
+			<div class="col-lg-4 col-md-6 mb-4" th:each="menu, iterState : ${menu}">
 
 				<div class="card h-100">
-					<img class="card-img-top" src="../imgs/cafe4.jpeg" alt="">
+					<img
+						th:src="@{/upload/display(fileName=${menu.upload_path +'\/'+ menu.uuid + '_'+menu.fname})}"
+						class="menu">
+
 					<div class="card-body">
-						<h4 th:text="${menu.mname}" class="card-title"></h4>
-						<h5 th:text="${menu.mprice}"></h5>
-						<h5 th:text="${menu.introduction}"></h5>
-						<p class="card-text"></p>
+						<h6 th:text="${menu.mname}" class="card-title"></h6>
+						<p th:text="${menu.mprice}" class="card-text"></p>
+						<p th:text="${menu.introduction}" class="card-text"></p>
 					</div>
 					<div class="card-footer">
-						<small class="text-muted">&#9733; &#9733; &#9733; &#9733;
-							&#9734;</small>
+						<span class="fa fa-star checked"></span> <span
+							class="fa fa-star checked"></span> <span
+							class="fa fa-star checked"></span> <span class="fa fa-star"></span>
+						<span class="fa fa-star"></span>
 					</div>
 				</div>
 
@@ -133,20 +152,6 @@
 	<!-- /.row -->
 
 
-	<div class="container">
-		<div class="wrapper">
-			<div class="facet f1">
-				<button
-				
-					id="cartBtn" class="cartBtn">장바구니</button>
-			</div>
-		</div>
-
-
-
-
-	</div>
-
 	<div class="modal" id="myModal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -159,12 +164,11 @@
 				</div>
 				<div class="modal-body">
 					<div class="col-md-7">
-						<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0"
-							src="../imgs/cafe4.jpeg" width="100px" alt="">
+						<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0" width="100px" alt="">
 						</a>
 					</div>
 					<div class="col-md-5">
-						<h3>카페라떼</h3>
+						<h3></h3>
 						<p>수량</p>
 						<div class="number">
 
@@ -195,37 +199,52 @@
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-$(document).ready(
-	function() {
-	// 스크롤 위치를 퍼센트로 나타내기
-		$(window).scroll(function() {
-			scrollPercent = (
-				$(window).scrollTop() / (
-						$(document).height() - $(window).height())) * 100;
-				});
+		$(document).ready(
 
-			$(window).scroll(function() {
-			// Change this to target a different percentage
-			var targetPercentage = 70;
-			//Change this to the ID of the content you are trying to show.
-			var targetID = "#container-fluid";
-			//Window Math
-			var scrollTo = $(window).scrollTop(), docHeight = $(document).height(), windowHeight = $(window).height();
-			scrollPercent = (scrollTo / (docHeight - windowHeight)) * 100;
-			//스크롤 표시
-			$('#percentageCounter h1').text(scrollPercent+ "%");
-			//네비바 보이기
-			if (scrollPercent > targetPercentage) {
-				$(targetID).css({
-					top : '0'
-				});
-			} else {
-				$(targetID).css(
-				{
-					top : '-'+ $(targetID).height+ 'px'});
+function() {
+	
+	var mname = [[${menu.mname}]];
+	var mprice = [[${menu.mprice}]];
+	
+	
+	
+	
+	
+	// 스크롤 위치를 퍼센트로 나타내기
+	$(window).scroll(function() {
+		scrollPercent = ($(window)
+				.scrollTop() / ($(
+				document).height() - $(
+				window).height())) * 100;
+		});
+
+	$(window).scroll( function() {
+				// Change this to target a different percentage
+				var targetPercentage = 70;
+				//Change this to the ID of the content you are trying to show.
+				var targetID = "#container-fluid";
+				//Window Math
+				var scrollTo = $(window).scrollTop(), docHeight = $(
+						document).height(), windowHeight = $(
+						window).height();
+				scrollPercent = (scrollTo / (docHeight - windowHeight)) * 100;
+				//스크롤 표시
+				$('#percentageCounter h1').text(
+						scrollPercent + "%");
+				//네비바 보이기
+				if (scrollPercent > targetPercentage) {
+					$(targetID).css({
+						top : '0'
+					});
+				} else {
+					$(targetID).css({
+					top : '-'
+						+ $(targetID).height
+						+ 'px'
+					});
 				}
 			}).trigger('scroll');
-			
-});
+
+	});
 	</script>
 </th:block>

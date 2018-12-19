@@ -40,7 +40,6 @@ img {
 				<div class="card-body">
 				
 					<img th:src="@{/upload/display(fileName=${menu.upload_path +'\/'+ menu.uuid + '_'+menu.fname})}">
-					<div th:text="${menu.fname}" align="center"></div>
 					<div th:text="${menu.mname}" align="center"></div>
 					<div th:text="${menu.mprice}" align="center"></div>
 					<div th:text="${menu.introduction}" align="center"></div>
