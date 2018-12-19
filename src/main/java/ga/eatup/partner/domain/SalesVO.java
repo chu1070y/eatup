@@ -11,6 +11,9 @@ public class SalesVO {
 	private String end;
 	private String week;
 	private int total;
+	private int sno;
+	private int pno;
+	private String pid;
 	
 	private String mname;
 	private int mprice;

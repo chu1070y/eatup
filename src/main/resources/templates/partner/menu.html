@@ -4,14 +4,21 @@
 
 <div layout:fragment="content">
 
-	<style>
+<style>
+
+a {
+	color: black;
+}
+
 #content-wrapper {
+ font: 14px sans-serif
 }
 
 .col-centered {
 	float: none;
 	margin: 0 auto;
 }
+
 
 img {
 
@@ -25,7 +32,8 @@ img {
 }
 </style>
 
-	<ol class="breadcrumb">
+	<ol class="breadcrumb" style="font: 12px sans-serif">
+		<li class="breadcrumb-item"><a href="#">Home</a></li>
 		<li class="breadcrumb-item">메뉴</li>
 		<li th:text="${menu[0].sname}" class="breadcrumb-item active">메뉴보기</li>
 	</ol>
@@ -52,13 +60,13 @@ img {
 									aria-describedby="inputGroup-sizing-default" type="number"
 									id="usernumber" name="usernumber" value="5" step="1" min="0"
 									max="1000"> <span class="input-group-btn">
-									<button type="button" class="btn btn-dark">설정</button>
+									<button type="button" class="btn btn-dark" style="font: 12px sans-serif">설정</button>
 								</span>
 							</div>
 						</div>
 					</div>
 				</div>
-				<button id="soldout" type="button" class="btn btn-danger">품절</button>
+				<button id="soldout" type="button" class="btn btn-danger" style="font: 12px sans-serif">품절</button>
 			</div>
 		</div>
 

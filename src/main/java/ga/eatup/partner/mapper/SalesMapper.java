@@ -8,21 +8,21 @@ import ga.eatup.partner.domain.SalesVO;
 
 public interface SalesMapper {
 
-	public List<SalesVO> getDailySales();
+	public List<SalesVO> getDailySales(int sno);
 	
-	public List<SalesVO> getWeeklySales();
+	public List<SalesVO> getWeeklySales(int sno);
 	
-	public List<SalesVO> getMonthlySales();
+	public List<SalesVO> getMonthlySales(int sno);
 	
-	public List<SalesVO> getDailytableData(@Param("month")int month);
+	public List<SalesVO> getDailytableData(@Param("month")int month, int sno);
 	
-	public List<SalesVO> getDailytableData_date(@Param("month")int month);
+	public List<SalesVO> getDailytableData_date(@Param("month")int month, int sno);
 	
-	public List<SalesVO> getWeeklytableData(@Param("month")int month);
+	public List<SalesVO> getWeeklytableData(@Param("month")int month, int sno);
 	
-	public List<SalesVO> getWeeklytableData_date(@Param("month")int month);
+	public List<SalesVO> getWeeklytableData_date(@Param("month")int month, int sno);
 	
-	public List<SalesVO> getMonthlytableData();
+	public List<SalesVO> getMonthlytableData(int sno);
 	
-	public List<SalesVO> getMonthlytableData_date();
+	public List<SalesVO> getMonthlytableData_date(int sno);
 }
