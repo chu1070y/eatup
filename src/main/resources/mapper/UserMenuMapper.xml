@@ -7,10 +7,10 @@
 
 	<select id="getMenu" resultType="ga.eatup.user.domain.MenuVO">
 	
-	select partner_store.sname, partner_store_menu.*
-	from partner_store inner join partner_store_menu
-	on partner_store.sno = partner_store_menu.sno
-	where partner_store_menu.sno = #{sno}
+		select partner_store.sname sname, partner_store_menu.*
+		from partner_store inner join partner_store_menu
+		on partner_store.sno = partner_store_menu.sno
+		where partner_store_menu.status = 'O' and partner_store_menu.sno = #{sno} 
 
 	</select>
 	

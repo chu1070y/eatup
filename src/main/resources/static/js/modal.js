@@ -2,6 +2,11 @@
 		
 		$("#myModal").show();
 	});
+ 
+ $(".card h-100").on("click", function(e){
+		
+		$("#myModal").show();
+	});
 		
 
  $(".card-body").on("click", function(e){
