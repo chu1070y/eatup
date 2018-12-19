@@ -19,8 +19,8 @@ public class CartInterceptor extends HandlerInterceptorAdapter {
 		boolean echeck = false;
 		
 		Cookie cartCookie = null;
-		String mname = request.getParameter("mname");
-		String mprice = request.getParameter("mprice");
+		
+		String mno = request.getParameter("mno");
 		String quantity = request.getParameter("quantity");
 
 		String arr[];
@@ -32,14 +32,37 @@ public class CartInterceptor extends HandlerInterceptorAdapter {
 				
 				arr = cartCookie.getValue().split("_");
 				for(String e:arr) {
-					if(e.equals(String.valueOf(mname))) {
+					if(e.equals(String.valueOf(mno))) {
 						echeck = true;
 						break;
 					}
 				}
+				
+/*				if(check == false) {
+					
+					Cookie cookie = new Cookie("cart", mno);
+					cookie.setMaxAge(60*60*24);
+					response.addCookie(cookie);
+					
+				}else if(echeck == true){
+					return;
+					
+				}
+				else {
+				
+					cartCookie.setValue(cartCookie.getValue() +"_" + mno);
+					response.addCookie(cartCookie);
+					
+				}
+				
+				
+				super.postHandle(request, response, handler, modelAndView);*/
+			}
+				
+				
 			}
 		}
 	}
 
 	
-}
+

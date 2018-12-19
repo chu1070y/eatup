@@ -68,6 +68,12 @@
 	width: 200px;
 	height: 150px;
 }
+
+.modal {
+	item-align: center;
+	text-align: center;
+	margin: auto;
+}
 </style>
 
 
@@ -169,7 +175,7 @@
 						</a>
 					</div>
 					<div class="col-md-5">
-						<p id="mname"></p>
+						<h6 id="mname"></h6>
 						<p id="mprice"></p>
 						<p>수량</p>
 						<div id=""class="number">
@@ -180,8 +186,9 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary"
-						th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">장바구니</button>
+<!-- 						<button id="cart" type="button" class="btn btn-primary"
+						th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">장바구니</button> -->
+						<button id="cart" type="button" class="btn btn-primary">장바구니</button>
 						<button type="button" class="btn btn-secondary"
 						th:onclick="|window.location.href='@{/user/pay(sno=${menu[0].sno})}'|"
 							data-dismiss="modal">바로주문</button>
@@ -205,6 +212,44 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 $(document).ready(function() {
+	
+	
+	$(".card-body").on("click", function(e) {
+
+		var getMname = $(this).children()[0].outerText;
+		var getMprice = $(this).children()[2].outerText;
+
+		console.log("modal show.....");
+
+		$("#mname").html(getMname);
+		$("#mprice").html(getMprice);
+		
+
+		$("#myModal").show();
+
+
+
+	$("#cart").on("click", function(e) {
+		
+		
+		$.cookie('mname', getMname);
+		
+		console.log($.cookie('mname'));
+		
+		
+	});
+	
+});
+
+
+
+	$(".modalclose").on("click", function(e) {
+
+		console.log("modal close");
+
+		$("#myModal").hide();
+
+	});
 
 
 		// 스크롤 위치를 퍼센트로 나타내기
