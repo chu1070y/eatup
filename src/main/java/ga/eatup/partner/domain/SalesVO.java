@@ -6,6 +6,7 @@ import lombok.Data;
 public class SalesVO {
 
 	private String orderdate;
+	private String ordermonth;
 	private int month;
 	private String start;
 	private String end;

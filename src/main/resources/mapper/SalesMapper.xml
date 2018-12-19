@@ -41,7 +41,7 @@
 	<select id="getMonthlySales" resultType="ga.eatup.partner.domain.SalesVO">
 	
 		
-		SELECT MONTH(`approved_at`) AS `month`,
+		SELECT DATE_FORMAT(`approved_at`, '%Y/%m') as ordermonth,
 		       sum(mprice*quantity) total
 		FROM gorany.order join
 		(select tid, mprice, quantity
@@ -49,7 +49,7 @@
 		on gorany.order_info.mno = gorany.partner_store_menu.mno) allorder
 		on gorany.order.tid = allorder.tid
 		where sno = #{sno}
-		GROUP BY `month`
+		GROUP BY `ordermonth`
 	</select>
 	
 	<select id="getDailytableData" resultType="ga.eatup.partner.domain.SalesVO">
@@ -121,7 +121,7 @@
 	
 	<select id="getMonthlytableData" resultType="ga.eatup.partner.domain.SalesVO">
 	
-	SELECT MONTH(`approved_at`) AS `month`,
+	SELECT DATE_FORMAT(`approved_at`, '%Y/%m') as ordermonth,
 		   mname,
 		   sum(quantity) quantity,
 		  (mprice*sum(quantity)) total
@@ -131,13 +131,13 @@
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
 	where sno = #{sno}
-	GROUP BY `month`,mname;
+	GROUP BY `ordermonth`,mname;
 	
 	</select>
 	
 	<select id="getMonthlytableData_date" resultType="ga.eatup.partner.domain.SalesVO">
 	
-	SELECT MONTH(`approved_at`) AS `month`,
+	SELECT DATE_FORMAT(`approved_at`, '%Y/%m') as ordermonth,
 		   mname,
 		   sum(quantity) quantity,
 		  sum(mprice*quantity) total
@@ -147,7 +147,7 @@
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
 	where sno = #{sno}
-	GROUP BY `month`;	
+	GROUP BY `ordermonth`;	
 	
 	</select>
 	
