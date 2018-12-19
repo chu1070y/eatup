@@ -44,6 +44,9 @@ public class UserController {
 	@Setter(onMethod_=@Autowired)
 	private LoginService loginService;
 	
+	@Setter(onMethod_=@Autowired)
+	private StoreService storeService;
+	
 	@Autowired
 	PasswordEncoder encoder;
 	
@@ -154,6 +157,8 @@ public class UserController {
 //		log.info("" + location);
 		
 		model.addAttribute("location", location);
+		
+		model.addAttribute("store",storeService.getStore());
 		
 	}
 	
