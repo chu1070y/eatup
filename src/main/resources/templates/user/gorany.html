@@ -1,0 +1,602 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout2}">
+
+<style>
+.item img {
+
+border:20px solid gold;
+border-radius: 50%;
+-moz-border-radius: 50%;
+-khtml-border-radius: 50%;
+-webkit-border-radius: 50%;
+
+}
+</style>
+
+<div layout:fragment="content">
+<style>
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
+
+
+</style>
+
+
+
+
+	<!-- Current Location -->
+	<div id="mylocation">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+
+				<div class="btn-group" role="group"
+					aria-label="Button group with nested dropdown">
+					
+					<!--csrf.token을 불러오지 못하는 문제가 있어서, 일단 여기서 한번 호출해두는 것 (스크립트에서 이 값을 빼서 쓰진 않음)-->
+					<input type = "hidden" id="token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+					
+					<div th:if="${location == null}">
+						<button type=button class='btn btn-light'  id="get-mylocation">
+						</button>
+					</div>
+					<div th:if="${location != null}">
+						<button type=button class='btn btn-light'>
+							<table><tr><td th:text="${location != null} ? ${location} : ''"></td></tr></table>
+						</button>
+					</div>
+					<div class="btn-group" role="group">
+						<button id="btnGroupDrop1" type="button"
+							class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false"></button>
+						<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+							<a class="dropdown-item" href="http://localhost:8080/user/map">지도로 찾기</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+			<!-- Services -->
+			<section id="services">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 text-left">`
+							<h3 class="section-heading text-uppercase">Quick Menu</h3>
+							<h6 class="section-subheading text-muted">이전에 주문하신 음식을 더 빠르게
+								결제해보세요!</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="team-member">
+								<img class="mx-auto rounded-circle" src="../main/img/team/1.jpg"
+									alt="">
+								<h4>아이스아메리카노</h4>
+								<p class="text-muted">고라니카페</p>
+								<ul class="list-inline social-buttons">
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="team-member">
+								<img class="mx-auto rounded-circle" src="../main/img/team/2.jpg"
+									alt="">
+								<h4>에그마요샌드위치</h4>
+								<p class="text-muted">고라니카페</p>
+								<ul class="list-inline social-buttons">
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="team-member">
+								<img class="mx-auto rounded-circle" src="../main/img/team/3.jpg"
+									alt="">
+								<h4>무가당사과쥬스</h4>
+								<p class="text-muted">고라니카페</p>
+								<ul class="list-inline social-buttons">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Portfolio Grid -->
+			<section class="bg-light" id="portfolio">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 text-left">
+							<h3 class="section-heading text-uppercase">Ad stores</h3>
+							<h6 class="section-subheading text-muted">고라니 추천 스토어</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-sm-6 portfolio-item">
+							<a class="portfolio-link" data-toggle="modal"
+								href="#portfolioModal1">
+								<div class="portfolio-hover">
+									<div class="portfolio-hover-content">
+										<i class="fas fa-plus fa-3x"></i>
+									</div>
+								</div> <img class="img-fluid" src="../main/img/portfolio/cafe.jpg"
+								alt="">
+							</a>
+							<div class="portfolio-caption">
+								<h4>고라니카페</h4>
+								<p class="text-muted">커피가 맛있는 고라니 카페</p>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-6 portfolio-item">
+							<a class="portfolio-link" data-toggle="modal"
+								href="#portfolioModal2">
+								<div class="portfolio-hover">
+									<div class="portfolio-hover-content">
+										<i class="fas fa-plus fa-3x"></i>
+									</div>
+								</div> <img class="img-fluid" src="../main/img/portfolio/dosirak.jpg"
+								alt="">
+							</a>
+							<div class="portfolio-caption">
+								<h4>고라니도시락</h4>
+								<p class="text-muted">조미료를 쓰지않는 맛있는 도시락</p>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-6 portfolio-item">
+							<a class="portfolio-link" data-toggle="modal"
+								href="#portfolioModal3">
+								<div class="portfolio-hover">
+									<div class="portfolio-hover-content">
+										<i class="fas fa-plus fa-3x"></i>
+									</div>
+								</div> <img class="img-fluid" src="../main/img/portfolio/juice.jpeg"
+								alt="">
+							</a>
+							<div class="portfolio-caption">
+								<h4>고라니쥬스</h4>
+								<p class="text-muted">생과일을 직접 갈아 만들었어요</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- About -->
+			<section id="about">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 text-center">
+
+							<table class="table table-bordered table-dark">
+								<thead>
+									<tr>
+										<th scope="col">전체</th>
+										<th scope="col">커피·음료</th>
+										<th scope="col">토스트·샌드위치</th>
+										<th scope="col">도시락</th>
+									</tr>
+									<tr>
+										<th scope="col">베이커리</th>
+										<th scope="col">샐러드</th>
+										<th scope="col">스낵</th>
+										<th scope="col">기타</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
+			</section>
+
+
+			<!-- Team -->
+			<section class="bg-light" id="team">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 text-left">
+							<h3 class="section-heading text-uppercase">Stores</h3>
+							<h6 class="section-subheading text-muted">Gorany 가맹점 리스트</h6>
+						</div>
+					</div>
+
+					<!-- Project One -->
+					<div class="row">
+						<div class="col-md-7">
+							<a href="/user/store"> <img
+								class="img-fluid rounded mb-3 mb-md-0"
+								src="../main/img/portfolio/cafe3.jpg" alt="">
+							</a>
+						</div>
+						<div class="col-md-5">
+							<h3>고라니카페</h3>
+							<p>24시 커피전문점, 고라니 카페입니다.</p>
+							<span class="badge badge-primary">#카페</span> <span
+								class="badge badge-danger">#커피</span> <span
+								class="badge badge-warning">#샌드위치</span> <span
+								class="badge badge-dark">#토스트</span>
+						</div>
+					</div>
+					<!-- /.row -->
+
+					<hr>
+
+					<!-- Project Two -->
+					<div class="row">
+						<div class="col-md-7">
+							<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0"
+								src="../main/img/portfolio/cafe3.jpg" alt="">
+							</a>
+						</div>
+						<div class="col-md-5">
+							<h3>고라니카페</h3>
+							<p>24시 커피전문점, 고라니 카페입니다.</p>
+							<a class="btn btn-primary" href="#">#카페</a> <a
+								class="btn btn-danger" href="#">#커피</a> <a
+								class="btn btn-secondary" href="#">#샌드위치</a> <a
+								class="btn btn-info" href="#">#토스트</a>
+						</div>
+					</div>
+					<!-- /.row -->
+
+					<hr>
+
+					<!-- Project Three -->
+					<div class="row">
+						<div class="col-md-7">
+							<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0"
+								src="../main/img/portfolio/cafe3.jpg" alt="">
+							</a>
+						</div>
+						<div class="col-md-5">
+							<h3>고라니카페</h3>
+							<p>24시 커피전문점, 고라니 카페입니다.</p>
+							<a class="btn btn-primary" href="#">#카페</a> <a
+								class="btn btn-danger" href="#">#커피</a> <a
+								class="btn btn-secondary" href="#">#샌드위치</a> <a
+								class="btn btn-info" href="#">#토스트</a>
+						</div>
+					</div>
+					<!-- /.row -->
+
+					<hr>
+
+					<!-- Project Four -->
+					<div class="row">
+						<div class="col-md-7">
+							<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0"
+								src="../main/img/portfolio/cafe3.jpg" alt="">
+							</a>
+						</div>
+						<div class="col-md-5">
+							<h3>고라니카페</h3>
+							<p>24시 커피전문점, 고라니 카페입니다.</p>
+							<a class="btn btn-primary" href="#">#카페</a> <a
+								class="btn btn-danger" href="#">#커피</a> <a
+								class="btn btn-secondary" href="#">#샌드위치</a> <a
+								class="btn btn-info" href="#">#토스트</a>
+						</div>
+					</div>
+					<!-- /.row -->
+
+					<hr>
+				</div>
+				<!-- /.container -->
+			</section>
+
+
+<!-- 테서터용 테스트 테서터 터터터터 테스트 여기요 테스트요~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~! -->
+			<section id="services">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 text-left">`
+							<h3 class="section-heading text-uppercase">Quick Menu</h3>
+							<h6 class="section-subheading text-muted">이전에 주문하신 음식을 더 빠르게
+								결제해보세요!</h6>
+						</div>
+					</div>
+			
+				<div th:each="n : ${menu}" th:id="${n.mno}" th:class="menu" >
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="team-member">
+								<img class="mx-auto rounded-circle" src="../main/img/team/1.jpg"
+									alt="">
+									<input type="checkbox" th:id=${n.mno} name="chbox" th:value=${n.mname} />
+								 <h4 th:text="${n.mname}"></h4> 								
+								<p class="text-muted">고라니카페</p>
+								<ul class="list-inline social-buttons">
+								</ul>
+							</div>
+						</div>				
+					</div>
+				</div> <!-- for-->
+				<button id=checkbutton>check !</button>
+		
+				</div>
+			</section>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<!-- Footer -->
+			<footer>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4">
+							<span class="copyright">Copyright &copy; Gorany Company
+								Website 2018</span>
+						</div>
+						<div class="col-md-4">
+							<ul class="list-inline social-buttons">
+							</ul>
+						</div>
+						<div class="col-md-4">
+							<ul class="list-inline quicklinks">
+								<li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+								<li class="list-inline-item"><a href="#">Terms of Use</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+	
+	<!-- Portfolio Modals -->
+
+	<!-- end content -->
+
+	<th:block layout:fragment="script">
+
+	<!-- google Geolocation -->
+		<script type="text/javascript"
+			src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCOjYqPJ97sckNjih-R8q07zMO9e8R-VJU&ver=3.exp"></script>
+
+	
+
+<script th:inline="javascript">
+
+$("#checkbutton").click(function(){
+	console.log("click!!!!!!");
+	
+	var chk = document.getElementsByName('chbox');
+	var len = chk.length;
+	var chkarray = new Array();
+	var arrayindex=0;
+	 
+	
+	
+	for(var i=0; i<len; i++){
+		if(chk[i].checked==true){
+			chkarray[arrayindex]=chk[i].value;
+			arrayindex++;
+		}
+	}
+	
+	console.log(chkarray);
+	
+})
+
+	
+$(document).ready(function(){
+		
+		//csrf처리
+		var csrfHearderName = [[${_csrf.headerName}]];
+		var csrfTokenValue =  [[${_csrf.token}]];
+
+		$(document).ajaxSend(function(e,xhr,options){
+			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+		});
+
+		// 내위치 주소변환(Geolocation)
+		var mylocation = "";
+		
+		 $("#get-mylocation").show( function(e) {
+		        /* HTML5 Geolocation */
+		        console.log("location을 찾습니다.")
+		        navigator.geolocation.getCurrentPosition(
+		            function( position ){ // success cb
+		 
+		                /* Current Coordinate */
+		                var lat = position.coords.latitude;
+		                var lng = position.coords.longitude;
+		                var google_map_pos = new google.maps.LatLng( lat, lng );
+		 
+		                /* Use Geocoder to get address */
+		                var google_maps_geocoder = new google.maps.Geocoder();
+		                google_maps_geocoder.geocode(
+		                    { 'latLng': google_map_pos },
+		                    function( results, status ) {
+		                        if ( status == google.maps.GeocoderStatus.OK && results[2] ) {
+		                            var streetAddress = results[2].address_components[0].long_name;
+		                            var city= results[2].address_components[1].long_name;
+		                            var state = results[2].address_components[2].long_name;
+		                            mylocation = state + " " + city + " " + streetAddress
+		                            console.log("내위치 : " + mylocation);
+		                            $("#get-mylocation").append(mylocation);
+		                            
+		                        }
+		                    }
+		                );
+		            },
+		            function(){ // fail cb
+		            	console.log("fail cb");
+		            }
+		        );
+		        
+		    });
+		
+
+		 
+		//검색창 자동완성
+		function display(data){
+			$( "#tags" ).autocomplete({
+				source: data,
+				matchContains: true, 
+				focus: function( event, ui ) {
+					return false;
+				},
+				select: function( event, ui ) {
+					event.stopPropagation();
+					console.log(ui.item.value);
+					$("#tags").val(ui.item.value);
+					search();
+				}
+			});//end autocomplete
+			
+		};//end function
+	 	
+			
+		searchService.autoComplete(function(result){
+			console.log("auto??");
+			console.log(result);
+			display(result);
+		}); 
+		
+/* 		//엔터 이벤트
+		$("#tags").keydown(function(event){
+			
+			if(event.keyCode == 13){
+				console.log("엔터");
+				close = 1;
+				event.preventDefault();
+				search();
+				}
+			}
+		); */
+		
+		//검색하기 with 엔터
+		function search(){
+			
+			var keyword = $("#tags").val();
+			console.log(keyword);
+			
+			$(".searchResultStore ul").empty();
+			$(".searchResultMenu ul").empty();
+			
+			if(keyword===""){
+				$(".searchResultStore ul").append("검색어를 입력해주세요");
+				return;
+			}
+			
+			searchService.searchStore(keyword,function(result){
+				
+				$(".searchResultStore ul").append("---------상점검색결과---------");
+				if(result==""){
+					$(".searchResultStore ul").append("</br>해당되는 상점이 없습니다.");
+				}
+				$.each(result, function (index, item) {
+					$(".searchResultStore ul").append("<li>" + item.sname + "</li>");
+					});
+			});
+			
+			searchService.searchMenu(keyword,function(result){
+				
+				$(".searchResultMenu ul").append("---------메뉴검색결과---------");
+				if(result==""){
+					$(".searchResultMenu ul").append("</br>해당되는 메뉴가 없습니다.");
+				}
+				$.each(result, function (index, item) {
+					$(".searchResultMenu ul").append("<li>" + item.mname + ", 가격: " + item.mprice + "</li>");
+					});
+			});
+			
+		}
+	 	//검색하기 with 버튼
+		$(".searchBtn").on("click",function(e){
+			e.preventDefault();
+			console.log("searchBtn........")
+			
+			var keyword = $("#tags").val();
+			
+			$(".searchResultStore ul").empty();
+			$(".searchResultMenu ul").empty();
+			
+			if(keyword===""){
+				$(".searchResultStore ul").append("검색어를 입력해주세요");
+				return;
+			}
+			
+			searchService.searchStore(keyword,function(result){
+				
+				$(".searchResultStore ul").append("---------상점검색결과---------");
+				if(result==""){
+					$(".searchResultStore ul").append("</br>해당되는 상점이 없습니다.");
+				}
+				$.each(result, function (index, item) {
+					$(".searchResultStore ul").append("<li>" + item.sname + "</li>");
+					});
+			});
+			
+			searchService.searchMenu(keyword,function(result){
+				
+				$(".searchResultMenu ul").append("---------메뉴검색결과---------");
+				if(result==""){
+					$(".searchResultMenu ul").append("</br>해당되는 메뉴가 없습니다.");
+				}
+				$.each(result, function (index, item) {
+					$(".searchResultMenu ul").append("<li>" + item.mname + ", 가격: " + item.mprice + "</li>");
+					});
+			});
+			
+		}); 
+	 	
+
+	});
+	
+
+	
+		  
+		  
+	</script>
+	</th:block>
