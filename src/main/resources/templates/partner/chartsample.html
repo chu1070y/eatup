@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout_partner}">
+	
+<div layout:fragment="content">
+
+  <svg class="chart"></svg>
+  <div class='button-area'>
+  </div>
+
+</div>
+
+<th:block layout:fragment="script">
+
+	<script src="https://d3js.org/d3.v3.min.js"></script>
+	<script
+		src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+
+	<!-- Demo scripts for this page-->
+	<script src="../admin/js/demo/chartsample.js"></script>
+	
+
+	<script th:inline="javascript">
+		
+	</script>
+
+</th:block>

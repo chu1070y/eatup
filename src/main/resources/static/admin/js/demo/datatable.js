@@ -160,7 +160,7 @@ $("#monthlyTable_type").on('change',function(){
 		$.each(data, function(i, value) {
 
 			str += "<tr>"
-			str += "<td>" + value.month + "</td>"
+			str += "<td>" + value.ordermonth + "</td>"
 			if(mvalue == "date"){
 				str += "<td>" + value.mname + " 외 </td>"
 				}else {

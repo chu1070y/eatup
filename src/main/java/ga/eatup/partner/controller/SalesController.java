@@ -36,6 +36,7 @@ public class SalesController {
 		log.info("sales page....");
 		return "/partner/sales";
 	}
+
 	
 	// ---------------------- chart ------------------------------- //
 	@RequestMapping(value = "salesList", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")

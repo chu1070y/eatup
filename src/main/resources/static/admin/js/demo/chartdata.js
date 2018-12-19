@@ -251,19 +251,20 @@ var tip3 = d3.tip()
 .attr('class', 'd3-tip')
 .offset([-10, 0])
 .html(function(d) {
-  return "<strong>"+ d.month +": </strong> <span style='color:red'>" + d.total + "</span>";
+  return "<strong>"+ d.ordermonth +": </strong> <span style='color:red'>" + d.total + "</span>";
 })
 
 svg3.call(tip3);
 
 d3.json("monthlyList", function(error, data3) {
 	  x.domain(data3.map(function(d) {
-	    return d.month
+	    return d.ordermonth
 	  }));
 	  y.domain([0, d3.max(data3, function(d) {
 	    return d.total
 	  })]);
-	  
+
+
   svg3.append("g")
   .attr("class", "x axis")
   .attr("transform", "translate(0," + height + ")")
@@ -283,7 +284,7 @@ d3.json("monthlyList", function(error, data3) {
   .data(data3)
   .enter().append("rect")
   .attr("class", "bar")
-  .attr("x", function(d) { return x(d.month); })
+  .attr("x", function(d) { return x(d.ordermonth); })
   .attr("width",x.rangeBand())
   .attr("y", height)
   .attr("height", 0)
