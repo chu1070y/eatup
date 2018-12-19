@@ -236,7 +236,8 @@ $(document).ready(function(){
 		//검색하기
 		function search(data){
 			
-			showList.index = 0;
+			showList.storeindex = 0;
+			showList.menuindex = 0;
 			
 			$(".quickSearch").attr("class","input-group quickSearch hidden");
 			
@@ -289,9 +290,10 @@ $(document).ready(function(){
 		
 		//검색 결과 3개씩 화면에 출력
 		var showList={
-				index:0,
+				storeindex:0,
+				menuindex:0,
 				showStoreList: function(data){
-					for (var i = this.index ; i < this.index + 3 ; i++){
+					for (var i = this.storeindex ; i < this.storeindex + 3 ; i++){
 						storelist(data[i]);
 						
 						if(data.length==(i+1)){
@@ -300,17 +302,17 @@ $(document).ready(function(){
 						}//end if
 					}//end for
 					
-					this.index += 3;
+					this.storeindex += 3;
 				},
 				showMenuList: function(data){
-					for (var i = this.index ; i < this.index + 3 ; i++){
+					for (var i = this.menuindex ; i < this.menuindex + 3 ; i++){
 						menulist(data[i]);
 						if(data.length==(i+1)){
 							$("#menuMore").attr("class","hidden");
 							return;
 						}//end if
 					}//end for
-					this.index += 3;
+					this.menuindex += 3;
 				}
 		}
 		
