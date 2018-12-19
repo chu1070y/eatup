@@ -13,7 +13,7 @@
 		from gorany.order_info info join gorany.partner_store_menu menu
 		on info.mno = menu.mno) allorder
 		on gorany.order.tid = allorder.tid
-		where allorder.sno = 1
+		where allorder.sno = #{sno}
 		and YEAR(`approved_at`) = YEAR(curdate())
 		and MONTH(`approved_at`) = MONTH(curdate())
 		group by orderdate
@@ -33,7 +33,7 @@
 		from gorany.order_info left join gorany.partner_store_menu
 		on gorany.order_info.mno = gorany.partner_store_menu.mno) allorder
 		on gorany.order.tid = allorder.tid
-		where sno = 1
+		where sno = #{sno}
 		group by week
 		order by start
 	</select>
@@ -48,7 +48,7 @@
 		from gorany.order_info left join gorany.partner_store_menu
 		on gorany.order_info.mno = gorany.partner_store_menu.mno) allorder
 		on gorany.order.tid = allorder.tid
-		where sno = 1
+		where sno = #{sno}
 		GROUP BY `month`
 	</select>
 	
@@ -60,7 +60,7 @@
 	from gorany.order od join gorany.order_info info
 	on od.tid = info.tid) allorder
 	on menu.mno = allorder.mno
-	where allorder.sno = 1
+	where allorder.sno = #{sno}
 	and YEAR(`approved_at`) = YEAR(curdate())
 	and MONTH(`approved_at`) = #{month}
 	group by orderdate, mname;
@@ -73,7 +73,7 @@
 	from gorany.order od join gorany.order_info info
 	on od.tid = info.tid) allorder
 	on menu.mno = allorder.mno
-	where allorder.sno = 1
+	where allorder.sno = #{sno}
 	and YEAR(`approved_at`) = YEAR(curdate())
 	and MONTH(`approved_at`) = #{month}
 	group by orderdate;
@@ -92,7 +92,7 @@
 	from gorany.order_info info left join gorany.partner_store_menu menu
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
-	where sno = 1
+	where sno = #{sno}
 	and YEAR(`approved_at`) = YEAR(curdate())
 	and MONTH(`approved_at`) = #{month}
 	group by week,mname
@@ -111,7 +111,7 @@
 	from gorany.order_info info left join gorany.partner_store_menu menu
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
-	where sno = 1
+	where sno = #{sno}
 	and YEAR(`approved_at`) = YEAR(curdate())
 	and MONTH(`approved_at`) = #{month}
 	group by week
@@ -130,7 +130,7 @@
 	from gorany.order_info info left join gorany.partner_store_menu menu
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
-	where sno = 1
+	where sno = #{sno}
 	GROUP BY `month`,mname;
 	
 	</select>
@@ -146,7 +146,7 @@
 	from gorany.order_info info left join gorany.partner_store_menu menu
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
-	where sno = 1
+	where sno = #{sno}
 	GROUP BY `month`;	
 	
 	</select>
