@@ -21,13 +21,13 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public List<MenuVO> getMenu(@RequestParam("sno") int sno) {
 
-		log.info("menu service implement...........");
+		log.info("getmenu service implement...........");
 		return mapper.getMenu(sno);
 	}
 
 	@Override
 	public List<MenuVO> readMenuImg(int sno) {
-		log.info("menu service implement............");
+		log.info("readmenu service implement............");
 		return null;
 				/*mapper.readMenuImg(sno)*/
 	}
