@@ -134,7 +134,7 @@
 
 					<div class="card-body">
 						<h6 th:text="${menu.mname}" class="card-title"></h6>
-						<input type="hidden" th:value="${iterState.index}">
+						<input type="hidden" th:value="${menu.mno}">
 						<p th:text="${menu.mprice}" class="card-text"></p>
 						<p th:text="${menu.introduction}" class="card-text"></p>
 					</div>
@@ -214,45 +214,85 @@
 $(document).ready(function() {
 	
 	
+	//메뉴 클릭 모달
 	$(".card-body").on("click", function(e) {
 
 		var getMname = $(this).children()[0].outerText;
+		var getMno = $(this).children()[1].defaultValue;
 		var getMprice = $(this).children()[2].outerText;
+		var getQuantity = "";
 
-		console.log("modal show.....");
+		console.log("modal show.....");		
 
 		$("#mname").html(getMname);
 		$("#mprice").html(getMprice);
 		
+		// quantity
+		$(function(){
+			
+			var stat = $('#numberUpDown').text();
+			var num = parseInt(stat,10);
+			
+			// click - button
+			$('#decreaseQuantity').click(function(e){
+				e.preventDefault();
+				num--;
+				if(num<=0){
+				alert('더이상 줄일수 없습니다.');
+				num =1;
+			}
+			$('#numberUpDown').text(num);
+			
+			getQuantity = $('#numberUpDown').text();
+			});
 
+			
+			// click + button
+			$('#increaseQuantity').click(function(e){
+				e.preventDefault();
+				num++;
+				$('#numberUpDown').text(num);
+		
+				getQuantity = $('#numberUpDown').text();
+				
+			});
+
+		});
+		
 		$("#myModal").show();
+		
 
+		// cart 쿠키 생성
+		$("#cart").on("click", function(e) {
+			
 
-
-	$("#cart").on("click", function(e) {
+ 			$.cookie('mno', getMno);
+			$.cookie('quantity', getQuantity);
+		
+			console.log("mno : " + $.cookie('mno'));
+			console.log("quantity : " + $.cookie('quantity')); 
 		
 		
-		$.cookie('mname', getMname);
-		
-		console.log($.cookie('mname'));
-		
-		
-	});
+		});
 	
-});
+	});
 
 
-
+	// 모달 close
 	$(".modalclose").on("click", function(e) {
 
 		console.log("modal close");
+		
+		
 
 		$("#myModal").hide();
 
 	});
 
 
-		// 스크롤 위치를 퍼센트로 나타내기
+
+	
+		// 장바구니 하단 div - 스크롤 위치를 퍼센트로 나타내기
 		$(window).scroll(function() {
 		scrollPercent = ($(window)
 				.scrollTop() / ($(
