@@ -1,6 +1,6 @@
 console.log("datatable module.....");
 
-//daily data------------------------------------
+//----------------------------daily data------------------------------------
 $("#dailyTable_type").on('change',function(){
 	var dvalue = $("#dailyTable_type option:selected").val();
 	console.log("데일리 자료타입:"+dvalue);
@@ -10,6 +10,8 @@ $("#dailyTable_type").on('change',function(){
 		console.log("데일리 월 선택: "+d_month);
 		
 		console.log(dvalue+"/"+d_month);
+		
+		document.getElementById('exceldaily').setAttribute('href','/partner/exceldown/dailydata/'+ dvalue +'/'+d_month)
 		
 		$.getJSON("dailydata/"+ dvalue +"/"+d_month, function(data){
 			var str = "";
@@ -46,6 +48,8 @@ $("#dailyTable_month").on('change',function(){
 		var dvalue = $("#dailyTable_type option:selected").val();
 		console.log("데일리 자료타입:"+dvalue);
 		
+		document.getElementById('exceldaily').setAttribute('href','/partner/exceldown/dailydata/'+ dvalue +'/'+d_month)
+		
 		$.getJSON("dailydata/"+ dvalue +"/"+d_month, function(data){
 			var str = "";
 			console.log(data);
@@ -70,7 +74,7 @@ $("#dailyTable_month").on('change',function(){
 	
 });
 
-//weekly data------------------------------------
+//----------------------------------weekly data------------------------------------
 $("#weeklyTable_type").on('change',function(){
 	var wvalue = $("#weeklyTable_type option:selected").val();
 	console.log("위클리 자료타입:"+wvalue);
@@ -81,6 +85,7 @@ $("#weeklyTable_type").on('change',function(){
 		
 		console.log(wvalue+"/"+w_month);
 		
+		document.getElementById('excelweekly').setAttribute('href','/partner/exceldown/weeklydata/'+ wvalue +'/'+w_month)
 		$.getJSON("weeklydata/"+ wvalue +"/"+w_month, function(data){
 			var str = "";
 			console.log(data);
@@ -114,6 +119,7 @@ $("#weeklyTable_month").on('change',function(){
 		var wvalue = $("#weeklyTable_type option:selected").val();
 		console.log("위클리 자료타입:"+wvalue);
 		
+		document.getElementById('excelweekly').setAttribute('href','/partner/exceldown/weeklydata/'+ wvalue +'/'+w_month)
 		$.getJSON("weeklydata/"+ wvalue +"/"+w_month, function(data){
 			var str = "";
 			console.log(data);
@@ -139,11 +145,13 @@ $("#weeklyTable_month").on('change',function(){
 });
 
 
-//monthly data------------------------------------
+//--------------------------------monthly data------------------------------------
 
 $("#monthlyTable_type").on('change',function(){
 	var mvalue = $("#monthlyTable_type option:selected").val();
 	console.log("먼슬리 자료타입: "+mvalue);
+	
+	document.getElementById('excelmonthly').setAttribute('href','/partner/exceldown/monthlydata/'+ mvalue)
 	
 	$.getJSON("monthlydata/"+ mvalue, function(data){
 		var str = "";

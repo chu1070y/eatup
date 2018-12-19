@@ -1,4 +1,51 @@
 console.log("chart module.....")
+$(document).ready(function() {
+
+	console.log("ready!");
+
+	$('#weeklychart').hide();
+	$('#monthlychart').hide();
+	$('#weeklytable').hide();
+	$('#monthlytable').hide();
+
+});
+
+$('#daily').click(function() {
+	console.log("dailychart clicked")
+	$('#dailychart').show();
+	$('#weeklychart').hide();
+	$('#monthlychart').hide();
+
+	$('#dailytable').show();
+	$('#weeklytable').hide();
+	$('#monthlytable').hide();
+
+});
+
+$('#weekly').click(function() {
+	console.log("weeklychart clicked")
+	$('#dailychart').hide();
+	$('#weeklychart').show();
+	$('#monthlychart').hide();
+
+	$('#dailytable').hide();
+	$('#weeklytable').show();
+	$('#monthlytable').hide();
+
+});
+
+$('#monthly').click(function() {
+	console.log("monthlychart clicked")
+	$('#dailychart').hide();
+	$('#weeklychart').hide();
+	$('#monthlychart').show();
+
+	$('#dailytable').hide();
+	$('#weeklytable').hide();
+	$('#monthlytable').show();
+
+});
+
 /* -------------------- daily chart ------------------------*/
 
 var margin = {top: 40, right: 80, bottom: 60, left: 100},

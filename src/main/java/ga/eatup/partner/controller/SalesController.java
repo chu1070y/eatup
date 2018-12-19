@@ -6,6 +6,7 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,62 +39,108 @@ public class SalesController {
 	
 	// ---------------------- chart ------------------------------- //
 	@RequestMapping(value = "salesList", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public @ResponseBody String dailyList(Locale locale, Model model) {
+	public @ResponseBody String dailyList(Authentication authentication, Model model) {
+		
+		String pid = authentication.getName();
+		log.info("pid: " + pid);
+		int sno = service.getSno(pid);
+		log.info("sno: " + sno);
+		
 		Gson gson = new Gson();
-		List<SalesVO> list = service.getDailySales();
+		List<SalesVO> list = service.getDailySales(sno);
 		
 		return gson.toJson(list);
 	}
 	
 	@RequestMapping(value = "weeklyList", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public @ResponseBody String weeklyList(Locale locale, Model model) {
+	public @ResponseBody String weeklyList(Authentication authentication, Model model) {
+		String pid = authentication.getName();
+		log.info("pid: " + pid);
+		int sno = service.getSno(pid);
+		log.info("sno: " + sno);
+		
 		Gson gson = new Gson();
-		List<SalesVO> list = service.getWeeklySales();
+		List<SalesVO> list = service.getWeeklySales(sno);
 		
 		return gson.toJson(list);
 	}
 	
 	@RequestMapping(value = "monthlyList", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public @ResponseBody String monthlyList(Locale locale, Model model) {
+	public @ResponseBody String monthlyList(Authentication authentication, Model model) {
+		String pid = authentication.getName();
+		log.info("pid: " + pid);
+		int sno = service.getSno(pid);
+		log.info("sno: " + sno);
+		
 		Gson gson = new Gson();
-		List<SalesVO> list = service.getMonthlySales();
+		List<SalesVO> list = service.getMonthlySales(sno);
 		
 		return gson.toJson(list);
 	}
 	
 	// ---------------------- data table ------------------------------- //
 	@GetMapping(value = "dailydata/menu/{month}", produces="application/json")
-	public ResponseEntity<List<SalesVO>> getdailydata(@PathVariable("month") int month){
-		return new ResponseEntity<>(service.getDailytableData(month),HttpStatus.OK);
+	public ResponseEntity<List<SalesVO>> getdailydata(Authentication authentication, @PathVariable("month") int month){
+		String pid = authentication.getName();
+		log.info("pid: " + pid);
+		int sno = service.getSno(pid);
+		log.info("sno: " + sno);
+		
+		return new ResponseEntity<>(service.getDailytableData(month, sno),HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "dailydata/date/{month}", produces="application/json")
-	public ResponseEntity<List<SalesVO>> getdailydata_date(@PathVariable("month") int month){
-		return new ResponseEntity<>(service.getDailytableData_date(month),HttpStatus.OK);
+	public ResponseEntity<List<SalesVO>> getdailydata_date(Authentication authentication, @PathVariable("month") int month){
+		String pid = authentication.getName();
+		log.info("pid: " + pid);
+		int sno = service.getSno(pid);
+		log.info("sno: " + sno);
+		
+		return new ResponseEntity<>(service.getDailytableData_date(month, sno),HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "weeklydata/menu/{month}", produces="application/json")
-	public ResponseEntity<List<SalesVO>> getweeklydata(@PathVariable("month") int month){
-		return new ResponseEntity<>(service.getWeeklytableData(month),HttpStatus.OK);
+	public ResponseEntity<List<SalesVO>> getweeklydata(Authentication authentication, @PathVariable("month") int month){
+		String pid = authentication.getName();
+		log.info("pid: " + pid);
+		int sno = service.getSno(pid);
+		log.info("sno: " + sno);
+		
+		return new ResponseEntity<>(service.getWeeklytableData(month, sno),HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "weeklydata/date/{month}", produces="application/json")
-	public ResponseEntity<List<SalesVO>> getweeklydata_date(@PathVariable("month") int month){
-		return new ResponseEntity<>(service.getWeeklytableData_date(month),HttpStatus.OK);
+	public ResponseEntity<List<SalesVO>> getweeklydata_date(Authentication authentication, @PathVariable("month") int month){
+		String pid = authentication.getName();
+		log.info("pid: " + pid);
+		int sno = service.getSno(pid);
+		log.info("sno: " + sno);
+		
+		return new ResponseEntity<>(service.getWeeklytableData_date(month, sno),HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "monthlydata/menu", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public @ResponseBody String monthlydata(Locale locale, Model model) {
+	public @ResponseBody String monthlydata(Authentication authentication, Model model) {
+		String pid = authentication.getName();
+		log.info("pid: " + pid);
+		int sno = service.getSno(pid);
+		log.info("sno: " + sno);
+		
 		Gson gson = new Gson();
-		List<SalesVO> list = service.getMonthlytableData();
+		List<SalesVO> list = service.getMonthlytableData(sno);
 		
 		return gson.toJson(list);
 	}
 	
 	@RequestMapping(value = "monthlydata/date", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public @ResponseBody String monthlydata_date(Locale locale, Model model) {
+	public @ResponseBody String monthlydata_date(Authentication authentication, Model model) {
+		String pid = authentication.getName();
+		log.info("pid: " + pid);
+		int sno = service.getSno(pid);
+		log.info("sno: " + sno);
+		
 		Gson gson = new Gson();
-		List<SalesVO> list = service.getMonthlytableData_date();
+		List<SalesVO> list = service.getMonthlytableData_date(sno);
 		
 		return gson.toJson(list);
 	}
