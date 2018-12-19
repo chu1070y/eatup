@@ -28,4 +28,6 @@ public class MenuVO {
 	
 	private StoreVO storeVO;
 	
+	private Integer index;
+	
 }

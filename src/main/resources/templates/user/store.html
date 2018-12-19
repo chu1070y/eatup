@@ -65,8 +65,8 @@
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	width: 100%;
-	height: auto;
+	width: 200px;
+	height: 150px;
 }
 </style>
 
@@ -74,12 +74,12 @@
 	<!-- content -->
 
 
-
+<div class="getMenu"></div>
 	<div class="menuContent col-lg-9">
 		<h1 th:text="${menu[0].sname}"></h1>
-						<span class="fa fa-star checked"></span> <span
-					class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
-				<span class="fa fa-star"></span> <span class="fa fa-star"></span>
+		<span class="fa fa-star checked"></span> <span
+			class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
+		<span class="fa fa-star"></span> <span class="fa fa-star"></span>
 		<div id="carouselExampleIndicators" class="carousel slide my-4"
 			data-ride="carousel">
 			<ol class="carousel-indicators">
@@ -114,15 +114,12 @@
 		</div>
 
 		<div class="container">
-			<div class="wrapper">
-
-
-
-			</div>
+			<div class="wrapper"></div>
 		</div>
 
 		<div class="row">
-			<div class="col-lg-4 col-md-6 mb-4" th:each="menu, iterState : ${menu}">
+			<div class="col-lg-4 col-md-6 mb-4"
+				th:each="menu, iterState : ${menu}">
 
 				<div class="card h-100">
 					<img
@@ -131,9 +128,11 @@
 
 					<div class="card-body">
 						<h6 th:text="${menu.mname}" class="card-title"></h6>
+						<input type="hidden" th:value="${iterState.index}">
 						<p th:text="${menu.mprice}" class="card-text"></p>
 						<p th:text="${menu.introduction}" class="card-text"></p>
 					</div>
+
 					<div class="card-footer">
 						<span class="fa fa-star checked"></span> <span
 							class="fa fa-star checked"></span> <span
@@ -163,14 +162,17 @@
 					</button>
 				</div>
 				<div class="modal-body">
+				<form id="getOrderForm" method="get">
 					<div class="col-md-7">
-						<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0" width="100px" alt="">
+						<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0"
+							width="100px" alt="">
 						</a>
 					</div>
 					<div class="col-md-5">
-						<h3></h3>
+						<p id="mname"></p>
+						<p id="mprice"></p>
 						<p>수량</p>
-						<div class="number">
+						<div id=""class="number">
 
 							<button id="decreaseQuantity">-</button>
 							<span id="numberUpDown">1</span>
@@ -178,10 +180,13 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary">장바구니</button>
+						<button type="button" class="btn btn-primary"
+						th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">장바구니</button>
 						<button type="button" class="btn btn-secondary"
+						th:onclick="|window.location.href='@{/user/pay(sno=${menu[0].sno})}'|"
 							data-dismiss="modal">바로주문</button>
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -199,52 +204,45 @@
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-		$(document).ready(
+$(document).ready(function() {
 
-function() {
-	
-	var mname = [[${menu.mname}]];
-	var mprice = [[${menu.mprice}]];
-	
-	
-	
-	
-	
-	// 스크롤 위치를 퍼센트로 나타내기
-	$(window).scroll(function() {
+
+		// 스크롤 위치를 퍼센트로 나타내기
+		$(window).scroll(function() {
 		scrollPercent = ($(window)
 				.scrollTop() / ($(
 				document).height() - $(
 				window).height())) * 100;
 		});
 
-	$(window).scroll( function() {
-				// Change this to target a different percentage
-				var targetPercentage = 70;
-				//Change this to the ID of the content you are trying to show.
-				var targetID = "#container-fluid";
-				//Window Math
-				var scrollTo = $(window).scrollTop(), docHeight = $(
-						document).height(), windowHeight = $(
-						window).height();
-				scrollPercent = (scrollTo / (docHeight - windowHeight)) * 100;
-				//스크롤 표시
-				$('#percentageCounter h1').text(
-						scrollPercent + "%");
-				//네비바 보이기
-				if (scrollPercent > targetPercentage) {
-					$(targetID).css({
-						top : '0'
-					});
-				} else {
-					$(targetID).css({
-					top : '-'
-						+ $(targetID).height
-						+ 'px'
-					});
-				}
-			}).trigger('scroll');
+		$(window).scroll(function() {
+		// Change this to target a different percentage
+		var targetPercentage = 70;
+		//Change this to the ID of the content you are trying to show.
+		var targetID = "#container-fluid";
+		//Window Math
+		var scrollTo = $(window)
+				.scrollTop(), docHeight = $(
+				document).height(), windowHeight = $(
+				window).height();
+		scrollPercent = (scrollTo / (docHeight - windowHeight)) * 100;
+		//스크롤 표시
+		$('#percentageCounter h1')
+				.text(scrollPercent+ "%");
+		//네비바 보이기
+		if (scrollPercent > targetPercentage) {
+			$(targetID).css({
+				top : '0'
+			});
+		} else {
+			$(targetID).css(
+							{
+								top : '-'+ $(targetID).height+ 'px'
+							});
+		}
+	}).trigger('scroll');
 
-	});
+
+});
 	</script>
 </th:block>
