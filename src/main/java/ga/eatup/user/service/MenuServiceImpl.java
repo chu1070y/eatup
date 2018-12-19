@@ -28,8 +28,8 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public List<MenuVO> readMenuImg(int sno) {
 		log.info("readmenu service implement............");
-		return null;
-				/*mapper.readMenuImg(sno)*/
+		return mapper.readMenuImg(sno);
+				
 	}
 
 

@@ -3,7 +3,6 @@ package ga.eatup.partner.mapper;
 import java.util.List;
 
 import ga.eatup.partner.domain.PartnerVO;
-import ga.eatup.user.domain.MenuVO;
 
 public interface PartnerMapper {
 

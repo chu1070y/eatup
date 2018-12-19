@@ -6,20 +6,29 @@
 
 	<style>
 #content-wrapper {
-	background-image: url("/agency/img/header-bg.jpg");
 }
 
 .col-centered {
 	float: none;
 	margin: 0 auto;
 }
+
+img {
+
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 300px;
+	height: 200px;
+	
+
+}
 </style>
 
-	<!-- <h1 th:text="${partner.sno}"></h1> -->
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item">메뉴</li>
- 		<li th:text="${menu[0].sname}" class="breadcrumb-item active">메뉴보기</li>
- 	</ol>
+		<li th:text="${menu[0].sname}" class="breadcrumb-item active">메뉴보기</li>
+	</ol>
 
 	<div class="row">
 
@@ -29,6 +38,8 @@
 			id="menubox">
 			<div class="card o-hidden h-100">
 				<div class="card-body">
+				
+					<img th:src="@{/upload/display(fileName=${menu.upload_path +'\/'+ menu.uuid + '_'+menu.fname})}">
 					<div th:text="${menu.fname}" align="center"></div>
 					<div th:text="${menu.mname}" align="center"></div>
 					<div th:text="${menu.mprice}" align="center"></div>
@@ -53,7 +64,6 @@
 		</div>
 
 
-
 	</div>
 </div>
 
@@ -62,6 +72,7 @@
 	<script th:inline="javascript">
 		$(document).ready(function() {
 
+		
 		});
 	</script>
 </th:block>

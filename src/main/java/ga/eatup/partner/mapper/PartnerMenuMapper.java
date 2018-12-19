@@ -10,4 +10,5 @@ public interface PartnerMenuMapper {
 	
 	public int getSno(String pid);
 	
+	
 }

@@ -10,4 +10,6 @@ public interface UserMenuMapper {
 
 	public List<MenuVO> getMenu(@RequestParam("sno") int sno);
 	
+	public List<MenuVO> readMenuImg(int sno);
+	
 }
