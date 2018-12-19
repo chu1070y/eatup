@@ -2,8 +2,19 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layout/layout_partner}">
 
-<div layout:fragment="content">
 
+<div layout:fragment="content">
+<style>
+a {
+	color: black;
+}
+
+</style>
+<!-- Breadcrumbs-->
+		<ol class="breadcrumb" style="font: 12px sans-serif">
+			<li class="breadcrumb-item"><a href="#">Home</a></li>
+			<li class="breadcrumb-item active">주문</li>
+		</ol>
 
 	<div id="conversation">
 		<div id="greetings"></div>

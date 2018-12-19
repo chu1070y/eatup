@@ -5,22 +5,24 @@ import java.util.List;
 import ga.eatup.partner.domain.SalesVO;
 
 public interface SalesService {
+	
+	public int getSno(String pid);
 
-	public List<SalesVO> getDailySales();
+	public List<SalesVO> getDailySales(int sno);
 	
-	public List<SalesVO> getWeeklySales();
+	public List<SalesVO> getWeeklySales(int sno);
 	
-	public List<SalesVO> getMonthlySales();
+	public List<SalesVO> getMonthlySales(int sno);
 	
-	public List<SalesVO> getDailytableData();
+	public List<SalesVO> getDailytableData(int month, int sno);
 	
-	public List<SalesVO> getDailytableData_date();
+	public List<SalesVO> getDailytableData_date(int month, int sno);
 	
-	public List<SalesVO> getWeeklytableData();
+	public List<SalesVO> getWeeklytableData(int month, int sno);
 	
-	public List<SalesVO> getWeeklytableData_date();
+	public List<SalesVO> getWeeklytableData_date(int month, int sno);
 	
-	public List<SalesVO> getMonthlytableData();
+	public List<SalesVO> getMonthlytableData(int sno);
 	
-	public List<SalesVO> getMonthlytableData_date();
+	public List<SalesVO> getMonthlytableData_date(int sno);
 }

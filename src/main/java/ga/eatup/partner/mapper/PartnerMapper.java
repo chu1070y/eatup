@@ -8,7 +8,7 @@ public interface PartnerMapper {
 
 	
 	public List<PartnerVO> getPartnerList();
-	
+		
 	public PartnerVO getPartner(String pid);
 	
 	public int registerPartner(PartnerVO vo);

@@ -33,6 +33,7 @@ public class UserSecurityConfig  extends WebSecurityConfigurerAdapter {
 
 		
 		http
+//			.csrf().disable()
 			.authorizeRequests()
 				.antMatchers("/upload/**").permitAll()
 				.antMatchers("/user/**").permitAll()

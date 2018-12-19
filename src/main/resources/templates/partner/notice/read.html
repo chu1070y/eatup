@@ -5,7 +5,7 @@
 <div layout:fragment="content">
 	<style>
 #content-wrapper {
-	background-image: url("/agency/img/we.jpg");
+	background-image: url("/imgs/we.jpg");
 }
 
 #gorany {
@@ -209,6 +209,7 @@
 		 	
 			function showImage(fileCallPath){
 				console.log(encodeURI(fileCallPath));
+				console.log(fileCallPath);
 				
 				$(".bigPictureWrapper").css("display","flex").show();
 				$(".bigPicture")

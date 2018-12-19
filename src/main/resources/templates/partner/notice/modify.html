@@ -5,7 +5,7 @@
 <div layout:fragment="content">
 	<style>
 #content-wrapper {
-	background-image: url("/agency/img/we.jpg");
+	background-image: url("/imgs/we.jpg");
 }
 
 #gorany {
@@ -411,7 +411,8 @@
 						if(upload.filetype == 0){
 							console.log("이미지");
 							var fileCallPath = encodeURIComponent(upload.upload_path+"/s_"+upload.uuid+"_"+upload.fname);
-							
+							console.log(fileCallPath);
+							console.log(upload.upload_path)
 							str += "<li data-path='"+upload.upload_path+"' data-uuid='"+upload.uuid+"' data-filename='"+upload.fname+"' data-type=0>";
 							str += "<div>";
 							str += "<span>" + upload.fname + "</span><br/>";

@@ -2,6 +2,11 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layout/layout_partner_sales}">
 
+
+<!--csrf.token을 불러오지 못하는 문제가 있어서, 일단 여기서 한번 호출해두는 것 (스크립트에서 이 값을 빼서 쓰진 않음)-->
+<input type="hidden" id="token" th:name="${_csrf.parameterName}"
+	th:value="${_csrf.token}" />
+
 <div layout:fragment="content">
 	<div class="container-fluid">
 
@@ -13,20 +18,29 @@
 		<div class="btn-group btn-group-justified" role="group"
 			aria-label="...">
 			<div class="btn-group" role="group">
-				<button id="daily" type="button" class="btn btn-info">일간매출</button>
+				<button id="daily" type="button" class="btn btn-info"
+					style="font: 12px sans-serif">일간매출</button>
 			</div>
 			<div class="btn-group" role="group">
-				<button id="weekly" type="button" class="btn btn-info">주간매출</button>
+				<button id="weekly" type="button" class="btn btn-info"
+					style="font: 12px sans-serif">주간매출</button>
 			</div>
 			<div class="btn-group" role="group">
-				<button id="monthly" type="button" class="btn btn-info">월간매출</button>
+				<button id="monthly" type="button" class="btn btn-info"
+					style="font: 12px sans-serif">월간매출</button>
 			</div>
 		</div>
 		<!-- Area Chart Example-->
 		<div class="card mb-3">
 			<div class="card-header">
-				<i class="fas fa-chart-area"></i> 매출 그래프
+				<div class="row">
+					<div class="col-sm-12 col-md-6">
+						<i class="fas fa-chart-area"></i> 매출 그래프
+					</div>
+
+				</div>
 			</div>
+
 			<div class="card-body">
 				<div id="dailychart"></div>
 				<div id="weeklychart"></div>
@@ -40,27 +54,29 @@
 			<div class="card-header">
 				<i class="fas fa-table"></i> 매출 데이터
 			</div>
-			 <div class="pannel-body">  
+			<div class="pannel-body">
 				<div id="dailytable" class="table-responsive">
 					<div class="row">
 						<div class="col-sm-12 col-md-6">
 							<div class="dataTables_length" id="dataTable_length">
-								<label>일간 매출 <select id="dailyTable_type" onchange="changeType()"
+								<label>일간 매출 메뉴별/일자별 <select id="dailyTable_type"
 									aria-controls="dataTable"
-									class="custom-select custom-select-sm form-control form-control-sm"><option
-											value="menu">메뉴별</option>
+									class="custom-select custom-select-sm form-control form-control-sm">
+										<option value="type">선택하기</option>
+										<option value="menu">메뉴별</option>
 										<option value="date">일자별</option>
-										</select> 
+								</select>
 								</label>
 							</div>
-							
+
 						</div>
 						<div class="col-sm-12 col-md-6">
 							<div class="select_month" id="select_month">
-								<label>month <select id="dailyTable_month" onchange="changeMonth()"
+								<label>month <select id="dailyTable_month"
 									aria-controls="dataTable"
-									class="custom-select custom-select-sm form-control form-control-sm"><option
-											value="1">1월</option>
+									class="custom-select custom-select-sm form-control form-control-sm">
+										<option value="month">선택하기</option>
+										<option value="1">1월</option>
 										<option value="2">2월</option>
 										<option value="3">3월</option>
 										<option value="4">4월</option>
@@ -72,13 +88,13 @@
 										<option value="10">10월</option>
 										<option value="11">11월</option>
 										<option value="12">12월</option>
-										</select> 
-								</label>
+								</select>
+								</label> <a id="exceldaily" href="#"><button id="exceldown"
+										type="button" class="btn btn-default"
+										style="font: 12px sans-serif">다운로드</button></a>
 							</div>
-							
 						</div>
-						
-						
+
 					</div>
 					<table class="table table-bordered" id="dailyTable" width="100%"
 						cellspacing="0">
@@ -88,39 +104,41 @@
 								<th>메뉴명</th>
 								<th>수량</th>
 								<th>소계</th>
-								
+
 							</tr>
 						</thead>
 
 						<tbody>
 							<tr>
-							
+
 							</tr>
 						</tbody>
 					</table>
-					
-					
+
+
 				</div>
 
 				<div id="weeklytable" class="table-responsive">
-				<div class="row">
+					<div class="row">
 						<div class="col-sm-12 col-md-6">
 							<div class="dataTables_length" id="dataTable_length">
-								<label>주간 매출  <select id="weeklyTable_type" onchange="wchangeType()"
+								<label>주간 매출 메뉴별/일자별 <select id="weeklyTable_type"
 									aria-controls="dataTable"
-									class="custom-select custom-select-sm form-control form-control-sm"><option
-											value="wmenu">메뉴별</option>
-										<option value="wdate">일자별</option>
-										</select> 
+									class="custom-select custom-select-sm form-control form-control-sm">
+										<option value="type">선택하기</option>
+										<option value="menu">메뉴별</option>
+										<option value="date">일자별</option>
+								</select>
 								</label>
 							</div>
 						</div>
 						<div class="col-sm-12 col-md-6">
 							<div class="select_month" id="select_month">
-								<label>month <select id="weeklyTable_month" onchange="wchangeMonth()"
+								<label>month <select id="weeklyTable_month"
 									aria-controls="dataTable"
-									class="custom-select custom-select-sm form-control form-control-sm"><option
-											value="1">1월</option>
+									class="custom-select custom-select-sm form-control form-control-sm">
+										<option value="month">선택하기</option>
+										<option value="1">1월</option>
 										<option value="2">2월</option>
 										<option value="3">3월</option>
 										<option value="4">4월</option>
@@ -132,10 +150,12 @@
 										<option value="10">10월</option>
 										<option value="11">11월</option>
 										<option value="12">12월</option>
-										</select> 
+								</select>
 								</label>
+								<a id="excelweekly" href="#"><button id="exceldown" type="button" class="btn btn-default"
+									style="font: 12px sans-serif">다운로드</button></a>
 							</div>
-							
+
 						</div>
 					</div>
 					<table class="table table-bordered" id="weeklyTable" width="100%"
@@ -151,7 +171,7 @@
 
 						<tbody>
 							<tr>
-								
+
 							</tr>
 
 						</tbody>
@@ -159,19 +179,22 @@
 				</div>
 
 				<div id="monthlytable" class="table-responsive">
-				<div class="row">
+					<div class="row">
 						<div class="col-sm-12 col-md-6">
 							<div class="dataTables_length" id="dataTable_length">
-								<label>월간 매출 <select id="monthlyTable_type" onchange="mchangeType()"
+								<label>월간 매출 메뉴별/일자별 <select id="monthlyTable_type"
 									aria-controls="dataTable"
-									class="custom-select custom-select-sm form-control form-control-sm"><option
-											value="mmenu">메뉴별</option>
-										<option value="mdate">일자별</option>
-										</select>  
+									class="custom-select custom-select-sm form-control form-control-sm">
+										<option value="type">선택하기</option>
+										<option value="menu">메뉴별</option>
+										<option value="date">일자별</option>
+								</select>
 								</label>
+								<a id="excelmonthly" href="#"><button id="exceldown" type="button" class="btn btn-default"
+									style="font: 12px sans-serif">다운로드</button></a>
 							</div>
 						</div>
-						
+
 					</div>
 					<table class="table table-bordered" id="monthlyTable" width="100%"
 						cellspacing="0">
@@ -192,7 +215,7 @@
 					</table>
 				</div>
 			</div>
-			
+
 		</div>
 
 	</div>
@@ -217,118 +240,10 @@
 
 
 	<!-- Demo scripts for this page-->
-	<script src="../admin/js/demo/daily.js"></script>
+	<script src="../admin/js/demo/chartdata.js"></script>
 	<script src="../admin/js/demo/datatable.js"></script>
 
 	<script th:inline="javascript">
-		$(document).ready(function() {
-			console.log("ready!");
-		
-			$('#weeklychart').hide();
-			$('#monthlychart').hide();
-			$('#weeklytable').hide();
-			$('#monthlytable').hide();
-			
-			/* daily data (메뉴별) */
-			$.getJSON("dailydata", function(data) {
-
-				console.log(data);
-				var str = "";
-
-				$.each(data, function(i, value) {
-
-					str += "<tr>"
-					str += "<td>" + value.orderdate + "</td>"
-					str += "<td>" + value.mname + "</td>"
-					str += "<td>" + value.quantity + "</td>"
-					str += "<td>" + value.total + "</td>"
-					str += "</tr>"
-
-					$('#dailyTable tbody').html(str);
-				});
-
-			});
-
-		});
-		
-		
-		$('#daily').click(function() {
-			console.log("dailychart clicked")
-			$('#dailychart').show();
-			$('#weeklychart').hide();
-			$('#monthlychart').hide();
-
-			$('#dailytable').show();
-			$('#weeklytable').hide();
-			$('#monthlytable').hide();
-
-		});
-
-		$('#weekly').click(function() {
-			console.log("weeklychart clicked")
-			$('#dailychart').hide();
-			$('#weeklychart').show();
-			$('#monthlychart').hide();
-
-			$('#dailytable').hide();
-			$('#weeklytable').show();
-			$('#monthlytable').hide();
-			
-			/* daily data (메뉴별) */
-			$.getJSON("weeklydata", function(data) {
-				console.log(data);
-				var str = "";
-
-				$.each(data, function(i, value) {
-
-					str += "<tr>"
-					str += "<td>" + value.start +" ~ " + value.end + "</td>"
-					str += "<td>" + value.mname + "</td>"
-					str += "<td>" + value.quantity + "</td>"
-					str += "<td>" + value.total + "</td>"
-					str += "</tr>"
-
-					$('#weeklyTable tbody').html(str);
-				});
-
-			});
-
-		});
-
-		$('#monthly').click(function() {
-			console.log("monthlychart clicked")
-			$('#dailychart').hide();
-			$('#weeklychart').hide();
-			$('#monthlychart').show();
-
-			$('#dailytable').hide();
-			$('#weeklytable').hide();
-			$('#monthlytable').show();
-			
-			/* daily data (메뉴별) */
-			$.getJSON("monthlydata", function(data) {
-
-				console.log(data);
-				var str = "";
-
-				$.each(data, function(i, value) {
-
-					str += "<tr>"
-					str += "<td>" + value.month +"</td>"
-					str += "<td>" + value.mname + "</td>"
-					str += "<td>" + value.quantity + "</td>"
-					str += "<td>" + value.total + "</td>"
-					str += "</tr>"
-
-					$('#monthlyTable tbody').html(str);
-				});
-
-			});
-
-		});
-		
-		
-		
 		
 	</script>
 

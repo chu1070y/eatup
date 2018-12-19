@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ga.eatup.user.domain.MenuVO;
-import ga.eatup.user.mapper.MenuMapper;
+import ga.eatup.user.mapper.UserMenuMapper;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -16,13 +16,20 @@ import lombok.extern.java.Log;
 public class MenuServiceImpl implements MenuService {
 
 	@Setter(onMethod_=@Autowired)
-	private MenuMapper mapper;
+	private UserMenuMapper mapper;
 
 	@Override
 	public List<MenuVO> getMenu(@RequestParam("sno") int sno) {
 
-		log.info("menu service implement...........");
+		log.info("getmenu service implement...........");
 		return mapper.getMenu(sno);
+	}
+
+	@Override
+	public List<MenuVO> readMenuImg(int sno) {
+		log.info("readmenu service implement............");
+		return mapper.readMenuImg(sno);
+				
 	}
 
 

@@ -15,33 +15,30 @@
 
 .title {
 	font-weight: bold;
-	color: rgba(255, 90, 0, 1);
+	color: rgba(255, 130, 0, 1);
 	display: block;
 }
 
 .hAddr {
+	width: 25vh;
+	height: 7vh;
+	border: 2px solid rgb(80, 80, 80); 
 	position: absolute;
-	left: 10px;
+	left: 15px;
 	top: 10px;
 	border-radius: 2px;
-	background: #fff;
-	background: rgba(255, 255, 255, 0.8);
+	background: rgba(255, 255, 255, 0.9);
 	z-index: 1;
-	padding: 5px;
+	padding: 12px;
 }
 
 #centerAddr {
+	font-weight: bold;
+	color: rgb(50, 50, 50);
 	display: block;
 	margin-top: 2px;
-	font-weight: normal;
 }
 
-.bAddr {
-	padding: 5px;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
-}
 
 .tracker {
 	position: absolute;
@@ -69,41 +66,45 @@
 
 #menu_wrap {
 	position: absolute;
-	top: 100px;
-	left: 0;
+	top: 70px;
+	left: 6px;
 	bottom: 0;
-	width: 250px;
+	width: 25vh;
+	height: 9.5vh;
 	margin: 10px 0 30px 10px;
-	padding: 5px;
+	padding: 8px;
 	overflow-y: auto;
-	background: rgba(255, 255, 255, 0.7);
+	background: rgba(255, 255, 255, 0.9);
 	z-index: 1;
 	font-size: 12px;
-	border-radius: 10px;
+	border: 2px solid rgb(80, 80, 80); 
+	border-radius: 2px;
 }
 
 .bg_white {
 	background: #fff;
 }
 
-#menu_wrap hr {
-	display: block;
-	height: 1px;
-	border: 0;
-	border-top: 2px solid #5F5F5F;
-	margin: 3px 0;
-}
-
 #menu_wrap .option {
 	text-align: center;
 }
 
-#menu_wrap .option p {
-	margin: 10px 0;
+#keyword {
+	height: 3.5vh;
 }
 
 #menu_wrap .option button {
-	margin-left: 5px;
+	margin-top: 7px;
+	height: 3vh;
+	width: 21.5vh;
+	font-size: 13px;
+	background-color: #555555 ;
+	border: 1px solid gray;
+	color: white;
+	font-weight: bold;
+	display: inline-block;
+	text-align: center;
+	
 }
 </style>
 
@@ -111,22 +112,18 @@
 	<!-- 지도를 표시할 div 입니다 -->
 	<div class="map_wrap">
 		<div id="map"
-			style="width: 100%; height: 50vh; position: relative; overflow: hidden;"></div>
+			style="width: 100%; height: 50vh; position: relative; overflow: hidden;">
+		</div>
 		<div class="hAddr">
 			<span class="title">이 위치에서 검색하시겠습니까?</span> <span id="centerAddr"></span>
 		</div>
 		<div id="menu_wrap" class="bg_white">
 			<div class="option">
 				<div>
-					<form onsubmit="searchPlaces(); return false;">
-						키워드 : <input type="text" value="종로 맛집" id="keyword" size="15">
-						<button type="submit">검색하기</button>
-					</form>
+					<div><input type="text" id="keyword" size="28" placeholder="주소, 건물명, 역명 등을 입력하세요"></div>
+					<div><button type="submit">검색하기</button></div>
 				</div>
 			</div>
-			<hr>
-			<ul id="placesList"></ul>
-			<div id="pagination"></div>
 		</div>
 		<div>
 			<input type="text" class="search" value=""

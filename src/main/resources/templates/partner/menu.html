@@ -4,36 +4,53 @@
 
 <div layout:fragment="content">
 
-	<style>
+<style>
+
+a {
+	color: black;
+}
+
 #content-wrapper {
-	background-image: url("/agency/img/header-bg.jpg");
+ font: 14px sans-serif
 }
 
 .col-centered {
 	float: none;
 	margin: 0 auto;
 }
+
+
+img {
+
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 300px;
+	height: 200px;
+	
+
+}
 </style>
 
-	<!-- <h1 th:text="${partner.sno}"></h1> -->
-	<ol class="breadcrumb">
-		<li class="breadcrumb-item">메뉴<a
-			href="/partner/menu?sno=${partner.sno}"></a></li>
-		<li th:text="${partner[0].sname}" class="breadcrumb-item active">메뉴보기</li>
+	<ol class="breadcrumb" style="font: 12px sans-serif">
+		<li class="breadcrumb-item"><a href="#">Home</a></li>
+		<li class="breadcrumb-item">메뉴</li>
+		<li th:text="${menu[0].sname}" class="breadcrumb-item active">메뉴보기</li>
 	</ol>
 
 	<div class="row">
 
 		<!-- 메뉴목록 -->
 
-		<div th:each="partner : ${partner}" class="col-xl-3 col-sm-6 mb-3"
+		<div th:each="menu : ${menu}" class="col-xl-3 col-sm-6 mb-3"
 			id="menubox">
 			<div class="card o-hidden h-100">
 				<div class="card-body">
-					<div th:text="${partner.fname}" align="center"></div>
-					<div th:text="${partner.mname}" align="center"></div>
-					<div th:text="${partner.mprice}" align="center"></div>
-					<div th:text="${partner.introduction}" align="center"></div>
+				
+					<img th:src="@{/upload/display(fileName=${menu.upload_path +'\/'+ menu.uuid + '_'+menu.fname})}">
+					<div th:text="${menu.mname}" align="center"></div>
+					<div th:text="${menu.mprice}" align="center"></div>
+					<div th:text="${menu.introduction}" align="center"></div>
 					</br>
 
 					<div class="row">
@@ -43,16 +60,15 @@
 									aria-describedby="inputGroup-sizing-default" type="number"
 									id="usernumber" name="usernumber" value="5" step="1" min="0"
 									max="1000"> <span class="input-group-btn">
-									<button type="button" class="btn btn-dark">설정</button>
+									<button type="button" class="btn btn-dark" style="font: 12px sans-serif">설정</button>
 								</span>
 							</div>
 						</div>
 					</div>
 				</div>
-				<button id="soldout" type="button" class="btn btn-danger">품절</button>
+				<button id="soldout" type="button" class="btn btn-danger" style="font: 12px sans-serif">품절</button>
 			</div>
 		</div>
-
 
 
 	</div>
@@ -63,6 +79,7 @@
 	<script th:inline="javascript">
 		$(document).ready(function() {
 
+		
 		});
 	</script>
 </th:block>

@@ -13,8 +13,9 @@
 		from gorany.order_info info join gorany.partner_store_menu menu
 		on info.mno = menu.mno) allorder
 		on gorany.order.tid = allorder.tid
-		where allorder.sno = 1
-		and MONTH(`approved_at`) = 11
+		where allorder.sno = #{sno}
+		and YEAR(`approved_at`) = YEAR(curdate())
+		and MONTH(`approved_at`) = MONTH(curdate())
 		group by orderdate
 		order by orderdate
 	
@@ -32,7 +33,7 @@
 		from gorany.order_info left join gorany.partner_store_menu
 		on gorany.order_info.mno = gorany.partner_store_menu.mno) allorder
 		on gorany.order.tid = allorder.tid
-		where sno = 1
+		where sno = #{sno}
 		group by week
 		order by start
 	</select>
@@ -40,27 +41,28 @@
 	<select id="getMonthlySales" resultType="ga.eatup.partner.domain.SalesVO">
 	
 		
-		SELECT MONTH(`approved_at`) AS `month`,
+		SELECT DATE_FORMAT(`approved_at`, '%Y/%m') as ordermonth,
 		       sum(mprice*quantity) total
 		FROM gorany.order join
 		(select tid, mprice, quantity
 		from gorany.order_info left join gorany.partner_store_menu
 		on gorany.order_info.mno = gorany.partner_store_menu.mno) allorder
 		on gorany.order.tid = allorder.tid
-		where sno = 1
-		GROUP BY `month`
+		where sno = #{sno}
+		GROUP BY `ordermonth`
 	</select>
 	
 	<select id="getDailytableData" resultType="ga.eatup.partner.domain.SalesVO">
 	
-	select DATE(approved_at) orderdate, mname, sum(quantity) quantity, (mprice*sum(quantity)) total
+	select DATE(approved_at) orderdate, MONTH(`approved_at`) month, mname, sum(quantity) quantity, (mprice*sum(quantity)) total
 	from gorany.partner_store_menu menu join 
 	(select approved_at, sno, mno, quantity
 	from gorany.order od join gorany.order_info info
 	on od.tid = info.tid) allorder
 	on menu.mno = allorder.mno
-	where allorder.sno = 1
-	and MONTH(`approved_at`) = 11
+	where allorder.sno = #{sno}
+	and YEAR(`approved_at`) = YEAR(curdate())
+	and MONTH(`approved_at`) = #{month}
 	group by orderdate, mname;
 	</select>
 	
@@ -71,8 +73,9 @@
 	from gorany.order od join gorany.order_info info
 	on od.tid = info.tid) allorder
 	on menu.mno = allorder.mno
-	where allorder.sno = 1
-	and MONTH(`approved_at`) = 11
+	where allorder.sno = #{sno}
+	and YEAR(`approved_at`) = YEAR(curdate())
+	and MONTH(`approved_at`) = #{month}
 	group by orderdate;
 	
 	</select>
@@ -89,8 +92,9 @@
 	from gorany.order_info info left join gorany.partner_store_menu menu
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
-	where sno = 1
-	and MONTH(`approved_at`) = 11
+	where sno = #{sno}
+	and YEAR(`approved_at`) = YEAR(curdate())
+	and MONTH(`approved_at`) = #{month}
 	group by week,mname
 	order by start;
 	</select>
@@ -107,8 +111,9 @@
 	from gorany.order_info info left join gorany.partner_store_menu menu
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
-	where sno = 1
-	and MONTH(`approved_at`) = 11
+	where sno = #{sno}
+	and YEAR(`approved_at`) = YEAR(curdate())
+	and MONTH(`approved_at`) = #{month}
 	group by week
 	order by start;
 	
@@ -116,7 +121,7 @@
 	
 	<select id="getMonthlytableData" resultType="ga.eatup.partner.domain.SalesVO">
 	
-	SELECT MONTH(`approved_at`) AS `month`,
+	SELECT DATE_FORMAT(`approved_at`, '%Y/%m') as ordermonth,
 		   mname,
 		   sum(quantity) quantity,
 		  (mprice*sum(quantity)) total
@@ -125,14 +130,14 @@
 	from gorany.order_info info left join gorany.partner_store_menu menu
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
-	where sno = 1
-	GROUP BY `month`,mname;
+	where sno = #{sno}
+	GROUP BY `ordermonth`,mname;
 	
 	</select>
 	
 	<select id="getMonthlytableData_date" resultType="ga.eatup.partner.domain.SalesVO">
 	
-	SELECT MONTH(`approved_at`) AS `month`,
+	SELECT DATE_FORMAT(`approved_at`, '%Y/%m') as ordermonth,
 		   mname,
 		   sum(quantity) quantity,
 		  sum(mprice*quantity) total
@@ -141,8 +146,8 @@
 	from gorany.order_info info left join gorany.partner_store_menu menu
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
-	where sno = 1
-	GROUP BY `month`;	
+	where sno = #{sno}
+	GROUP BY `ordermonth`;	
 	
 	</select>
 	

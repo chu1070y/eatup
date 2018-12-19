@@ -1,3 +1,51 @@
+console.log("chart module.....")
+$(document).ready(function() {
+
+	console.log("ready!");
+
+	$('#weeklychart').hide();
+	$('#monthlychart').hide();
+	$('#weeklytable').hide();
+	$('#monthlytable').hide();
+
+});
+
+$('#daily').click(function() {
+	console.log("dailychart clicked")
+	$('#dailychart').show();
+	$('#weeklychart').hide();
+	$('#monthlychart').hide();
+
+	$('#dailytable').show();
+	$('#weeklytable').hide();
+	$('#monthlytable').hide();
+
+});
+
+$('#weekly').click(function() {
+	console.log("weeklychart clicked")
+	$('#dailychart').hide();
+	$('#weeklychart').show();
+	$('#monthlychart').hide();
+
+	$('#dailytable').hide();
+	$('#weeklytable').show();
+	$('#monthlytable').hide();
+
+});
+
+$('#monthly').click(function() {
+	console.log("monthlychart clicked")
+	$('#dailychart').hide();
+	$('#weeklychart').hide();
+	$('#monthlychart').show();
+
+	$('#dailytable').hide();
+	$('#weeklytable').hide();
+	$('#monthlytable').show();
+
+});
+
 /* -------------------- daily chart ------------------------*/
 
 var margin = {top: 40, right: 80, bottom: 60, left: 100},
@@ -39,6 +87,7 @@ var svg = d3.select("#dailychart").append("svg")
 svg.call(tip);
 
 //json 데이터 가져오기
+
 d3.json("salesList", function(error, data) {
 	  x.domain(data.map(function(d) {
 	    return d.orderdate
@@ -91,7 +140,6 @@ d3.json("salesList", function(error, data) {
 		.attr("height", function(d) { return height - y(d.total); })
   
 });
- 
  //반응형
 function responsivefy(svg){
 	var container = d3.select(svg.node().parentNode),
@@ -203,19 +251,20 @@ var tip3 = d3.tip()
 .attr('class', 'd3-tip')
 .offset([-10, 0])
 .html(function(d) {
-  return "<strong>"+ d.month +": </strong> <span style='color:red'>" + d.total + "</span>";
+  return "<strong>"+ d.ordermonth +": </strong> <span style='color:red'>" + d.total + "</span>";
 })
 
 svg3.call(tip3);
 
 d3.json("monthlyList", function(error, data3) {
 	  x.domain(data3.map(function(d) {
-	    return d.month
+	    return d.ordermonth
 	  }));
 	  y.domain([0, d3.max(data3, function(d) {
 	    return d.total
 	  })]);
-	  
+
+
   svg3.append("g")
   .attr("class", "x axis")
   .attr("transform", "translate(0," + height + ")")
@@ -235,7 +284,7 @@ d3.json("monthlyList", function(error, data3) {
   .data(data3)
   .enter().append("rect")
   .attr("class", "bar")
-  .attr("x", function(d) { return x(d.month); })
+  .attr("x", function(d) { return x(d.ordermonth); })
   .attr("width",x.rangeBand())
   .attr("y", height)
   .attr("height", 0)
@@ -248,4 +297,5 @@ d3.json("monthlyList", function(error, data3) {
 		.attr("height", function(d) { return height - y(d.total); })
   
 });
+
 

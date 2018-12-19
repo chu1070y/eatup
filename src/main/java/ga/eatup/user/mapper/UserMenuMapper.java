@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ga.eatup.user.domain.MenuVO;
 
-public interface MenuMapper {
+public interface UserMenuMapper {
 
 	public List<MenuVO> getMenu(@RequestParam("sno") int sno);
 	
+	public List<MenuVO> readMenuImg(int sno);
 	
 }
