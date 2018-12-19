@@ -31,7 +31,7 @@ public class KakaoPay {
 
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "044adc3f0bc14dac22901c54c3e37d0b");
+		headers.add("Authorization", "KakaoAK " + "21e1a296e2c3aabd8c183e424ead22b5");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 
@@ -47,18 +47,6 @@ public class KakaoPay {
 		params.add("approval_url", "http://localhost:8080/user/kakaopay/kakaoPaySuccess");
 		params.add("cancel_url", "http://localhost:8080/user/kakaopay/kakaoPayCancel");
 		params.add("fail_url", "http://localhost:8080/user/kakaopay/kakaoPaySuccessFail");
-		
-		// 서버로 요청할 Body
-//		kakaoPayReadyVO.setCid("TC0ONETIME");
-//		kakaoPayReadyVO.setPartner_order_id("1001");
-//		kakaoPayReadyVO.setPartner_user_id("gorany");
-//		kakaoPayReadyVO.setItem_name("갤럭시S9");
-//		kakaoPayReadyVO.setQuantity(1);
-//		kakaoPayReadyVO.setTotal_amount(2100);
-//		kakaoPayReadyVO.setTax_free_amount(100);
-//		kakaoPayReadyVO.setApproval_url("http://localhost:8080/kakaopay/kakaoPaySuccess");
-//		kakaoPayReadyVO.setCancel_url("http://localhost:8080/kakaoPayCancel");
-//		kakaoPayReadyVO.setFail_url("http://localhost:8080/kakaoPaySuccessFail");
 
  		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
@@ -90,7 +78,7 @@ public class KakaoPay {
 
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "044adc3f0bc14dac22901c54c3e37d0b");
+		headers.add("Authorization", "KakaoAK " + "21e1a296e2c3aabd8c183e424ead22b5");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 
@@ -108,14 +96,6 @@ public class KakaoPay {
 		try {
 			kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
 			log.info("" + kakaoPayApprovalVO);
-			
-			
-//			String test = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, String.class);
-//			
-//			log.info("=================================++++++++++++++++++++++++++++++++++++2");
-//		
-//			log.info(""+test);
-			
 			
 			return kakaoPayApprovalVO;
 		

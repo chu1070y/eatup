@@ -10,84 +10,68 @@
 		<button id="Disconnected">연결종료</button>
 	</div>
 
-	<span th:text="${result}"></span> 
-	<p><span th:text="${tidlist.size()}"></span>
-
-
-
-	<!-- <option th:each="n : ${#numbers.sequence(1,53)}" th:value="${n}" th:text="${n}"/> -->
-
-	<!-- <option th:each="n : ${tidlist}" th:value="${n}" th:text="${n} + ss"/> -->
-
-	<!-- <option th:each="n : ${tidlist}" > <td th:text="${n}"></td></option>  -->
-
-	 <p>
-		<button id="go">Run »</button>
-	</p> 
-	<!-- <div class="block"> -->
+	<h2>파이어 베이스</h2>
+	<!-- 	<pre id="object">
+		
+	</pre> -->
+	<span class="hidden" th:text="${result}"></span>
 	
+	
+	<div th:class="view">
+	<span id="orderlist"></span>
+	</div>
 
-
-	<!--  <option th:each="p : 1">   
-	 <div th:each="n : ${tidlist}" th:id="block" th:class="block+${n}" th:text="${n}" ></div>  
-	 </option> -->
-
-
-
-<!--<div th:each="n : ${tidlist}" th:id="block" th:class="block+${n}" th:text="${n}" ></div>  -->
-
-
-
- 
-
-
-<div th:each="n : ${tidlist}" th:id="${n}" th:class="block" >
-<h2 th:text="${n}"></h2>
-<h3>메뉴번호 &nbsp수량</h3>
-
-<div th:each="vo : ${result}">
-<div th:if="${n} == ${vo.tid}" >
-
-<table>
-<td><h2>&nbsp&nbsp&nbsp&nbsp[[${vo.mno}]]&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h2></td>   <td><h2>[[${vo.quantity}]]</h2></td> </table>
-
-</div>
-</div>
-</div>
+	
+	<div class="block hidden">
+		
+		<div class="header">
+			<h1>tid1</h1>
+		</div>
+		<hr>
+		<div class="body">
+			
+		</div>
+	</div>
 
 
 
 
+<style>
+.view{
 
-	<style>
 
+        width: 9000%;
+        
+        
+}
 /*네모네모 */
-
 #wrapper {
-	
 	/* overflow:scroll;
 	 overflow-y:hidden; 
 	overflow-x:auto; */
 	/* background-color: yellow; */
-	  white-space: nowrap;  
-	  position : fixed;  
-
-	
+	white-space: nowrap;
+	position: fixed;
 }
 
+hr{
+	border: solid 5px white;
+	
+}
 
 .block {
-	  position: relative;
- 	background-color: #abc;
+	position: relative;
+	white-space: nowrap;
+	background-color: #495057;
 	width: 400px;
 	height: 600px;
-      float: left; 
-	 margin: 10px; 
+	float: left;
+	margin: 10px;
 	white-space: nowrap;
-	
+	text-align: center;
+	padding: 1.5em;
+	color: white;
 }
-
-
 
 .modal-open {
 	overflow: hidden
@@ -257,129 +241,14 @@
 </div>
 
 <th:block layout:fragment="script">
+	<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+	<script src="/js/firebaseDB_partner.js"></script>
 
-<script>
-$("#go").click(function(){
-	console.log("cliccccccccck");
-	
-
-    var number= 2;
-    
-    
-    /* console.log("------------------------------------------------------")
-    console.log([[${tidlist[0]}]]);
-    
-    var tempMsg1 =[[${tidlist[0]}]].id;
-   console.log(tempMsg1);
-   
-     var ssss = tempMsg1.split("d",2);
-     console.log(ssss[1]);
-     console.log("------------------------------------------------------")
-     */
-
-/* 
-$(".block").eq(number).animate({"bottom":"1000px"});
-$(".block").slice(number).animate({"left": "-=420px"}); */
-
-/* var num2=56;
-var elem2 = document.getElementById('tid'+num2);
-console.log("getelementbyid" + elem); */
-
-
-var num = 58;
-var elem = document.getElementById('tid'+num);
-/* var od = 'tid'+num */
-/* var tid = elem.id */
- 
-
-/* console.log(od) */
-
-var aa = [[${tidlist}]].indexOf(elem)//[[${tidlist}]].findIndex(k => k==elem);
-
-/* console.log("티아이디 리스트" + [[${tidlist}]])
-console.log(aa);
-console.log("indexof" + [[${tidlist}]].indexOf(elem)); */
-
-
- $(elem).animate({"bottom":"1000px"}); 
-$(".block").slice(aa).animate({"left": "-=420px"});
-	
-	
-/* console.log("이것....?"+$(".block").attr('id')); */
-
-	
-	
-	/* $(".block:eq(0)").animate({"bottom": "+=1000px"},{
-		
- 		 
-	
-		    step: function( now, fx ){ $( ".block:gt(0)" ).css({"left": "-=13.4px"}); }    
-		
-	
-		
-	});//animate  
-	
-	$( ".block:gt(0)" ).animate({"left": "-=300px"});
-	
-		    $(".block:eq(0)").remove();    */
-		    
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-/* $( ".block:gt(0)" ).animate({"left": "-=50px"},{
-	step: function( unit, fx ){ $( ".block:eq(0)" )remove(); }
-})   */
-  /*  $(".block:first").remove();  */
- 
- 
- /* $(".block:eq(0)").animate({"bottom":"1000px"}).promise(),then(function(){
-	 return $(".block:first").delete();
- })); 
- */
- 
-	 
-	
-});
-</script> 
-
-
-	<script th:inline="javascript">
+<script th:inline="javascript">
 	
 $(document).ready(function () {
-	
-	
-	
-   
 
-	
- 
-			
-	/* 		 //음성인식에서 키워드 추출
-	 function keyword(data){
-		 var check = {
-				 "1" : {"1","일"},
-				 "2" : {"2"."이"},
-				 "3" : {"3","삼"},
-				 "4" : {"4","사"},
-				 "5" : {"5","오"},
-				 "6" : {"6","육"},
-				 "7" : {"7","칠"},
-				 "8" : {"8","팔"},
-				 "9" : {"9","구"},
-				 "0" : {"0","영","공"}
-		 }
-		 
-		 
-	 } */
-	 
+
 	 //음성 메세지 DB에 저장할 경우
 	 function sendVoice(data,callback,error){
 		 console.log("send voice.........");
@@ -442,9 +311,7 @@ $(document).ready(function () {
 	var ws;
 	
 	$(function () {
-	     
     	 console.log("connect complete.....");
-    	 
     	 
 	});	 
 
@@ -458,10 +325,8 @@ $(document).ready(function () {
 		}
 		else{
 			ws.close();
-			console.log("Disconnected");
-			
+			console.log("Disconnected");		
 		}
-
 	}
 
 	function connect() {
@@ -471,8 +336,6 @@ $(document).ready(function () {
 		}
 		 setConnected(true);
 	}
-	
-	
 	
  	function disconnect() {
 	    if (ws != null) {
@@ -490,37 +353,24 @@ $(document).ready(function () {
 		
 			console.log("websocket opened....");
 			ws.send(data);
-			
 		}
-	    
 	}
  	
  	//음성 인식 후 주문 날리기
  	function checkOrder(number){ 
- 		
-	
- 		
+
  		console.log(" 여기는 체크오더이고,," + number);
- 		
- 		
- 		
+
  		var elem = document.getElementById('tid'+number); 
  		var tid = 'tid'+number
  		var index = [[${tidlist}]].indexOf(tid);
  		console.log(elem + "   " + index)
- 		
- 		
  		
  		if( number.toString() !== 'NaN'){
  			
  			
  		$(elem).animate({"bottom":"1000px"}); 
  		$(".block").slice(index).animate({"left": "-=420px"});
- 		
- 		
- 		
- 		
- 
  		
  		}	
  		
@@ -555,12 +405,7 @@ $(document).ready(function () {
 			      tempMsg = b;
 			      
 			      console.log(tempMsg);
-			      
-			      
-			      
-			     
-			      
-			  
+
 			    };
 					 
 	    	    <!--마이크 end 일 때-->

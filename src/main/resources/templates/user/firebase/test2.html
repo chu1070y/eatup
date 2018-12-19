@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1> 파이어 리얼 타임 디비</h1>
+<p id="object"></p>
+
+-------------------------------------------------파이어베이스 데이터 넣기
+<div>
+<button id="put">firebase DB에 데이터 넣기</button>
+</div>
+<div>
+-------------------------------------------------파이어베이스 데이터 지우기
+</div>
+지우고 싶은 데이터 키 값을 넣어주세요
+<input id="key">
+<button id="delete">firebase DB에 데이터 지우기</button>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+<script>
+//Initialize Firebase
+var config = {
+  apiKey: "AIzaSyAKegY8LM_wqmn2twvBsMh0LsvGwsUjS6E",
+  authDomain: "gorany-df5bd.firebaseapp.com",
+  databaseURL: "https://gorany-df5bd.firebaseio.com",
+  projectId: "gorany-df5bd",
+  storageBucket: "gorany-df5bd.appspot.com",
+  messagingSenderId: "551706831448"
+};
+
+firebase.initializeApp(config);
+
+//firebase DB 데이터 읽기
+var preObject = document.getElementById('object');
+var dbRefObject = firebase.database().ref().child(1);
+
+dbRefObject.on('value',snap => {
+	preObject.innerText = JSON.stringify(snap.val(),null,3);
+});
+
+
+//firebase DB에 데이터 넣기
+var menuArr=["아메리카노","카페라떼","카푸치노","맛나커피"];
+var quantityArr = [1,2,1,7];
+
+var result= [];
+
+for (var i = 0; i < menuArr.length ; i++){
+    str = {menu:menuArr[i],quantity:quantityArr[i]};
+    result[i]=str;
+}
+
+console.log(result);
+
+function writeNewPost(tid,order_id,menulist) {
+	  // A post entry.
+	  var postData = {
+		tid:tid,
+		order_id:order_id,
+	    menulist:menulist
+	  };
+	  var menu = menu;
+
+	  // Get a key for a new Post.
+	  var newPostKey = firebase.database().ref().child(1).push().key;
+
+	  // Write the new post's data simultaneously in the posts list and the user's post list.
+	  var updates = {};
+	  updates['/1/' + newPostKey] = postData;
+
+	  return firebase.database().ref().update(updates);
+}
+	
+$("#put").on("click",function(e){
+	console.log("#put");
+	writeNewPost("T2570681486356646135",101,result);
+});
+
+
+//firebase DB에 데이터 지우기
+function deleteFirebase(key){
+	var remove = '/1/'+key;
+	return firebase.database().ref(remove).remove();
+}
+
+
+$("#delete").on("click",function(e){
+	var keyValue = $("#key").html();
+	deleteFirebase(keyValue);
+});
+
+</script>
+
+</body>
+</html>

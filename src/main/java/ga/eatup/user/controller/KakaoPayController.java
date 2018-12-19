@@ -34,7 +34,19 @@ public class KakaoPayController {
 		log.info("kakaoPaySuccess pg_token : " + pg_token);
 		
 		model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
+	}
+	
+	@GetMapping("/kakaopay/kakaoPayFail")
+	public void kakaoPayFail() {
+		log.info("kakaoPayFail get............................................");
 		
 	}
+	
+	@GetMapping("/kakaopay/kakaoPayCancel")
+	public void kakaoPayCancel() {
+		log.info("kakaoPayCancel get............................................");
+		
+	}
+	
 
 }

@@ -1,0 +1,620 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout_partner}">
+
+<div layout:fragment="content">
+
+
+	<div id="conversation">
+		<div id="greetings"></div>
+		<button id="Disconnected">연결종료</button>
+	</div>
+
+	<h2>파이어 베이스</h2>
+	<pre id="object">
+		
+	</pre>
+
+	<span th:text="${result}"></span>
+	<p>
+		<span th:text="${tidlist.size()}"></span>
+
+
+
+		<!-- <option th:each="n : ${#numbers.sequence(1,53)}" th:value="${n}" th:text="${n}"/> -->
+
+		<!-- <option th:each="n : ${tidlist}" th:value="${n}" th:text="${n} + ss"/> -->
+
+		<!-- <option th:each="n : ${tidlist}" > <td th:text="${n}"></td></option>  -->
+	<p>
+		<button id="go">Run »</button>
+	</p>
+	<!-- <div class="block"> -->
+
+
+
+	<!--  <option th:each="p : 1">   
+	 <div th:each="n : ${tidlist}" th:id="block" th:class="block+${n}" th:text="${n}" ></div>  
+	 </option> -->
+
+
+
+	<!--<div th:each="n : ${tidlist}" th:id="block" th:class="block+${n}" th:text="${n}" ></div>  -->
+
+
+
+	<div class="row searchResult">
+		<div class="col-md-7">
+			<a href="/user/store?sno=16"><img
+				class="img-fluid rounded mb-3 mb-md-0"
+				src="../main/img/portfolio/cafe3.jpg"></a>
+		</div>
+		<div class="col-md-5 data">
+			<h4 id="sname">
+				<a href="/user/store?sno=16">본도시락</a>
+			</h4>
+			<p id="saddress">
+				<a href="/user/store?sno=16">서울특별시 중구 을지로6가 30-5</a>
+			</p>
+			<a class="btn btn-primary" style="color: white; margin: 2px;">#도시락</a><a
+				class="btn btn-danger" style="color: white; margin: 2px;">#광양식바싹불고기도시락</a><a
+				class="btn btn-secondary" style="color: white; margin: 2px;">#6900</a><a
+				class="btn btn-info" style="color: white; margin: 2px;">#맛집</a>
+		</div>
+	</div>
+
+
+	<div th:each="n : ${tidlist}" th:id="${n}" th:class="block">
+		<h2 th:text="${n}"></h2>
+		<h3>메뉴번호 &nbsp수량</h3>
+
+		<div th:each="vo : ${result}">
+			<div th:if="${n} == ${vo.tid}">
+
+				<table>
+					<td><h2>&nbsp&nbsp&nbsp&nbsp[[${vo.mno}]]&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h2></td>
+					<td><h2>[[${vo.quantity}]]</h2></td>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<style>
+
+/*네모네모 */
+#wrapper {
+	/* overflow:scroll;
+	 overflow-y:hidden; 
+	overflow-x:auto; */
+	/* background-color: yellow; */
+	white-space: nowrap;
+	position: fixed;
+}
+
+.block {
+	position: relative;
+	background-color: #abc;
+	width: 400px;
+	height: 600px;
+	float: left;
+	margin: 10px;
+	white-space: nowrap;
+}
+
+.modal-open {
+	overflow: hidden
+}
+
+.modal {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1040;
+	display: none;
+	overflow: auto;
+	overflow-y: scroll
+}
+
+.modal.fade .modal-dialog {
+	-webkit-transform: translate(0, -25%);
+	-ms-transform: translate(0, -25%);
+	transform: translate(0, -25%);
+	-webkit-transition: -webkit-transform .3s ease-out;
+	-moz-transition: -moz-transform .3s ease-out;
+	-o-transition: -o-transform .3s ease-out;
+	transition: transform .3s ease-out
+}
+
+.modal.in .modal-dialog {
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0)
+}
+
+.modal-dialog {
+	position: relative;
+	z-index: 1050;
+	width: auto;
+	margin: 10px
+}
+
+.modal-content {
+	position: relative;
+	background-color: #fff;
+	border: 1px solid #999;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 6px;
+	outline: 0;
+	-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+	background-clip: padding-box
+}
+
+.modal-backdrop {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1030;
+	background-color: #000
+}
+
+.modal-backdrop.fade {
+	opacity: 0;
+	filter: alpha(opacity = 0)
+}
+
+.modal-backdrop.in {
+	opacity: .5;
+	filter: alpha(opacity = 50)
+}
+
+.modal-header {
+	min-height: 16.428571429px;
+	padding: 15px;
+	border-bottom: 1px solid #e5e5e5
+}
+
+.modal-header .close {
+	margin-top: -2px
+}
+
+.modal-title {
+	margin: 0;
+	line-height: 1.428571429
+}
+
+.modal-body {
+	position: relative;
+	padding: 20px
+}
+
+.modal-footer {
+	padding: 19px 20px 20px;
+	margin-top: 15px;
+	text-align: right;
+	border-top: 1px solid #e5e5e5
+}
+
+.modal-footer:before, .modal-footer:after {
+	display: table;
+	content: " "
+}
+
+.modal-footer:after {
+	clear: both
+}
+
+.modal-footer:before, .modal-footer:after {
+	display: table;
+	content: " "
+}
+
+.modal-footer:after {
+	clear: both
+}
+
+.modal-footer .btn+.btn {
+	margin-bottom: 0;
+	margin-left: 5px
+}
+
+.modal-footer .btn-group .btn+.btn {
+	margin-left: -1px
+}
+
+.modal-footer .btn-block+.btn-block {
+	margin-left: 0
+}
+
+@media screen and (min-width:768px) {
+	.modal-dialog {
+		width: 600px;
+		margin: 30px auto
+	}
+	.modal-content {
+		-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
+	}
+}
+</style>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" id="exampleModalContent">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Speak Up!!!</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h5>5초간 음성 인식이 시작됩니다. 수행명령을 말하세요.</h5>
+					<div id="speech_box"></div>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+		</div>
+	</div>
+
+
+
+</div>
+
+<th:block layout:fragment="script">
+	<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+	<script src="/js/firebaseDB_partner.js"></script>
+
+	<script>
+$("#go").click(function(){
+	console.log("cliccccccccck");
+	
+
+    var number= 2;
+    
+    
+    /* console.log("------------------------------------------------------")
+    console.log([[${tidlist[0]}]]);
+    
+    var tempMsg1 =[[${tidlist[0]}]].id;
+   console.log(tempMsg1);
+   
+     var ssss = tempMsg1.split("d",2);
+     console.log(ssss[1]);
+     console.log("------------------------------------------------------")
+     */
+
+/* 
+$(".block").eq(number).animate({"bottom":"1000px"});
+$(".block").slice(number).animate({"left": "-=420px"}); */
+
+/* var num2=56;
+var elem2 = document.getElementById('tid'+num2);
+console.log("getelementbyid" + elem); */
+
+
+var num = 58;
+var elem = document.getElementById('tid'+num);
+/* var od = 'tid'+num */
+/* var tid = elem.id */
+ 
+
+/* console.log(od) */
+
+var aa = [[${tidlist}]].indexOf(elem)//[[${tidlist}]].findIndex(k => k==elem);
+
+/* console.log("티아이디 리스트" + [[${tidlist}]])
+console.log(aa);
+console.log("indexof" + [[${tidlist}]].indexOf(elem)); */
+
+
+ $(elem).animate({"bottom":"1000px"}); 
+$(".block").slice(aa).animate({"left": "-=420px"});
+	
+	
+/* console.log("이것....?"+$(".block").attr('id')); */
+
+	
+	
+	/* $(".block:eq(0)").animate({"bottom": "+=1000px"},{
+		
+ 		 
+	
+		    step: function( now, fx ){ $( ".block:gt(0)" ).css({"left": "-=13.4px"}); }    
+		
+	
+		
+	});//animate  
+	
+	$( ".block:gt(0)" ).animate({"left": "-=300px"});
+	
+		    $(".block:eq(0)").remove();    */
+		    
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+/* $( ".block:gt(0)" ).animate({"left": "-=50px"},{
+	step: function( unit, fx ){ $( ".block:eq(0)" )remove(); }
+})   */
+  /*  $(".block:first").remove();  */
+ 
+ 
+ /* $(".block:eq(0)").animate({"bottom":"1000px"}).promise(),then(function(){
+	 return $(".block:first").delete();
+ })); 
+ */
+ 
+	 
+	
+});
+</script>
+
+
+
+	<script th:inline="javascript">
+	
+$(document).ready(function () {
+	
+
+	 //음성 메세지 DB에 저장할 경우
+	 function sendVoice(data,callback,error){
+		 console.log("send voice.........");
+		 
+		 $.ajax({
+			 type:'post',
+				url:'/sendVoice',
+				data:JSON.stringify(data),
+				contentType: "application/json; charset=utf-8",
+				success: function(result,status,xhr){
+					if(callback){
+						callback(result);
+					}
+				},
+				error: function(xhr,status,er){
+					if(error){
+						error(er);
+					}
+				}
+		 });
+	 }//end sendVoice
+	 
+	 
+	 //음성 메세지 푸시 알람
+	 function pushMessage(data){
+		 console.log("push message.........");
+		 
+		 $.ajax({
+			 type:'post',
+				url:'https://fcm.googleapis.com/fcm/send',
+				headers:{
+					"Content-Type" : "application/json",
+					"Authorization" : "key=AAAAgHRKKlg:APA91bHCHmYkU1PANUYZgctP5dBZ1EuZZ5VfS4_fXUicesDas88tm6Rs1y35YMmLuOzAu3xmQqfI0KtR17UcdGR2ZuYrxhLJ2QasccO4xsO3kEBC98lO-Np1nIrxCa_mgE_DnnPCaxCe"
+				},
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				data:JSON.stringify({
+				    "notification" : {
+				        "body" : data,
+				        "title" : "FCM Message", 
+				        "click_action": "https://gorany-df5bd.firebaseapp.com",
+				        "icon": "http://url-to-an-icon/icon.png"
+				        },
+				      "to": "cHFUupbfKDs:APA91bHGYhS1DRdmTJfYcDesPJHKAgsaOF330GGNFtufAD28hhsJMkjAlIPBmkD1DB7dz3oXCGGzLFmeC1xz_cXogDwfwAIuS3XuFbpvOY-bO4Uftn6pkygtf0qMCs0aLuSYMVJcGfGd"
+				  }),
+				success: function(result,status,xhr){
+					if(callback){
+						callback(result);
+					}
+				},
+				error: function(xhr,status,er){
+					if(error){
+						error(er);
+					}
+				}
+		 });
+	 }
+	 
+	 
+	var ws;
+	
+	$(function () {
+	     
+    	 console.log("connect complete.....");
+    	 
+    	 
+	});	 
+
+
+	function setConnected(connected) { 
+		 $("#Disconnected").prop("disabled", !connected);
+		 
+		if (connected){			
+			$("#conversation").show();
+			$("#greetings").html("");
+		}
+		else{
+			ws.close();
+			console.log("Disconnected");
+			
+		}
+
+	}
+
+	function connect() {
+		ws = new WebSocket('ws://localhost:8080/name');
+		ws.onmessage = function(data){
+			showGreeting(data.data);
+		}
+		 setConnected(true);
+	}
+	
+	
+	
+ 	function disconnect() {
+	    if (ws != null) {
+	        ws.close();
+	    }
+	    setConnected(false);
+	} 
+
+ 	function sendName() {
+		var data = JSON.stringify({'myDevice': '00000000089c4f68'})
+		
+		console.log(ws);
+		
+		ws.onopen = function() {
+		
+			console.log("websocket opened....");
+			ws.send(data);
+			
+		}
+	    
+	}
+ 	
+ 	//음성 인식 후 주문 날리기
+ 	function checkOrder(number){ 
+ 		
+	
+ 		
+ 		console.log(" 여기는 체크오더이고,," + number);
+ 		
+ 		
+ 		
+ 		var elem = document.getElementById('tid'+number); 
+ 		var tid = 'tid'+number
+ 		var index = [[${tidlist}]].indexOf(tid);
+ 		console.log(elem + "   " + index)
+ 		
+ 		
+ 		
+ 		if( number.toString() !== 'NaN'){
+ 			
+ 			
+ 		$(elem).animate({"bottom":"1000px"}); 
+ 		$(".block").slice(index).animate({"left": "-=420px"});
+ 		
+ 		
+ 		
+ 		
+ 
+ 		
+ 		}	
+ 		
+ 	}
+
+
+	function showGreeting(message) {
+	    console.log("showGreeting..............");
+	    $("#greetings").append("<tr><td> " + message + "</td></tr>"); //연결 메세지 화면 출력
+	    $("#myModal").modal("show");
+			
+			var tempMsg = "";
+			
+			 if(!('webkitSpeechRecognition' in window)) $('#myModal').html('<strong>지원하지 않는 브라우저입니다.</strong>');
+			 
+			  else{
+			    var mic = new webkitSpeechRecognition();
+			    mic.continuous = true;
+			    mic.interimResults = true;
+			    mic.lang = 'ko-KR';
+			    
+			    mic.onresult = function(e) {
+			      var b = '', c = false;
+			      for(var i = e.resultIndex; i < e.results.length; ++i) {
+			        b += e.results[i][0].transcript;
+			        c = e.results[i].isFinal;
+			      }
+			      if($('#speech_box .text').length < 1) $('#speech_box').append('<span class="text"></span>');
+			      $('#speech_box .text').text(b);
+			      if(c) $('#speech_box .text').removeClass('text');
+			      
+			      tempMsg = b;
+			      
+			      console.log(tempMsg);
+			      
+			      
+			      
+			     
+			      
+			  
+			    };
+					 
+	    	    <!--마이크 end 일 때-->
+	    	    mic.onend = function() {
+	    	    	
+	    	    console.log(tempMsg);
+	  
+	    	  	mic.stop();
+	    	  	pushMessage(tempMsg);
+	    	  	
+	    	    $('.modal-body').removeClass('on');
+	    	    	$("#speech_box").text("");
+	    	    	
+	    	    	
+	    	    	 //문자열에서 숫자만 빼기
+				    var splittempmsg =tempMsg.split("번" , 1);
+				    var splitmsg = splittempmsg.toString();
+				    console.log("숫자만 빼보았슴다,,,?" + splitmsg);
+				    
+				    checkOrder(splitmsg);
+	    	      
+	    	    };
+	    	    
+			    
+			    <!--마이크 on 일 때-->
+			    $(".modal-body").show(function () {
+			      if($('.modal-body').hasClass('on')) mic.stop();
+			      else {
+			        mic.start();
+			        console.log("mic start.............");
+			        
+			      $('.modal-body').toggleClass('on');
+			      window.setTimeout(function () {
+			    	  	mic.stop();
+				        $("#myModal").modal("hide");
+				      $('.modal-body').removeClass('on');
+				    },5000);
+			      <!-- close else -->
+			      }
+			     
+			    <!-- close function -->
+			    });
+			      
+			      
+			  <!-- close else -->
+			  }
+			 
+	};
+	
+	$(function () {
+		 $( "#Disconnected" ).click(function() { disconnect(); });	
+	});	
+	
+	 window.onload = function(){
+		 connect();
+		 sendName(); 
+	 };
+
+});
+</script>
+</th:block>
