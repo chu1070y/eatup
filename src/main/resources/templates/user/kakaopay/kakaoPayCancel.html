@@ -1,11 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<h1>kakaoPayCancel.html</h1>
-결제가 취소되었습니다.
-</body>
-</html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout2}">
+
+<div layout:fragment="content">
+
+<h2>결제취소</h2>
+
+<a class="btn btn-primary" href="/user/home">돌아가기</a>
+
+</div>
+
+<th:block layout:fragment="script">
+
+	<script th:inline="javascript">
+
+	</script>
+
+</th:block>

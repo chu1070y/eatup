@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout2}">
+
+<div layout:fragment="content">
 
 <strong>
 <kakaopay></kakaopay>
@@ -21,8 +18,51 @@
 결제금액:	[[${info.amount.total}]]<br/>
 결제방법:	[[${info.payment_method_type}]]<br/>
 
+<h3>[[${info}]]</h3>
 
+<div>
+	여기는 firebase 토큰값입니다.
+	<div id="token">
+	</div>
+</div>
+</div>
 
-<h2>[[${info}]]</h2>
-</body>
-</html>
+<th:block layout:fragment="script">
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+	<script th:inline="javascript">
+	 // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyAKegY8LM_wqmn2twvBsMh0LsvGwsUjS6E",
+	    authDomain: "gorany-df5bd.firebaseapp.com",
+	    databaseURL: "https://gorany-df5bd.firebaseio.com",
+	    projectId: "gorany-df5bd",
+	    storageBucket: "gorany-df5bd.appspot.com",
+	    messagingSenderId: "551706831448"
+	  };
+	  firebase.initializeApp(config);
+
+	  var messaging = firebase.messaging();
+	  
+	  //token값 알아내기
+	   messaging.requestPermission()
+	  	.then(function(){
+	  		console.log("Have permission");
+	  		return messaging.getToken();
+	  	}) 
+	  	.then(function(token){
+	  		console.log(token);
+	  		$("#token").append(token+"<br/>");
+	  	})
+	  	.catch(function(arr){
+	  		console.log("Error Occured");
+	  	}) 
+	  
+	  messaging.onMessage(function(payload){
+		 console.log('onMessage: ', payload); 
+		 console.log(payload.data.status);
+	  });
+	  
+	</script>
+
+</th:block>
