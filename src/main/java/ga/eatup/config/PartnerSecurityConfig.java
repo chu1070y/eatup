@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import lombok.extern.java.Log;
 
@@ -51,11 +53,11 @@ public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/partner/notice/read").hasRole("ADMIN")
 				.and()
 			.formLogin()
-				.loginPage("/partner/login/customLogin");
+				.loginPage("/partner/login/customLogin")
+				.successHandler(psuccessHandler());
 	}
-	
 
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -66,6 +68,16 @@ public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		return new CustomUserDetailsService();
 	}
+	
+	@Bean
+	public AuthenticationSuccessHandler psuccessHandler() {
+		return new PartnerLoginSuccessHandler();
+	}
+	
+	@Bean
+	public AuthenticationFailureHandler pfailHandler() {
+		return new PartnerLoginSuccessHandler();
+	}	
 	
 	
 		
