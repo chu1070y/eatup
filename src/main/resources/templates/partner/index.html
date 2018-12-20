@@ -248,10 +248,13 @@ hr {
 	<script src="/js/firebaseDB_partner.js"></script>
 
 	<script th:inline="javascript">
-
+	
+		
+	var checkarray = new Array();
 $("#go").click(function(){
 	console.log("clickkkkkk");
 	number=101;
+	
 	
 	
 	
@@ -260,12 +263,14 @@ $("#go").click(function(){
 		var array = $(".block").slice(); //블록을 배열로
 		console.log(array);
 		
+	
 		var idarray = new Array(); //배열 아이디
 		var length = array.length -1; 
 		console.log(length)
 		
 		for(var i=0; i<length; i++){
 			idarray[i]=array[i].id;
+			
 		}
 		
 		console.log("idarray: " + idarray)
@@ -274,19 +279,26 @@ $("#go").click(function(){
 		var elem = document.getElementById(number); //ex)103
 	  	var index = idarray.indexOf(""+number); 
 		console.log(elem + "   " + index)
+		console.log("여기 아이디 어레이" + idarray)
+		//console.log("여기 체크 어레이" + checkarray)
 	
-		if( number.toString() !== 'NaN' &&idarray.includes(""+number)==true ){
+		if( number.toString() !== 'NaN' && checkarray.includes(""+number)==false ){
+			console.log(idarray.includes(""+number))
 						
+		checkarray = ""+number;
 		$(elem).animate({"bottom":"1000px"});
 		
 		$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
 		
 		
-		}	
-		idarray.splice(index,1)
+		}
+		
+		
+		idarray.splice(index,1);
+		
 		console.log(idarray);
 		
-		
+		console.log("췤ㄱ: " + checkarray)
 		
 	
 	
@@ -403,6 +415,7 @@ $(document).ready(function () {
 	}
  	
  	//음성 인식 후 주문 날리기
+ 	var checkarray = new Array();
  	function checkOrder(number){ 
  			
  		console.log(" 여기는 체크오더이고,," + number);
@@ -425,8 +438,8 @@ $(document).ready(function () {
  		  	var index = idarray.indexOf(""+number); 
  			console.log(elem + "   " + index)
  		
- 			if( number.toString() !== 'NaN' &&idarray.includes(""+number)==true ){
- 							
+ 			if( number.toString() !== 'NaN' && checkarray.includes(""+number)==false ){
+ 			checkarray = ""+number;				
  			$(elem).animate({"bottom":"1000px"});
  			
  			$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
