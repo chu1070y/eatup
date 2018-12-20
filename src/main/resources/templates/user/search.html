@@ -263,6 +263,7 @@ $(document).ready(function(){
 				
 				if(result==""){
 					$("#storenone h4").html("검색조건에 해당되는 결과가 없습니다.");
+					$("#storeMore").attr("class","hidden");
 				}
 				
 				storeSearchList = result;
@@ -277,6 +278,7 @@ $(document).ready(function(){
 				
 				if(result==""){
 					$("#menunone h4").html("검색조건에 해당되는 결과가 없습니다.");
+					$("#menuMore").attr("class","hidden");
 				}
 				
 				menuSearchList = result;

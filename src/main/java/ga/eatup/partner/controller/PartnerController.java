@@ -163,7 +163,6 @@ public class PartnerController {
 	public void customLogin() {
 		log.info("custom login.........");
 	}
-
 	
 	@GetMapping("/notice/register")
 	public void noticeRegister() {
