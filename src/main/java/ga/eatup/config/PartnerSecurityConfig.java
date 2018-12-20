@@ -4,18 +4,22 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import lombok.extern.java.Log;
 
 @Log
+@Configuration
 @EnableWebSecurity
 @Order(value= 1)
 public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -49,13 +53,11 @@ public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/partner/notice/read").hasRole("ADMIN")
 				.and()
 			.formLogin()
-				.loginPage("/partner/login/customLogin");
-		
-		
-
+				.loginPage("/partner/login/customLogin")
+				.successHandler(psuccessHandler());
 	}
-	
-	
+
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -66,5 +68,17 @@ public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		return new CustomUserDetailsService();
 	}
+	
+	@Bean
+	public AuthenticationSuccessHandler psuccessHandler() {
+		return new PartnerLoginSuccessHandler();
+	}
+	
+	@Bean
+	public AuthenticationFailureHandler pfailHandler() {
+		return new PartnerLoginSuccessHandler();
+	}	
+	
+	
 		
 }

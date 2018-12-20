@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	
 <head>
@@ -72,6 +73,7 @@
 
 		<!-- Sidebar -->
 		<ul class="sidebar navbar-nav toggled">
+			<div sec:authorize="hasRole('PARTNER')">
 			<li class="nav-item"><a class="nav-link" href="/partner/index"> <i
 					class="fas fa-folder fa-fw"></i> <span>주문</span>
 			</a></li>
@@ -92,9 +94,12 @@
 						class="dropdown-item" href="/partner/oneByone">1:1 문의</a> <a
 						class="dropdown-item" href="/partner/information">information</a>
 				</div></li>
+			</div>
+			<div sec:authorize="hasRole('ADMIN')">
 			<li class="nav-item"><a class="nav-link" href="/partner/superAdmin">
 					<i class="fas fa-fw fa-tachometer-alt"></i> <span>SuperAdmin</span>
 			</a></li>
+			</div>
 
 		</ul>
 
