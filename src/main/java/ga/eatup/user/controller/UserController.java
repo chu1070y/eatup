@@ -191,6 +191,12 @@ public class UserController {
 		
 	}
 	
+	@GetMapping("/firebase/test2")
+	public void testFirebase2(HttpServletRequest request) {
+		log.info("firebase....test2");
+		
+	}
+	
 	@GetMapping("/search")
 	public void search() {
 		log.info("search page......");

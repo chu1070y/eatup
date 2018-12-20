@@ -1,21 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layout/layout1}">
+	layout:decorate="~{/layout/layout2}">
+
+
+
+<div layout:fragment="content">
 
 <style>
-.col-lg-9 {
-	text-align: center;
-}
-
-.f1 {
-	background-color: #E9CC44;
-	height: 100px;
-}
-
-.f2 {
-	text-align: center;
-}
-
 .cartBtn {
 	height: 100px;
 	width: 100%;
@@ -25,9 +16,8 @@
 .checked {
 	color: orange;
 }
-</style>
 
-<div layout:fragment="content">
+</style>
 
 	<!-- content -->
 	<div class="col-lg-9">
@@ -121,10 +111,7 @@
 					<option value="6">00</option>
 				</select>
 			</div>
-			<div class="row">
-				<h4>결제수단</h4>
 
-			</div>
 
 			<div class="col-lg-9">
 
@@ -132,9 +119,9 @@
 					<form method="post" action="/user/kakaoPay">
 						<input type="hidden" id="csrfToken" th:name="${_csrf.parameterName}"
 							th:value="${_csrf.token}" />
-						<button class="btn">
-							<img src="/imgs/kakao-pay.png" />
-						</button>
+
+						<input type="image" src="/imgs/kakao-pay.png" >
+
 					</form>
 				</div>
 
