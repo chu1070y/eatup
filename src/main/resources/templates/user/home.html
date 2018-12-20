@@ -4,51 +4,47 @@
 
 <style>
 .item img {
-
-border:20px solid gold;
-border-radius: 50%;
--moz-border-radius: 50%;
--khtml-border-radius: 50%;
--webkit-border-radius: 50%;
-
+	border: 20px solid gold;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-khtml-border-radius: 50%;
+	-webkit-border-radius: 50%;
 }
 </style>
 
 <div layout:fragment="content">
-<style>
-#custom-search-input{
-    padding: 3px;
-    border: solid 1px #E4E4E4;
-    border-radius: 6px;
-    background-color: #fff;
+	<style>
+#custom-search-input {
+	padding: 3px;
+	border: solid 1px #E4E4E4;
+	border-radius: 6px;
+	background-color: #fff;
 }
 
-#custom-search-input input{
-    border: 0;
-    box-shadow: none;
+#custom-search-input input {
+	border: 0;
+	box-shadow: none;
 }
 
-#custom-search-input button{
-    margin: 2px 0 0 0;
-    background: none;
-    box-shadow: none;
-    border: 0;
-    color: #666666;
-    padding: 0 8px 0 10px;
-    border-left: solid 1px #ccc;
+#custom-search-input button {
+	margin: 2px 0 0 0;
+	background: none;
+	box-shadow: none;
+	border: 0;
+	color: #666666;
+	padding: 0 8px 0 10px;
+	border-left: solid 1px #ccc;
 }
 
-#custom-search-input button:hover{
-    border: 0;
-    box-shadow: none;
-    border-left: solid 1px #ccc;
+#custom-search-input button:hover {
+	border: 0;
+	box-shadow: none;
+	border-left: solid 1px #ccc;
 }
 
-#custom-search-input .glyphicon-search{
-    font-size: 23px;
+#custom-search-input .glyphicon-search {
+	font-size: 23px;
 }
-
-
 </style>
 
 
@@ -61,17 +57,22 @@ border-radius: 50%;
 
 				<div class="btn-group" role="group"
 					aria-label="Button group with nested dropdown">
-					
+
 					<!--csrf.token을 불러오지 못하는 문제가 있어서, 일단 여기서 한번 호출해두는 것 (스크립트에서 이 값을 빼서 쓰진 않음)-->
-					<input type = "hidden" id="token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-					
+					<input type="hidden" id="token" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" />
+
 					<div th:if="${location == null}">
-						<button type=button class='btn btn-light'  id="get-mylocation">
+						<button type=button class='btn btn-light' id="get-mylocation">
 						</button>
 					</div>
 					<div th:if="${location != null}">
 						<button type=button class='btn btn-light'>
-							<table><tr><td th:text="${location != null} ? ${location} : ''"></td></tr></table>
+							<table>
+								<tr>
+									<td th:text="${location != null} ? ${location} : ''"></td>
+								</tr>
+							</table>
 						</button>
 					</div>
 					<div class="btn-group" role="group">
@@ -79,159 +80,162 @@ border-radius: 50%;
 							class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false"></button>
 						<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-							<a class="dropdown-item" href="http://localhost:8080/user/map">지도로 찾기</a>
+							<a class="dropdown-item" href="http://localhost:8080/user/map">지도로
+								찾기</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-			<!-- Services -->
-			<section id="services">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12 text-left">`
-							<h3 class="section-heading text-uppercase">Quick Menu</h3>
-							<h6 class="section-subheading text-muted">이전에 주문하신 음식을 더 빠르게
-								결제해보세요!</h6>
+		<!-- Services -->
+		<section id="services">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-left">
+						`
+						<h3 class="section-heading text-uppercase">Quick Menu</h3>
+						<h6 class="section-subheading text-muted">이전에 주문하신 음식을 더 빠르게
+							결제해보세요!</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="team-member">
+							<img class="mx-auto rounded-circle" src="../main/img/team/1.jpg"
+								alt="">
+							<h4>아이스아메리카노</h4>
+							<p class="text-muted">고라니카페</p>
+							<ul class="list-inline social-buttons">
+							</ul>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-sm-4">
-							<div class="team-member">
-								<img class="mx-auto rounded-circle" src="../main/img/team/1.jpg"
-									alt="">
-								<h4>아이스아메리카노</h4>
-								<p class="text-muted">고라니카페</p>
-								<ul class="list-inline social-buttons">
-								</ul>
-							</div>
+					<div class="col-sm-4">
+						<div class="team-member">
+							<img class="mx-auto rounded-circle" src="../main/img/team/2.jpg"
+								alt="">
+							<h4>에그마요샌드위치</h4>
+							<p class="text-muted">고라니카페</p>
+							<ul class="list-inline social-buttons">
+							</ul>
 						</div>
-						<div class="col-sm-4">
-							<div class="team-member">
-								<img class="mx-auto rounded-circle" src="../main/img/team/2.jpg"
-									alt="">
-								<h4>에그마요샌드위치</h4>
-								<p class="text-muted">고라니카페</p>
-								<ul class="list-inline social-buttons">
-								</ul>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="team-member">
-								<img class="mx-auto rounded-circle" src="../main/img/team/3.jpg"
-									alt="">
-								<h4>무가당사과쥬스</h4>
-								<p class="text-muted">고라니카페</p>
-								<ul class="list-inline social-buttons">
-								</ul>
-							</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="team-member">
+							<img class="mx-auto rounded-circle" src="../main/img/team/3.jpg"
+								alt="">
+							<h4>무가당사과쥬스</h4>
+							<p class="text-muted">고라니카페</p>
+							<ul class="list-inline social-buttons">
+							</ul>
 						</div>
 					</div>
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<!-- Portfolio Grid -->
-			<section class="bg-light" id="portfolio">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12 text-left">
-							<h3 class="section-heading text-uppercase">Ad stores</h3>
-							<h6 class="section-subheading text-muted">고라니 추천 스토어</h6>
+		<!-- Portfolio Grid -->
+		<section class="bg-light" id="portfolio">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-left">
+						<h3 class="section-heading text-uppercase">Ad stores</h3>
+						<h6 class="section-subheading text-muted">고라니 추천 스토어</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 col-sm-6 portfolio-item">
+						<a class="portfolio-link" data-toggle="modal"
+							href="#portfolioModal1">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content">
+									<i class="fas fa-plus fa-3x"></i>
+								</div>
+							</div> <img class="img-fluid" src="../main/img/portfolio/cafe.jpg"
+							alt="">
+						</a>
+						<div class="portfolio-caption">
+							<h4>고라니카페</h4>
+							<p class="text-muted">커피가 맛있는 고라니 카페</p>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-4 col-sm-6 portfolio-item">
-							<a class="portfolio-link" data-toggle="modal"
-								href="#portfolioModal1">
-								<div class="portfolio-hover">
-									<div class="portfolio-hover-content">
-										<i class="fas fa-plus fa-3x"></i>
-									</div>
-								</div> <img class="img-fluid" src="../main/img/portfolio/cafe.jpg"
-								alt="">
-							</a>
-							<div class="portfolio-caption">
-								<h4>고라니카페</h4>
-								<p class="text-muted">커피가 맛있는 고라니 카페</p>
-							</div>
+					<div class="col-md-4 col-sm-6 portfolio-item">
+						<a class="portfolio-link" data-toggle="modal"
+							href="#portfolioModal2">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content">
+									<i class="fas fa-plus fa-3x"></i>
+								</div>
+							</div> <img class="img-fluid" src="../main/img/portfolio/dosirak.jpg"
+							alt="">
+						</a>
+						<div class="portfolio-caption">
+							<h4>고라니도시락</h4>
+							<p class="text-muted">조미료를 쓰지않는 맛있는 도시락</p>
 						</div>
-						<div class="col-md-4 col-sm-6 portfolio-item">
-							<a class="portfolio-link" data-toggle="modal"
-								href="#portfolioModal2">
-								<div class="portfolio-hover">
-									<div class="portfolio-hover-content">
-										<i class="fas fa-plus fa-3x"></i>
-									</div>
-								</div> <img class="img-fluid" src="../main/img/portfolio/dosirak.jpg"
-								alt="">
-							</a>
-							<div class="portfolio-caption">
-								<h4>고라니도시락</h4>
-								<p class="text-muted">조미료를 쓰지않는 맛있는 도시락</p>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-6 portfolio-item">
-							<a class="portfolio-link" data-toggle="modal"
-								href="#portfolioModal3">
-								<div class="portfolio-hover">
-									<div class="portfolio-hover-content">
-										<i class="fas fa-plus fa-3x"></i>
-									</div>
-								</div> <img class="img-fluid" src="../main/img/portfolio/juice.jpeg"
-								alt="">
-							</a>
-							<div class="portfolio-caption">
-								<h4>고라니쥬스</h4>
-								<p class="text-muted">생과일을 직접 갈아 만들었어요</p>
-							</div>
+					</div>
+					<div class="col-md-4 col-sm-6 portfolio-item">
+						<a class="portfolio-link" data-toggle="modal"
+							href="#portfolioModal3">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content">
+									<i class="fas fa-plus fa-3x"></i>
+								</div>
+							</div> <img class="img-fluid" src="../main/img/portfolio/juice.jpeg"
+							alt="">
+						</a>
+						<div class="portfolio-caption">
+							<h4>고라니쥬스</h4>
+							<p class="text-muted">생과일을 직접 갈아 만들었어요</p>
 						</div>
 					</div>
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<!-- About -->
-			<section id="about">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12 text-center">
+		<!-- About -->
+		<section id="about">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
 
-							<table class="table table-bordered table-dark">
-								<thead>
-									<tr>
-										<th scope="col" id="cate_all">전체</th>
-										<th scope="col" id="cate_drink">커피·음료</th>
-										<th scope="col" id="cate_toast">토스트·샌드위치</th>
-										<th scope="col" id="cate_dosirak">도시락</th>
-									</tr>
-									<tr>
-										<th scope="col" id="cate_bakery">베이커리</th>
-										<th scope="col" id="cate_salad">샐러드</th>
-										<th scope="col" id="cate_snack">스낵</th>
-										<th scope="col" id="cate_etc">기타</th>
-									</tr>
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
-						</div>
+						<table class="table table-bordered table-dark">
+							<thead>
+								<tr>
+									<th scope="col" id="toast">전체</th>
+									<th scope="col" id="cafe">카페</th>
+									<th scope="col" id="toast">토스트·샌드위치</th>
+									<th scope="col" id="dosirak">도시락</th>
+								</tr>
+								<tr>
+									<th scope="col" id="bakery">베이커리</th>
+									<th scope="col" id="salad">샐러드</th>
+									<th scope="col" id="snack">스낵·분식</th>
+									<th scope="col" id="etc">기타</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+
 					</div>
-
 				</div>
-			</section>
-<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-			<!-- Team -->
-			<section class="bg-light" id="team">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12 text-left">
-							<h3 class="section-heading text-uppercase">Stores</h3>
-							<h6 class="section-subheading text-muted">Gorany 가맹점 리스트</h6>
-						</div>
+			</div>
+		</section>
+		<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+		<!-- Team -->
+		<section class="bg-light2" id="team">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-left">
+						<h3 class="section-heading text-uppercase">Stores</h3>
+						<h6 class="section-subheading text-muted">Gorany 가맹점 리스트</h6>
 					</div>
-					
-					<!-- Project One -->
+				</div>
+
+				<!-- Project One
 					<div class="row">
 						<div class="col-md-7">
 							<a href="/user/store"> <img
@@ -247,72 +251,71 @@ border-radius: 50%;
 								class="badge badge-warning">#샌드위치</span> <span
 								class="badge badge-dark">#토스트</span>
 						</div>
-					</div>
-					<hr>
-					<!-- /.row -->
-
-					
+					</div> -->
+				<hr>
+				<!-- /.row -->
 
 
-					
 
-				
-				</div>
-				<!-- /.container -->
-			</section>
-			
-			<!-- <span th:text= "${store}"></span> -->
-			
 
-<!-- 
+
+
+
+			</div>
+			<!-- /.container -->
+		</section>
+
+		<!-- <span th:text= "${store}"></span> -->
+
+
+		<!-- 
 <div th:each="n : ${tidlist}" th:id="${n}" th:class="block" >
 <h2 th:text="${n}"></h2>
 <h3>메뉴번호 &nbsp수량</h3>
 
 <div th:each="vo : ${result}">
 <div th:if="${n} == ${vo.tid}" > -->
-			
 
 
-<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-			<!-- Footer -->
-			<footer>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-4">
-							<span class="copyright">Copyright &copy; Gorany Company
-								Website 2018</span>
-						</div>
-						<div class="col-md-4">
-							<ul class="list-inline social-buttons">
-							</ul>
-						</div>
-						<div class="col-md-4">
-							<ul class="list-inline quicklinks">
-								<li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-								<li class="list-inline-item"><a href="#">Terms of Use</a></li>
-							</ul>
-						</div>
+		<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+		<!-- Footer -->
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<span class="copyright">Copyright &copy; Gorany Company
+							Website 2018</span>
+					</div>
+					<div class="col-md-4">
+						<ul class="list-inline social-buttons">
+						</ul>
+					</div>
+					<div class="col-md-4">
+						<ul class="list-inline quicklinks">
+							<li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+							<li class="list-inline-item"><a href="#">Terms of Use</a></li>
+						</ul>
 					</div>
 				</div>
-			</footer>
-		</div>
+			</div>
+		</footer>
 	</div>
-	
-	<!-- Portfolio Modals -->
+</div>
 
-	<!-- end content -->
+<!-- Portfolio Modals -->
 
-	<th:block layout:fragment="script">
+<!-- end content -->
+
+<th:block layout:fragment="script">
 
 	<!-- google Geolocation -->
-		<script type="text/javascript"
-			src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCOjYqPJ97sckNjih-R8q07zMO9e8R-VJU&ver=3.exp"></script>
+	<script type="text/javascript"
+		src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCOjYqPJ97sckNjih-R8q07zMO9e8R-VJU&ver=3.exp"></script>
 
-	
 
-<script th:inline="javascript">
+	<script th:inline="javascript">
 
 	
 $(document).ready(function(){
@@ -355,6 +358,7 @@ $(document).ready(function(){
 		                            
 		                            console.log("위도 경도:" + lat + " " + lng);
 		                            listoflocation(lat,lng);
+		                           
 		                            
 		                        }
 		                    }
@@ -376,95 +380,77 @@ $(document).ready(function(){
 			 var tempdistance = new Array();
 			 var distance = new Array();
 	 
-			 
-			//  console.log([[${store[0]}]].lat); 
-			  
-			 // console.log(Math.pow(lat - [[${store[0]}]].lat , 2) + Math.pow(lng - [[${store[0]}]].lng , 2));
-			//  console.log(Math.sqrt(Math.pow(lat - [[${store[0]}]].lat , 2) + Math.pow(lng - [[${store[0]}]].lng , 2)))
-			  		  
-			  for(var i=0; i<listlength; i++){
+			 for(var i=0; i<listlength; i++){
 				  
 				  tempdistance[i] = Math.sqrt(Math.pow(lat - list[i].lat , 2) + Math.pow(lng - list[i].lng , 2));
 				  distance[i] = Math.sqrt(Math.pow(lat - list[i].lat , 2) + Math.pow(lng - list[i].lng , 2));
 			  }
-		
-			//console.log(tempdistance);
-	 
-			tempdistance.sort(function(a,b){
+			 tempdistance.sort(function(a,b){
 				  return a-b;
 			  });
-			
-			 // console.log("-------------------------");
-			 // console.log(tempdistance);
-			 // console.log(distance);
-			  
-			  
-			 // console.log(distance.indexOf(tempdistance[0]));
-			  var distanceIndex = distance.indexOf(tempdistance[0]);
-			  
-			 // console.log(list[distanceIndex]);
-			  
+
+			  var distanceIndex = distance.indexOf(tempdistance[0]);			  
 			  var minarray = new Array();
 			  
-			  
 			  for(var i=0; i<10; i++){
-				 minarray[i] =  distance.indexOf(tempdistance[i]);
-				 //console.log(list[minarray[i]]);
+					 minarray[i] =  distance.indexOf(tempdistance[i]);
+					
+				  }
+			
+			  var str = "";
+			  for(var i in minarray){	
+			 	
+				str +="<div class='container'><div class='row'><div class='col-md-7'><a href=/user/store'><img class='img-fluid rounded mb-3 mb-md-0' src='../main/img/portfolio/cafe3.jpg' alt=''></a></div><div class='col-md-5'><h3>"+list[minarray[i]].sname+"</h3><p>"+list[minarray[i]].saddress+"</p><p>"+list[minarray[i]].businessHours+"</p><p><span class='badge badge-info'>#"+list[minarray[i]].b_field+"</span></p></div> </div></div><hr>";
+				
 			  }
-			  
-		/* 	  console.log(minarray);
-			  console.log(list[minarray[0]]); */
-			  
-			 
-			for(var i in minarray){			
-			$(".bg-light").append("<div class='container'><div class='row'><div class='col-md-7'><a href=/user/store'><img class='img-fluid rounded mb-3 mb-md-0' src='../main/img/portfolio/cafe3.jpg' alt=''></a></div><div class='col-md-5'><h3>"+list[minarray[i]].sname+"</h3><p>24시 커피전문점, 고라니 카페입니다.</p><p>"+list[minarray[i]].b_field+"</p></div> </div></div><hr>")
-			}
-			  
-
+			  $(".bg-light2").html(str);
+					 
+			  $("th").click(function(){
+				
+					
+					var cname = $(this).text();
+					var array = new Array();
+					console.log(cname);
+					
+					var str = "";
+					
+					 for(var i=0; i<listlength; i++){
+					 if(list[i].b_field == cname ){
+						console.log("일치");
+						array[i] = list[i];
+					
+					 }else if(cname == "전체"){
+						 array[i] = list[i];
+						 str += "<div class='container'><div class='row'><div class='col-md-7'><a href=/user/store'><img class='img-fluid rounded mb-3 mb-md-0' src='../main/img/portfolio/cafe3.jpg' alt=''></a></div><div class='col-md-5'><h3>"+array[i].sname+"</h3><p>"+array[i].saddress+"</p><p>"+array[i].businessHours+"</p><p><span class='badge badge-info'>#"+array[i].b_field+"</span></p></div> </div></div><hr>";
+							
+						console.log("전체일치")
+					 }
+				 	}//for
+				 	
+				 	$(".bg-light2").html(str);
+				 	
+				 	console.log("---------------------------------------")
+				 	console.log(array);
+				 	
+				 	console.log("---------------------------------------")
+				 	
+				 	var temp = "";
+				 	
+				 	for(var i in array){	
+						  console.log(array[i].sname);
+						  temp += "<div class='container'><div class='row'><div class='col-md-7'><a href=/user/store'><img class='img-fluid rounded mb-3 mb-md-0' src='../main/img/portfolio/cafe3.jpg' alt=''></a></div><div class='col-md-5'><h3>"+array[i].sname+"</h3><p>"+array[i].saddress+"</p><p>"+array[i].businessHours+"</p><p><span class='badge badge-info'>#"+array[i].b_field+"</span></p></div> </div></div><hr>";
+							}
+				 	
+				 	$(".bg-light2").html(temp);
+				
+			
+				});
+			
 		 }
 		 
-		//카테고리별 리스트 정렬
-		$("#cate_all").click(function(){
-			var cname = $(this).text();
-			console.log(cname);
-		});
-		
-		$("#cate_drink").click(function(){
-			var cname = $(this).text();
-			console.log(cname);
-		});
-		
-		$("#cate_toast").click(function(){
-			var cname = $(this).text();
-			console.log(cname);
-		});
-		
-		$("#cate_dosirak").click(function(){
-			var cname = $(this).text();
-			console.log(cname);
-		});
-		
-		$("#cate_bakery").click(function(){
-			var cname = $(this).text();
-			console.log(cname);
-		});
-		
-		$("#cate_salad").click(function(){
-			var cname = $(this).text();
-			console.log(cname);
-		});
-		
-		$("#cate_snack").click(function(){
-			var cname = $(this).text();
-			console.log(cname);
-		});
-		
-		$("#cate_etc").click(function(){
-			var cname = $(this).text();
-			console.log(cname);
-		});
-
-		 
+	
+			
+			
 		//검색창 자동완성
 		function display(data){
 			$( "#tags" ).autocomplete({
@@ -585,4 +571,4 @@ $(document).ready(function(){
 		  
 		  
 	</script>
-	</th:block>
+</th:block>
