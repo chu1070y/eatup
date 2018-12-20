@@ -16,16 +16,12 @@ a {
 			<li class="breadcrumb-item active">주문</li>
 		</ol>
 
-	<div id="conversation">
+<!-- 	<div id="conversation">
 		<div id="greetings"></div>
 		<button id="Disconnected">연결종료</button>
-	</div>
+	</div> -->
 
-	<h2>파이어 베이스</h2>
-	<!-- 	<pre id="object">
-		
-	</pre> -->
-	<span class="hidden" th:text="${result}"></span>
+
 	
 	
 	<div th:class="view">
@@ -33,15 +29,16 @@ a {
 	</div>
 
 	
-	<div class="block hidden">
+	<div class="block hidden" id="origin">
 		
-		<div class="header">
+		<div id="header">
 			<h1>tid1</h1>
 		</div>
 		<hr>
-		<div class="body">
+		<div id="body">
 			
 		</div>
+		<input id="tid" type="hidden" name="tid"> 
 	</div>
 
 
