@@ -88,23 +88,22 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
         <input type="password" id="password" placeholder="Password" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large loginBtn" id="loginBtn">로그인</button>
         <button type="button" class="btn btn-success btn-block btn-large loginBtn" id="loginBtn" onclick="location.href='/user/welcome'">회원가입</button>
-        <br/>
-        <span>
+        		<div>
 			<a href="https://kauth.kakao.com/oauth/authorize?client_id=8392c8baf0d0c5aa5ba40677ff1e40e2&redirect_uri=http://localhost:8080/kakaologin&response_type=code&scope=account_email&scope=gender">
-				<img width="300" height="60" src="/imgs/kakao-btn.png">
+				<img src="/imgs/kakao-btn.png">
 			</a>
-		</span>
-		<span id="naver_id_login">
+		</div>
+		<div id="naver_id_login">
 			<a href="https://nid.naver.com/oauth2.0/authorize?client_id=LDp9BYkvyaslYqUOz1h5&response_type=code&redirect_uri=http://localhost:8080/naverlogin">
-				<img width="300" height="60" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/>
+				<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/>
 			</a>
-		</span>
-		<span id="google_id_login">
-			<a href = "https://accounts.google.com/o/oauth2/auth?client_id=551706831448-9pq0hg3jkbqepv6sq9s0ek617l6nodlf.apps.googleusercontent.com
-						&redirect_uri=http://localhost:8080/user/home&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile+https://www.googleapis.com/auth/plus.me">
-				<img width="300" height="60" src="/imgs/google_login.png"/>
+		</div>
+		<div id="google_id_login">
+			<a href = "https://accounts.google.com/o/oauth2/auth?client_id=392762300432-eq62skbdmkuve2p72cmf661mt7daho73.apps.googleusercontent.com
+						&redirect_uri=http://localhost:8080/googlelogin&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile+https://www.googleapis.com/auth/plus.me">
+						google login
 			</a>
-		</span>
+		</div>
 </div>
 
 <form id="actionForm">
