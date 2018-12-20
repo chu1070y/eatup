@@ -28,12 +28,17 @@ dbRefObject.on('value',snap =>  {
 		console.log(snap.val()[data]);
 		
 		$("#origin #header").html("<h1>"+snap.val()[data].order_id+"</h1>");
+		//$("#btn").attr("id",snap.val()[data].order_id);
 		
 		for(var menu of snap.val()[data].menulist){
 			$("#origin #body").append("<h2>" + menu.menu + "---"+menu.quantity+"</h2><br/>");
 		}
 		
+		
 		$("#origin #tid").val(snap.val()[data].tid);
+		
+		$("#origin #body").append("<button id="+snap.val()[data].order_id+" class='btn btn-secondary btn-lg btn-block'>F I N I S H !</button>");
+		
 		
 		var clone = $("#origin").clone();
 		
@@ -42,8 +47,63 @@ dbRefObject.on('value',snap =>  {
 		
 		$("#orderlist").append(clone);
 		$("#origin #body").html("");
-
+		
+		//var id = "#"+snap.val()[data].order_id;
+		//$(id).attr("id","btn");
+		
+		
+		
 	}
+	//animation
+	$(".btn.btn-secondary.btn-lg.btn-block").click(function(){
+		
+		
+		var number = this.id;
+		console.log("클릭"+number);
+		
+		var array = $(".btn.btn-secondary.btn-lg.btn-block").slice(); //블록을 배열로
+		console.log(array);
+		
+	
+		var idarray = new Array(); //배열 아이디
+		var length = array.length; 
+		console.log(length)
+		
+		for(var i=0; i<length; i++){
+			idarray[i]=array[i].id;
+			
+		}
+		
+		console.log("idarray: " + idarray)
+	 
+		//animation
+		var elem = document.getElementById(number); //ex)103
+		var indexnumber=parseInt(number)+1
+		console.log(indexnumber)
+	  	var index = idarray.indexOf(""+indexnumber); 
+		console.log(elem + "   " + index)
+		console.log("여기 아이디 어레이" + idarray)
+	
+		$(elem).animate({"bottom":"1000px"});		
+		$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
+		
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+		
+		
+		
+	});//$(".btn.btn-secondary.btn-lg.btn-block").click
 
 	
 });
