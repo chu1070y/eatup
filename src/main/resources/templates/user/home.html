@@ -93,7 +93,6 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 text-left">
-						`
 						<h3 class="section-heading text-uppercase">Quick Menu</h3>
 						<h6 class="section-subheading text-muted">이전에 주문하신 음식을 더 빠르게
 							결제해보세요!</h6>
@@ -140,13 +139,12 @@
 				<div class="row">
 					<div class="col-lg-12 text-left">
 						<h3 class="section-heading text-uppercase">Ad stores</h3>
-						<h6 class="section-subheading text-muted">고라니 추천 스토어</h6>
+						<h6 class="section-subheading text-muted">EAT UP 추천 스토어</h6>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-4 col-sm-6 portfolio-item">
-						<a class="portfolio-link" data-toggle="modal"
-							href="#portfolioModal1">
+						<a class="portfolio-link" href="/user/store?sno=7">
 							<div class="portfolio-hover">
 								<div class="portfolio-hover-content">
 									<i class="fas fa-plus fa-3x"></i>
@@ -155,13 +153,12 @@
 							alt="">
 						</a>
 						<div class="portfolio-caption">
-							<h4>고라니카페</h4>
-							<p class="text-muted">커피가 맛있는 고라니 카페</p>
+							<h4>커피점방</h4>
+							<p class="text-muted">스페셜티 원두로 만든 커피가 맛있는 카페</p>
 						</div>
 					</div>
 					<div class="col-md-4 col-sm-6 portfolio-item">
-						<a class="portfolio-link" data-toggle="modal"
-							href="#portfolioModal2">
+						<a class="portfolio-link" href="/user/store?sno=40">
 							<div class="portfolio-hover">
 								<div class="portfolio-hover-content">
 									<i class="fas fa-plus fa-3x"></i>
@@ -170,13 +167,12 @@
 							alt="">
 						</a>
 						<div class="portfolio-caption">
-							<h4>고라니도시락</h4>
+							<h4>브라운박스</h4>
 							<p class="text-muted">조미료를 쓰지않는 맛있는 도시락</p>
 						</div>
 					</div>
 					<div class="col-md-4 col-sm-6 portfolio-item">
-						<a class="portfolio-link" data-toggle="modal"
-							href="#portfolioModal3">
+						<a class="portfolio-link" href="/user/store?sno=14">
 							<div class="portfolio-hover">
 								<div class="portfolio-hover-content">
 									<i class="fas fa-plus fa-3x"></i>
@@ -185,8 +181,8 @@
 							alt="">
 						</a>
 						<div class="portfolio-caption">
-							<h4>고라니쥬스</h4>
-							<p class="text-muted">생과일을 직접 갈아 만들었어요</p>
+							<h4>이지샐러드</h4>
+							<p class="text-muted">맛있는 샐러드로 오늘 아침도 든든하게!</p>
 						</div>
 					</div>
 				</div>
@@ -197,6 +193,11 @@
 		<section id="about">
 			<div class="container">
 				<div class="row">
+					<div class="col-lg-12 text-left">
+						<h3 class="section-heading text-uppercase">Category</h3>
+						<h6 class="section-subheading text-muted">카테고리</h6>
+					</div>
+
 					<div class="col-lg-12 text-center">
 
 						<table class="table table-bordered table-dark">
@@ -397,6 +398,7 @@ $(document).ready(function(){
 					
 				  }
 			
+			  
 			  var str = "";
 			  for(var i in minarray){	
 			 	
@@ -404,6 +406,8 @@ $(document).ready(function(){
 				
 			  }
 			  $(".bg-light2").html(str);
+			  
+			 
 					 
 			  $("th").click(function(){
 				
@@ -445,10 +449,13 @@ $(document).ready(function(){
 				
 			
 				});
+			  
+			 
 			
 		 }
 		 
 	
+		
 			
 			
 		//검색창 자동완성
