@@ -180,16 +180,16 @@
 						<p>수량</p>
 						<div id=""class="number">
 
-							<button id="decreaseQuantity">-</button>
+							<button id="decreaseQuantity" class="btn btn-light">-</button>
 							<span id="numberUpDown">1</span>
-							<button id="increaseQuantity">+</button>
+							<button id="increaseQuantity" class="btn btn-light">+</button>
 						</div>
 					</div>
 					<div class="modal-footer">
 <!-- 						<button id="cart" type="button" class="btn btn-primary"
 						th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">장바구니</button> -->
 						<button id="cart" type="button" class="btn btn-primary">장바구니</button>
-						<button type="button" class="btn btn-secondary"
+						<button id="order" type="button" class="btn btn-secondary"
 						th:onclick="|window.location.href='@{/user/pay(sno=${menu[0].sno})}'|"
 							data-dismiss="modal">바로주문</button>
 					</div>
@@ -202,7 +202,9 @@
 	</div>
 
 	<div class="FixedLayoutBottom css_layout_Bottom"
-		th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">장바구니</div>
+		th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">장바구니
+		 <span id="badge" class="badge badge-pill badge-danger">1</span></div>
+		
 </div>
 
 
@@ -284,13 +286,38 @@ $(document).ready(function() {
 			$.cookie('cart', json, { expires: 1 }); 	       
 			console.log("cookie : " + $.cookie('cart')); 
 			
-
+			
 			 $('#numberUpDown').text(1);
 			console.log("modal close");
 			$("#myModal").hide();
 			
 		});
-
+		
+		// order 쿠키 생성
+		$("#order").one("click", function(e) {	
+			
+			// json으로 Data변환
+			var jsonData = new Object();
+			jsonData.mno = getMno;
+			jsonData.quantity = getQuantity;
+		
+			arr.push(jsonData);
+			var json = JSON.stringify(arr);
+	
+			console.log("jsonData: " + json);
+			
+			
+			// cart 쿠키 설정 (expries는 유지일)
+			$.cookie('order', json, { expires: 1 }); 	       
+			console.log("cookie : " + $.cookie('order')); 
+			
+			
+			 $('#numberUpDown').text(1);
+			console.log("modal close");
+			$("#myModal").hide();
+			
+		});
+		
 	});
 	
 
