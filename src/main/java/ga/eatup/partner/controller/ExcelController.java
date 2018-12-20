@@ -413,7 +413,7 @@ public class ExcelController {
 	    	row = sheet.createRow(rowNo++);
 	    	cell = row.createCell(0);
 	    	cell.setCellStyle(bodyStyle);
-	    	cell.setCellValue(vo.getMonth());
+	    	cell.setCellValue(vo.getOrdermonth());
 	    	cell = row.createCell(1);
 	    	cell.setCellStyle(bodyStyle);
 	    	cell.setCellValue(vo.getMname());
@@ -494,7 +494,7 @@ public class ExcelController {
 	    	row = sheet.createRow(rowNo++);
 	    	cell = row.createCell(0);
 	    	cell.setCellStyle(bodyStyle);
-	    	cell.setCellValue(vo.getMonth());
+	    	cell.setCellValue(vo.getOrdermonth());
 	    	cell = row.createCell(1);
 	    	cell.setCellStyle(bodyStyle);
 	    	cell.setCellValue(vo.getMname());

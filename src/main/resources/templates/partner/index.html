@@ -23,9 +23,7 @@ a {
 
 	<button id=go>go</button>
 
-	<div th:class="view">
-		<span id="orderlist"></span>
-	</div>
+
 
 
 	<div class="block hidden" id="origin">
@@ -35,14 +33,25 @@ a {
 		</div>
 		<hr>
 		<div id="body"></div>
+
 		<input id="tid" type="hidden" name="tid">
+		<!-- <button class="btn btn-secondary btn-lg btn-block" id="btn">F I N I S H !</button>  -->
+	</div>
+
+	<div th:class="view">
+		<span id="orderlist"></span>
 	</div>
 
 
 
-
-
 	<style>
+.btn.btn-secondary.btn-lg.btn-block {
+
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
 .view {
 	width: 9000%;
 }
@@ -251,6 +260,7 @@ hr {
 	
 		
 	var checkarray = new Array();
+
 $("#go").click(function(){
 	console.log("clickkkkkk");
 	number=101;
@@ -305,7 +315,12 @@ $("#go").click(function(){
 })
 	
 $(document).ready(function () {
-
+	
+	$("#btn1").click(function(){
+		
+		console.log("clickkkk")
+		
+	});
 
 	 //음성 메세지 DB에 저장할 경우
 	 function sendVoice(data,callback,error){
