@@ -28,12 +28,9 @@ public class UserSecurityConfig  extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		
 		log.info("common user .... security config.......");
-
 		
 		http
-//			.csrf().disable()
 			.authorizeRequests()
 				.antMatchers("/upload/**").permitAll()
 				.antMatchers("/user/**").permitAll()

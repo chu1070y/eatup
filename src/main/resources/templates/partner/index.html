@@ -4,56 +4,47 @@
 
 
 <div layout:fragment="content">
-<style>
+	<style>
 a {
 	color: black;
 }
-
 </style>
-<!-- Breadcrumbs-->
-		<ol class="breadcrumb" style="font: 12px sans-serif">
-			<li class="breadcrumb-item"><a href="#">Home</a></li>
-			<li class="breadcrumb-item active">주문</li>
-		</ol>
+	<!-- Breadcrumbs-->
+	<ol class="breadcrumb" style="font: 12px sans-serif">
+		<li class="breadcrumb-item"><a href="#">Home</a></li>
+		<li class="breadcrumb-item active">주문</li>
+	</ol>
 
-	<div id="conversation">
+	<!-- 	<div id="conversation">
 		<div id="greetings"></div>
 		<button id="Disconnected">연결종료</button>
-	</div>
+	</div> -->
 
-	<h2>파이어 베이스</h2>
-	<!-- 	<pre id="object">
-		
-	</pre> -->
-	<span class="hidden" th:text="${result}"></span>
-	
-	
+
+	<button id=go>go</button>
+
 	<div th:class="view">
-	<span id="orderlist"></span>
+		<span id="orderlist"></span>
 	</div>
 
-	
-	<div class="block hidden">
-		
-		<div class="header">
+
+	<div class="block hidden" id="origin">
+
+		<div id="header">
 			<h1>tid1</h1>
 		</div>
 		<hr>
-		<div class="body">
-			
-		</div>
+		<div id="body"></div>
+		<input id="tid" type="hidden" name="tid">
 	</div>
 
 
 
 
-<style>
-.view{
 
-
-        width: 9000%;
-        
-        
+	<style>
+.view {
+	width: 9000%;
 }
 /*네모네모 */
 #wrapper {
@@ -65,9 +56,8 @@ a {
 	position: fixed;
 }
 
-hr{
+hr {
 	border: solid 5px white;
-	
 }
 
 .block {
@@ -251,11 +241,56 @@ hr{
 
 </div>
 
+
+
 <th:block layout:fragment="script">
 	<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
 	<script src="/js/firebaseDB_partner.js"></script>
 
-<script th:inline="javascript">
+	<script th:inline="javascript">
+
+$("#go").click(function(){
+	console.log("clickkkkkk");
+	number=101;
+	
+	
+	
+	console.log(" 여기는 체크오더이고,," + number);
+		
+		var array = $(".block").slice(); //블록을 배열로
+		console.log(array);
+		
+		var idarray = new Array(); //배열 아이디
+		var length = array.length -1; 
+		console.log(length)
+		
+		for(var i=0; i<length; i++){
+			idarray[i]=array[i].id;
+		}
+		
+		console.log("idarray: " + idarray)
+	 
+		//animation
+		var elem = document.getElementById(number); //ex)103
+	  	var index = idarray.indexOf(""+number); 
+		console.log(elem + "   " + index)
+	
+		if( number.toString() !== 'NaN' &&idarray.includes(""+number)==true ){
+						
+		$(elem).animate({"bottom":"1000px"});
+		
+		$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
+		
+		
+		}	
+		idarray.splice(index,1)
+		console.log(idarray);
+		
+		
+		
+	
+	
+})
 	
 $(document).ready(function () {
 
@@ -369,11 +404,44 @@ $(document).ready(function () {
  	
  	//음성 인식 후 주문 날리기
  	function checkOrder(number){ 
-
+ 			
  		console.log(" 여기는 체크오더이고,," + number);
+ 			
+ 			var array = $(".block").slice(); //블록을 배열로
+ 			console.log(array);
+ 			
+ 			var idarray = new Array(); //배열 아이디
+ 			var length = array.length -1; 
+ 			console.log(length)
+ 			
+ 			for(var i=0; i<length; i++){
+ 				idarray[i]=array[i].id;
+ 			}
+ 			
+ 			console.log("idarray: " + idarray)
+ 		 
+ 			//animation
+ 			var elem = document.getElementById(number); //ex)103
+ 		  	var index = idarray.indexOf(""+number); 
+ 			console.log(elem + "   " + index)
+ 		
+ 			if( number.toString() !== 'NaN' &&idarray.includes(""+number)==true ){
+ 							
+ 			$(elem).animate({"bottom":"1000px"});
+ 			
+ 			$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
+ 			
+ 			
+ 			}	
+ 			idarray.splice(index,1)
+ 			console.log(idarray);
+ 			
+ 		///////////////////////////////////////////////////////////////
 
- 		var elem = document.getElementById('tid'+number); 
- 		var tid = 'tid'+number
+ 		/* console.log(" 여기는 체크오더이고,," + number);
+
+ 		var elem = document.getElementById(number); 
+ 		var tid = number
  		var index = [[${tidlist}]].indexOf(tid);
  		console.log(elem + "   " + index)
  		
@@ -383,7 +451,7 @@ $(document).ready(function () {
  		$(elem).animate({"bottom":"1000px"}); 
  		$(".block").slice(index).animate({"left": "-=420px"});
  		
- 		}	
+ 		}	 */
  		
  	}
 
