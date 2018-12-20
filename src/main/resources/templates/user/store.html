@@ -220,11 +220,12 @@ $(document).ready(function() {
 	//메뉴 클릭 모달
 	$(".card-body").on("click", function(e) {
 
+		var getSno = [[${menu[0].sno}]];
 		var getMname = $(this).children()[0].outerText;
 		var getMno = $(this).children()[1].defaultValue;
 		var getMprice = $(this).children()[2].outerText;
 		var getQuantity = "";
-
+ 
 		console.log("modal show.....");		
 
 		$("#mname").html(getMname);
@@ -273,8 +274,10 @@ $(document).ready(function() {
 			
 			// json으로 Data변환
 			var jsonData = new Object();
+			jsonData.sno = getSno;
 			jsonData.mno = getMno;
 			jsonData.quantity = getQuantity;
+
 		
 			arr.push(jsonData);
 			var json = JSON.stringify(arr);
@@ -298,6 +301,7 @@ $(document).ready(function() {
 			
 			// json으로 Data변환
 			var jsonData = new Object();
+			jsonData.sno = getSno;
 			jsonData.mno = getMno;
 			jsonData.quantity = getQuantity;
 		
@@ -308,7 +312,7 @@ $(document).ready(function() {
 			
 			
 			// cart 쿠키 설정 (expries는 유지일)
-			$.cookie('order', json, { expires: 1 }); 	       
+			$.cookie('order', json, { expires: 1, path: '/'}); 	       
 			console.log("cookie : " + $.cookie('order')); 
 			
 			

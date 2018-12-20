@@ -9,23 +9,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import ga.eatup.user.domain.StoreVO;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import ga.eatup.user.domain.MenuVO;
+import ga.eatup.user.domain.OrderInfoVO;
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.service.LoginService;
 import ga.eatup.user.service.MenuService;
@@ -170,18 +170,35 @@ public class UserController {
 	}
 	
 	@GetMapping("/cart")
-	public void cart(@ModelAttribute("sno") int sno,Model model){
+	public void cart(@CookieValue("cart")String cart, @ModelAttribute("sno") int sno,Model model){
 		
 		log.info("cartPage....");
-		model.addAttribute("menu", service.getMenu(sno));
+		log.info("cart:"+cart);
+		Gson gson=new Gson();
+		List<MenuVO> menu=gson.fromJson(cart, new TypeToken<List<MenuVO>>(){}.getType());
+		
+		menu.forEach(vo->{
+			log.info(""+vo);
+		});
+						
+		model.addAttribute("menu", service.getCart(sno));
 	
 	}
 	
 	@GetMapping("/pay")
-	public void pay(@ModelAttribute("sno") int sno, Model model){
+	public void pay(@CookieValue("order")String order, @ModelAttribute("sno") int sno, Model model){
 		
 		log.info("payPage....");
-		model.addAttribute("menu", service.getMenu(sno));
+		log.info("cartPage....");
+		log.info("cart:"+order);
+		Gson gson=new Gson();
+		List<MenuVO> menu=gson.fromJson(order, new TypeToken<List<MenuVO>>(){}.getType());
+		
+		menu.forEach(vo->{
+			log.info(""+vo);
+		});
+		
+		model.addAttribute("menu", service.getCart(sno));
 	
 	}
 	

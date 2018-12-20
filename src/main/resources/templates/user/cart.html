@@ -6,8 +6,16 @@
 <div layout:fragment="content">
 
 	<style>
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+
 .col-lg-9 {
+	item-align: center;
 	text-align: center;
+	margin: auto;
 }
 
 .f1 {
@@ -33,33 +41,38 @@
 
 	<div class="col-lg-9">
 
-		<h1>장바구니</h1>
-
-		<div class="row">
-			<div class="col-md-7">
-				<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0"
-					src="../imgs/cafe4.jpeg" width="300px" alt="">
-				</a>
-			</div>
-			<div class="col-md-5">
-				<h3>카페라떼</h3>
-				<p>수량</p>
-				<div class="number">
-
-					<button id="decreaseQuantity">-</button>
-					<span id="numberUpDown">1</span>
-					<button id="increaseQuantity">+</button>
-
-				</div>
-				<p>소계</p>
-				<div class="price">
-					<p>2000원</p>
-				</div>
-				<a class="btn btn-primary" href="#">삭제</a>
-			</div>
-		</div>
-
-	</div>
+		<h3>장바구니</h3>
+		
+		
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">메뉴</th>
+						<th scope="col">수량</th>
+						<th scope="col">가격</th>
+						<th scope="col">삭제</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="menu : ${menu}">
+						<th><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+  							<label class="form-check-label" for="inlineCheckbox1"></label></div></th>
+						<td th:text="${menu.mname}"></td>
+						<td>
+						<div class="input-group mb-3">
+						<input size="1" type="number" class="form-control" min="0" max="100" value="1" disabled aria-describedby="basic-addon2">
+  						<div class="input-group-append">
+    					<button class="btn btn-warning" type="button">Edit</button>
+   						 </div>
+   						 </div>
+						</td>
+						<td th:text="${menu.mprice}"></td>
+						<td><button class="btn btn-outline-warning">Del</button></td>
+					</tr>
+					
+				</tbody>
+			</table>
 
 	<div class="col-lg-9">
 		<div class="facet f2">
@@ -69,15 +82,36 @@
 		</div>
 		 </div>
 		   <div class="col-md-5">
-      	<div class="wrapper">
-      		<div class="facet f1"> <button class="cartBtn" onclick="location.href='/user/pay'">주문하기</button> </div>
-      	</div>
+
      
 		<!-- end content -->
 	</div>
+	      	<div class="wrapper">
+      		<div class="facet f1"> <button class="cartBtn btn btn-warning" th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">주문하기</button></div>
+      	</div>
+</div>
+</div>
 
-	<th:block layout:fragment="script">
-		<script th:inline="javascript">
-			
-		</script>
-	</th:block>
+<th:block layout:fragment="script">
+<script th:inline="javascript">
+window.onload = function()
+{
+	
+	var getCookie = $.cookie('cart');
+	
+	console.log(getCookie); 
+	
+	
+
+	
+	
+
+}
+	
+	
+	
+	
+	
+
+</script>
+</th:block>

@@ -14,10 +14,9 @@
 
 	</select>
 	
-	<select id="readMenuImg" resultType="ga.eatup.user.domain.MenuVO">
-	
-	select sno, mno, fname, uuid, upload_path from partner_store_menu where sno = #{sno};
-	
+	<select id="getCart" resultType="ga.eatup.user.domain.MenuVO">
+	select sno, mno, mname, mprice from partner_store_menu where status = 'O' and sno= #{sno} 
 	</select>
 
 </mapper>
+
