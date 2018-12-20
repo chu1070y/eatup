@@ -45,6 +45,7 @@ public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/partner/notice/*").authenticated()
 				.antMatchers("/partner/oneByone").authenticated()
 				.antMatchers("/partner/sales").authenticated()
+				.antMatchers("/partner/notice").authenticated()
 				.antMatchers("/partner/salesList").authenticated()
 				.antMatchers("/partner/weeklyList").authenticated()
 				.antMatchers("/partner/monthlyList").authenticated()
