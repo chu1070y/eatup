@@ -38,7 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		//Partner로 로그인하면 userVO가 null, User로 로그인하면 partnerVO가 null
 		log.info("" + partnerVO);
 		log.info("" + userVO);
-				
+		
 		CustomUser member;
 		
 		//partner 로그인인 경우

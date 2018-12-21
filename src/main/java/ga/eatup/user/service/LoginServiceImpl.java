@@ -52,4 +52,10 @@ public class LoginServiceImpl implements LoginService {
 	public int registerAuth(UserVO vo) {
 		return mapper.registerAuth(vo);
 	}
+
+	@Override
+	public int checkId(String uid) {
+		// TODO Auto-generated method stub
+		return mapper.checkId(uid);
+	}
 }

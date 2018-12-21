@@ -57,6 +57,10 @@
  		UPDATE user SET upw=#{upw} WHERE uid='gaiga'
  	</update>
  	
+ 	<select id="checkId" resultType="int">
+ 		select count(*) count from gorany.user where uid=#{uid}
+ 	</select>
+ 	
  </mapper>
 
  

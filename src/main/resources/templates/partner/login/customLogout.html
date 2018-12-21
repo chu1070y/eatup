@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
 <meta charset="UTF-8">
@@ -82,28 +83,9 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 </div>
 
 <div class="login">
-	<h1>Eat up!</h1>
-    	<input type="text" id="username" placeholder="Username" required="required" />
-        <input type="password" id="password" placeholder="Password" required="required" />
-        <button type="submit" class="btn btn-primary btn-block btn-large loginBtn" id="loginBtn">로그인</button>
-        <button type="button" class="btn btn-success btn-block btn-large loginBtn" id="loginBtn" onclick="location.href='/user/welcome'">회원가입</button>
+	<h1>로그아웃 허긔!</h1>
+        <button type="button" class="btn btn-success btn-block btn-large loginBtn" id="logoutBtn">로그아웃 허긔!</button>
         <br/>
-        <span>
-			<a href="https://kauth.kakao.com/oauth/authorize?client_id=48ee2754b35f23d0f2df73795dab14d0&redirect_uri=http://localhost:8080/kakaologin&response_type=code&scope=account_email">
-				<img width="300" height="60" src="/imgs/kakao-btn.png">
-			</a>
-		</span>
-		<span id="naver_id_login">
-			<a href="https://nid.naver.com/oauth2.0/authorize?client_id=ZjzDdLEmTmslKEvM2l5d&response_type=code&redirect_uri=http://localhost:8080/naverlogin">
-				<img width="300" height="60" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/>
-			</a>
-		</span>
-		<span id="google_id_login">
-			<a href = "https://accounts.google.com/o/oauth2/auth?client_id=551706831448-00bm36ptphtpgvnsle8v2o9tajirm7o6.apps.googleusercontent.com
-			&redirect_uri=http://localhost:8080/googlelogin&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile+https://www.googleapis.com/auth/plus.me">
-				<img width="300" height="60" src="/imgs/google_login.png"/>
-			</a>
-		</span>
 </div>
 
 <form id="actionForm">
@@ -114,29 +96,12 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 <script>
 $(document).ready(function(){
 	
-	var btnLogin = $("#loginBtn");
-	var uid = $("#username");
-	var upw = $("#password");
-	var actionForm = $("#actionForm");
-	
-	var welcome = [[${welcome}]];
-	
-	btnLogin.on("click", function(e){
-		e.preventDefault();
-
-		var str = "";
+	$("#logoutBtn").on("click",function(e){
 		
-		str += "<input type='hidden' name='username' value='" + uid.val() +"'>";
-		str += "<input type='hidden' name='password' value='" + upw.val() +"'>";
-		console.log(str);
+		$("#actionForm").attr("method", "post").attr("action", "/partner/login/customLogout").submit();
 		
-		actionForm.append(str);
-		actionForm.attr("method", "post").attr("action", "/user/login/customLogin").submit();
 	});
 	
-	if(welcome==1){
-		alert("회원가입이 완료되었습니다. 로그인 해주세요^^");
-	}
 	
 });
 </script>

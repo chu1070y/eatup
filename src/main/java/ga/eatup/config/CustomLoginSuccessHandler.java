@@ -27,13 +27,11 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 			Authentication authentication) throws IOException, ServletException {
 		log.info("login success");
 		
-//		log.info("" + authentication.getName());
 		authentication.getAuthorities().forEach(auth -> {
 			log.info("" + auth);
 		});
-		log.info("--------------------------");
 		
-		super.onAuthenticationSuccess(request, response, authentication);
+		response.sendRedirect("/user/home");
 	}
 
 	//인증에 실패했을 경우
@@ -42,13 +40,8 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 			AuthenticationException exception) throws IOException, ServletException {
 		
 		log.info("login fail");
-		log.info("" + request);
-		log.info("" + response);
-		log.info("" + exception);
 		
 		if(exception != null) {
-			
-			log.info("========================================");
 			
 			StackTraceElement[] traces = exception.getStackTrace();
 			
@@ -56,12 +49,10 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 				log.warning(ele.toString());
 			}
 			
-			log.info("========================================");
-			
 		}
 		
 		
-		response.sendRedirect("/login?ex001");
+		response.sendRedirect("/user/login/customLogin");
 		
 	}
 
@@ -70,7 +61,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		log.info("Logout");
-		response.sendRedirect("/login");
+		response.sendRedirect("/user/login/customLogin");
 	}
 
 }
