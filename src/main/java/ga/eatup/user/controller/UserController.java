@@ -24,8 +24,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import ga.eatup.user.domain.CartDTO;
 import ga.eatup.user.domain.MenuVO;
-import ga.eatup.user.domain.OrderInfoVO;
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.service.LoginService;
 import ga.eatup.user.service.MenuService;
@@ -175,12 +175,12 @@ public class UserController {
 		log.info("cartPage....");
 		log.info("cart:"+cart);
 		Gson gson=new Gson();
-		List<MenuVO> menu=gson.fromJson(cart, new TypeToken<List<MenuVO>>(){}.getType());
+		List<CartDTO> menu = gson.fromJson(cart, new TypeToken<List<CartDTO>>(){}.getType());
 		
-		menu.forEach(vo->{
-			log.info(""+vo);
+		menu.forEach(dto->{
+			log.info(""+dto);
 		});
-						
+		model.addAttribute("cart", menu);
 		model.addAttribute("menu", service.getCart(sno));
 	
 	}
@@ -189,8 +189,7 @@ public class UserController {
 	public void pay(@CookieValue("order")String order, @ModelAttribute("sno") int sno, Model model){
 		
 		log.info("payPage....");
-		log.info("cartPage....");
-		log.info("cart:"+order);
+		log.info("order:"+order);
 		Gson gson=new Gson();
 		List<MenuVO> menu=gson.fromJson(order, new TypeToken<List<MenuVO>>(){}.getType());
 		
