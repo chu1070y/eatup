@@ -39,20 +39,6 @@ public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/partner/upload/**").permitAll()
 				.antMatchers("/partner/welcome").permitAll()
 				.antMatchers("/partner/login/**").permitAll()
-<<<<<<< HEAD
-				.antMatchers("/partner/index").authenticated()
-				.antMatchers("/partner/information").authenticated()
-				.antMatchers("/partner/menu").authenticated()
-				.antMatchers("/partner/notice/*").authenticated()
-				.antMatchers("/partner/oneByone").authenticated()
-				.antMatchers("/partner/sales").authenticated()
-				.antMatchers("/partner/notice").authenticated()
-				.antMatchers("/partner/salesList").authenticated()
-				.antMatchers("/partner/weeklyList").authenticated()
-				.antMatchers("/partner/monthlyList").authenticated()
-				.antMatchers("/partner/openo").authenticated()
-				.antMatchers("/partner/openx").authenticated()
-=======
 				.antMatchers("/partner/index").hasRole("PARTNER")
 				.antMatchers("/partner/information").hasRole("PARTNER")
 				.antMatchers("/partner/menu").hasRole("PARTNER")
@@ -63,7 +49,6 @@ public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/partner/salesList").hasRole("PARTNER")
 				.antMatchers("/partner/weeklyList").hasRole("PARTNER")
 				.antMatchers("/partner/monthlyList").hasRole("PARTNER")
->>>>>>> salem
 				.antMatchers("/partner/superAdmin").hasRole("ADMIN")
 				.antMatchers("/partner/notice/modify").hasRole("ADMIN")
 				.antMatchers("/partner/notice/read").hasRole("ADMIN")
