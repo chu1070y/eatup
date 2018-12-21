@@ -2,6 +2,7 @@ package ga.eatup.user.domain;
 
 import java.util.Date;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -29,5 +30,6 @@ public class MenuVO {
 	private StoreVO storeVO;
 	
 	private Integer index;
+	
 	
 }
