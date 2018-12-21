@@ -45,6 +45,9 @@ public class KakaoLoginController {
 	  JsonNode profile = KakaoLogin.getKakaoUserInfo(token.path("access_token").toString());
 	  
 	  UserVO vo = KakaoLogin.changeData(profile);
+	  log.info(""+vo);
+	  log.info(""+profile);
+	  log.info(""+token);
 	  String nickname = vo.getNickname();
 	  String email = vo.getEmail();
 	  String snsId = vo.getSns_id();
@@ -59,7 +62,7 @@ public class KakaoLoginController {
 	  //DB에 저장된 sns_id 없을 때, 회원가입 페이지로 넘길 정보 (FlashMap 객체 생성)
 	  FlashMap fm = RequestContextUtils.getOutputFlashMap(request);
 
-	  //sns_id와 맵핑된 유저 데이터가 DB에 있는지 확인하는 작업. 
+	  //sns_id와 맵핑된 유저 데이터가 DB에 있는지 확인하는 작업.
 	  for(int i = 0; i < userList.size(); i++) {
 		  if(userList.get(i).getSns_id().equals(snsId)) {
 			  uid = userList.get(i).getUid();
@@ -67,7 +70,7 @@ public class KakaoLoginController {
 			  service.setDefaultkey(snsId);
 			  //defaultKey에 넣어준 1값을 password 파라미터로 전달 
 			  upw = service.getUser(uid).getDefaultkey();
-			  redirectPage = "/user/login/customLoginTemp?username=" + uid + "&pas =" + upw;
+			  redirectPage = "/user/home";
 			  
 			  // 파라미터 전달은 1로 준 이후에 DB 내 defaultKey는 암호화 업데이트
 			  String defaultKey = encoder.encode(upw);
@@ -123,8 +126,7 @@ public class KakaoLoginController {
 		return "login/naverLogin";
 	}
 	
-	@RequestMapping(value = "/googlelogin", produces = "application/json", method = { RequestMethod.GET,
-			RequestMethod.POST })
+	@RequestMapping(value = "/googlelogin", produces = "application/json", method = { RequestMethod.GET, RequestMethod.POST })
 	public String googleLogin(@RequestParam("code") String code, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session, Model model) {
 
@@ -141,7 +143,7 @@ public class KakaoLoginController {
 		session.setAttribute("login", vo);
 		model.addAttribute("login", vo);
 
-		return "login/googleLogin";
+		return "user/home";
 	}
 	
 

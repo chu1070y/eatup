@@ -22,4 +22,6 @@ public interface LoginService {
 	public int encodeDefaultkey(UserVO vo);
 	
 	public int nullDefaultkey(String uid);
+	
+	public int checkId(String uid);
 }

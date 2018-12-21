@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +23,6 @@ import ga.eatup.partner.domain.MenuVO;
 import ga.eatup.partner.domain.NoticePageDTO;
 import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.partner.domain.OrderVO;
-import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.domain.StoreVO;
 import ga.eatup.partner.mapper.OrderMapper;
 import ga.eatup.partner.mapper.PartnerMenuMapper;
@@ -71,16 +69,14 @@ public class PartnerController {
 		log.info("회원가입....");
 	}
 	
-	@PostMapping("/partnercreate")
-	public void partnercreate(PartnerVO vo) {
-		log.info("파트너 계정생성 완료....");
-		log.info("파트너 회원가입 정보: " + vo);
-		
-		String enPw = encoder.encode(vo.getPpw());
-		vo.setPpw(enPw);		
-		
-		service.registerPartner(vo);
-		service.registerAuth(vo);
+	@GetMapping("/login/customLogout")
+	public void logout() {
+
+	}
+	
+	@PostMapping("/login/customLogout")
+	public void logoutPOST() {
+
 	}
 	
 	@GetMapping("/index")
