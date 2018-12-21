@@ -13,20 +13,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ga.eatup.partner.domain.MenuVO;
 import ga.eatup.partner.domain.NoticePageDTO;
-import ga.eatup.partner.domain.NoticeUploadVO;
 import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.partner.domain.OrderVO;
 import ga.eatup.partner.domain.PartnerVO;
+import ga.eatup.partner.domain.StoreVO;
 import ga.eatup.partner.mapper.OrderMapper;
 import ga.eatup.partner.mapper.PartnerMenuMapper;
+import ga.eatup.partner.service.OpenService;
 import ga.eatup.partner.service.PartnerMenuService;
 import ga.eatup.partner.service.PartnerService;
 import ga.eatup.partner.service.SuperadminService;
@@ -44,6 +46,9 @@ public class PartnerController {
 	@Setter(onMethod_=@Autowired)
 	private SuperadminService superadminService;
 	
+	@Setter(onMethod_=@Autowired)
+	private OpenService openService;
+	
 	//order
 	@Setter(onMethod_= @Autowired)
 	private OrderMapper ordermapper;
@@ -55,6 +60,8 @@ public class PartnerController {
 	//menu mapper
 	@Setter(onMethod_=@Autowired)
 	private PartnerMenuMapper menumapper;
+	
+	
 	
 	@Autowired
 	PasswordEncoder encoder;
@@ -214,5 +221,35 @@ public class PartnerController {
 		model.addAttribute("notice",superadminService.noticeRead(dto.getNno()));
 		model.addAttribute("dto", dto);
 	}
+	
+	//open column 'X' update
+	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH},
+			value="/openx",
+			consumes="application/json",
+			produces= {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updateX(@RequestBody StoreVO vo){
+		/*vo.setSno(sno);
+		log.info("update part...sno: " + sno );*/
+		log.info("update: " + vo);
+		
+		return openService.updateX(vo) == 1
+				? new ResponseEntity<>("success",HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	//open column 'O' update
+		@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH},
+				value="/openo",
+				consumes="application/json",
+				produces= {MediaType.TEXT_PLAIN_VALUE})
+		public ResponseEntity<String> updateO(@RequestBody StoreVO vo){
+			/*vo.setSno(sno);
+			log.info("update part...sno: " + sno );*/
+			log.info("update: " + vo);
+			
+			return openService.updateO(vo) == 1
+					? new ResponseEntity<>("success",HttpStatus.OK)
+					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	
 }

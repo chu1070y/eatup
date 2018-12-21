@@ -49,6 +49,8 @@ public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/partner/salesList").authenticated()
 				.antMatchers("/partner/weeklyList").authenticated()
 				.antMatchers("/partner/monthlyList").authenticated()
+				.antMatchers("/partner/openo").authenticated()
+				.antMatchers("/partner/openx").authenticated()
 				.antMatchers("/partner/superAdmin").hasRole("ADMIN")
 				.antMatchers("/partner/notice/modify").hasRole("ADMIN")
 				.antMatchers("/partner/notice/read").hasRole("ADMIN")

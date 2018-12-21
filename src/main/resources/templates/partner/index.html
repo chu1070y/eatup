@@ -15,10 +15,11 @@ a {
 		<li class="breadcrumb-item active">주문</li>
 	</ol>
 
-	<!-- 	<div id="conversation">
+		<div id="conversation">
 		<div id="greetings"></div>
-		<button id="Disconnected">연결종료</button>
-	</div> -->
+		<!-- <button id="Disconnected"  class="btn btn-warning" value="end">O F F</button> -->
+		
+	</div> 
 
 
 	<button id=go>go</button>
@@ -315,6 +316,13 @@ $("#go").click(function(){
 })
 	
 $(document).ready(function () {
+	//csrf처리
+	var csrfHearderName = [[${_csrf.headerName}]];
+	var csrfTokenValue =  [[${_csrf.token}]];
+
+	$(document).ajaxSend(function(e,xhr,options){
+		xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+	});
 	
 	$("#btn1").click(function(){
 		
@@ -390,14 +398,15 @@ $(document).ready(function () {
 
 
 	function setConnected(connected) { 
-		 $("#Disconnected").prop("disabled", !connected);
+		// $("#Disconnected").prop("disabled", !connected);
+		 
 		 
 		if (connected){			
 			$("#conversation").show();
 			$("#greetings").html("");
 		}
 		else{
-			ws.close();
+			//ws.close();
 			console.log("Disconnected");		
 		}
 	}
@@ -408,6 +417,7 @@ $(document).ready(function () {
 			showGreeting(data.data);
 		}
 		 setConnected(true);
+		 $( "#Disconnected" ).attr('value','end')
 	}
 	
  	function disconnect() {
@@ -415,6 +425,7 @@ $(document).ready(function () {
 	        ws.close();
 	    }
 	    setConnected(false);
+	    $( "#Disconnected" ).attr('value','start')
 	} 
 
  	function sendName() {
@@ -562,13 +573,86 @@ $(document).ready(function () {
 			 
 	};
 	
+	/*
 	$(function () {
 		 $( "#Disconnected" ).click(function() { disconnect(); });	
 	});	
+	*/
 	
+	var datax = {'open':'X'} 
+	var datao = {'open':'O'} 
+	$(function () {
+		 $( "#Disconnected" ).click(function() { 
+		
+			 if($( "#Disconnected" ).attr('value')=='end'){
+			 	/* disconnect();
+			 	$( "#Disconnected" ).html("O N") */
+			 	
+			 	 $.ajax({
+			 		type :'put',
+			 		url: '/partner/openx',
+			 		data: JSON.stringify(datax),
+			 		contentType: "application/json; charset=utf-8",
+			 		success:function(datax){
+			 			disconnect();
+					 	$( "#Disconnected" ).html("O N")
+			 			//alert("연결을 끊었슴다.,,,,");
+			 			
+			 		},
+			 		error:function(e){
+			            alert("에러 발생~~");
+			        } 
+			 	})//ajax 
+			 	
+			 }
+			 else if($( "#Disconnected" ).attr('value')=='start'){
+				/* connect();
+				sendName(); */
+				$( "#Disconnected" ).html("O F F")
+				//alert("연결이 됐슴다.,,,,");
+				
+				 $.ajax({
+			 		type :'put',
+			 		url: '/partner/openo',
+			 		data: JSON.stringify(datao),
+			 		contentType: "application/json; charset=utf-8",
+			 		success:function(datao){
+			 			connect();
+						sendName();
+						$( "#Disconnected" ).html("O F F")
+			 			
+			 		},
+			 		error:function(e){
+			            alert("에러 발생~~");
+			        } 
+			 	})//ajax 
+				
+			 }
+		 
+		 
+		 });	
+	});
+	
+
 	 window.onload = function(){
-		 connect();
-		 sendName(); 
+		 /* connect();
+		 sendName(); */
+		 
+		 $.ajax({
+		 		type :'put',
+		 		url: '/partner/openx',
+		 		data: JSON.stringify(datax),
+		 		contentType: "application/json; charset=utf-8",
+		 		success:function(datax){
+		 			disconnect();
+				 	$( "#Disconnected" ).html("O N")
+		 			//alert("연결을 끊었슴다.,,,,");
+		 			
+		 		},
+		 		error:function(e){
+		            alert("에러 발생~~");
+		        } 
+		 	})//ajax 
 	 };
 
 });
