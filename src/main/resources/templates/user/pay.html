@@ -22,7 +22,7 @@
 	<!-- content -->
 	<div class="col-lg-9">
 
-		<h1>결제하기</h1>
+		<h3>결제하기</h3>
 
 		<h4>주문정보</h4>
 
@@ -30,38 +30,31 @@
 		<div class="col-lg-9">
 			<table class="table">
 				<thead class="thead-dark">
-					<tr>
-						<th scope="col">#</th>
+					<tr >
+						<th scope="col">no</th>
 						<th scope="col">메뉴</th>
 						<th scope="col">수량</th>
 						<th scope="col">가격</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td>아메리카노</td>
-						<td>1</td>
-						<td>2000</td>
-					</tr>
-					<tr>
-						<th scope="row">2</th>
-						<td>카페라떼</td>
-						<td>2</td>
-						<td>5000</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td>치킨파니니</td>
-						<td>1</td>
-						<td>4300</td>
+					<tr th:each="cart : ${cart}">
+						<th scope="row"><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+  							<label class="form-check-label" for="inlineCheckbox1"></label></div></th>
+						<td th:text="${cart.mname}"></td>
+						<td th:text="${cart.quantity}"></td>
+						<td th:text="${cart.mprice}"></td>
 					</tr>
 				</tbody>
 			</table>
 
 
 			<div class="row">
-				<h3>TOTAL 11300원</h3>
+				<h5>총 주문 금액 :</h5>
+				<div class="facet f2" th:each="cart : ${cart}">
+				<input type="hidden" class="getPrice" th:value="${cart.totalPrice}" th:attr="name='totlaPrice'">
+				</div>
+				<h4 class="totalPrice"></h4>
 			</div>
 
 
@@ -75,7 +68,7 @@
 			<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="custom-control-input"
 					id="customCheck1"> <label class="custom-control-label"
-					for="customCheck1">바로 주문</label>
+					for="customCheck1" checked>바로 주문</label>
 
 			</div>
 			<div class="custom-control custom-checkbox">
@@ -129,10 +122,30 @@
 				<!-- end content -->
 			</div>
 		</div>
+	</div>
+</div>
 
-		<th:block layout:fragment="script">
-			<script th:inline="javascript">
-				
+<th:block layout:fragment="script">
+<script th:inline="javascript">
+$(document).ready(function(){
+	
+
+	//총 주문금액
+	$(".totalPrice").html(function(){
+	
+		var a = 0;
+		
+		$(".getPrice").each(function(){
+			a+= parseInt($(this).context.value);
+		});
+		
+		return a;
+	
+	});
+	
+});
+			
+			
 			</script>
 
 		</th:block>

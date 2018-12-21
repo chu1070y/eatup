@@ -202,7 +202,7 @@
 	</div>
 
 	<div class="FixedLayoutBottom css_layout_Bottom"
-		th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">장바구니
+		th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">주문하기
 		 <span id="badge" class="badge badge-pill badge-danger">1</span></div>
 		
 </div>
@@ -286,7 +286,7 @@ $(document).ready(function() {
 			
 			
 			// cart 쿠키 설정 (expries는 유지일)
-			$.cookie('cart', json, { expires: 1 }); 	       
+			$.cookie('cart', json, { expires: 1, path: '/'}); 	       
 			console.log("cookie : " + $.cookie('cart')); 
 			
 			
@@ -311,9 +311,9 @@ $(document).ready(function() {
 			console.log("jsonData: " + json);
 			
 			
-			// cart 쿠키 설정 (expries는 유지일)
-			$.cookie('order', json, { expires: 1, path: '/'}); 	       
-			console.log("cookie : " + $.cookie('order')); 
+			// 쿠키 설정 (expries는 유지일, path는 쿠키 보관하고 있을 경로)
+			$.cookie('cart', json, { expires: 1, path: '/'}); 	       
+			console.log("cookie : " + $.cookie('cart')); 
 			
 			
 			 $('#numberUpDown').text(1);

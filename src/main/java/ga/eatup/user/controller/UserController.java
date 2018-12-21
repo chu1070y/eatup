@@ -3,6 +3,7 @@ package ga.eatup.user.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -173,12 +174,28 @@ public class UserController {
 	public void cart(@CookieValue("cart")String cart, @ModelAttribute("sno") int sno,Model model){
 		
 		log.info("cartPage....");
+		
+		//쿠기값 가져오기
 		log.info("cart:"+cart);
 		Gson gson=new Gson();
+		
 		List<CartDTO> menu = gson.fromJson(cart, new TypeToken<List<CartDTO>>(){}.getType());
+			
 		
 		menu.forEach(dto->{
-			log.info(""+dto);
+			log.info("menu.forEach: " + dto);
+		
+		});
+		List<MenuVO> menuList=service.getCart(sno);
+		//List<List<CartDTO>>classfied=CartDTO.classify(menuList).collect(Collectors.toList());
+
+		log.info("cart : " + menu);
+		log.info("menu : " + service.getCart(sno));
+		
+		CartDTO.classify(menu,menuList);
+		menu.forEach(dto->{
+			log.info("menu.forEach: " + dto);
+		
 		});
 		model.addAttribute("cart", menu);
 		model.addAttribute("menu", service.getCart(sno));
@@ -186,17 +203,33 @@ public class UserController {
 	}
 	
 	@GetMapping("/pay")
-	public void pay(@CookieValue("order")String order, @ModelAttribute("sno") int sno, Model model){
+	public void pay(@CookieValue("cart")String cart, @ModelAttribute("sno") int sno, Model model){
 		
 		log.info("payPage....");
-		log.info("order:"+order);
+		
+		//쿠기값 가져오기
+		log.info("cart:"+cart);
 		Gson gson=new Gson();
-		List<MenuVO> menu=gson.fromJson(order, new TypeToken<List<MenuVO>>(){}.getType());
 		
-		menu.forEach(vo->{
-			log.info(""+vo);
+		List<CartDTO> menu = gson.fromJson(cart, new TypeToken<List<CartDTO>>(){}.getType());
+			
+		
+		menu.forEach(dto->{
+			log.info("menu.forEach: " + dto);
+		
 		});
+		List<MenuVO> menuList=service.getCart(sno);
+		//List<List<CartDTO>>classfied=CartDTO.classify(menuList).collect(Collectors.toList());
+
+		log.info("cart : " + menu);
+		log.info("menu : " + service.getCart(sno));
 		
+		CartDTO.classify(menu,menuList);
+		menu.forEach(dto->{
+			log.info("menu.forEach: " + dto);
+		
+		});
+		model.addAttribute("cart", menu);
 		model.addAttribute("menu", service.getCart(sno));
 	
 	}

@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layout/layout2}">
+	layout:decorate="~{/layout/layout_user}">
 
 
 <div layout:fragment="content">
@@ -47,20 +47,20 @@
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col">#</th>
+						<th scope="col"><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+  							<label class="form-check-label" for="inlineCheckbox1"></label></div></th>
 						<th scope="col">메뉴</th>
 						<th scope="col">수량</th>
 						<th scope="col">가격</th>
-						<th scope="col">삭제</th>
+						<th scope="col">변경</th>
 					</tr>
 				</thead>
 				<tbody>
-				[[${cart}]]
-					<tr th:each="menu : ${menu}">
-						<th><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-  							<label class="form-check-label" for="inlineCheckbox1"></label></div></th>
-						<td th:text="${menu.mname}"></td>
-						<td>
+					<tr th:each="cart : ${cart}">
+						<td><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+  							<label class="form-check-label" for="inlineCheckbox1"></label></div></td>
+						<td th:text="${cart.mname}"></td>
+						<td id="qty" th:text="${cart.quantity}">
 						<div class="input-group mb-3">
 						<input size="1" type="number" class="form-control" min="0" max="100" value="1" disabled aria-describedby="basic-addon2">
   						<div class="input-group-append">
@@ -68,46 +68,53 @@
    						 </div>
    						 </div>
 						</td>
-						<td th:text="${menu.mprice}"></td>
-						<td><button class="btn btn-outline-warning">Del</button></td>
+						<td id="price" th:text="${cart.mprice}"></td>
+						<td><button class="btn btn-outline-warning">Edit</button></td>
 					</tr>
 					
 				</tbody>
 			</table>
 
 	<div class="col-lg-9">
-		<div class="facet f2">
-			<h3>총 주문 금액</h3>
-			<h1>10000 원</h1>
-
-		</div>
-		 </div>
+				<h3>총 주문 금액</h3>
+				<div class="facet f2" th:each="cart : ${cart}">
+				<input type="hidden" class="getPrice" th:value="${cart.totalPrice}" th:attr="name='totlaPrice'">
+				</div>
+				<h4 class="totalPrice"></h4>
+	</div>
 		   <div class="col-md-5">
-
-     
 		<!-- end content -->
 	</div>
 	      	<div class="wrapper">
-      		<div class="facet f1"> <button class="cartBtn btn btn-warning" th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">주문하기</button></div>
+      		<div class="facet f1"> <button class="cartBtn btn btn-warning" th:onclick="|window.location.href='@{/user/pay(sno=${menu[0].sno})}'|">주문하기</button></div>
       	</div>
 </div>
 </div>
 
 <th:block layout:fragment="script">
 <script th:inline="javascript">
-window.onload = function()
-{
+window.onload = function(){
 	
 	var getCookie = $.cookie('cart');
 	
 	console.log(getCookie); 
 	
-	
 
+	//총 주문금액
+	$(".totalPrice").html(function(){
 	
+		var a = 0;
+		
+		$(".getPrice").each(function(){
+			a+= parseInt($(this).context.value);
+		});
+		
+		return a;
 	
+	});
 
-}
+
+};
 	
 	
 	
