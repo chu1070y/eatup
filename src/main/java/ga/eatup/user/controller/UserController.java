@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.google.gson.Gson;
@@ -56,13 +57,9 @@ public class UserController {
 		log.info("speech.......");
 	}
 
-	@GetMapping("/login/customLoginTemp")
-	public void temptemp(@RequestParam String username, @RequestParam String password, Model model) {
-		log.info("===========임시 로그인페이지 ===============");
-		log.info(username);
-		log.info(password);
-		model.addAttribute("username", username);
-		model.addAttribute("password", password);
+	@GetMapping("/login/customLogout")
+	public void logout() {
+		log.info("===========로그아웃 ===============");
 	}
 	
 	@PostMapping("/login/customLogin")
@@ -82,12 +79,12 @@ public class UserController {
         log.info("" + (uPw =="12345678"));
         log.info("같은지 체크: " + inputPw.equals(uPw));
 
-        if (!inputPw.equals(uPw)) {
+        if (!inputPw.equals(uPw)) { 
             response.sendRedirect("/user/pay");
         } 
         
         else {
-            response.sendRedirect("/user/home");		
+            response.sendRedirect("/user/home");
         }
 	}
 	
@@ -99,7 +96,7 @@ public class UserController {
 	
 	
 	@PostMapping("/usercreate")
-	public void usercreate(UserVO vo) {
+	public String usercreate(UserVO vo, RedirectAttributes redirect) {
 		log.info("유저 계정생성 완료....");
 		log.info("유저 회원가입 정보: " + vo);
 		
@@ -107,7 +104,10 @@ public class UserController {
 		vo.setUpw(enPw);		
 		
 		loginService.registerUser(vo);
-		loginService.registerAuth(vo);
+		
+		redirect.addFlashAttribute("welcome", loginService.registerAuth(vo));
+		
+		return "redirect:/user/login/customLogin";
 	}
 	
 	@RequestMapping(value = "/welcome",

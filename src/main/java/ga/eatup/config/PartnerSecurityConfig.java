@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import lombok.extern.java.Log;
 
@@ -36,37 +37,35 @@ public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatcher("/partner/**")
 			.authorizeRequests()
 				.antMatchers("/partner/upload/**").permitAll()
-				.antMatchers("/partner/partnercreate").permitAll()
 				.antMatchers("/partner/welcome").permitAll()
 				.antMatchers("/partner/login/**").permitAll()
-				.antMatchers("/partner/index").authenticated()
-				.antMatchers("/partner/information").authenticated()
-				.antMatchers("/partner/menu").authenticated()
-				.antMatchers("/partner/notice/*").authenticated()
-				.antMatchers("/partner/oneByone").authenticated()
-				.antMatchers("/partner/sales").authenticated()
-				.antMatchers("/partner/notice").authenticated()
-				.antMatchers("/partner/salesList").authenticated()
-				.antMatchers("/partner/weeklyList").authenticated()
-				.antMatchers("/partner/monthlyList").authenticated()
+				.antMatchers("/partner/index").hasRole("PARTNER")
+				.antMatchers("/partner/information").hasRole("PARTNER")
+				.antMatchers("/partner/menu").hasRole("PARTNER")
+				.antMatchers("/partner/notice").hasRole("PARTNER")
+				.antMatchers("/partner/oneByone").hasRole("PARTNER")
+				.antMatchers("/partner/sales").hasRole("PARTNER")
+				.antMatchers("/partner/notice").hasRole("PARTNER")
+				.antMatchers("/partner/salesList").hasRole("PARTNER")
+				.antMatchers("/partner/weeklyList").hasRole("PARTNER")
+				.antMatchers("/partner/monthlyList").hasRole("PARTNER")
 				.antMatchers("/partner/superAdmin").hasRole("ADMIN")
 				.antMatchers("/partner/notice/modify").hasRole("ADMIN")
 				.antMatchers("/partner/notice/read").hasRole("ADMIN")
 				.and()
 			.formLogin()
 				.loginPage("/partner/login/customLogin")
-				.successHandler(psuccessHandler());
+				.successHandler(psuccessHandler())
+				.failureHandler(pfailHandler())
+				.and()
+			.logout()
+				.logoutUrl("/partner/login/customLogout")
+				.logoutSuccessHandler(plogoutsuccess());
 	}
 
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-	@Bean
-	public UserDetailsService userDetailsService() {
-		
+	public UserDetailsService DetailsService() {
 		return new CustomUserDetailsService();
 	}
 	
@@ -78,8 +77,11 @@ public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public AuthenticationFailureHandler pfailHandler() {
 		return new PartnerLoginSuccessHandler();
-	}	
+	}
 	
+	public LogoutSuccessHandler plogoutsuccess() {
+		return new PartnerLoginSuccessHandler();
+	}
 	
 		
 }

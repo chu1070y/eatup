@@ -24,13 +24,22 @@ public class PartnerLoginSuccessHandler extends SavedRequestAwareAuthenticationS
 			Authentication authentication) throws IOException, ServletException {
 		log.info("login success");
 
-		//	log.info("" + authentication.getName());
 		authentication.getAuthorities().forEach(auth -> {
-			log.info("" + auth);
-		});
-		log.info("--------------------------");
 
-		super.onAuthenticationSuccess(request, response, authentication);
+			log.info("" + auth);
+
+		});
+		
+		log.info("" + authentication.getAuthorities());
+		
+		
+		if(authentication.getName().equals("superadmin")) {
+			response.sendRedirect("/partner/superAdmin");
+			return;
+		}
+
+		response.sendRedirect("/partner/index");
+		
 	}
 
 //인증에 실패했을 경우
@@ -39,13 +48,8 @@ public class PartnerLoginSuccessHandler extends SavedRequestAwareAuthenticationS
 			AuthenticationException exception) throws IOException, ServletException {
 
 		log.info("login fail");
-		log.info("" + request);
-		log.info("" + response);
-		log.info("" + exception);
 
 		if (exception != null) {
-
-			log.info("========================================");
 
 			StackTraceElement[] traces = exception.getStackTrace();
 
@@ -53,11 +57,9 @@ public class PartnerLoginSuccessHandler extends SavedRequestAwareAuthenticationS
 				log.warning(ele.toString());
 			}
 
-			log.info("========================================");
-
 		}
 
-		response.sendRedirect("/login?ex001");
+		response.sendRedirect("/partner/login/customLogin");
 
 	}
 
@@ -65,6 +67,8 @@ public class PartnerLoginSuccessHandler extends SavedRequestAwareAuthenticationS
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
+		
+		response.sendRedirect("/partner/login/customLogin");
 
 	}
 }

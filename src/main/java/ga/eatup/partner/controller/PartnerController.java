@@ -4,27 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ga.eatup.partner.domain.MenuVO;
 import ga.eatup.partner.domain.NoticePageDTO;
-import ga.eatup.partner.domain.NoticeUploadVO;
 import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.partner.domain.OrderVO;
-import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.mapper.OrderMapper;
 import ga.eatup.partner.mapper.PartnerMenuMapper;
 import ga.eatup.partner.service.PartnerMenuService;
@@ -64,16 +57,14 @@ public class PartnerController {
 		log.info("회원가입....");
 	}
 	
-	@PostMapping("/partnercreate")
-	public void partnercreate(PartnerVO vo) {
-		log.info("파트너 계정생성 완료....");
-		log.info("파트너 회원가입 정보: " + vo);
-		
-		String enPw = encoder.encode(vo.getPpw());
-		vo.setPpw(enPw);		
-		
-		service.registerPartner(vo);
-		service.registerAuth(vo);
+	@GetMapping("/login/customLogout")
+	public void logout() {
+
+	}
+	
+	@PostMapping("/login/customLogout")
+	public void logoutPOST() {
+
 	}
 	
 	@GetMapping("/index")
