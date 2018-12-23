@@ -34,11 +34,10 @@ dbRefObject.on('value',snap =>  {
 			$("#origin #body").append("<h2>" + menu.menu + "---"+menu.quantity+"</h2><br/>");
 		}
 		
-		
 		$("#origin #tid").val(snap.val()[data].tid);
 		
 		$("#origin #body").append("<button id="+snap.val()[data].order_id+" class='btn btn-secondary btn-lg btn-block'>F I N I S H !</button>");
-		
+		$("#origin").attr("data-key",data);
 		
 		var clone = $("#origin").clone();
 		
@@ -60,6 +59,8 @@ dbRefObject.on('value',snap =>  {
 		
 		var number = this.id;
 		console.log("클릭"+number);
+		
+		var key = $("#"+this.id).attr("data-key");
 		
 		var array = $(".btn.btn-secondary.btn-lg.btn-block").slice(); //블록을 배열로
 		console.log(array);
@@ -83,27 +84,27 @@ dbRefObject.on('value',snap =>  {
 	  	var index = idarray.indexOf(""+indexnumber); 
 		console.log(elem + "   " + index)
 		console.log("여기 아이디 어레이" + idarray)
-	
+		
 		$(elem).animate({"bottom":"1000px"});		
-		$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
+		$(".block").slice(index).animate({"left": "-=420px"},function(){
+			
+			//firebase DB삭제하기
+			deleteFirebase(key);
+			
+		});  //103숫자 들어오면,,,
 		
-		
-		
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
 		
 		
 		
 	});//$(".btn.btn-secondary.btn-lg.btn-block").click
+	
+	
+	//firebase DB에 데이터 지우기
+	//여기서 1은 sno를 뜻함.
+	function deleteFirebase(key){
+		var remove = '/1/'+key;
+		return firebase.database().ref(remove).remove();
+	}
 
 	
 });

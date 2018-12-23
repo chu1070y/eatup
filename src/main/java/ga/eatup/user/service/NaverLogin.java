@@ -29,8 +29,8 @@ public class NaverLogin {
 
 		final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 		postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
-		postParams.add(new BasicNameValuePair("client_id", "LDp9BYkvyaslYqUOz1h5")); // REST API KEY
-		postParams.add(new BasicNameValuePair("client_secret", "RDKyqh1axY"));
+		postParams.add(new BasicNameValuePair("client_id", "ZjzDdLEmTmslKEvM2l5d")); // REST API KEY
+		postParams.add(new BasicNameValuePair("client_secret", "006r09Bo90"));
 		postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8080/naverlogin")); // 리다이렉트 URI
 		postParams.add(new BasicNameValuePair("code", autorize_code)); // 로그인 과정중 얻은 code 값
 		postParams.add(new BasicNameValuePair("state", ""));
@@ -112,8 +112,8 @@ public class NaverLogin {
 		
 		vo.setSns_id(properties.path("id").asText());
 		
-		if(properties.has("nickname")) {
-			vo.setNickname(properties.path("nickname").asText());
+		if(properties.has("name")) {
+			vo.setNickname(properties.get("name").asText());
 			vo.setEmail(properties.path("email").asText());
 		}
 		
