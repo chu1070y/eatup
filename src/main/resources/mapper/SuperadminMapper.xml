@@ -120,7 +120,7 @@
 		uuid = ifnull(#{uuid},uuid),
 		upload_path =
 		ifnull(#{upload_path},upload_path)
-		where mno = #{mno}
+		where status='O' and mno = #{mno}
 	</update>
 
 	<update id="menuRemove" parameterType="int">

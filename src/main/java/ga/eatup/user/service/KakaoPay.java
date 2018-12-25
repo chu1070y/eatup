@@ -40,9 +40,9 @@ public class KakaoPay {
 		params.add("cid", "TC0ONETIME");
 		params.add("partner_order_id", "1001");
 		params.add("partner_user_id", "gorany");
-		params.add("item_name", "갤럭시S9");
+		params.add("item_name", "아메리카노 외");
 		params.add("quantity", "1");
-		params.add("total_amount", "2100");
+		params.add("total_amount", "3600");
 		params.add("tax_free_amount", "100");
 		params.add("approval_url", "http://localhost:8080/user/kakaopay/kakaoPaySuccess");
 		params.add("cancel_url", "http://localhost:8080/user/kakaopay/kakaoPayCancel");
