@@ -190,7 +190,6 @@ public class UserController {
 		//List<List<CartDTO>>classfied=CartDTO.classify(menuList).collect(Collectors.toList());
 
 		log.info("cart : " + menu);
-		log.info("menu : " + service.getCart(sno));
 		
 		CartDTO.classify(menu,menuList);
 		menu.forEach(dto->{
@@ -198,7 +197,6 @@ public class UserController {
 		
 		});
 		model.addAttribute("cart", menu);
-		model.addAttribute("menu", service.getCart(sno));
 	
 	}
 	

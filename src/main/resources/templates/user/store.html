@@ -86,7 +86,7 @@
 		<span class="fa fa-star checked"></span> <span
 			class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
 		<span class="fa fa-star"></span> <span class="fa fa-star"></span>
-		<div id="carouselExampleIndicators" class="carousel slide my-4"
+<!-- 		<div id="carouselExampleIndicators" class="carousel slide my-4"
 			data-ride="carousel">
 			<ol class="carousel-indicators">
 				<li data-target="#carouselExampleIndicators" data-slide-to="0"
@@ -117,7 +117,7 @@
 				class="carousel-control-next-icon" aria-hidden="true"></span> <span
 				class="sr-only">Next</span>
 			</a>
-		</div>
+		</div> -->
 
 		<div class="container">
 			<div class="wrapper"></div>
@@ -128,11 +128,12 @@
 				th:each="menu, iterState : ${menu}">
 
 				<div class="card h-100">
-					<img
-						th:src="@{/upload/display(fileName=${menu.upload_path +'\/'+ menu.uuid + '_'+menu.fname})}"
-						class="menu">
+						<img
+						th:src="@{/upload/display(fileName=${menu.upload_path +'\/s_'+ menu.uuid + '_'+menu.fname})}"
+						class="menuImg">
 
 					<div class="card-body">
+
 						<h6 th:text="${menu.mname}" class="card-title"></h6>
 						<input type="hidden" th:value="${menu.mno}">
 						<p th:text="${menu.mprice}" class="card-text"></p>
@@ -216,6 +217,7 @@
 $(document).ready(function() {
 	
 	var arr = new Array(); 
+	
 	
 	//메뉴 클릭 모달
 	$(".card-body").on("click", function(e) {
@@ -337,7 +339,7 @@ $(document).ready(function() {
 	});
 
 
-
+	
 	
 		// 장바구니 하단 div - 스크롤 위치를 퍼센트로 나타내기
 		$(window).scroll(function() {

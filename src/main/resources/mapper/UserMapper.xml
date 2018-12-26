@@ -54,7 +54,7 @@
  	</insert>
  	 	
  	<update id='update'>
- 		UPDATE user SET upw=#{upw} WHERE uid='gaiga'
+ 		UPDATE partner SET ppw=#{upw} 
  	</update>
  	
  	<select id="checkId" resultType="int">

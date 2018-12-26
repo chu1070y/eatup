@@ -77,11 +77,12 @@ function writeNewPost(tid,order_id,menulist) {
 	
 $("#put").on("click",function(e){
 	console.log("#put");
-	writeNewPost("T2570681486356646136",106,result);
+	writeNewPost("T2570681486356646136",105,result);
 });
 
 
 //firebase DB에 데이터 지우기
+//여기서 1은 sno를 뜻함.
 function deleteFirebase(key){
 	var remove = '/1/'+key;
 	return firebase.database().ref(remove).remove();
@@ -89,7 +90,7 @@ function deleteFirebase(key){
 
 
 $("#delete").on("click",function(e){
-	var keyValue = $("#key").html();
+	var keyValue = $("#key").val();
 	deleteFirebase(keyValue);
 });
 
