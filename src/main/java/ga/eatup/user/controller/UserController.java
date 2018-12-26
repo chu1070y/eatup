@@ -233,7 +233,6 @@ public class UserController {
 		
 		});
 		model.addAttribute("cart", menu);
-		model.addAttribute("menu", service.getCart(sno));
 	
 	}
 	

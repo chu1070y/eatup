@@ -127,6 +127,11 @@
 		update partner_store_menu
 		set status = 'X' where mno = #{mno}
 	</update>
+	
+	 <select id="checkPid" resultType="int">
+ 		select count(*) from partner where pid = #{pid};
+ 	</select>
+
 
 </mapper>
  

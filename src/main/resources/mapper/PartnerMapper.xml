@@ -45,6 +45,26 @@
  	<select id="getPartnerBySerialNum" resultType="ga.eatup.partner.domain.PartnerVO">
  		select * from partner where serialNum = #{serialNum}
  	</select>
+ 	 	
+ 	<select id="checkId" resultType="int">
+ 		select count(*) count from partner where pid=#{pid}
+ 	</select>
+ 	
+ 	<insert id="insertPartner" parameterType="ga.eatup.partner.domain.PartnerVO">
+ 		insert into partner(pid,ppw,pmail,owner_name,owner_num)
+ 		values(#{pid},#{ppw},#{pmail},#{owner_name},#{owner_num});
+ 		
+ 		<selectKey order="AFTER" resultType="int" keyProperty="pno">
+			select LAST_INSERT_ID()
+		</selectKey>
+ 	</insert>
+ 	
+ 	<insert id="insertStore" parameterType="ga.eatup.partner.domain.StoreVO">
+ 		insert into partner_store(pno,sname,saddress,b_field,lat,lng,businessHours,telephone)
+ 		values(#{pno},#{sname},#{saddress},#{b_field},#{lat},#{lng},#{businessHours},#{telephone});
+ 	</insert>
+ 	
+
  	
  </mapper>
 

@@ -2,10 +2,10 @@ package ga.eatup.partner.service;
 
 import java.util.List;
 
-import ga.eatup.partner.domain.PartnerVO;
-import ga.eatup.user.domain.MenuVO;
-
 import org.springframework.stereotype.Service;
+
+import ga.eatup.partner.domain.PartnerVO;
+import ga.eatup.partner.domain.StoreVO;
 
 @Service
 public interface PartnerService {
@@ -17,5 +17,10 @@ public interface PartnerService {
 	public int registerPartner(PartnerVO vo);
 
 	public int registerAuth(PartnerVO vo);
+	
+	public int checkId(String pid);
+	
+	public int insertPartner(PartnerVO partnerVO, StoreVO storeVO);
+
 
 }
