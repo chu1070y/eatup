@@ -54,7 +54,7 @@
 }
 
 .search {
-	width: 350px;
+	width: 200px;
 	height: 3vh;
 }
 
@@ -120,16 +120,18 @@
 		<div id="menu_wrap" class="bg_white">
 			<div class="option">
 				<div>
-					<div><input type="text" id="keyword" size="28" placeholder="주소, 건물명, 역명 등을 입력하세요"></div>
-					<div><button type="submit">검색하기</button></div>
+					<!-- <div><input type="text" id="keyword" size="28" placeholder="주소, 건물명, 역명 등을 입력하세요"></div> -->
+					<!-- <div><button type="submit">검색하기</button></div> -->
+					<input type="text" class="search" size="28" placeholder="주소, 건물명, 역명 등을 입력하세요"></div>
+					<div><button id="searchBtn">검색하기</button>
 				</div>
 			</div>
 		</div>
-		<div>
+		<!-- <div>
 			<input type="text" class="search" value=""
 				placeholder="원하는 장소를 입력하세요(주소, 건물명, 역명 등)">
 			<button id="searchBtn">검색</button>
-		</div>
+		</div> -->
 	</div>
 
 	<form id='actionForm'></form>
@@ -165,8 +167,10 @@
 $(document).ready(function(){
 	
 	var searchBtn = $("#searchBtn");
+	
 	searchBtn.on("click", function(){
 		var searchInput = $(".search");
+				
 		console.log(searchInput.val());
 		ps.keywordSearch(searchInput.val(), placesSearchCB); 
 		console.log(map.getCenter());
@@ -176,17 +180,37 @@ $(document).ready(function(){
 
 	});
 	
+
+	
+	
+	var firstLat, firstLng = 0;
+	
 	
 	//키워드 검색 완료 시 호출되는 콜백함수
 	function placesSearchCB (data, status, pagination) {
+		
+		var array = new Array();
+		
 	    if (status === daum.maps.services.Status.OK) {
 		     
 	        // LatLngBounds 객체에 좌표 추가
 	        var bounds = new daum.maps.LatLngBounds();
+	        
+	        
 			
 	        for (var i=0; i<data.length; i++) {
 	            bounds.extend(new daum.maps.LatLng(data[i].y, data[i].x));
-	        }       
+	            console.log("----------------------------------");
+	            console.log(data[i].y,",", data[i].x);
+	            
+	            if(i === 0){
+	            	firstLat = data[i].y;
+	            	firstLng = data[i].x;
+	            }
+	            
+	            
+	        }  
+	        
 	        // 검색된 장소 위치를 기준으로 지도 범위 재설정
 	        map.setBounds(bounds);
 	
@@ -220,8 +244,14 @@ $(document).ready(function(){
 				markers.push(marker);
 			    daum.maps.event.addListener(marker, 'click', makeClickListener(map, markers[i], infowindow));
 		    }; //for end    
+		    
 	    }; 
+		    console.log("자 여기다 ")
+	        console.log(markers)
 	};		
+	
+	
+	
 		
 				
 		function setVisible(visible) {
@@ -292,18 +322,14 @@ $(document).ready(function(){
 	 
 	 	var hAddr = $(".hAddr");
 	 	var str;
-	 	var actionForm = $("#actionForm");
+	 	
 	 	
 	 	hAddr.on("click", function(){
-	 		console.log("hAddrClicked");
-	 		var centerAddr = $("#centerAddr").html();
-	 		console.log(centerAddr);
 	 		
-	 		str += "<input type='hidden' name='location' value='"+centerAddr+"'>";
 	 		
-	 		actionForm.append(str);
-			actionForm.attr("action", "/user/home").attr("method", "get");
-  			actionForm.submit();
+	 		self.location= "/user/home?lat=" + firstLat +"&lng=" + firstLng;
+	 		
+	 		
  	 	});
 
 
@@ -345,6 +371,7 @@ $(document).ready(function(){
 				  	
 					marker.setMap(map);
 					markers.push(marker);
+					
 				
 					daum.maps.event.addListener(marker, 'click', makeClickListener(map, markers[i], infowindow));
 					setVisible(false);
@@ -413,6 +440,8 @@ $(document).ready(function(){
 			//생성되어있는 마커 지우기 + 마커 담은 배열 초기화시키기
 			for (var i = 0; i < markers.length; i++){
 				markers[i].setMap(null);
+				
+				
 				};
 			
 			markers = [];
