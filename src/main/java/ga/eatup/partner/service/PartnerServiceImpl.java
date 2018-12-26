@@ -3,11 +3,13 @@ package ga.eatup.partner.service;
 import java.util.List;
 
 import ga.eatup.partner.domain.PartnerVO;
+import ga.eatup.partner.domain.StoreVO;
 import ga.eatup.partner.mapper.PartnerMapper;
 import ga.eatup.user.domain.MenuVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -41,6 +43,26 @@ public class PartnerServiceImpl implements PartnerService {
 
 		return mapper.registerAuth(vo);
 	}
+
+	@Override
+	public int checkId(String pid) {
+		// TODO Auto-generated method stub
+		return mapper.checkId(pid);
+	}
+
+	@Transactional
+	@Override
+	public int insertPartner(PartnerVO partnerVO, StoreVO storeVO) {
+		
+		mapper.insertPartner(partnerVO);
+		
+		log.info("pno입니당: " + partnerVO.getPno());
+		
+		storeVO.setPno(partnerVO.getPno());
+		
+		return mapper.insertStore(storeVO);
+	}
+
 
 
 }
