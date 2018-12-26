@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	
+
 <head>
 
 <meta charset="utf-8">
@@ -17,7 +17,8 @@
 
 <!-- Bootstrap core CSS -->
 
-<link href="/main/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/main/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <!-- Custom fonts for this template -->
 <link href="/main/vendor/fontawesome-free/css/all.min.css"
@@ -37,14 +38,15 @@
 <link href="/main/css/agency.min.css" rel="stylesheet">
 <link href="/main/css/simple-sidebar.css" rel="stylesheet">
 <link href="/main/css/sb-admin.css" rel="stylesheet">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <meta name="csrf-token" content="[[csrf_token()]]">
 </head>
 
 <body id="page-top">
-<style>
-.hidden{
+	<style>
+.hidden {
 	display: none;
 }
 </style>
@@ -61,9 +63,9 @@
 		<!-- Navbar Search -->
 		<ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
 			<!-- Navbar -->
-			<li class="nav-item dropdown no-arrow mx-1" style="color:white;">
-			<button id="Disconnected"  class="btn btn-outline-warning" value="start">O N</button>
-				<span>관리자페이지</span>
+			<li class="nav-item dropdown no-arrow mx-1" style="color: white;">
+				<button id="Disconnected" class="btn btn-outline-warning"
+					value="start">O N</button> <span>관리자페이지</span>
 			</li>
 
 		</ul>
@@ -75,31 +77,33 @@
 		<!-- Sidebar -->
 		<ul class="sidebar navbar-nav toggled">
 			<div sec:authorize="hasRole('PARTNER')">
-			<li class="nav-item"><a class="nav-link" href="/partner/index"> <i
-					class="fas fa-folder fa-fw"></i> <span>주문</span>
-			</a></li>
-			<li class="nav-item"><a class="nav-link" href="/partner/sales"> <i
-					class="fas fa-fw fa-chart-area"></i> <span>매출</span>
-			</a></li>
-			<li class="nav-item"><a class="nav-link" href="/partner/menu"> <i
-					class="fas fa-fw fa-table"></i> <span>메뉴</span>
-			</a>
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" href="#" id="pagesDropdown"
-				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"> <i class="fas fa-fw fa-search"></i> <span>to고라니</span>
-			</a>
-				<div class="dropdown-menu" aria-labelledby="pagesDropdown" style="font: 14px sans-serif">
-					<h6 class="dropdown-header">무엇을 도와드릴까요?</h6>
-					<a class="dropdown-item" href="/partner/notice">공지사항</a> <a
-						class="dropdown-item" href="/partner/oneByone">1:1 문의</a> <a
-						class="dropdown-item" href="/partner/information">information</a>
-				</div></li>
+				<li class="nav-item"><a class="nav-link" href="/partner/index">
+						<i class="fas fa-folder fa-fw"></i> <span>주문</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="/partner/sales">
+						<i class="fas fa-fw fa-chart-area"></i> <span>매출</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="/partner/menu">
+						<i class="fas fa-fw fa-table"></i> <span>메뉴</span>
+				</a>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="pagesDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> <i class="fas fa-fw fa-search"></i> <span>to고라니</span>
+				</a>
+					<div class="dropdown-menu" aria-labelledby="pagesDropdown"
+						style="font: 14px sans-serif">
+						<h6 class="dropdown-header">무엇을 도와드릴까요?</h6>
+						<a class="dropdown-item" href="/partner/notice">공지사항</a> <a
+							class="dropdown-item" href="/partner/oneByone">1:1 문의</a> <a
+							class="dropdown-item" href="/partner/information">information</a>
+					</div></li>
 			</div>
 			<div sec:authorize="hasRole('ADMIN')">
-			<li class="nav-item"><a class="nav-link" href="/partner/superAdmin">
-					<i class="fas fa-fw fa-tachometer-alt"></i> <span>SuperAdmin</span>
-			</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="/partner/superAdmin"> <i
+						class="fas fa-fw fa-tachometer-alt"></i> <span>SuperAdmin</span>
+				</a></li>
 			</div>
 			
 			<li class="nav-item"><a class="nav-link" href="/partner/login/customLogout">
@@ -109,10 +113,15 @@
 		</ul>
 
 
+
 		<div id="content-wrapper">
 			<div class="container-fluid" layout:fragment="content"></div>
 		</div>
+
+
+
 	</div>
+
 
 
 
@@ -124,7 +133,7 @@
 
 	<!-- Bootstrap core JavaScript -->
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="/main/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="/js/modal.js"></script>
 	<script src="/js/amount.js"></script>
@@ -136,14 +145,14 @@
 	<script src="/main/vendor/datatables/jquery.dataTables.js"></script>
 	<script src="/main/vendor/datatables/dataTables.bootstrap4.js"></script>
 
-	
-	
+
+
 
 	<!-- Custom scripts for all pages-->
 	<script src="/main/js/sb-admin.min.js"></script>
 
 	<!-- Custom scripts for this template -->
-	
+
 
 
 	<th:block layout:fragment="script"></th:block>
