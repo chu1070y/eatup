@@ -61,20 +61,29 @@
 					<input type="hidden" id="token" th:name="${_csrf.parameterName}"
 						th:value="${_csrf.token}" />
 
-					<div th:if="${location == null}">
+					 <div th:if="${location == null}">
+					 
 						<button type=button class='btn btn-light' id="get-mylocation">
 						</button>
-					</div>
+						
+					</div> 
+					
 					<div th:if="${location != null}">
-						<button type=button class='btn btn-light' id="get-searchlocation">
+						<button type=button class='btn btn-light' >
 							<table>
-								<tr>
-									  <td th:text="${location != null} ? ${location} : ''"></td>
+								 <tr>
+									  <td th:text="${search != null} ? ${search} : ''"></td>
 									
-								</tr>
+								</tr> 
+								
+								
 							</table>
+							
 						</button>
 					</div>
+					
+					
+					
 					<div class="btn-group" role="group">
 						<button id="btnGroupDrop1" type="button"
 							class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
@@ -83,6 +92,7 @@
 							<a class="dropdown-item" href="http://localhost:8080/user/map">지도로
 								찾기</a>
 						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -328,10 +338,13 @@
 $(document).ready(function(){
 	
 	
-	var taretLat,targetLntg = 0; 
+	var targetLat,targetLng = 0; 
 	
 	targetLat = [[${param.lat}]];
 	targetLng = [[${param.lng}]];
+	
+	
+	
 	
 	
 	
@@ -369,9 +382,9 @@ $(document).ready(function(){
 		$("#get-mylocation").show( function(e) {
 		        /* HTML5 Geolocation */
 		        
-		        if(!targetLat){
+ 		        /* if(!targetLat){
 		        	return;
-		        }
+		        } */ 
 		        
 		        console.log("location을 찾습니다.")
 		        navigator.geolocation.getCurrentPosition(
@@ -393,7 +406,14 @@ $(document).ready(function(){
 		                            var state = results[2].address_components[2].long_name;
 		                            mylocation = state + " " + city + " " + streetAddress
 		                            console.log("내위치 : " + mylocation);
+		                            console.log([[${search}]] == null)
+		                            if([[${search}]] == null){
 		                            $("#get-mylocation").append(mylocation);
+		                            }
+		                            else{
+		                            	
+		                            	$("#get-mylocation").append([[${search}]]);
+		                            }
 		                            
 		                            console.log("위도 경도:" + lat + " " + lng);
 		                            listoflocation(lat,lng);

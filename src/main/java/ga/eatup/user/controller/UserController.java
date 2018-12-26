@@ -153,17 +153,22 @@ public class UserController {
 	}
 	
 	@GetMapping("/home")
-	public void home(String lat, String lng, Model model) {
+	public void home(String lat, String lng,String search,Model model) {
 	
 		log.info("lat: " + lat+ " , lng: " + lng);
 		
-		model.addAttribute("location", null );
+		
+		
+		//model.addAttribute("location", lat );
 		
 		if(lat == null) {
 			model.addAttribute("store",storeService.getStore());
 		}else {
 			model.addAttribute("store",storeService.getStoreNear(Double.parseDouble(lat), 
 					Double.parseDouble(lng)));
+			model.addAttribute("search",search);
+			
+			
 		}
 		
 	}
