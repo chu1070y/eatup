@@ -47,7 +47,7 @@
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col"><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+						<th scope="col"><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"  checked="checked">
   							<label class="form-check-label" for="inlineCheckbox1"></label></div></th>
 						<th scope="col">메뉴</th>
 						<th scope="col">수량</th>
@@ -57,7 +57,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="cart : ${cart}">
-						<td><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+						<td><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"  checked="checked">
   							<label class="form-check-label" for="inlineCheckbox1"></label></div></td>
 						<td th:text="${cart.mname}"></td>
 						<td id="qty" th:text="${cart.quantity}">

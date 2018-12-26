@@ -24,7 +24,7 @@ import ga.eatup.partner.domain.NoticePageDTO;
 import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.partner.domain.OrderVO;
 import ga.eatup.partner.domain.StoreVO;
-import ga.eatup.partner.mapper.OrderMapper;
+import ga.eatup.partner.mapper.PartnerOrderMapper;
 import ga.eatup.partner.mapper.PartnerMenuMapper;
 import ga.eatup.partner.service.OpenService;
 import ga.eatup.partner.service.PartnerMenuService;
@@ -49,7 +49,7 @@ public class PartnerController {
 	
 	//order
 	@Setter(onMethod_= @Autowired)
-	private OrderMapper ordermapper;
+	private PartnerOrderMapper ordermapper;
 	
 	//menu service
 	@Setter(onMethod_=@Autowired)
