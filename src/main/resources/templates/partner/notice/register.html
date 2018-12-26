@@ -264,7 +264,7 @@
 			
 			
 			//첨부파일 확장자나 크기 사전 처리
-			var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|log)");
+			var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)");
 			var maxSize = 5242880; //5메가바이트
 			
 			function checkExtension(fileName, fileSize){
@@ -285,7 +285,6 @@
 			
 			//Upload 버튼
 			$("#uploadBtn").on("click",function(e){
-				console.log("이게 찍혀야해");
 				e.preventDefault();
 				
 				
@@ -359,8 +358,6 @@
 				.animate({width:'100%',height:'100%'},1000);
 			} 
 
-			
-			
 			
 			
 		});

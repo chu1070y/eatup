@@ -16,7 +16,7 @@
 }
 </style>
 
-	<style>
+<style>
 .uploadResult {
 	width: 100%;
 	background-color: gray;
@@ -55,11 +55,32 @@ a {
 }
 
 #myVideo {
-  position: abolute;
-  right: 0;
-  bottom: 0;
-  min-width: 100%; 
-  min-height: 100%;
+	position: abolute;
+	right: 0;
+	bottom: 0;
+	min-width: 100%;
+	min-height: 100%;
+}
+
+.filebox label {
+	display: inline-block;
+	padding: .5em .75em;
+	color: white;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.filebox input[type="file"] { /* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
 }
 
 </style>
@@ -140,6 +161,117 @@ a {
 			</div>
 		</div>
 	</div>
+	
+	
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active"> 가게 추가하기 / 파트너 권한 주기</li>
+
+	</ol>
+
+	<div class="card mb-3">
+		<div class="card-header">
+			<i class="fas fa-tachometer-alt"></i> 가게 추가하기 / 파트너 권한 주기
+		</div>
+		<div class="card-body">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<form id="storeForm">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input class="form-control" id="pid" name="pid"
+										placeholder="파트너 아이디(pid)">
+									<button style="margin-top: 10px;" class="col-md-5 btn btn-block btn-primary" id="checkId">아이디 존재 여부 확인</button>
+								</div>
+									
+								<div class="form-group">
+									<input class="form-control" id="sname_store" name="sname"
+										placeholder="가게 명(sname)">
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="saddress" name="saddress"
+										placeholder="가게 주소(saddress)">
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="b_field" name="b_field"
+										placeholder="가게 카테고리(b_field)">
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="businessHours" name="businessHours"
+										placeholder="영업시간(businessHours)">
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="telephone" name="telephone"
+										placeholder="가게 전화번호(telephone)">
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="serialNum" name="serialNum"
+										placeholder="라즈베리파이 시리얼번호(serialNum)">
+								</div>
+								<input type="hidden" id="csrfToken" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+								<div class="form-group">
+									(qr 이미지) - 1개의 이미지만 업로드 할 수 있습니다.
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="panel panel-default">
+												<div class="panel-body">
+													<div class="filebox"> 
+														<label for="qrfile" class="btn-primary">파일 첨부</label>
+														<input type="file" id="qrfile" name='qrUploadfile'>
+													</div>
+													<br />
+													<div class='uploadResult col-lg-12' id="qrUploadResult">
+														<ul>
+
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									(가게 이미지) - 여러개의 이미지를 업로드 할 수 있습니다.
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="panel panel-default">
+												<div class="panel-body">
+													<div class="filebox"> 
+														<label for="storefile" class="btn-primary">파일 첨부</label>
+														<input type="file" id="storefile" name='storeUploadfile'>
+													</div>
+													<br />
+													<div class='uploadResult col-lg-12' id="storeUploadResult">
+														<ul>
+
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<div class="col-lg-12 text-center">
+								<div>
+									<button class="btn btn-primary btn-block storeRegisterBtn">가게
+										추가하기</button>
+									<button class="btn btn-success btn-block storeModifyBtn">가게
+										수정하기</button>
+									<button class="btn btn-danger btn-block storeRemoveBtn">가게
+										삭제하기</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card-body"></div>
+	</div>
+	
+	
 
 
 	<ol class="breadcrumb">
@@ -185,11 +317,13 @@ a {
 										<div class="col-lg-12">
 											<div class="panel panel-default">
 												<div class="panel-body">
-													<div class="uploadDiv col-lg-2">
-														<input type='file' id="file" name='uploadfile'>
+													<div class="filebox"> 
+														<label for="menufile" class="btn-primary">파일 첨부</label>
+														<input type="file" id="menufile" name='uploadfile'>
 													</div>
+
 													<br />
-													<div class='uploadResult col-lg-12'>
+													<div class='uploadResult col-lg-12' id="menuUploadResult">
 														<ul>
 
 														</ul>
@@ -240,6 +374,7 @@ a {
 
 
 <th:block layout:fragment="script">
+	<script th:inline="javascript" src="/js/upload.js"></script>
 	<script th:inline="javascript">
 		$(document).ready(function() {
 			
@@ -365,7 +500,7 @@ a {
 			function menuAdd(){
 		 		var str = "";
 		 		
-		 		$(".uploadResult ul li").each(function(i,obj){
+		 		$("#menuUploadResult ul li").each(function(i,obj){
 		 			var jobj = $(obj);
 		 			
 		 			str += "<input type='hidden' name='fname' value='"+jobj.data("filename")+"'>";
@@ -419,7 +554,7 @@ a {
 			function menuModify(){
 		 		var str = "";
 		 		
-		 		$(".uploadResult ul li").each(function(i,obj){
+		 		$("#menuUploadResult ul li").each(function(i,obj){
 		 			var jobj = $(obj);
 		 			
 		 			str += "<input type='hidden' name='fname' value='"+jobj.data("filename")+"'>";
@@ -466,121 +601,6 @@ a {
 				 });//end ajax
 			});
 			
-
-			
-
-
-			
-			
-			//이미지 삭제
-			$(".uploadResult").on("click","button",function(e){
-				e.preventDefault();
-				
-				var targetFile = $(this).data("file");
-				var type = $(this).data("type");
-				
-				var targetLi = $(this).closest("li");
-				$.ajax({
-					url: '/upload/deleteFile',
-					data: {fileName: targetFile, type:type},
-					dataType:'text',
-					type:'POST',
-					success: function(result){
-						targetLi.remove();
-					}
-				});
-			});
-			
-			
-			//첨부파일 이미지 보여주기 & 다운로드 처리
-			var uploadResult = $(".uploadResult ul");
-			
-			function showUploadedFile(uploadResultArr){
-				console.log("showUploadedFile");
-				console.log($(uploadResultArr));
-				var str ="";
-				
-				$(uploadResultArr).each(function(i,obj){
-						
-						$(".uploadResult ul").empty();
-					
-						var fileCallPath = encodeURIComponent(obj.upload_path + "/s_" + obj.uuid + "_" + obj.fname);
-						
-						var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
-						
-						str += "<li class='li' data-path='"+obj.upload_path+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fname+"' data-type='"+obj.image+"'>";
-						str += "<div>";
-						str += "<span>" + obj.fname + "</span>";
-						str += "<button type='button' data-type='"+obj.image+"' data-file=\'" + fileCallPath + "\' data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
-						str += "<img src='/upload/display?fileName="+fileCallPath+"'>";
-						str += "</div>";
-						str += "</il>";
-
-				});
-				uploadResult.append(str);
-
-			}
-			
-			
-			//첨부파일 확장자나 크기 사전 처리
-			var regex = new RegExp("(.*?)\.(jpg|png|jpeg)");
-			var maxSize = 5242880; //5메가바이트
-			
-			function checkExtension(fileName, fileSize){
-				if(fileSize >= maxSize){
-					alert("파일 사이즈 초과");
-					return false;
-				}
-				
-				if(!regex.test(fileName)){
-					alert("해당 종류의 파일은 업로드 할 수 없습니다.");
-					return false;
-				}
-				return true;
-			}
-			
-			var cloneObj = $(".uploadDiv").clone();
-			
-			
-			//Upload 버튼
-			$("#file").on("change",function(e){
-				e.preventDefault();
-				
-				var formData = new FormData();
-				var inputFile = $("input[name='uploadfile']");
-				var files = inputFile[0].files;
-				
-				console.log(files);
-				
-				//form태그에 파일 추가하기
-				for(var i = 0; i < files.length; i++){
-					if(!checkExtension(files[i].name, files[i].size)){
-						return false;
-					}
-				
-				}
-				
-				
-				formData.append("uploadfile",files[0]);
-				
-				$.ajax({
-					url: '/upload/uploadAjaxAction',
-					processData : false,
-					contentType : false,
-					data : formData,
-					type : 'POST',
-					success : function(result){
-						console.log(result);
-						
-						showUploadedFile(result);
-						
-						$(".uploadDiv").html(cloneObj.html());
-						
-					}
-				});// end ajax
-				
-				
-			});// end Upload 버튼
 			
 			
 			if([[${menuAddResult}]]==1){
