@@ -14,10 +14,10 @@ public class CartDTO {
 	private int mprice;
 	private int quantity;
 	private int totalPrice;
+	private String tid;
 	private String sname;
 	private String mname;
 	
-
 	private boolean compare(MenuVO vo) {
 		
 		if(this.sno== vo.getSno() && this.mno==vo.getMno()) {

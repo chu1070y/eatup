@@ -2,7 +2,9 @@ package ga.eatup.user.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -78,7 +80,7 @@ public class KakaoPay {
 		
 	}
 	
-	public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
+	public Map<String, Object> kakaoPayInfo(String pg_token) {
 
 		log.info("KakaoPayInfoVO............................................");
 		log.info("-----------------------------");
@@ -101,12 +103,16 @@ public class KakaoPay {
 		params.add("total_amount", "2100");
 		
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+		Map<String, Object> map = new HashMap<>();
 		
 		try {
 			kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
 			log.info("" + kakaoPayApprovalVO);
 			
-			return kakaoPayApprovalVO;
+			map.put("kakao", kakaoPayApprovalVO);
+			map.put("orderList", finalCartList);
+			
+			return map;
 		
 		} catch (RestClientException e) {
 			// TODO Auto-generated catch block

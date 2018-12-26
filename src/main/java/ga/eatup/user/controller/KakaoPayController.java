@@ -1,6 +1,7 @@
 package ga.eatup.user.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ga.eatup.user.domain.CartDTO;
+import ga.eatup.user.domain.OrderVO;
+import ga.eatup.user.domain.kakaopay.KakaoPayApprovalVO;
 import ga.eatup.user.service.KakaoPay;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -25,6 +28,7 @@ public class KakaoPayController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private KakaoPay kakaopay;
+
 	
 		
 		@PostMapping(value="/kakaoPay", consumes="application/json")
@@ -45,6 +49,14 @@ public class KakaoPayController {
 	
 	@GetMapping("/kakaopay/kakaoPaySuccess")
 	public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
+		
+		Map<String, Object> map = kakaopay.kakaoPayInfo(pg_token);
+		List<CartDTO> list = (List<CartDTO>) map.get("orderList");
+		OrderVO order = new OrderVO();
+		
+		KakaoPayApprovalVO vo = (KakaoPayApprovalVO) map.get("kakao");
+		/*order.setTotal(Long.valueOf(vo.getAmount().getTotal()));*/
+		
 		log.info("kakaoPaySuccess get............................................");
 		log.info("kakaoPaySuccess pg_token : " + pg_token);
 		

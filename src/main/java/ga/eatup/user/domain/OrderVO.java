@@ -13,6 +13,7 @@ public class OrderVO {
 	private Date approved_at;
 	private List<OrderInfoVO> orderInfo;
 	private List<CartDTO> cartList;
+	private Integer total;
 	
 }
    
