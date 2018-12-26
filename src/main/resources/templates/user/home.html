@@ -66,10 +66,11 @@
 						</button>
 					</div>
 					<div th:if="${location != null}">
-						<button type=button class='btn btn-light'>
+						<button type=button class='btn btn-light' id="get-searchlocation">
 							<table>
 								<tr>
-									<td th:text="${location != null} ? ${location} : ''"></td>
+									  <td th:text="${location != null} ? ${location} : ''"></td>
+									
 								</tr>
 							</table>
 						</button>
@@ -310,17 +311,30 @@
 
 <!-- end content -->
 
+
 <th:block layout:fragment="script">
 
 	<!-- google Geolocation -->
 	<script type="text/javascript"
 		src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCOjYqPJ97sckNjih-R8q07zMO9e8R-VJU&ver=3.exp"></script>
+<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dc56ff6a9fc8065d98b43e87a79e20a4&libraries=services"></script>
 
 
 	<script th:inline="javascript">
+	
 
 	
 $(document).ready(function(){
+	
+	
+	var taretLat,targetLntg = 0; 
+	
+	targetLat = [[${param.lat}]];
+	targetLng = [[${param.lng}]];
+	
+	
+	
 	
 	$('.owl-carousel').owlCarousel({
 		items:3,
@@ -352,8 +366,13 @@ $(document).ready(function(){
 		var mylocation = "";
 		
 		
-		 $("#get-mylocation").show( function(e) {
+		$("#get-mylocation").show( function(e) {
 		        /* HTML5 Geolocation */
+		        
+		        if(!targetLat){
+		        	return;
+		        }
+		        
 		        console.log("location을 찾습니다.")
 		        navigator.geolocation.getCurrentPosition(
 		            function( position ){ // success cb
@@ -390,6 +409,24 @@ $(document).ready(function(){
 		        );
 		        
 		    });
+		 
+		 
+		 //지도에서  search시 
+		 $("#get-searchlocation").show( function(e) {
+			console.log("get-searchlocation") ;
+			
+			console.log("이게 나오나 보저ㅏ")
+			 
+			
+			
+		 });
+		 
+		 
+		 
+		 
+		 
+		 
+		 
 		 
 		 //위치별 카페 리스트
 		 function listoflocation(lat,lng){

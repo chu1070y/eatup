@@ -23,4 +23,10 @@ public class StoreServiceImpl implements StoreService {
 		return storeMapper.getStore();
 	}
 
+	@Override
+	public List<StoreVO> getStoreNear(double lat, double lng) {
+		log.info("근처의 스토어 목록을 가져옵니다.");
+		return storeMapper.getStoreNear(lat, lng);
+	}
+
 }

@@ -9,5 +9,11 @@
  	<select id="getStore" resultType="ga.eatup.user.domain.StoreVO">
  		select * from partner_store
  	</select>
+ 	
+ 	<select id="getStoreNear" resultType="ga.eatup.user.domain.StoreVO">
+ 	select * from gorany.partner_store 
+order by sqrt( pow(#{plat} - lat, 2) + pow(#{plng} - lng,2)) 
+limit 0, 10
+ 	</select>
  
  </mapper>

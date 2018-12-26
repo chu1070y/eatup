@@ -11,4 +11,5 @@ public interface StoreService {
 	
 	public List<StoreVO> getStore();
 	
+	public List<StoreVO> getStoreNear(double lat, double lng);
 }
