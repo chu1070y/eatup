@@ -76,7 +76,8 @@ public class EatupApplicationTests {
 	
 	@Test
 	public void encodeTest() {
-		UserVO vo = userMapper.getUser("gaiga");
+		UserVO vo = new UserVO();
+		vo.setUpw("12345678");
 		String enPw = encoder.encode(vo.getUpw());
 		userMapper.update(enPw);
 	}

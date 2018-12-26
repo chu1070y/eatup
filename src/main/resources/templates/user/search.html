@@ -63,7 +63,7 @@ border-radius: 50%;
 }
 
 .searchResult:hover { 
-	background-color: silver;
+	border: solid 5px gold;
 }
 
 a{
@@ -163,7 +163,28 @@ a:hover{
 	</div>
 </div>
 
-<form id="actionform"></form>
+			<form id="resultform" class="hidden">
+				<div class='row searchResult'>
+					<div class='col-md-7'>
+					<img class='img-fluid rounded mb-3 mb-md-0' src='/main/img/portfolio/cafe3.jpg'>
+					</div>
+					<div class='col-md-5 data'>
+					<h4 id='sname'></h4>
+					<p id='saddress'></p> 
+					<p id="hours"></p>
+					<a class='btn btn-primary' id="btn1" style='color: white; margin: 2px;'></a>
+					<a class='btn btn-danger' id="btn2" style='color: white; margin: 2px;'></a>
+					<a class='btn btn-secondary' id="btn3" style='color: white; margin: 2px;'></a>
+					<a class='btn btn-info' id="btn4" style='color: white; margin: 2px;'>#맛집</a>
+					<input type="hidden" id="sno" name="sno">
+					</div>
+				</div>
+				<hr>
+			</form>
+
+<form id="actionform">
+	
+</form>
 
 
 	</div>
@@ -183,7 +204,8 @@ $(document).ready(function(){
 		
 		var storeSearchList;
 		var menuSearchList;
-
+		
+		
 		//csrf처리
 		var csrfHearderName = [[${_csrf.headerName}]];
 		var csrfTokenValue =  [[${_csrf.token}]];
@@ -208,6 +230,8 @@ $(document).ready(function(){
 			});//end autocomplete
 			
 		};//end function
+		
+
 	 	
 
 		searchService.autoComplete(function(result){
@@ -284,10 +308,7 @@ $(document).ready(function(){
 				menuSearchList = result;
 				
 				showList.showMenuList(menuSearchList);
-				
 			});
-			
-			
 		}
 		
 		//검색 결과 3개씩 화면에 출력
@@ -318,40 +339,65 @@ $(document).ready(function(){
 				}
 		}
 		
+		var resultform = $("#resultform");
+		var sno = $("#resultform #sno");
+		var sname = $("#resultform #sname");
+		var saddress = $("#resultform #saddress");
+		var btn1 = $("#resultform #btn1");
+		var btn2 = $("#resultform #btn2");
+		var btn3 = $("#resultform #btn3");
+		var btn4 = $("#resultform #btn4");
+		var hours = $("#hours");
+		
 
 		//검색 결과 화면에 출력
 		function storelist(data){
 
-			var str = "<div class='row searchResult'>"
-					+ "<div class='col-md-7'><a href='/user/store?sno="+data.sno+"'>"
-					+ "<img class='img-fluid rounded mb-3 mb-md-0' src='../main/img/portfolio/cafe3.jpg'>"
-					+ "</div><div class='col-md-5 data'>"
-					+ "<h4 id='sname'>"+data.sname+"</h4>"
-					+ "<p id='saddress'>"+data.saddress+"</p>" 
-					+ "<a class='btn btn-primary' style='color: white; margin: 2px;'>#"+data.b_field+"</a>"
-					+ "<a class='btn btn-danger' style='color: white; margin: 2px;'>#"+data.menuList[0].mname+"</a>"
-					+ "<a class='btn btn-secondary' style='color: white; margin: 2px;'>#"+data.menuList[0].mprice+"</a>"
-					+ "<a class='btn btn-info' style='color: white; margin: 2px;'>#맛집</a></a></div></div><hr>";
+			sno.val(data.sno);
+			sname.html(data.sname);
+			saddress.html(data.saddress);
+			btn1.html("#"+data.b_field);
+			btn2.html("#"+data.menuList[0].mname);
+			btn3.html("#"+data.menuList[0].mprice);
+			btn4.html("#맛집");
+			hours.html("영업시간: " + data.businessHours);
+					
+			var clone = resultform.clone();
+			clone.attr("class","");
+			
+			clone.on("click",function(e){
+				e.preventDefault();
+				console.log("click//");
+				$(this).attr("action","/user/store").attr("method","get").submit()
+			});
 
-			$("#storelist").append(str);
+			$("#storelist").append(clone);
 			
 				
 		}
 		
 		function menulist(data){
-		
-			var str = "<div class='row searchResult'><div class='col-md-7'>"
-					+ "<a href='/user/store?sno="+data.sno+"'>"
-					+ "<img class='img-fluid rounded mb-3 mb-md-0' src='/imgs/cafe6.jpg'>"
-					+ "</div><div class='col-md-5'>"
-					+ "<h4 id='sname'>"+data.mname+"</h4>"
-					+ "<p id='saddress'>"+data.introduction+"</p>"
-					+ "<a class='btn btn-primary' style='color: white; margin: 2px;'>#"+data.mcat+"</a>"
-					+ "<a class='btn btn-danger' style='color: white; margin: 2px;'>#"+data.mprice+"</a>"
-					+ "<a class='btn btn-secondary' style='color: white; margin: 2px;'>#"+data.storeVO.saddress.split(' ')[1]+"</a>"
-					+ "<a class='btn btn-info' style='color: white; margin: 2px;'>#"+data.storeVO.sname+"</a></a></div></div><hr>";
+			console.log(data);
 			
-			$("#menulist").append(str);
+			sno.val(data.sno);
+			sname.html(data.mname);
+			saddress.html(data.introduction);
+			btn1.html("#"+data.mcat);
+			btn2.html("#"+data.mprice);
+			btn3.html("#"+data.storeVO.saddress.split(' ')[1]);
+			btn4.html("#"+data.storeVO.sname);
+			hours.html("");
+					
+			var clone = resultform.clone();
+			clone.attr("class","");
+			
+			clone.on("click",function(e){
+				e.preventDefault();
+				console.log("click//");
+				$(this).attr("action","/user/store").attr("method","get").submit()
+			});
+			
+			$("#menulist").append(clone);
 			
 		}
 		
