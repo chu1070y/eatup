@@ -47,7 +47,8 @@
 </style>
 
 
-
+ 	<!--csrf.token을 불러오지 못하는 문제가 있어서, 일단 여기서 한번 호출해두는 것 (스크립트에서 이 값을 빼서 쓰진 않음)-->
+	<input type="hidden" id="token" th:name="${_csrf.headerName}" th:value="${_csrf.token}" />
 
 	<!-- Current Location -->
 	<div id="mylocation">
@@ -57,9 +58,6 @@
 				<div class="btn-group" role="group"
 					aria-label="Button group with nested dropdown">
 
-					<!--csrf.token을 불러오지 못하는 문제가 있어서, 일단 여기서 한번 호출해두는 것 (스크립트에서 이 값을 빼서 쓰진 않음)-->
-					<input type="hidden" id="token" th:name="${_csrf.parameterName}"
-						th:value="${_csrf.token}" />
 
 					<div th:if="${location == null}">
 						<button type=button class='btn btn-light' id="get-mylocation">

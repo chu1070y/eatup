@@ -1,9 +1,6 @@
 package ga.eatup.user.controller;
 
-import java.io.IOException;
 import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,25 +26,19 @@ public class KakaoPayController {
 	@Setter(onMethod_ = @Autowired)
 	private KakaoPay kakaopay;
 	
-	
-//	@PostMapping("/kakaoPay")
-//	public String kakaoPay() {
-//		log.info("kakaoPay post............................................");
-//		
-//		return "redirect:" + kakaopay.kakaoPayReady();
-		
 		
 		@PostMapping(value="/kakaoPay", consumes="application/json")
 		public ResponseEntity<String> kakaoPay(@RequestBody List<CartDTO> cartList){
-//			Long totalPrice = 0L;
-//			
-//			for(CartDTO dto : cartList) {
-//				totalPrice += (dto.getQuantity() * dto.getMprice());
-//			};
-//			totalPrice += 3000;
-			// new ResponseEntity<>(kakaopay.kakaoPayReady(cartList), HttpStatus.OK);
+			int totalPrice = 0;
+			
+			for(CartDTO dto : cartList) {
+				totalPrice += (dto.getQuantity() * dto.getMprice());
+			};
 		
-			return	new ResponseEntity<>(kakaopay.kakaoPayReady(cartList), HttpStatus.OK);
+			log.info("============================================================================");
+			log.info("totalPrice: "+ totalPrice);
+			log.info("cartList: " + cartList);
+			return new ResponseEntity<>(kakaopay.kakaoPayReady(totalPrice, cartList), HttpStatus.OK);
 
 	}
 		

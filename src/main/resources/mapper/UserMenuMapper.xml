@@ -17,8 +17,14 @@
 	</select>
 	
 	<select id="getCart" resultType="ga.eatup.user.domain.MenuVO">
-	select sno, mno, mname, mprice from partner_store_menu where status = 'O' and sno= #{sno} 
+	select partner_store.sname sname,
+	partner_store_menu.sno sno, partner_store_menu.mno mno, partner_store_menu.mname mname, partner_store_menu.mprice mprice
+		from partner_store inner join partner_store_menu
+		on partner_store.sno = partner_store_menu.sno
+		where partner_store_menu.status = 'O' and partner_store_menu.sno = #{sno} 
+	
 	</select>
 
+<!-- select partner_store.sname sname, sno, mno, mname, mprice from partner_store_menu where status = 'O' and sno= #{sno}  -->
 </mapper>
 
