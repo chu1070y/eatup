@@ -1,14 +1,10 @@
 package ga.eatup.user.domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
+
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
 
 @Data
 public class CartDTO {
@@ -18,10 +14,9 @@ public class CartDTO {
 	private int mprice;
 	private int quantity;
 	private int totalPrice;
+	private String sname;
 	private String mname;
 	
-
-
 
 	private boolean compare(MenuVO vo) {
 		
@@ -32,17 +27,18 @@ public class CartDTO {
 		return false;
 	}
 	
-	public static void classify(List<CartDTO> cartList,List<MenuVO> menu){
+	public static void classify(List<CartDTO> cartList, List<MenuVO> menu){
 		
 	
-		
 		for (MenuVO menuVO : menu) {
 			
 			for (CartDTO cart : cartList) {
 				if(cart.compare(menuVO)) {
 					cart.setMprice(menuVO.getMprice());
+					cart.setSname(menuVO.getSname());
 					cart.setMname(menuVO.getMname());
 					cart.setTotalPrice(menuVO.getMprice() * cart.getQuantity());
+
 				}
 			}
 		

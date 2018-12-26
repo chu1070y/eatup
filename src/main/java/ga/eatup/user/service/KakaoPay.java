@@ -4,7 +4,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,7 +16,6 @@ import org.springframework.web.client.RestTemplate;
 import ga.eatup.user.domain.CartDTO;
 import ga.eatup.user.domain.kakaopay.KakaoPayApprovalVO;
 import ga.eatup.user.domain.kakaopay.KakaoPayReadyVO;
-import lombok.Setter;
 import lombok.extern.java.Log;
 
 @Service
@@ -32,7 +30,7 @@ public class KakaoPay {
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
 	
 	
-	public String kakaoPayReady(List<CartDTO> cartList) {
+	public String kakaoPayReady(int totalPrice, List<CartDTO> cartList) {
 		
 		finalCartList = cartList;
 
@@ -49,13 +47,15 @@ public class KakaoPay {
 		params.add("cid", "TC0ONETIME");
 		params.add("partner_order_id", "100");
 		params.add("partner_user_id", "gorany");
-		params.add("item_name", finalCartList.get(0).getMname());
+		params.add("item_name", finalCartList.get(0).getSname()+"");
 		params.add("quantity", finalCartList.get(0).getQuantity()+"");
-		params.add("total_amount", finalCartList.get(0).getTotalPrice()+"");
+		params.add("total_amount", totalPrice +"");
 		params.add("tax_free_amount","0");
 		params.add("approval_url", "http://localhost:8080/user/kakaopay/kakaoPaySuccess");
 		params.add("cancel_url", "http://localhost:8080/user/kakaopay/kakaoPayCancel");
 		params.add("fail_url", "http://localhost:8080/user/kakaopay/kakaoPaySuccessFail");
+		
+		log.info( "finalcartlist:" + finalCartList);
 
  		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
