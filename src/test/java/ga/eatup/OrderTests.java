@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ga.eatup.partner.domain.OrderVO;
-import ga.eatup.partner.mapper.OrderMapper;
+import ga.eatup.partner.mapper.PartnerOrderMapper;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -18,7 +18,7 @@ import lombok.extern.java.Log;
 public class OrderTests {
 	
 	@Setter(onMethod_= {@Autowired})
-	private OrderMapper mapper;
+	private PartnerOrderMapper mapper;
 	
 
 	/*

@@ -18,7 +18,7 @@ public class MenuVO {
 	
 	private String uuid;
 	private String upload_path;
-	
+	private String saddress, b_field, businessHours, telephone;
 
 	private String status;
 	private String soldout;

@@ -2,13 +2,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layout/layout_user}">
 
-
-
-<div layout:fragment="content">
-	<!-- Add icon library -->
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<style>
+<style>
 * {
 	margin: 0px;
 	padding: 0px;
@@ -32,7 +26,7 @@
 	height: 100px;
 }
 
-.cartBtn {
+.cart {
 	height: 100px;
 	width: 100%;
 	background-color: transparent;
@@ -46,6 +40,7 @@
 	position: fixed;
 	bottom: 0px;
 	width: 100%;
+
 }
 
 .css_layout_Bottom {
@@ -65,8 +60,6 @@
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	width: 200px;
-	height: 150px;
 }
 
 .modal {
@@ -75,18 +68,34 @@
 	margin: auto;
 }
 </style>
+<!-- Add icon library -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div layout:fragment="content">
+
 
 
 	<!-- content -->
 
 
-<div class="getMenu"></div>
-	<div class="menuContent col-lg-9">
-		<h1 th:text="${menu[0].sname}"></h1>
-		<span class="fa fa-star checked"></span> <span
-			class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
-		<span class="fa fa-star"></span> <span class="fa fa-star"></span>
-<!-- 		<div id="carouselExampleIndicators" class="carousel slide my-4"
+
+	<div class="getMenu col-lg-9"
+		style="margin-left: auto; margin-right: auto;">
+
+		<div class="container" style="text-align: center;">
+
+			<h1 th:text="${menu[0].sname}"></h1>
+			<h5 th:text="${menu[0].saddress}"></h5>
+			<h5 th:text="${menu[0].businessHours}"></h5>
+			<h5 th:text="${menu[0].telephone}"></h5>
+			<span class="fa fa-star checked"></span> <span
+				class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
+			<span class="fa fa-star"></span> <span class="fa fa-star"></span>
+
+
+			<!-- 		<div id="carouselExampleIndicators" class="carousel slide my-4"
 			data-ride="carousel">
 			<ol class="carousel-indicators">
 				<li data-target="#carouselExampleIndicators" data-slide-to="0"
@@ -118,45 +127,58 @@
 				class="sr-only">Next</span>
 			</a>
 		</div> -->
+		</div>
+	</div>
+
+	<div class="getMenu col-lg-9"
+		style="margin-left: auto; margin-right: auto; width: 100%; height: 100px;"></div>
+	<div class="menuContent col-lg-9"
+		style="margin-left: auto; margin-right: auto;">
+
+
 
 		<div class="container">
-			<div class="wrapper"></div>
-		</div>
+			<div class="wrapper">
 
-		<div class="row">
-			<div class="col-lg-4 col-md-6 mb-4"
-				th:each="menu, iterState : ${menu}">
 
-				<div class="card h-100">
-						<img
-						th:src="@{/upload/display(fileName=${menu.upload_path +'\/s_'+ menu.uuid + '_'+menu.fname})}"
-						class="menuImg">
+				<div class="row">
+					<div class="col-lg-4 col-md-6 mb-4"
+						th:each="menu, iterState : ${menu}">
 
-					<div class="card-body">
+						<div class="card h-100">
+							<img
+								th:src="@{/upload/display(fileName=${menu.upload_path +'\/'+ menu.uuid + '_'+menu.fname})}"
+								class="menuImg" width=100% height=350px>
 
-						<h6 th:text="${menu.mname}" class="card-title"></h6>
-						<input type="hidden" th:value="${menu.mno}">
-						<p th:text="${menu.mprice}" class="card-text"></p>
-						<p th:text="${menu.introduction}" class="card-text"></p>
-					</div>
+							<div class="card-body" style="text-align:center; font: 14px sans-serif">
 
+								<h6 th:text="${menu.mname}" class="card-title"></h6>
+								<input type="hidden" th:value="${menu.mno}">
+								<p th:text="${menu.mprice}" class="card-text"></p>
+								<p th:text="${menu.introduction}" class="card-text"></p>
+							</div>
+
+							<!-- 메뉴 별점
 					<div class="card-footer">
 						<span class="fa fa-star checked"></span> <span
 							class="fa fa-star checked"></span> <span
 							class="fa fa-star checked"></span> <span class="fa fa-star"></span>
 						<span class="fa fa-star"></span>
 					</div>
+					
+					 -->
+						</div>
+
+					</div>
+					<!-- /.row -->
+
 				</div>
+				<!-- /.col-lg-9 -->
 
 			</div>
 			<!-- /.row -->
-
 		</div>
-		<!-- /.col-lg-9 -->
-
 	</div>
-	<!-- /.row -->
-
 
 	<div class="modal" id="myModal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
@@ -169,31 +191,32 @@
 					</button>
 				</div>
 				<div class="modal-body">
-				<form id="getOrderForm" method="get">
-					<div class="col-md-7">
-						<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0"
-							width="100px" alt="">
-						</a>
-					</div>
-					<div class="col-md-5">
-						<h6 id="mname"></h6>
-						<p id="mprice"></p>
-						<p>수량</p>
-						<div id=""class="number">
-
-							<button id="decreaseQuantity" class="btn btn-light">-</button>
-							<span id="numberUpDown">1</span>
-							<button id="increaseQuantity" class="btn btn-light">+</button>
+					<form id="getOrderForm" method="get">
+						<div class="col-md-7">
+							<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0"
+								width="100px" alt="">
+							</a>
 						</div>
-					</div>
-					<div class="modal-footer">
-<!-- 						<button id="cart" type="button" class="btn btn-primary"
+						<div class="col-md-5">
+							<h6 id="mname"></h6>
+							<p id="mprice"></p>
+							<p>수량</p>
+							<div id="" class="number">
+
+								<button id="decreaseQuantity" class="btn btn-light">-</button>
+								<span id="numberUpDown">1</span>
+								<button id="increaseQuantity" class="btn btn-light">+</button>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<!-- 						<button id="cart" type="button" class="btn btn-primary"
 						th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">장바구니</button> -->
-						<button id="cart" type="button" class="btn btn-primary">장바구니</button>
-						<button id="order" type="button" class="btn btn-secondary"
-						th:onclick="|window.location.href='@{/user/pay(sno=${menu[0].sno})}'|"
-							data-dismiss="modal">바로주문</button>
-					</div>
+
+							<button id="cart" type="button" class="btn btn-primary">장바구니</button>
+							<button id="order" type="button" class="btn btn-secondary"
+								th:onclick="|window.location.href='@{/user/pay(sno=${menu[0].sno})}'|"
+								data-dismiss="modal">바로주문</button>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -203,9 +226,10 @@
 	</div>
 
 	<div class="FixedLayoutBottom css_layout_Bottom"
-		th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">주문하기
-		 <span id="badge" class="badge badge-pill badge-danger">1</span></div>
-		
+		th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">
+		주문하기 <span id="badge" class="badge badge-pill badge-danger">1</span>
+	</div>
+
 </div>
 
 

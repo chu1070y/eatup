@@ -2,9 +2,9 @@ package ga.eatup.user.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
-import ga.eatup.user.domain.kakaopay.KakaoPayApprovalVO;
-import ga.eatup.user.domain.kakaopay.KakaoPayReadyVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,18 +14,27 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import ga.eatup.user.domain.CartDTO;
+import ga.eatup.user.domain.kakaopay.KakaoPayApprovalVO;
+import ga.eatup.user.domain.kakaopay.KakaoPayReadyVO;
+import lombok.Setter;
 import lombok.extern.java.Log;
 
 @Service
 @Log
 public class KakaoPay {
 
+	private static List<CartDTO> finalCartList;
+	
 	private static final String HOST = "https://kapi.kakao.com";
 	
 	private KakaoPayReadyVO kakaoPayReadyVO;
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
 	
-	public String kakaoPayReady() {
+	
+	public String kakaoPayReady(List<CartDTO> cartList) {
+		
+		finalCartList = cartList;
 
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -38,12 +47,12 @@ public class KakaoPay {
 		// 서버로 요청할 Body
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("cid", "TC0ONETIME");
-		params.add("partner_order_id", "1001");
+		params.add("partner_order_id", "100");
 		params.add("partner_user_id", "gorany");
-		params.add("item_name", "아메리카노 외");
-		params.add("quantity", "1");
-		params.add("total_amount", "3600");
-		params.add("tax_free_amount", "100");
+		params.add("item_name", finalCartList.get(0).getMname());
+		params.add("quantity", finalCartList.get(0).getQuantity()+"");
+		params.add("total_amount", finalCartList.get(0).getTotalPrice()+"");
+		params.add("tax_free_amount","0");
 		params.add("approval_url", "http://localhost:8080/user/kakaopay/kakaoPaySuccess");
 		params.add("cancel_url", "http://localhost:8080/user/kakaopay/kakaoPayCancel");
 		params.add("fail_url", "http://localhost:8080/user/kakaopay/kakaoPaySuccessFail");

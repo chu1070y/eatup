@@ -35,6 +35,8 @@ public interface SuperadminService {
 	public int noticeModify(NoticeVO vo);
 	
 	public int noticeRemove(NoticeVO vo);
+	
+	public int checkPid(String pid);
 
 
 }
