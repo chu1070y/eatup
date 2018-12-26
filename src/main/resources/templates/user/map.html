@@ -54,7 +54,7 @@
 }
 
 .search {
-	width: 350px;
+	width: 200px;
 	height: 3vh;
 }
 
@@ -120,16 +120,18 @@
 		<div id="menu_wrap" class="bg_white">
 			<div class="option">
 				<div>
-					<div><input type="text" id="keyword" size="28" placeholder="주소, 건물명, 역명 등을 입력하세요"></div>
-					<div><button type="submit">검색하기</button></div>
+					<!-- <div><input type="text" id="keyword" size="28" placeholder="주소, 건물명, 역명 등을 입력하세요"></div> -->
+					<!-- <div><button type="submit">검색하기</button></div> -->
+					<input type="text" class="search" size="28" placeholder="주소, 건물명, 역명 등을 입력하세요"></div>
+					<div><button id="searchBtn">검색하기</button>
 				</div>
 			</div>
 		</div>
-		<div>
+		<!-- <div>
 			<input type="text" class="search" value=""
 				placeholder="원하는 장소를 입력하세요(주소, 건물명, 역명 등)">
 			<button id="searchBtn">검색</button>
-		</div>
+		</div> -->
 	</div>
 
 	<form id='actionForm'></form>
@@ -167,6 +169,7 @@ $(document).ready(function(){
 	var searchBtn = $("#searchBtn");
 	searchBtn.on("click", function(){
 		var searchInput = $(".search");
+		//var searchInput = $("#keyword");
 		console.log(searchInput.val());
 		ps.keywordSearch(searchInput.val(), placesSearchCB); 
 		console.log(map.getCenter());
@@ -175,6 +178,11 @@ $(document).ready(function(){
 		
 
 	});
+	
+
+	
+	
+	
 	
 	
 	//키워드 검색 완료 시 호출되는 콜백함수
