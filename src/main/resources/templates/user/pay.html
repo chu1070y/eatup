@@ -20,6 +20,9 @@
 </style>
 
 	<!-- content -->
+	
+ 	<!--csrf.token을 불러오지 못하는 문제가 있어서, 일단 여기서 한번 호출해두는 것 (스크립트에서 이 값을 빼서 쓰진 않음)-->
+	<input type="hidden" id="token" th:name="${_csrf.headerName}" th:value="${_csrf.token}" /> 
 	<div class="col-lg-9">
 
 		<h3>결제하기</h3>
@@ -52,9 +55,9 @@
 			<div class="row">
 				<h5>총 주문 금액 :</h5>
 				<div class="facet f2" th:each="cart : ${cart}">
-				<input type="hidden" class="getPrice" th:value="${cart.totalPrice}" th:attr="name='totlaPrice'">
+				 <input type="hidden" class="getPrice" th:value="${cart.totalPrice}" th:attr="name='menuPrice'">
 				</div>
-				<h4 class="totalPrice"></h4>
+				<h4 class="menuPrice"></h4>
 			</div>
 
 
@@ -115,7 +118,6 @@
 
 						<input type="image" id="kakaoPayBtn" src="/imgs/kakao-pay.png" >
 
-					</form>
 				</div>
 
 
@@ -133,21 +135,24 @@ $(document).ready(function(){
 	var csrfHearderName = [[${_csrf.headerName}]];
 	var csrfTokenValue =  [[${_csrf.token}]];
 
-	
 	var cartList = [[${cart}]];
 
-	//총 주문금액
-	$(".totalPrice").html(function(){
+	var list = new Array();
 	
-		var a = 0;
-		
+	var total = 0;
+	
+
+	//총 주문금액
+  	$(".menuPrice").html(function(){
+
 		$(".getPrice").each(function(){
-			a+= parseInt($(this).context.value);
+			total += parseInt($(this).context.value);
 		});
 		
-		return a;
+		console.log(total);
+		return total;
 	
-	});
+	});  
 	
 	
 	//카카오페이 버튼 click
@@ -159,33 +164,34 @@ $(document).ready(function(){
 					
 					sno: item.sno,
 					mno: item.mno,
+					sname: item.sname,
 					mname: item.mname,
 					mprice: item.mprice,
-					quantity: item.quantity,
-					totalPrice: item.totalPrice
+					quantity: item.quantity
 			}
 			
-			cartList.push(json);
-			console.log(json);	
+			list.push(json);
+			console.log(list);	
 			});
 			
  	$.ajax({
 			type: "post",
-			data: JSON.stringify(cartList),
+			data: JSON.stringify(list),
 			url: "/user/kakaoPay",
 			contentType : "application/json; charset=UTF-8",
 			beforeSend: function(xhr){
 				xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
 			},
-			
 			success: function(result, status, xhr){
-				if(status == 'success'){
-					window.location.href = result;
-				}
-				
-				
-				
+  				if(status == 'success'){
+  					console.log(result);
+					  window.location.href = result;  
+				} 
+ 				
 			}
+				
+
+			
 		}); //end ajax
 			
 	}); //end button click
