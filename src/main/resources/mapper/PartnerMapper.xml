@@ -64,6 +64,8 @@
  		values(#{pno},#{sname},#{saddress},#{b_field},#{lat},#{lng},#{businessHours},#{telephone});
  	</insert>
  	
+
+ 	
  </mapper>
 
  

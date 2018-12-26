@@ -37,6 +37,14 @@ public class SuperadminController {
 	
 	private static MenuVO menuVO;
 	
+	@GetMapping("/pid/{pid}")
+	@ResponseBody
+	public ResponseEntity<Integer> checkPid(@PathVariable("pid") String pid){
+		log.info("checkPid get.....");
+		
+		return new ResponseEntity<>(service.checkPid(pid),HttpStatus.OK);
+	}
+	
 	@GetMapping(value="/getUploadList", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<NoticeUploadVO>> getUploadList(int nno){

@@ -166,4 +166,10 @@ public class SuperadminServiceImpl implements SuperadminService {
 
 	}
 
+	@Override
+	public int checkPid(String pid) {
+		// TODO Auto-generated method stub
+		return mapper.checkPid(pid);
+	}
+
 }

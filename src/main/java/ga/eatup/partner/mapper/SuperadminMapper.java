@@ -39,5 +39,6 @@ public interface SuperadminMapper {
 	
 	public int removeNoticeUpload(NoticeVO vo);
 	
+	public int checkPid(String pid);
 
 }

@@ -21,5 +21,6 @@ public interface PartnerMapper {
 	public int insertPartner(PartnerVO vo);
 	
 	public int insertStore(StoreVO vo);
+	
 		
 }
