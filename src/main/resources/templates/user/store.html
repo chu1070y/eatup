@@ -84,7 +84,7 @@
 	<div class="getMenu col-lg-9"
 		style="margin-left: auto; margin-right: auto;">
 
-		<div class="container" style="text-align: center">
+		<div class="container" style="text-align: center;">
 
 			<h1 th:text="${menu[0].sname}"></h1>
 			<h5 th:text="${menu[0].saddress}"></h5>
@@ -150,7 +150,7 @@
 								th:src="@{/upload/display(fileName=${menu.upload_path +'\/'+ menu.uuid + '_'+menu.fname})}"
 								class="menuImg" width=100% height=350px>
 
-							<div class="card-body">
+							<div class="card-body" style="text-align:center; font: 14px sans-serif">
 
 								<h6 th:text="${menu.mname}" class="card-title"></h6>
 								<input type="hidden" th:value="${menu.mno}">
