@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ga.eatup.partner.mapper.OrderMapper">
+<mapper namespace="ga.eatup.partner.mapper.PartnerOrderMapper">
 	<select id="getOrder" resultType="ga.eatup.partner.domain.OrderVO">
 		select sno,od.tid,uno,mno,quantity
 		from gorany.order as od, gorany.order_info as info
