@@ -220,8 +220,6 @@ $(document).ready(function() {
 	
 	
 	//메뉴 클릭 모달
-function popModal(){
-		
 	$(".card-body").on("click", function(e) {
 
 		var getSno = [[${menu[0].sno}]];
@@ -328,7 +326,6 @@ function popModal(){
 		
 	});
 	
-	}
 
 	// 모달 close
 	$(".modalclose").on("click", function(e) {
@@ -341,14 +338,6 @@ function popModal(){
 
 	});
 
-
-	// 메뉴이미지 click
-	$(".menuImg").on("click", function(e){
-		
-		console.log("img click")
-		popModal();
-		
-	});
 
 	
 	
