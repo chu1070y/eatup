@@ -5,6 +5,14 @@
 
 <mapper namespace="ga.eatup.partner.mapper.SuperadminMapper">
 
+	<update id="openMenuFromStore">
+		update partner_store_menu set status = "O" where sno = (select sno from partner_store where pno = (select pno from partner where pid = #{pid}))
+	</update>
+
+	<update id="removeMenuFromStore">
+		update partner_store_menu set status = "X" where sno = (select sno from partner_store where pno = (select pno from partner where pid = #{pid}))
+	</update>
+
 	<update id="removePartnerStore">
 		update partner_store set status = "X" where pno = (select pno from partner where pid = #{pid})
 	</update>

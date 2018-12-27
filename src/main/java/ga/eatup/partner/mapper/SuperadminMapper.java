@@ -58,5 +58,9 @@ public interface SuperadminMapper {
 	public int deleteAuth(String pid);
 	
 	public int removePartnerStore(String pid);
+	
+	public int removeMenuFromStore(String pid);
+	
+	public int openMenuFromStore(String pid);
 
 }

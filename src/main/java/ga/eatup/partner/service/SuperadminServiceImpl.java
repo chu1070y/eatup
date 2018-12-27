@@ -181,10 +181,11 @@ public class SuperadminServiceImpl implements SuperadminService {
 		log.info("storeAdd service in superadminServiceImpl......");
 		
 		if (vo.getImageList() == null || vo.getImageList().size() <= 0) {
+			mapper.openMenuFromStore(pid);
 			mapper.givePartnerAuth(pid);
 			return mapper.storeAdd(vo,pid);
 		}
-		
+		mapper.openMenuFromStore(pid);
 		mapper.givePartnerAuth(pid);
 		int result = mapper.storeAdd(vo,pid);
 		
@@ -221,6 +222,7 @@ public class SuperadminServiceImpl implements SuperadminService {
 		log.info("storeRemove service in superadminServiceImpl......");
 		mapper.storeImageRemove(pid);
 		mapper.deleteAuth(pid);
+		mapper.removeMenuFromStore(pid);
 		
 		return mapper.removePartnerStore(pid);
 	}
