@@ -176,7 +176,7 @@ a {
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
-						<form id="storeForm">
+						<form id="storeform">
 							<div class="col-md-12">
 								<div class="form-group">
 									<input class="form-control" id="pid" name="pid"
@@ -231,18 +231,18 @@ a {
 									</div>
 								</div>
 							</div>
+							</form>
 							<div class="clearfix"></div>
 							<div class="col-lg-12 text-center">
 								<div>
-									<button class="btn btn-primary btn-block storeRegisterBtn">가게
-										추가하기</button>
-									<button class="btn btn-success btn-block storeModifyBtn">가게
+									<button class="btn btn-primary btn-block" id="storeRegisterBtn">가게
+										추가 및 파트너 권한 주기</button>
+									<button class="btn btn-success btn-block" id="storeModifyBtn">가게
 										수정하기</button>
-									<button class="btn btn-danger btn-block storeRemoveBtn">가게
-										삭제하기</button>
+									<button class="btn btn-danger btn-block" id="storeRemoveBtn">가게
+										삭제하고 권한 해제</button>
 								</div>
 							</div>
-						</form>
 					</div>
 				</div>
 			</div>
@@ -369,10 +369,22 @@ a {
 			
 			var pid = $("#pid");
 			var serialNum = $("serialNum");
+			var check = 0;
+			
+			pid.on("change",function(e){
+				e.preventDefault();
+				check = 0;
+				console.log(check);
+			});
 			
 			//아이디 존재 여부 확인
 			$("#checkId").on("click",function(e){
 				e.preventDefault();
+				
+				if(pid.val().length == 0){
+					alert("파트너 아이디를 입력해주세여");
+					return;
+				}
 				
 				$.ajax({
 		            type: 'get',
@@ -380,13 +392,13 @@ a {
 		            success: function(result){
 						if(result==1){
 							alert("아이디 있데여~!!!~!~!~!~!");
-							checkId = 1;
+							check = 1;
 						}else if(result > 1){
 							alert("분명히 막아놨는디.... 아이디가 중복으로 들어가있뇌여 DB를 직접 수정해주세여.");
-							checkId = 0;
+							check = 0;
 						}else{
 							alert("아이디 없데여~!~!~!~");
-							checkId = 0;
+							check = 0;
 						}
 					}
 				});//end ajax
@@ -603,9 +615,115 @@ a {
 						}
 							
 						menuForm.attr("action","/superadmin/menuremove").attr("method","post").submit()
-				      }
+			          }
 				 });//end ajax
 			});
+			
+			
+			
+			var storeform = $("#storeform");
+
+			//가게 추가 및 파트너 권한 주기 버튼
+			$("#storeRegisterBtn").on("click",function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				
+				console.log("storeRegisterBtn");
+				
+				if(pid.val().length == 0){
+					alert("파트너 아이디 값을 입력해주세요.");
+					return;
+				}
+				
+				if(check == 0){
+					alert("아이디 존재여부 확인버튼을 클릭해주세요");
+					return;
+				}
+				
+				$.ajax({
+		            type: 'get',
+		            url: "/superadmin/findAuth/" + pid.val(),
+		            success: function(result){
+						if(result==1){
+							alert("미이 등록된 파트너 있데여~ 추가하지 말아주세요~");
+						}else if(result > 1){
+							alert("분명히 막아놨는디.... 권한이 중복으로 들어가있뇌여 DB를 직접 수정해주세여.");
+						}else if(result == 0){
+							//가게 추가하고 권한 주는 서버로 고고~
+							storeUpload();
+							storeform.attr("action","/superadmin/storeadd").attr("method","post").submit();
+						}else{
+							alert("DB or 서버 오류");
+						}
+						
+
+					}
+				});
+
+			});
+			
+			
+			//가게 수정하기 버튼
+			$("#storeModifyBtn").on("click",function(e){
+				e.preventDefault();
+				
+				if(pid.val().length == 0){
+					alert("파트너 아이디 값을 입력해주세요.");
+					return;
+				}
+				
+				if(check == 0){
+					alert("아이디 존재여부 확인버튼을 클릭해주세요");
+					return;
+				}
+				
+				storeUpload();
+				storeform.attr("action","/superadmin/storemodify").attr("method","post").submit();
+				
+			});
+			
+			
+			//가게 삭제하고 권한 해제 버튼
+			$("#storeRemoveBtn").on("click",function(e){
+				e.preventDefault();
+				
+				if(pid.val().length == 0){
+					alert("파트너 아이디 값을 입력해주세요.");
+					return;
+				}
+				
+				if(check == 0){
+					alert("아이디 존재여부 확인버튼을 클릭해주세요");
+					return;
+				}
+
+				storeform.attr("action","/superadmin/storeremove").attr("method","post").submit();
+				
+			});
+			
+			//가게와 qr 이미지 추가
+			function storeUpload(){
+		 		var str = "";
+		 		
+		 		$("#qrUploadResult ul li").each(function(i,obj){
+		 			var jobj = $(obj);
+		 			
+		 			str += "<input type='hidden' name='qr_fname' value='"+jobj.data("filename")+"'>";
+		 			str += "<input type='hidden' name='qr_uuid' value='"+jobj.data("uuid")+"'>";
+		 			str += "<input type='hidden' name='qr_upload_path' value='"+jobj.data("path")+"'>";
+
+				});
+		 		
+		 		$("#storeUploadResult ul li").each(function(i,obj){
+		 			var jobj = $(obj);
+		 			
+		 			str += "<input type='hidden' name='imageList["+i+"].fname' value='"+jobj.data("filename")+"'>";
+		 			str += "<input type='hidden' name='imageList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+		 			str += "<input type='hidden' name='imageList["+i+"].upload_path' value='"+jobj.data("path")+"'>";
+
+				});
+		 		storeform.append(str)
+			}
 			
 			
 			
@@ -623,6 +741,18 @@ a {
 			
 			if([[${addResult}]]==1){
 				alert("공지가 등록되었습니다.")
+			}
+			
+			if([[${storeAddResult}]]==1){
+				alert("해당 파트너에게 권한 및 가게를 추가하였습니다.")
+			}
+			
+			if([[${storeModifyResult}]]==1){
+				alert("해당 가게를 수정했습니다.")
+			}
+			
+			if([[${storeRemoveResult}]]==1){
+				alert("해당 가게를 삭제했습니다.")
 			}
 			
 			

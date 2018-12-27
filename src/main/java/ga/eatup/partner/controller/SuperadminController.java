@@ -18,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ga.eatup.partner.domain.EmailVO;
 import ga.eatup.partner.domain.NoticeUploadVO;
 import ga.eatup.partner.domain.NoticeVO;
+import ga.eatup.partner.domain.PartnerVO;
+import ga.eatup.partner.domain.StoreVO;
 import ga.eatup.partner.service.EmailServiceImpl;
 import ga.eatup.partner.service.SuperadminService;
 import ga.eatup.user.domain.MenuVO;
@@ -36,6 +38,63 @@ public class SuperadminController {
 	private EmailServiceImpl emailService;
 	
 	private static MenuVO menuVO;
+	
+	@GetMapping("/findAuth/{pid}")
+	@ResponseBody
+	public ResponseEntity<Integer> findAuth(@PathVariable("pid") String pid){
+		log.info("findAuth get.....");
+		
+		return new ResponseEntity<>(service.findAuth(pid),HttpStatus.OK);
+	}
+	
+	@PostMapping("/storeremove")
+	public String storeRemove(PartnerVO partnerVO, RedirectAttributes redirect) {
+		log.info("store Remove........");
+		
+		log.info("" + partnerVO);
+
+		int result = service.storeRemove(partnerVO.getPid());
+		
+		redirect.addFlashAttribute("storeRemoveResult", result);
+		
+		return "redirect:/partner/superAdmin";
+	}
+	
+	@PostMapping("/storemodify")
+	public String storeModify(PartnerVO partnerVO, StoreVO storeVO ,RedirectAttributes redirect) {
+		log.info("store Modify........");
+		
+		log.info("" + partnerVO);
+		log.info("" + storeVO);
+		
+		if(storeVO.getImageList() != null) {
+			storeVO.getImageList().forEach(image -> log.info("" + image));
+		}
+		
+		int result = service.storeModify(storeVO, partnerVO.getPid());
+		
+		redirect.addFlashAttribute("storeModifyResult", result);
+		
+		return "redirect:/partner/superAdmin";
+	}
+	
+	@PostMapping("/storeadd")
+	public String storeAdd(PartnerVO partnerVO, StoreVO storeVO ,RedirectAttributes redirect) {
+		log.info("store add........");
+		
+		log.info("" + partnerVO);
+		log.info("" + storeVO);
+		
+		if(storeVO.getImageList() != null) {
+			storeVO.getImageList().forEach(image -> log.info("" + image));
+		}
+		
+		int result = service.storeAdd(storeVO, partnerVO.getPid());
+		
+		redirect.addFlashAttribute("storeAddResult", result);
+		
+		return "redirect:/partner/superAdmin";
+	}
 	
 	@GetMapping("/pid/{pid}")
 	@ResponseBody
