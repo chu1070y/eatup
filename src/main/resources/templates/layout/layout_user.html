@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<!-- Owl Carousel -->
+<script src="../plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+
 <head>
 
 <meta charset="utf-8">
@@ -17,11 +24,18 @@
 
 
 <!-- Custom fonts for this template -->
-<link href="/main/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-<link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+<link href="/main/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Kaushan+Script'
+	rel='stylesheet' type='text/css'>
+<link
+	href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic'
+	rel='stylesheet' type='text/css'>
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
+	rel='stylesheet' type='text/css'>
 
 <!-- Custom styles for this template -->
 <link href="/main/css/agency.min.css" rel="stylesheet">
@@ -29,12 +43,16 @@
 <link href="/main/css/sb-admin.css" rel="stylesheet">
 
 <!-- 자동완성 -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!-- owl carousel -->
-<link rel="stylesheet" type="text/css" href="../plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-<link rel="stylesheet" type="text/css" href="../plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-<link rel="stylesheet" type="text/css" href="../plugins/OwlCarousel2-2.2.1/animate.css">
+<link rel="stylesheet" type="text/css"
+	href="../plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+<link rel="stylesheet" type="text/css"
+	href="../plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+<link rel="stylesheet" type="text/css"
+	href="../plugins/OwlCarousel2-2.2.1/animate.css">
 
 
 
@@ -42,45 +60,44 @@
 </head>
 
 <style>
-.hidden{
+.hidden {
 	display: none;
 }
-
 </style>
 
 <body id="page-top">
 
-	<nav class="navbar navbar-expand-lg navbar-dark navbar-shrink" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="/user/home">Eat Up!</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav text-uppercase ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger active" href="#services">내 정보</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#portfolio">주문내역</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">가맹점 문의</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#team">고객센터</a>
-            </li>
-		<!-- Navbar Search -->
- 		<li class="nav-item dropdown no-arrow mx-1">
-				<a class="nav-link dropdown-toggle" href="/user/search" id="search">
-				<i class="fas fa-search"></i></a>
-			</li> 
-          </ul>
-        </div>
+	<nav class="navbar navbar-expand-lg navbar-dark navbar-shrink"
+		id="mainNav">
+		<div class="container">
+			<a class="navbar-brand js-scroll-trigger" href="/user/home">Eat
+				Up!</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button"
+				data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				Menu <i class="fas fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav text-uppercase ml-auto">
+					<li class="nav-item"><a
+						class="nav-link js-scroll-trigger active" href="#">내 정보</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="#">주문내역</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="/user/oneByone">가맹점 문의</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="/user/faq">FAQ</a></li>
+					<!-- Navbar Search -->
+					<li class="nav-item dropdown no-arrow mx-1"><a
+						class="nav-link dropdown-toggle" href="/user/search" id="search">
+							<i class="fas fa-search"></i>
+					</a></li>
+				</ul>
+			</div>
 
-      </div>
-    </nav>
+		</div>
+	</nav>
 
 	<div id="wrapper">
 
@@ -121,16 +138,15 @@
 
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 	<script src="/main/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
- 	<script src="/js/modal.js"></script> 
+	<script src="/js/modal.js"></script>
 	<script src="/js/amount.js"></script>
 	<script src="/js/jquery.cookie.js"></script>
 
 	<script src="/main/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- 	<script src="/js/modal.js"></script>
+	<!-- 	<script src="/js/modal.js"></script>
 	<script src="/js/amount.js"></script> -->
 
 
@@ -147,29 +163,31 @@
 	<!-- Custom scripts for all pages-->
 	<script src="/main/js/sb-admin.min.js"></script>
 
-	<!-- Owl Carousel -->
-	<script src="../plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
 
 
 	<script th:inline="javascript" src="/js/search.js"></script>
 	<script>
-		$(document).ready(function(){
-			var sidebar = 1;
-			
-			$("#sidebarToggle").on("click",function(e){
-				e.preventDefault();
-				
-				if(sidebar==0){
-					$("#wrapper .sidebar").attr("class","sidebar navbar-nav hidden");
-					sidebar = 1;
-				}else{
-					$("#wrapper .sidebar").attr("class","sidebar navbar-nav ");
-					sidebar = 0;
-				}
-				
-			});
-		});
-		
+		$(document).ready(
+				function() {
+					var sidebar = 1;
+
+					$("#sidebarToggle").on(
+							"click",
+							function(e) {
+								e.preventDefault();
+
+								if (sidebar == 0) {
+									$("#wrapper .sidebar").attr("class",
+											"sidebar navbar-nav hidden");
+									sidebar = 1;
+								} else {
+									$("#wrapper .sidebar").attr("class",
+											"sidebar navbar-nav ");
+									sidebar = 0;
+								}
+
+							});
+				});
 	</script>
 	<th:block layout:fragment="script"></th:block>
 

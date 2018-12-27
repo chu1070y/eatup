@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ga.eatup.partner.domain.NoticePageDTO;
 import ga.eatup.partner.domain.NoticeUploadVO;
 import ga.eatup.partner.domain.NoticeVO;
+import ga.eatup.partner.domain.StoreVO;
 import ga.eatup.user.domain.MenuVO;
 
 @Service
@@ -38,5 +39,12 @@ public interface SuperadminService {
 	
 	public int checkPid(String pid);
 
+	public int storeAdd(StoreVO vo, String pid);
+	
+	public int storeModify(StoreVO vo, String pid);
+	
+	public int storeRemove(String pid);
+	
+	public int findAuth(String pid);
 
 }
