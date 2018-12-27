@@ -1,37 +1,73 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layout/layout_user}">
+	
+<style>
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.services {
+	item-align: center;
+	text-align: center;
+	margin: auto;
+}
+
+.col-lg-12 {
+	item-align: center;
+	text-align: center;
+	margin: auto;
+}
+
+
+</style>
 
 <div layout:fragment="content">
 
-<strong>
-<kakaopay></kakaopay>
-</strong>
+	<!-- content -->
+	
+	
+	<!-- Services -->
+		<section id="services">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center" style="text-align:center;">
+					<h2>결제가 정상적으로 완료되었습니다.</h2>
+					<button id="successOrder" type="button" class="btn btn-warning btn-lg">주문내역</button>
+					</div>
+				</div>
+			</div>
+		</section>
 
 
-카카오페이 결제가 정상적으로 완료되었습니다.</br>
-
-주문일자: [[${info.kakao.approved_at}]]</br>
-주문번호:	[[${info.kakao.partner_order_id}]]<br/>
-매장명:	[[${info.orderList[0].sname}]]<br/>
-상품명:	[[${info.orderList[0].mname}]]<br/>
-상품수량:	[[${info.orderList[0].quantity}]]<br/>
- 결제금액:	[[${info.kakao.amount.total}]]<br/> 
-결제방법:	[[${info.kakao.payment_method_type}]]<br/>
-
-<h3>[[${info}]]</h3>
-
-<div>
-	여기는 firebase 토큰값입니다.
-	<div id="token">
+	<div>
+		<!-- firebase token -->
+		<div id="token" style="display: none;"></div>
 	</div>
-</div>
+	
+<!-- /.end content -->
 </div>
 
 <th:block layout:fragment="script">
 	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
 	<script th:inline="javascript">
+$(document).ready(function() {
+	
+
+	// 결제 승인
+	console.log("주문일자: " + [[${info.kakao.approved_at}]]);
+	console.log("주문번호: " +[[${info.kakao.partner_order_id}]]);
+	console.log("매장명: " + [[${info.cartList[0].sname}]]);
+	console.log("상품명: " + [[${info.cartList[0].mname}]]);
+	console.log("상품수량: " + [[${info.cartList[0].quantity}]]);
+	console.log("결제금액: " + [[${info.kakao.amount.total}]]);
+	console.log("결제방법: " + [[${info.kakao.payment_method_type}]]);
+	
+	// 쿠키삭제
+	$.removeCookie('cart');
+
 	 // Initialize Firebase
 	  var config = {
 	    apiKey: "AIzaSyAKegY8LM_wqmn2twvBsMh0LsvGwsUjS6E",
@@ -64,6 +100,15 @@
 		 console.log(payload.data.status);
 	  });
 	  
+	  
+	 //버튼 클릭 이벤트
+		$("#successOrder").on("click", function(e) {	
+			
+			self.location="/user/history";
+			
+		});
+
+});
 	</script>
 
 </th:block>

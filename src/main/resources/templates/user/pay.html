@@ -27,7 +27,7 @@
 
 		<h3>결제하기</h3>
 
-		<h4>주문정보</h4>
+		<h5>주문정보</h5>
 
 
 		<div class="col-lg-9">
@@ -112,12 +112,7 @@
 			<div class="col-lg-9">
 
 				<div class="facet f1">
-<!-- 					<form method="post" action="/user/kakaoPay">
-						<input type="hidden" id="csrfToken" th:name="${_csrf.parameterName}"
-							th:value="${_csrf.token}" /> -->
-
 						<input type="image" id="kakaoPayBtn" src="/imgs/kakao-pay.png" >
-
 				</div>
 
 
@@ -164,7 +159,7 @@ $(document).ready(function(){
 					
 					sno: item.sno,
 					mno: item.mno,
-					sname: item.sname,
+					sname: item.sname, 
 					mname: item.mname,
 					mprice: item.mprice,
 					quantity: item.quantity

@@ -25,6 +25,5 @@
 	
 	</select>
 
-<!-- select partner_store.sname sname, sno, mno, mname, mprice from partner_store_menu where status = 'O' and sno= #{sno}  -->
 </mapper>
 

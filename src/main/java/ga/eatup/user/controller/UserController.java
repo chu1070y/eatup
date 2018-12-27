@@ -188,6 +188,7 @@ public class UserController {
 		
 	}
 	
+	//매장 page
 	@GetMapping("/store")
 	public void store(@ModelAttribute("sno") int sno,Model model){
 		
@@ -195,6 +196,7 @@ public class UserController {
 	
 	}
 	
+	//장바구니 page
 	@GetMapping("/cart")
 	public void cart(@CookieValue("cart")String cart, @ModelAttribute("sno") int sno,Model model){
 		
@@ -212,7 +214,6 @@ public class UserController {
 		
 		});
 		List<MenuVO> menuList=service.getCart(sno);
-		//List<List<CartDTO>>classfied=CartDTO.classify(menuList).collect(Collectors.toList());
 
 		log.info("cart : " + menu);
 		
@@ -225,6 +226,7 @@ public class UserController {
 	
 	}
 	
+	//결제 page
 	@GetMapping("/pay")
 	public void pay(@CookieValue("cart")String cart, @ModelAttribute("sno") int sno, Model model){
 		
@@ -242,7 +244,6 @@ public class UserController {
 		
 		});
 		List<MenuVO> menuList=service.getCart(sno);
-		//List<List<CartDTO>>classfied=CartDTO.classify(menuList).collect(Collectors.toList());
 
 		log.info("cart : " + menu);
 		log.info("menu : " + service.getCart(sno));
@@ -256,6 +257,13 @@ public class UserController {
 		
 		model.addAttribute("cart", menu);
 	
+	}
+	
+	//주문내역 page
+	@GetMapping("/history")
+	public void orderHistory() {
+		log.info("orderHistory.............");
+		
 	}
 	
 	@GetMapping("/firebase/test")
@@ -346,6 +354,8 @@ public class UserController {
 		
 		return "redirect:/user/faq";
 	}
+	
+
 	
 	
 }

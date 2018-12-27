@@ -1,7 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layout/layout_user}">
+
+	
 <div layout:fragment="content">
+
 	<style>
 * {
 	margin: 0px;
@@ -97,10 +100,11 @@
 
 		<div class="container">
 
-			<h1 th:text="${menu[0].sname}"></h1>
+			<h2 th:text="${menu[0].sname}"></h2>
 			<h5 th:text="${menu[0].saddress}"></h5>
-			<h5 th:text="${menu[0].businessHours}"></h5>
-			<h5 th:text="${menu[0].telephone}"></h5>
+			<h6 th:text="${menu[0].businessHours}"></h6>
+			<h6 th:text="${menu[0].telephone}"></h6>
+
 			<span class="fa fa-star checked"></span> <span
 				class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
 			<span class="fa fa-star"></span> <span class="fa fa-star"></span>
@@ -254,8 +258,7 @@
 $(document).ready(function() {
 	
 	var arr = new Array(); 
-	
-	
+
 	//메뉴 클릭 모달
 	$(".card-body").on("click", function(e) {
 
