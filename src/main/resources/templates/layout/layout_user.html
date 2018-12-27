@@ -59,9 +59,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ml-auto">
+          	<span sec:authorize="hasRole('USER')">
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger active" href="#services">내 정보</a>
             </li>
+            </span>
+            <span sec:authorize="!hasRole('USER')">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger active" href="/user/login/customLogin">로그인하기</a>
+            </li>
+            </span>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#portfolio">주문내역</a>
             </li>
@@ -71,11 +78,16 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#team">고객센터</a>
             </li>
-		<!-- Navbar Search -->
- 		<li class="nav-item dropdown no-arrow mx-1">
+			<!-- Navbar Search -->
+ 			<li class="nav-item dropdown no-arrow mx-1">
 				<a class="nav-link dropdown-toggle" href="/user/search" id="search">
 				<i class="fas fa-search"></i></a>
-			</li> 
+			</li>
+			<span sec:authorize="hasRole('USER')">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger active" href="/user/login/customLogout">로그아웃</a>
+            </li>
+            </span>
           </ul>
         </div>
 

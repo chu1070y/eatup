@@ -25,7 +25,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		log.info("login success");
+		log.info("user login success");
 		
 		authentication.getAuthorities().forEach(auth -> {
 			log.info("" + auth);
@@ -61,7 +61,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		log.info("Logout");
-		response.sendRedirect("/user/login/customLogin");
+		response.sendRedirect("/user/home");
 	}
 
 }
