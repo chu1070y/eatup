@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ga.eatup.partner.domain.NoticePageDTO;
 import ga.eatup.partner.domain.NoticeUploadVO;
 import ga.eatup.partner.domain.NoticeVO;
+import ga.eatup.partner.domain.PartnerVO;
+import ga.eatup.partner.domain.StoreVO;
 import ga.eatup.partner.mapper.SuperadminMapper;
 import ga.eatup.user.domain.MenuVO;
 import lombok.Setter;
@@ -170,6 +172,54 @@ public class SuperadminServiceImpl implements SuperadminService {
 	public int checkPid(String pid) {
 		// TODO Auto-generated method stub
 		return mapper.checkPid(pid);
+	}
+
+	@Transactional
+	@Override
+	public int storeAdd(StoreVO vo, String pid) {
+		
+		log.info("storeAdd service in superadminServiceImpl......");
+		
+		if (vo.getImageList() == null || vo.getImageList().size() <= 0) {
+			mapper.givePartnerAuth(pid);
+			return mapper.storeAdd(vo,pid);
+		}
+		
+		mapper.givePartnerAuth(pid);
+		int result = mapper.storeAdd(vo,pid);
+		
+		vo.getImageList().forEach((image) -> {
+			mapper.storeImageAdd(pid, image);
+		});
+		
+		return result;
+	}
+
+	@Override
+	public int storeModify(StoreVO vo, String pid) {
+		log.info("storeModify service in superadminServiceImpl......");
+		log.info(""+pid);
+		
+		mapper.storeImageRemove(pid);
+		
+		if (vo.getImageList() == null || vo.getImageList().size() <= 0) {
+			return mapper.storeAdd(vo,pid);
+		}
+		
+		int result = mapper.storeAdd(vo,pid);
+		
+		vo.getImageList().forEach((image) -> {
+			mapper.storeImageAdd(pid, image);
+		});
+		
+		return result;
+	}
+
+	@Override
+	public int storeImageRemove(String pid) {
+		log.info("storeRemove service in superadminServiceImpl......");
+		
+		return mapper.storeImageRemove(pid);
 	}
 
 }

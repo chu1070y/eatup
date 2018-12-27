@@ -5,6 +5,25 @@
 
 <mapper namespace="ga.eatup.partner.mapper.SuperadminMapper">
 
+	<delete id="storeImageRemove" parameterType="String">
+		delete from partner_store_img where sno = (select sno from partner_store where pno = (select pno from partner where pid = #{pid}))
+	</delete>
+
+	<insert id="storeImageAdd">
+		insert into partner_store_img(sno,fname,uuid,upload_path)
+			values((select sno from partner_store where pno = (select pno from partner where pid = #{pid})),
+					#{vo.fname},#{vo.uuid},#{vo.upload_path})
+	</insert>
+	
+	<insert id="givePartnerAuth" parameterType="String">
+		insert into partner_auth(pid,auth) values(#{pid},"ROLE_PARTNER");
+	</insert>
+
+	<update id="storeAdd">
+		update partner_store set serialNum = #{vo.serialNum}, qr_uuid = #{vo.qr_uuid}, qr_fname = #{vo.qr_fname}, qr_upload_path = #{vo.qr_upload_path}
+			where pno = (select pno from partner where pid = #{pid})
+	</update>
+	
 	<update id="removeNotice" parameterType="ga.eatup.partner.domain.NoticeVO">
 		update notice set status="X" where nno = #{nno}
 	</update>
