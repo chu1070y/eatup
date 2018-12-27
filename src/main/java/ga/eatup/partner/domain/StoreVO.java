@@ -1,6 +1,7 @@
 package ga.eatup.partner.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -15,7 +16,7 @@ public class StoreVO {
 	private String businessHours;
 	private String telephone;
 	private String qr_uuid;
-	private String qr_frame;
+	private String qr_fname;
 	private String qr_type;
 	private String lat;
 	private String lng;
@@ -24,5 +25,8 @@ public class StoreVO {
 	private Date regdate;
 	private Date updatedate;
 	private String serialNum;
+	private String qr_upload_path;
+	
+	private List<StoreImageVO> imageList;
 	
 }

@@ -107,5 +107,10 @@ public class EatupApplicationTests {
 //		
 //	}
 	
+	@Test
+	public void storeRemove() {
+		superadminMapper.storeImageRemove("salem");
+	}
+	
 
 }

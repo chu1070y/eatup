@@ -2,9 +2,13 @@ package ga.eatup.partner.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import ga.eatup.partner.domain.NoticePageDTO;
 import ga.eatup.partner.domain.NoticeUploadVO;
 import ga.eatup.partner.domain.NoticeVO;
+import ga.eatup.partner.domain.StoreImageVO;
+import ga.eatup.partner.domain.StoreVO;
 import ga.eatup.user.domain.MenuVO;
 
 public interface SuperadminMapper {
@@ -40,5 +44,19 @@ public interface SuperadminMapper {
 	public int removeNoticeUpload(NoticeVO vo);
 	
 	public int checkPid(String pid);
+	
+	public int storeAdd(@Param("vo") StoreVO vo, @Param("pid") String pid);
+	
+	public int givePartnerAuth(String pid);
+	
+	public int storeImageAdd(@Param("pid") String pid, @Param("vo") StoreImageVO vo);
+	
+	public int storeImageRemove(String pid);
+	
+	public int findAuth(String pid);
+	
+	public int deleteAuth(String pid);
+	
+	public int removePartnerStore(String pid);
 
 }
