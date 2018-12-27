@@ -4,133 +4,147 @@
 <meta charset="UTF-8">
 <title>Title</title>
 <link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <style>
 .map_wrap {
-    position: relative;
-    width: 100%;
-    height: 350px;
+	position: relative;
+	width: 100%;
+	height: 350px;
 }
+
 .title {
-    font-weight: bold;
-    color: rgba(255, 130, 0, 1);
-    display: block;
+	font-weight: bold;
+	color: rgba(255, 130, 0, 1);
+	display: block;
 }
+
 .hAddr {
-    width: 25vh;
-    height: 7vh;
-    border: 2px solid rgb(80, 80, 80); 
-    position: absolute;
-    left: 15px;
-    top: 10px;
-    border-radius: 2px;
-    background: rgba(255, 255, 255, 0.9);
-    z-index: 1;
-    padding: 12px;
+	width: 25vh;
+	height: 7vh;
+	border: 2px solid rgb(80, 80, 80);
+	position: absolute;
+	left: 15px;
+	top: 10px;
+	border-radius: 2px;
+	background: rgba(255, 255, 255, 0.9);
+	z-index: 1;
+	padding: 12px;
 }
+
 #centerAddr {
-    font-weight: bold;
-    color: rgb(50, 50, 50);
-    display: block;
-    margin-top: 2px;
+	font-weight: bold;
+	color: rgb(50, 50, 50);
+	display: block;
+	margin-top: 2px;
 }
+
 .tracker {
-    position: absolute;
-    display: none;
-    cursor: pointer;
-    z-index: 1;
+	position: absolute;
+	display: none;
+	cursor: pointer;
+	z-index: 1;
 }
+
 .glyphicon {
-    position: absolute;
-    font-size: 35px;
-    color: red;
+	position: absolute;
+	font-size: 35px;
+	color: red;
 }
+
 .search {
-    width: 200px;
-    height: 3vh;
+	width: 200px;
+	height: 3vh;
 }
+
 #searchBtn {
-    background-color: white;
-    font-weight: bold;
-    height: 3.5vh;
+	background-color: white;
+	font-weight: bold;
+	height: 3.5vh;
 }
+
 #menu_wrap {
-    position: absolute;
-    top: 70px;
-    left: 6px;
-    bottom: 0;
-    width: 25vh;
-    height: 9.5vh;
-    margin: 10px 0 30px 10px;
-    padding: 8px;
-    overflow-y: auto;
-    background: rgba(255, 255, 255, 0.9);
-    z-index: 1;
-    font-size: 12px;
-    border: 2px solid rgb(80, 80, 80); 
-    border-radius: 2px;
+	position: absolute;
+	top: 70px;
+	left: 6px;
+	bottom: 0;
+	width: 25vh;
+	height: 9.5vh;
+	margin: 10px 0 30px 10px;
+	padding: 8px;
+	overflow-y: auto;
+	background: rgba(255, 255, 255, 0.9);
+	z-index: 1;
+	font-size: 12px;
+	border: 2px solid rgb(80, 80, 80);
+	border-radius: 2px;
 }
+
 .bg_white {
-    background: #fff;
+	background: #fff;
 }
+
 #menu_wrap .option {
-    text-align: center;
+	text-align: center;
 }
+
 #keyword {
-    height: 3.5vh;
+	height: 3.5vh;
 }
+
 #menu_wrap .option button {
-    margin-top: 7px;
-    height: 3vh;
-    width: 21.5vh;
-    font-size: 13px;
-    background-color: #555555 ;
-    border: 1px solid gray;
-    color: white;
-    font-weight: bold;
-    display: inline-block;
-    text-align: center;
-    
+	margin-top: 7px;
+	height: 3vh;
+	width: 21.5vh;
+	font-size: 13px;
+	background-color: #555555;
+	border: 1px solid gray;
+	color: white;
+	font-weight: bold;
+	display: inline-block;
+	text-align: center;
 }
 </style>
 <body>
-    <!-- 지도를 표시할 div 입니다 -->
-    <div class="map_wrap">
-        <div id="map"
-            style="width: 100%; height: 50vh; position: relative; overflow: hidden;">
-        </div>
-        <div class="hAddr">
-            <span class="title">이 위치에서 검색하시겠습니까?</span> <span id="centerAddr"></span>
-        </div>
-        <div id="menu_wrap" class="bg_white">
-            <div class="option">
-                <div>
-                    <!-- <div><input type="text" id="keyword" size="28" placeholder="주소, 건물명, 역명 등을 입력하세요"></div> -->
-                    <!-- <div><button type="submit">검색하기</button></div> -->
-                    <input type="text" class="search" size="28" placeholder="주소, 건물명, 역명 등을 입력하세요"></div>
-                    <div><button id="searchBtn">검색하기</button>
-                   
-                </div>
-            </div>
-        </div>
-        <!-- <div>
+	<!-- 지도를 표시할 div 입니다 -->
+	<div class="map_wrap">
+		<div id="map"
+			style="width: 100%; height: 50vh; position: relative; overflow: hidden;">
+		</div>
+		<div class="hAddr">
+			<span class="title">이 위치에서 검색하시겠습니까?</span> <span id="centerAddr"></span>
+		</div>
+		<div id="menu_wrap" class="bg_white">
+			<div class="option">
+				<div>
+					<!-- <div><input type="text" id="keyword" size="28" placeholder="주소, 건물명, 역명 등을 입력하세요"></div> -->
+					<!-- <div><button type="submit">검색하기</button></div> -->
+					<input type="text" class="search" size="28"
+						placeholder="주소, 건물명, 역명 등을 입력하세요">
+				</div>
+				<div>
+					<button id="searchBtn">검색하기</button>
+
+				</div>
+			</div>
+		</div>
+		<!-- <div>
             <input type="text" class="search" value=""
                 placeholder="원하는 장소를 입력하세요(주소, 건물명, 역명 등)">
             <button id="searchBtn">검색</button>
         </div> -->
-    </div>
-    <form id='actionForm' action="/user/home" method="post"></form>
-    
-    <script src="../main/vendor/jquery/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <!--dao 갖고오기-->
-    <script src="../js/store.js"></script>
-    
-    <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dc56ff6a9fc8065d98b43e87a79e20a4&libraries=services"></script>
-    
-    <script>
+	</div>
+	<form id='actionForm' action="/user/home" method="post"></form>
+
+	<script src="../main/vendor/jquery/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<!--dao 갖고오기-->
+	<script src="../js/store.js"></script>
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dc56ff6a9fc8065d98b43e87a79e20a4&libraries=services"></script>
+
+	<script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
             center: new daum.maps.LatLng(37.575801, 126.976720), // 지도의 중심좌표
@@ -139,6 +153,7 @@
     var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
     var geocoder = new daum.maps.services.Geocoder();   //주소-좌표 변환 객체 생성
     // 장소 검색 객체를 생성합니다
+    
     var ps = new daum.maps.services.Places(); 
     
     // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
@@ -149,42 +164,58 @@
 </script>
 
 
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bf612a8ab63ef21e81421b961f584f3&libraries=services"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bf612a8ab63ef21e81421b961f584f3&libraries=services"></script>
 
 
 
-<script>
+	<script>
 $(document).ready(function(){
     
     var searchBtn = $("#searchBtn");
-    
-    searchBtn.on("click", function(){
-        var searchInput = $(".search");
-                
-        console.log(searchInput.val());
-        ps.keywordSearch(searchInput.val(), placesSearchCB); 
-        console.log(map.getCenter());
-        
-        searchInput.val("");
-        
-    });
-    
-    
-    
+   // var searchInput = $(".search");
+   var searchValue=""; 
+   
     var firstLat, firstLng = 0;
     
+    var iwPosition;
+    var iwContent;
+    var infowindow;  
+    var latlng;
+    var nnstore;
+    
+    
+
+ 
+    // 검색어 입력값 추출
+    searchBtn.on("click", function(){
+    	
+    	var searchInput = $(".search");
+
+        	console.log("searchInput.val(): " + searchInput.val());
+            ps.keywordSearch(searchInput.val(), placesSearchCB);
+            searchValue = searchInput.val();
+            console.log(map.getCenter());
+            searchInput.attr("value",searchInput.val());
+            
+            searchInput.val("");
+            
+            
+           });
+            
     
     //키워드 검색 완료 시 호출되는 콜백함수
     function placesSearchCB (data, status, pagination) {
         
         var array = new Array();
         
+        // caenterAddrinner: 위치정보 주소 변환
+        var centerAddrinner = document.getElementById('centerAddr').innerHTML;
         if (status === daum.maps.services.Status.OK) {
              
             // LatLngBounds 객체에 좌표 추가
             var bounds = new daum.maps.LatLngBounds();
-            
             
             
             for (var i=0; i<data.length; i++) {
@@ -196,8 +227,6 @@ $(document).ready(function(){
                     firstLat = data[i].y;
                     firstLng = data[i].x;
                 }
-                
-                
             }  
             
             // 검색된 장소 위치를 기준으로 지도 범위 재설정
@@ -232,16 +261,14 @@ $(document).ready(function(){
                 marker.setMap(map);
                 markers.push(marker);
                 daum.maps.event.addListener(marker, 'click', makeClickListener(map, markers[i], infowindow));
-            }; //for end    
-            
-        }; 
-            
-    };      
-    
-    
-    
-        
+            }; //for end 
                 
+        }; 
+         
+        
+    };     
+
+  
         function setVisible(visible) {
             tracker.style.display = visible ? 'block' : 'none';
         }
@@ -308,27 +335,41 @@ $(document).ready(function(){
             }    
         }
      
+        // "이 위치에서 검색하시겠습니까?" Click event
         var hAddr = $(".hAddr");
         var str;
         
-        
-        hAddr.on("click", function(){
+         hAddr.on("click", function(){
             
-            
+        	
+        	var centerAddrinner = document.getElementById('centerAddr').innerHTML;
             var centerAddr = $("#centerAddr").html();
-            self.location= "/user/home?lat=" + firstLat +"&lng=" + firstLng +"&search=" + centerAddr;
+            ps.keywordSearch(centerAddr, placesSearchCB); 
+            
+            console.log("lat,lng :" + firstLat, firstLng);
             
             
             
-        });
+            console.log(searchValue)
+            
+              if(searchValue !== ""){
+            	
+            	 self.location= "/user/home?lat=" + firstLat +"&lng=" + firstLng+"&search=" + centerAddrinner;
+            	
+            	 
+            }else{
+            	self.location= "/user/home?lat=" + map.getCenter().ib +"&lng=" + map.getCenter().jb+"&search=" + centerAddrinner;
+            	
+            } 
+             
+         
+        	
+           
+            
+        }); 
+
         
-        
-        
-        var iwPosition;
-        var iwContent;
-        var infowindow;  
-        var latlng;
-        var nnstore;
+
         
         //초기 마커 불러오기 위한 함수
         function markerVisable(){
@@ -366,7 +407,12 @@ $(document).ready(function(){
                 
                     daum.maps.event.addListener(marker, 'click', makeClickListener(map, markers[i], infowindow));
                     setVisible(false);
+
                 }; //for end
+                
+                console.log(map.getCenter().ib);
+                console.log(map.getCenter().jb);
+                
             }
                 
         };
