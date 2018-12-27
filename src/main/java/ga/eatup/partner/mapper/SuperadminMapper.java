@@ -52,5 +52,11 @@ public interface SuperadminMapper {
 	public int storeImageAdd(@Param("pid") String pid, @Param("vo") StoreImageVO vo);
 	
 	public int storeImageRemove(String pid);
+	
+	public int findAuth(String pid);
+	
+	public int deleteAuth(String pid);
+	
+	public int removePartnerStore(String pid);
 
 }

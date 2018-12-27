@@ -215,11 +215,20 @@ public class SuperadminServiceImpl implements SuperadminService {
 		return result;
 	}
 
+	@Transactional
 	@Override
-	public int storeImageRemove(String pid) {
+	public int storeRemove(String pid) {
 		log.info("storeRemove service in superadminServiceImpl......");
+		mapper.storeImageRemove(pid);
+		mapper.deleteAuth(pid);
 		
-		return mapper.storeImageRemove(pid);
+		return mapper.removePartnerStore(pid);
+	}
+
+	@Override
+	public int findAuth(String pid) {
+		// TODO Auto-generated method stub
+		return mapper.findAuth(pid);
 	}
 
 }

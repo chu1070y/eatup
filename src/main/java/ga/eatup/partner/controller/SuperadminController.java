@@ -39,13 +39,21 @@ public class SuperadminController {
 	
 	private static MenuVO menuVO;
 	
+	@GetMapping("/findAuth/{pid}")
+	@ResponseBody
+	public ResponseEntity<Integer> findAuth(@PathVariable("pid") String pid){
+		log.info("findAuth get.....");
+		
+		return new ResponseEntity<>(service.findAuth(pid),HttpStatus.OK);
+	}
+	
 	@PostMapping("/storeremove")
 	public String storeRemove(PartnerVO partnerVO, RedirectAttributes redirect) {
 		log.info("store Remove........");
 		
 		log.info("" + partnerVO);
 
-		int result = service.storeImageRemove(partnerVO.getPid());
+		int result = service.storeRemove(partnerVO.getPid());
 		
 		redirect.addFlashAttribute("storeRemoveResult", result);
 		

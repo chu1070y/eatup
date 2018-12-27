@@ -43,6 +43,8 @@ public interface SuperadminService {
 	
 	public int storeModify(StoreVO vo, String pid);
 	
-	public int storeImageRemove(String pid);
+	public int storeRemove(String pid);
+	
+	public int findAuth(String pid);
 
 }
