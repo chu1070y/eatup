@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,9 +25,13 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.user.domain.CartDTO;
+import ga.eatup.user.domain.FaqPageDTO;
+import ga.eatup.user.domain.FaqVO;
 import ga.eatup.user.domain.MenuVO;
 import ga.eatup.user.domain.UserVO;
+import ga.eatup.user.service.FaqBoardService;
 import ga.eatup.user.service.LoginService;
 import ga.eatup.user.service.MenuService;
 import ga.eatup.user.service.StoreService;
@@ -46,6 +51,9 @@ public class UserController {
 	
 	@Setter(onMethod_=@Autowired)
 	private StoreService storeService;
+	
+	@Setter(onMethod_=@Autowired)
+	private FaqBoardService faqService;
 	
 	@Autowired
 	PasswordEncoder encoder;
@@ -258,5 +266,77 @@ public class UserController {
 		log.info("search page......");
 		
 	}
+	
+	@GetMapping("/oneByone")
+	public void oneByone() {
+		log.info("oneByone......................page");
+	}
+	
+	@Transactional
+	@GetMapping("/faq")
+	public void notice(Model model, FaqPageDTO dto) {
+		log.info("faq......................page");
+		log.info("dto.." + dto);
+		dto.setTotal(faqService.faqCount());
+		
+		model.addAttribute("faqList", faqService.faqList(dto));
+		model.addAttribute("dto", dto);
+	}
+	
+	@GetMapping("/faq/register")
+	public void faqRegister() {
+		log.info("faq register page....");                      
+	}
+	
+	@PostMapping("/faqadd")
+	public String noticeAdd(FaqVO vo,RedirectAttributes redirect) {
+		log.info("faq add........");
+		
+		
+		int result = faqService.faqAdd(vo);
+		
+		redirect.addFlashAttribute("addResult", result);
+		
+		return "redirect:/user/faq";
+	}
+	
+	@GetMapping("/faq/read")
+	public void faqRead(Model model, FaqPageDTO dto) {
+		log.info("faq read page...." + dto.getFno());
+		
+		model.addAttribute("faq",faqService.faqRead(dto.getFno()));
+		model.addAttribute("dto", dto);
+	}
+	
+	@GetMapping("/faq/modify")
+	public void faqModify(Model model, FaqPageDTO dto) {
+		log.info("faq modify page....");
+		model.addAttribute("faq",faqService.faqRead(dto.getFno()));
+		model.addAttribute("dto", dto);
+	}
+	
+	@PostMapping("/faq/modify")
+	public String faqModifyPost(RedirectAttributes redirect, FaqVO vo, FaqPageDTO dto) {
+		log.info("faq modify post....." + dto);
+		log.info("faq modify post....." + vo);
+		
+		int result = faqService.faqModify(vo);
+		
+		redirect.addFlashAttribute("result", result);
+		
+		return dto.getLink("redirect:/user/faq/read");
+	}
+	
+	@PostMapping("/faq/remove")
+	public String faqRemovePost(RedirectAttributes redirect, FaqVO vo) {
+		log.info("notice remove post....." + vo);
+		
+		int result = faqService.faqRemove(vo);
+		
+		redirect.addFlashAttribute("result", result);
+		
+		return "redirect:/user/faq";
+	}
+	
 	
 }
