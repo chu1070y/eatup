@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -97,8 +98,16 @@ public class UserController {
 	
 	@GetMapping("/login/customLogin")
 	public void login() {
-		
-		
+
+	}
+	
+	@GetMapping("/login/customLoginTemp")
+	public void temptemp(@RequestParam String username, @RequestParam String password, Model model) {
+		log.info("===========임시 로그인페이지 ===============");
+		log.info(username);
+		log.info(password);
+		model.addAttribute("username", username);
+		model.addAttribute("password", password);
 	}
 	
 	

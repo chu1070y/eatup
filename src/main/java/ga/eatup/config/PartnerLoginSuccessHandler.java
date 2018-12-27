@@ -22,7 +22,7 @@ public class PartnerLoginSuccessHandler extends SavedRequestAwareAuthenticationS
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		log.info("login success");
+		log.info("partner login success");
 
 		authentication.getAuthorities().forEach(auth -> {
 
@@ -67,6 +67,7 @@ public class PartnerLoginSuccessHandler extends SavedRequestAwareAuthenticationS
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
+		log.info("here is onLoggoutSuccess in partnerLoginSuccessHandler");
 		
 		response.sendRedirect("/partner/login/customLogin");
 

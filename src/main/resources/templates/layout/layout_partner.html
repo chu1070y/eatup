@@ -64,8 +64,8 @@
 		<ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
 			<!-- Navbar -->
 			<li class="nav-item dropdown no-arrow mx-1" style="color: white;">
-				<button id="Disconnected" class="btn btn-outline-warning"
-					value="start">O N</button> <span>관리자페이지</span>
+				<span sec:authorize="hasRole('PARTNER')"><button id="Disconnected" class="btn btn-outline-warning"
+					value="start">O N</button></span> <div sec:authorize="hasRole('ADMIN')"><span>관리자페이지</span></div>
 			</li>
 
 		</ul>
