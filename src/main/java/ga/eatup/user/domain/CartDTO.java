@@ -10,6 +10,7 @@ import lombok.Data;
 public class CartDTO {
 
 	private int sno;
+	private int uno;
 	private int mno;
 	private int mprice;
 	private int quantity;

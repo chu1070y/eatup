@@ -9,14 +9,15 @@
 </strong>
 
 
-카카오페이 결제가 정상적으로 완료되었습니다.
+카카오페이 결제가 정상적으로 완료되었습니다.</br>
 
-결제일시: 	[[${info.approved_at}]]<br/>
-주문번호:	[[${info.partner_order_id}]]<br/>
-상품명:	[[${info.item_name}]]<br/>
-상품수량:	[[${info.quantity}]]<br/>
-결제금액:	[[${info.amount.total}]]<br/>
-결제방법:	[[${info.payment_method_type}]]<br/>
+주문일자: [[${info.kakao.approved_at}]]</br>
+주문번호:	[[${info.kakao.partner_order_id}]]<br/>
+매장명:	[[${info.orderList[0].sname}]]<br/>
+상품명:	[[${info.orderList[0].mname}]]<br/>
+상품수량:	[[${info.orderList[0].quantity}]]<br/>
+ 결제금액:	[[${info.kakao.amount.total}]]<br/> 
+결제방법:	[[${info.kakao.payment_method_type}]]<br/>
 
 <h3>[[${info}]]</h3>
 

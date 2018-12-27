@@ -15,7 +15,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import ga.eatup.user.domain.CartDTO;
+import ga.eatup.user.domain.OrderVO;
 import ga.eatup.user.domain.kakaopay.KakaoPayApprovalVO;
 import ga.eatup.user.domain.kakaopay.KakaoPayReadyVO;
 import lombok.extern.java.Log;
@@ -24,7 +24,7 @@ import lombok.extern.java.Log;
 @Log
 public class KakaoPay {
 
-	private static List<CartDTO> finalCartList;
+	private static List<OrderVO> finalOrderList;
 	
 	private static final String HOST = "https://kapi.kakao.com";
 	
@@ -32,9 +32,9 @@ public class KakaoPay {
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
 	
 	
-	public String kakaoPayReady(int totalPrice, List<CartDTO> cartList) {
+	public String kakaoPayReady(int totalPrice, List<OrderVO> orderList) {
 		
-		finalCartList = cartList;
+		finalOrderList = orderList;
 
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -48,16 +48,16 @@ public class KakaoPay {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("cid", "TC0ONETIME");
 		params.add("partner_order_id", "100");
-		params.add("partner_user_id", "gorany");
-		params.add("item_name", finalCartList.get(0).getSname()+"");
-		params.add("quantity", finalCartList.get(0).getQuantity()+"");
+		params.add("partner_user_id", finalOrderList.get(0).getSno()+"");
+		params.add("item_name", finalOrderList.get(0).getSno()+"");
+		params.add("quantity", finalOrderList.get(0).getQuantity()+"");
 		params.add("total_amount", totalPrice +"");
 		params.add("tax_free_amount","0");
 		params.add("approval_url", "http://localhost:8080/user/kakaopay/kakaoPaySuccess");
 		params.add("cancel_url", "http://localhost:8080/user/kakaopay/kakaoPayCancel");
 		params.add("fail_url", "http://localhost:8080/user/kakaopay/kakaoPaySuccessFail");
 		
-		log.info( "finalcartlist:" + finalCartList);
+		log.info( "finalOrderList:" + finalOrderList);
 
  		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
@@ -81,6 +81,7 @@ public class KakaoPay {
 	}
 	
 	public Map<String, Object> kakaoPayInfo(String pg_token) {
+	
 
 		log.info("KakaoPayInfoVO............................................");
 		log.info("-----------------------------");
@@ -97,20 +98,29 @@ public class KakaoPay {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("cid", "TC0ONETIME");
 		params.add("tid", kakaoPayReadyVO.getTid());
-		params.add("partner_order_id", "1001");
-		params.add("partner_user_id", "gorany");
+		params.add("partner_order_id", "100");
+		params.add("partner_user_id", finalOrderList.get(0).getSno()+"");
 		params.add("pg_token", pg_token);
-		params.add("total_amount", "2100");
+		
+			
 		
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+		
+		
+		log.info("==============================================");
+		log.info("" + params);
+		
+		
 		Map<String, Object> map = new HashMap<>();
+		
+		
 		
 		try {
 			kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
 			log.info("" + kakaoPayApprovalVO);
 			
 			map.put("kakao", kakaoPayApprovalVO);
-			map.put("orderList", finalCartList);
+			map.put("orderList", finalOrderList);
 			
 			return map;
 		
