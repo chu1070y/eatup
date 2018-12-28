@@ -39,7 +39,7 @@
 				</div>
 			</div>
 		</section>
-
+[[${info}]]
 
 	<div>
 		<!-- firebase token -->
@@ -64,6 +64,9 @@ $(document).ready(function() {
 	console.log("상품수량: " + [[${info.cartList[0].quantity}]]);
 	console.log("결제금액: " + [[${info.kakao.amount.total}]]);
 	console.log("결제방법: " + [[${info.kakao.payment_method_type}]]);
+	
+	var cartList = [[${info.cartList}]];
+	console.log("리스트: " +  [[${info.kakao.tid}]]);
 	
 	// 쿠키삭제
 	$.removeCookie('cart');
@@ -107,6 +110,41 @@ $(document).ready(function() {
 			self.location="/user/history";
 			
 		});
+	 
+		//firebase DB에 데이터 넣기
+		var menuArr=["아메리카노","카페라떼","카푸치노","맛나커피"];
+		var quantityArr = [1,2,1,7];
+
+		var result= [];
+
+		for (var i = 0; i < Object.keys(cartList).length ; i++){
+		    str = {menu:cartList[i].mname,quantity:cartList[i].quantity};
+		    result[i]=str;
+		}
+
+		console.log(result);
+
+		function writeNewPost(tid,order_id,menulist) {
+			  // A post entry.
+			  var postData = {
+				tid:tid,
+				order_id:order_id,
+			    menulist:menulist
+			  };
+			  var menu = menu;
+
+			  // Get a key for a new Post.
+			  var newPostKey = firebase.database().ref().child(1).push().key;
+
+			  // Write the new post's data simultaneously in the posts list and the user's post list.
+			  var updates = {};
+			  updates['/'+[[${info.cartList[0].sno}]]+'/' + newPostKey] = postData;
+
+			  return firebase.database().ref().update(updates);
+		}
+		
+		writeNewPost([[${info.kakao.tid}]],[[${order_num}]],result);
+
 
 });
 	</script>

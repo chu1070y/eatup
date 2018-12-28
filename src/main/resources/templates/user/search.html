@@ -330,6 +330,7 @@ $(document).ready(function(){
 				showMenuList: function(data){
 					for (var i = this.menuindex ; i < this.menuindex + 3 ; i++){
 						menulist(data[i]);
+						
 						if(data.length==(i+1)){
 							$("#menuMore").attr("class","hidden");
 							return;

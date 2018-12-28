@@ -1,5 +1,7 @@
 package ga.eatup.user.controller;
 
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,19 +35,19 @@ public class KakaoPayController {
 	@Setter(onMethod_ = @Autowired)
 	private OrderService orderService;
 
-
 	@PostMapping(value = "/kakaoPay", consumes = "application/json")
 	public ResponseEntity<String> kakaoPay(@RequestBody List<CartDTO> cartList) {
 		int totalPrice = 0;
 
-		for (CartDTO vo :cartList) {
+		for (CartDTO vo : cartList) {
 			totalPrice += (vo.getQuantity() * vo.getMprice());
-		};
+		}
+		;
 
 		log.info("============================================================================");
 		log.info("totalPrice: " + totalPrice);
 		log.info("cartList: " + cartList);
-		
+
 		return new ResponseEntity<>(kakaopay.kakaoPayReady(totalPrice, cartList), HttpStatus.OK);
 
 	}
@@ -56,43 +58,64 @@ public class KakaoPayController {
 		log.info("kakaoPaySuccess pg_token : " + pg_token);
 
 		Map<String, Object> result = kakaopay.kakaoPayInfo(pg_token);
-		
-		log.info("result: "+result);
-		
-		//key = kakao
-		KakaoPayApprovalVO kakaokey = (KakaoPayApprovalVO)result.get("kakao");		
-		log.info(""+ kakaokey.getAid());
-		
-		//kakaopayapprovalVO 타입을 CartDTO로 넣기
-		
+
+		log.info("result: " + result);
+
+		// key = kakao
+		KakaoPayApprovalVO kakaokey = (KakaoPayApprovalVO) result.get("kakao");
+		log.info("" + kakaokey.getAid());
+
+		// kakaopayapprovalVO 타입을 CartDTO로 넣기
+
 		String kakaokeyTid = kakaokey.getTid();
-		String kakaokeyPayment_method_type = kakaokey.getPayment_method_type();		
-		String kakaokeyPartner_order_id = kakaokey.getPartner_order_id(); 
+		String kakaokeyPayment_method_type = kakaokey.getPayment_method_type();
+		String kakaokeyPartner_order_id = kakaokey.getPartner_order_id();
 		int kakaokeyQuantity = kakaokey.getQuantity();
-		
+
 		OrderVO orderVO = new OrderVO();
-		List<CartDTO> cartList = (List<CartDTO>)result.get("cartList");
+		List<CartDTO> cartList = (List<CartDTO>) result.get("cartList");
 
 		orderVO.setTid(kakaokeyTid);
 		orderVO.setPayment_method_type(kakaokeyPayment_method_type);
-		orderVO.setPartner_order_id( Integer.parseInt(kakaokeyPartner_order_id));
+		orderVO.setPartner_order_id(Integer.parseInt(kakaokeyPartner_order_id));
 		orderVO.setQuantity(kakaokeyQuantity);
 		orderVO.setSno(cartList.get(0).getSno());
 		orderVO.setMno(cartList.get(0).getMno());
 		orderVO.setUno(1);
 		orderVO.setToken(pg_token);
 		orderVO.setApproved_at(kakaokey.getApproved_at());
-		
-		
-		
-		cartList.forEach(vo->{
-			log.info(""+vo);
+
+		cartList.forEach(vo -> {
+			log.info("" + vo);
 		});
-	
+
 		orderService.insertOrder(orderVO, cartList);
-		
-		
+
 		model.addAttribute("info", result);
+
+		// 가게별 주문번호 구하기
+		Map<Integer, Integer[]> order_num = new HashMap<>();
+
+		Calendar cal = Calendar.getInstance();
+		int date = cal.get(cal.DATE);
+
+		if (order_num.get(cartList.get(0).getSno()) == null) {
+			
+			order_num.put(cartList.get(0).getSno(), new Integer[] { 101, date });
+			
+		} else {
+			
+			if (order_num.get(cartList.get(0).getSno())[1] != date) {
+				
+				order_num.put(cartList.get(0).getSno(), new Integer[] { 101, date });
+			} else {
+				order_num.put(cartList.get(0).getSno(),
+						new Integer[] { order_num.get(cartList.get(0).getSno())[0] + 1, date });
+			}
+		}
+
+		model.addAttribute("order_num", order_num.get(cartList.get(0).getSno())[0]);
+
 	}
 
 	@GetMapping("/kakaopay/kakaoPayFail")
