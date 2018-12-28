@@ -17,6 +17,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Setter(onMethod_=@Autowired)
 	private UserOrderMapper mapper;
+	
 	@Override
 	@Transactional
 	public void insertOrder(OrderVO vo, List<CartDTO> list) {

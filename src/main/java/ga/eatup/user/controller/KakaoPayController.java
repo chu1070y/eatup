@@ -40,6 +40,7 @@ public class KakaoPayController {
 
 		for (CartDTO vo :cartList) {
 			totalPrice += (vo.getQuantity() * vo.getMprice());
+			
 		};
 
 		log.info("============================================================================");
@@ -79,7 +80,7 @@ public class KakaoPayController {
 		orderVO.setQuantity(kakaokeyQuantity);
 		orderVO.setSno(cartList.get(0).getSno());
 		orderVO.setMno(cartList.get(0).getMno());
-		orderVO.setUno(1);
+		orderVO.setUno(33);
 		orderVO.setToken(pg_token);
 		orderVO.setApproved_at(kakaokey.getApproved_at());
 		

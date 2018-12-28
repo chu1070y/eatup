@@ -5,9 +5,6 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<!-- Owl Carousel -->
-<script src="../plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-
 <head>
 
 <meta charset="utf-8">
@@ -45,14 +42,6 @@
 <!-- 자동완성 -->
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-<!-- owl carousel -->
-<link rel="stylesheet" type="text/css"
-	href="../plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-<link rel="stylesheet" type="text/css"
-	href="../plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-<link rel="stylesheet" type="text/css"
-	href="../plugins/OwlCarousel2-2.2.1/animate.css">
 
 
 
@@ -182,10 +171,12 @@
 		$(document).ready(
 				function() {
 					var sidebar = 1;
+
 					$("#sidebarToggle").on(
 							"click",
 							function(e) {
 								e.preventDefault();
+
 								if (sidebar == 0) {
 									$("#wrapper .sidebar").attr("class",
 											"sidebar navbar-nav hidden");
@@ -195,6 +186,7 @@
 											"sidebar navbar-nav ");
 									sidebar = 0;
 								}
+
 							});
 				});
 	</script>
