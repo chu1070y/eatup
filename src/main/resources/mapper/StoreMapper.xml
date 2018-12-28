@@ -7,7 +7,8 @@
  	
  	
  	<select id="getStore" resultType="ga.eatup.user.domain.StoreVO">
- 		select * from partner_store
+ 		select * from gorany.partner_store right join gorany.partner_store_img
+		on gorany.partner_store.sno = gorany.partner_store_img.sno;
  	</select>
  	
  	<select id="getStoreNear" resultType="ga.eatup.user.domain.StoreVO">

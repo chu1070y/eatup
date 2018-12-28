@@ -13,6 +13,9 @@ public class StoreVO {
 	private String qr_uuid, qu_fname;
 	private double lat, lng;
 	private Date regdate;
+	private String uuid;
+	private String upload_path;
+	private String fname;
 	
 	private List<MenuVO> menuList;
 }
