@@ -52,7 +52,7 @@ a {
 
 				<div class="col-lg-12 text-center">
 					<form action="/user/faq/register">
-						<button class="btn btn-success btn-block registerBtn" style="font: 13px sans-serif">글쓰기</button>
+						<button sec:authorize="${hasRole('ADMIN')}" class="btn btn-success btn-block registerBtn" style="font: 13px sans-serif">글쓰기</button>
 					</form>
 
 					<br />
