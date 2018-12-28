@@ -80,8 +80,15 @@ public class PartnerController {
 	}
 	
 	@GetMapping("/index")
-	public void index(Model model, OrderVO order) {
+	public void index(Model model, OrderVO order, Authentication authentication) {
 		log.info("index......................page");
+		
+		String pid = authentication.getName();
+		log.info("pid: " + pid);
+		int sno = menuservice.getSno(pid);
+		log.info("sno: " + sno);
+		
+		model.addAttribute("sno", sno);
 		
 		/*model.addAttribute("result", ordermapper.getOrder(order));*/
 		System.out.println("-=------------------------------>"+model);
