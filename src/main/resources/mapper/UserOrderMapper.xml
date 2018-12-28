@@ -2,30 +2,94 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
- <mapper namespace="ga.eatup.user.mapper.UserOrderMapper">
 
+<mapper namespace="ga.eatup.user.mapper.UserOrderMapper">
+
+
+
+	<resultMap type="ga.eatup.user.domain.OrderInfoVO" id="Oinfo">
+		
+		<result column="mno" property="mno" />
+		<result column="quantity" property="quantity" />
+	</resultMap>
+	
+	<resultMap type="ga.eatup.user.domain.MenuVO" id="PStorMenu">
+		
+		<result column="mname" property="mname" />
+		<result column="mprice" property="mprice" />
+	</resultMap>
+	
+	<resultMap type="ga.eatup.user.domain.StoreVO" id="PStore">
+	
+		<result column="sname" property="sname"/>
+	</resultMap>
+	
+	<resultMap type="ga.eatup.user.domain.OrderVO" id="Order">
+		<result column="tid" property="tid" />
+		<result column="sno" property="sno" />
+		<result column="uno" property="uno" />
+		<result column="payment_method_type" property="payment_method_type" />
+		<result column="approved_at" property="approved_at" />
+
+		<collection property="oinfoList" resultMap="Oinfo" />
+		<collection property="menuList" resultMap="PStorMenu" />
+		<collection property="store" resultMap="PStore" />
+	</resultMap>
 	<insert id="insertOrder">
-		insert into gorany.order(tid,payment_method_type,token,sno,uno,partner_order_id,approved_at)
+		insert into
+		gorany.order(tid,payment_method_type,token,sno,uno,partner_order_id,approved_at)
 		value(#{tid},#{payment_method_type},#{token},#{sno},#{uno},#{partner_order_id},#{approved_at})
 	</insert>
-	
+
 	<insert id="insertOrderInfo">
 		insert into gorany.order_info (tid,mno,quantity)
 		values (#{tid},#{mno},#{quantity})
 	</insert>
-	
+
 	<select id="getUno" resultType="int">
-	select uno from user where uid = #{uid}
+		select uno from user where uid = #{uid}
 	</select>
-	
-	
-	<select id="getOrderHistory" resultType="ga.eatup.user.domain.OrderVO">
-	select gorany.order.tid tid, gorany.order.sno sno, gorany.order.uno uno, gorany.order.approved_at approved_at, gorany.order.payment_method_type payment_method_type, 
-	order_info.mno mno, order_info.quantity quantity
-	from gorany.order inner join order_info
-	on gorany.order.tid = order_info.tid
-	where gorany.order.uno = #{uno} order by approved_at desc;
+
+
+	<select id="getOrderHistory2"
+		resultMap="Order">
+		select gorany.order.tid tid, gorany.order.sno sno, gorany.order.uno uno,
+		gorany.order.approved_at approved_at, gorany.order.payment_method_type
+		payment_method_type,
+		order_info.mno mno, order_info.quantity quantity
+		from gorany.order inner join order_info
+		on gorany.order.tid = order_info.tid
+		where gorany.order.uno = #{uno} order by approved_at desc;
 
 	</select>
+
+	<select id="getOrderHistory"
+		resultMap="Order">
+		select
+		ord.tid,ord.sno,ord.uno,ord.payment_method_type,ord.approved_at,oinfo.mno,
+		oinfo.quantity
+		,psmenu.mname,psmenu.mprice ,pstore.sname
+		from
+		gorany.order ord
+
+		join gorany.order_info oinfo
+		on ord.tid=oinfo.tid
+
+		join gorany.partner_store_menu psmenu
+		on ord.sno=psmenu.sno
+
+		join gorany.partner_store pstore
+		on ord.sno=pstore.sno
+
+		 <choose> 
+		 <when test="uno == '1'.toString">
+		  where ord.tid=#{tid}
+		   </when>
+		 
+		  <otherwise>
+
+		where ord.tid!='' and ord.uno=#{uno}
+		</otherwise> </choose> 
+	</select>
+
 </mapper>

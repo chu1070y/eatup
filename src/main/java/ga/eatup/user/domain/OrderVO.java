@@ -12,5 +12,9 @@ public class OrderVO {
 	private int sno,uno, mno, quantity, partner_order_id;
 	private Date approved_at;
 	
+	private List<OrderInfoVO> oinfoList;
+	private List<MenuVO> menuList;
+	private StoreVO store;
+	
 }
    

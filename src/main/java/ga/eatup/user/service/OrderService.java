@@ -1,6 +1,7 @@
 package ga.eatup.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -13,6 +14,6 @@ public interface OrderService {
 	
 	public int getUno(String uid);
 	
-	public List<OrderVO> getOrderHistory(int uno);
+	public List<OrderVO> getOrderHistory(Map<String, Object> map);
 	
 }

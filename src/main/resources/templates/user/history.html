@@ -30,10 +30,72 @@
 	text-align: center;
 	margin: auto;
 }
+</style>
 
+<div layout:fragment="content">
+
+<style>
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
+
+.largeBtn{
+  display: block;
+  width: 100%;
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+
+a{
+	color: black;
+}
+
+a:hover{
+	color: black;
+}
+
+.heading{
+	text-align: center;
+	background-color: gray;
+	padding: 10px;
+	margin: 10px;
+	color: white;
+}
 
 </style>
-<div layout:fragment="content">
+
 
 
 
@@ -43,7 +105,8 @@
 
 		<h3>주문내역</h3>
 		
-		
+		<!-- hasRole('USER') -->
+		<div sec:authorize="hasRole('USER')">
 			<table class="table table-hover">
 				<thead class="thead-dark">
 					<tr>
@@ -56,13 +119,47 @@
 				<tbody>
 					<tr th:each="history, index : ${history}">
 						<td th:text="${index.index+1}"></td>
-						<td></td>
-						<td th:text="${history.tid}"></td>
+						 <td th:text="${history.store.sname}"></td>
+						<td th:text="${history.tid}"></td> 
 						<td th:text="${#dates.format(history.approved_at, 'yyyy-MM-dd')}"></td>
 					</tr>
 					
 				</tbody>
 			</table>
+		</div>
+		<!-- hasRole('USER') -->
+		
+		<!-- !hasRole('USER') -->
+		<div sec:authorize="!hasRole('USER')">
+		
+		<div class="container">
+	<div class="row">
+        <div class="col-md-12">
+                    <p>※ 비회원은 주문번호로만 주문내역 조회가 가능합니다.</p>
+					<p>주문번호를 입력해주세요.</p></br></br>
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+					<form action="/user/history" >
+                    <input type="text" class="form-control input-lg" name='tid' id="tags" placeholder="주문번호를 입력하세요." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg searchBtn" type="submit">
+                            <i class="fas fa-search glyphicon-search"></i>
+                        </button>
+                    </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<!-- end input -->	
+
+		
+		
+		</div>
+		<!-- !hasRole('USER') -->
+		
+		
 	</div>
 </div>
 </div>

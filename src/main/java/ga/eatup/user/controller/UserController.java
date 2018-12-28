@@ -1,6 +1,7 @@
 package ga.eatup.user.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,6 @@ import ga.eatup.user.domain.CartDTO;
 import ga.eatup.user.domain.FaqPageDTO;
 import ga.eatup.user.domain.FaqVO;
 import ga.eatup.user.domain.MenuVO;
-import ga.eatup.user.domain.OrderVO;
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.service.FaqBoardService;
 import ga.eatup.user.service.LoginService;
@@ -262,17 +262,21 @@ public class UserController {
 	
 	//주문내역 page
 	@GetMapping("/history")
-	public void orderHistory(Authentication authentication, Model model) {
+	public void orderHistory(Authentication authentication,String tid, Model model) {
 		log.info("orderHistory.............");	
 		
 		String uid = (authentication == null) ? "nomember":authentication.getName();
 		log.info("uid: " + uid);
 		int uno = orderService.getUno(uid);
 		log.info("uno:" + uno);
+		Map<String, Object> map =new HashMap<>();
+		map.put("uno", uno);
+		if(uno==1) {
+		map.put("tid",tid);
+		}
+		log.info("history: "+ orderService.getOrderHistory(map));
 		
-		log.info("history: "+ orderService.getOrderHistory(orderService.getUno(uid)));
-		
-		model.addAttribute("history", orderService.getOrderHistory(orderService.getUno(uid)));
+		model.addAttribute("history", orderService.getOrderHistory(map));
 		
 		
 		

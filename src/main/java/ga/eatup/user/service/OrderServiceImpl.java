@@ -1,6 +1,7 @@
 package ga.eatup.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,9 +45,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<OrderVO> getOrderHistory(int uno) {
+	public List<OrderVO> getOrderHistory(Map<String, Object> map) {
 		log.info("=====OrderServiceImpl=======");
-		return mapper.getOrderHistory(uno);
+		return mapper.getOrderHistory(map);
 	}
 
 
