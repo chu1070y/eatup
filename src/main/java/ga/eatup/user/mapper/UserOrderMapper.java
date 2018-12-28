@@ -15,5 +15,7 @@ public interface UserOrderMapper {
 	public int insertOrder(OrderVO vo);
 	
 	public int insertOrderInfo(OrderInfoVO vo);
+	
+	public int getUno(String uid);
 
 }

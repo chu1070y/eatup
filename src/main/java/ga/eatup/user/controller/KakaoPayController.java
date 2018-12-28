@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,17 +53,22 @@ public class KakaoPayController {
 	}
 
 	@GetMapping("/kakaopay/kakaoPaySuccess")
-	public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
+	public void kakaoPaySuccess(Authentication authentication, @RequestParam("pg_token") String pg_token, Model model) {
 		log.info("kakaoPaySuccess get............................................");
 		log.info("kakaoPaySuccess pg_token : " + pg_token);
 
 		Map<String, Object> result = kakaopay.kakaoPayInfo(pg_token);
-		
+		log.info("auth: ----------------------------------------------------" + authentication);
 		log.info("result: "+result);
+		
+		String uid = (authentication == null) ? "nomember":authentication.getName();
+		log.info("uid: " + uid);
+		int uno = orderService.getUno(uid);
+		log.info("uno:" + uno);
+		
 		
 		//key = kakao
 		KakaoPayApprovalVO kakaokey = (KakaoPayApprovalVO)result.get("kakao");		
-		log.info(""+ kakaokey.getAid());
 		
 		//kakaopayapprovalVO 타입을 CartDTO로 넣기
 		
@@ -80,7 +86,7 @@ public class KakaoPayController {
 		orderVO.setQuantity(kakaokeyQuantity);
 		orderVO.setSno(cartList.get(0).getSno());
 		orderVO.setMno(cartList.get(0).getMno());
-		orderVO.setUno(33);
+		orderVO.setUno(orderService.getUno(uid));
 		orderVO.setToken(pg_token);
 		orderVO.setApproved_at(kakaokey.getApproved_at());
 		
