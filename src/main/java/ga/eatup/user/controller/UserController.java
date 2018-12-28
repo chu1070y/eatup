@@ -188,6 +188,7 @@ public class UserController {
 	public void store(@ModelAttribute("sno") int sno,Model model){
 		
 		model.addAttribute("menu", service.getMenu(sno));
+		model.addAttribute("storeimg",storeService.getStoreImg(sno));
 	
 	}
 	
