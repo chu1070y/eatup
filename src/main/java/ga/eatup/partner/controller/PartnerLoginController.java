@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.domain.StoreVO;
 import ga.eatup.partner.service.PartnerService;
+import ga.eatup.user.service.LoginService;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -27,15 +28,27 @@ public class PartnerLoginController {
 	@Setter(onMethod_ = @Autowired)
 	PartnerService service;
 	
+	@Setter(onMethod_ = @Autowired)
+	LoginService loginService;
+	
 	@Autowired
 	PasswordEncoder encoder;
 	
+	@Transactional
 	@GetMapping("/welcome/{pid}")
 	@ResponseBody
 	public ResponseEntity<Integer> checkId(@PathVariable("pid") String pid){
 		log.info("checkId get.....");
 		
-		return new ResponseEntity<>(service.checkId(pid),HttpStatus.OK);
+		int userCheck = loginService.checkId(pid);
+		int partnerCheck = service.checkId(pid);
+		
+		int result = 0;
+		if(userCheck == 1 || partnerCheck == 1) {
+			result = 1;
+		}
+		
+		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 	
 	

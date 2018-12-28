@@ -1,4 +1,4 @@
-/*importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js');
 
 // Initialize Firebase
@@ -15,10 +15,10 @@ firebase.initializeApp(config);
 const messaging = firebase.messaging();
 messaging.setBackgroundMessageHandler(function(payload){
 	
-	const title = "Hello World";
+	const title = "고라니 서비스";
 	const options = {
 			body: payload.data.status
 	};
 	
 	return self.registration.showNotification(title,options);
-});*/
+});

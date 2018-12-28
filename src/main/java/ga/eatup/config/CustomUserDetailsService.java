@@ -40,6 +40,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 		log.info("" + userVO);
 		
 		CustomUser member;
+		log.info("--------------------------------------------------4");
+		log.info(userVO.getDefaultkey());
 		
 		//partner 로그인인 경우
 		if (partnerVO != null) {
@@ -48,15 +50,20 @@ public class CustomUserDetailsService implements UserDetailsService {
 		}else {
 			//customer(user) 로그인에서 소셜 로그인인 경우
 			if (userVO.getDefaultkey() != null) {
+				log.info("--------------------------------------------------1");
 				userVO.setUpw(userVO.getDefaultkey());
+				log.info("--------------------------------------------------2");
 				member = new CustomUser(userVO);
+				log.info("--------------------------------------------------3");
 				userService.nullDefaultkey(username);
 			}
 			//customer(user) 로그인에서 일반 로그인인 경우
 			else {
+				log.info("--------------------------------------------------6");
 				member = new CustomUser(userVO);
 			}
 		}
+		log.info("--------------------------------------------------5");
 		log.info("" + member);
 		
 		return member;

@@ -182,6 +182,8 @@ public class KakaoLoginController {
 		String nickname = vo.getNickname();
 		String email = vo.getEmail();
 		String snsId = vo.getSns_id();
+		
+		System.out.println("=============================================" + snsId);
 
 		//DB에서 끌고 온 데이터
 		  List<UserVO> userList = service.getUserList();
@@ -192,6 +194,9 @@ public class KakaoLoginController {
 		  
 		  //DB에 저장된 sns_id 없을 때, 회원가입 페이지로 넘길 정보 (FlashMap 객체 생성)
 		  FlashMap fm = RequestContextUtils.getOutputFlashMap(request);
+		  
+		  System.out.println("=============================================" + snsId);
+		  System.out.println("=============================================" + userList);
 
 		  //sns_id와 맵핑된 유저 데이터가 DB에 있는지 확인하는 작업.
 		  for(int i = 0; i < userList.size(); i++) {
