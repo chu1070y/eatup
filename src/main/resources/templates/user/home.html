@@ -486,7 +486,7 @@ $(document).ready(function(){
 			  var str = "";
 			  for(var i in minarray){	
 			 	
-				str +="<div class='container'><div class='row'><div class='col-md-7'><a href='/user/store?sno="+list[minarray[i]].sno+"'><img class='img-fluid rounded mb-3 mb-md-0' src='../main/img/portfolio/cafe3.jpg' alt=''></a></div><div class='col-md-5'><h3>"+list[minarray[i]].sname+"</h3><p>"+list[minarray[i]].saddress+"</p><p>"+list[minarray[i]].businessHours+"</p><p><span class='badge badge-info'>#"+list[minarray[i]].b_field+"</span></p></div> </div></div><hr>";
+				str +="<div class='container'><div class='row'><div class='col-md-7'><a href='/user/store?sno="+list[minarray[i]].sno+"'><img class='img-fluid rounded mb-3 mb-md-0' src='/upload/display?fileName="+list[minarray[i]].upload_path +"\/"+ list[minarray[i]].uuid + "_"+list[minarray[i]].fname +"' alt=''></a></div><div class='col-md-5'><h3>"+list[minarray[i]].sname+"</h3><p>"+list[minarray[i]].saddress+"</p><p>"+list[minarray[i]].businessHours+"</p><p><span class='badge badge-info'>#"+list[minarray[i]].b_field+"</span></p></div> </div></div><hr>";
 				
 			  }
 			  $(".bg-light2").html(str);
