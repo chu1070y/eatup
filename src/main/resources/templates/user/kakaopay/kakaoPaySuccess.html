@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layout/layout_user}">
+	layout:decorate="~{/layout/layout_user_kakao}">
 	
 <style>
 * {
@@ -64,10 +64,7 @@ $(document).ready(function() {
 	console.log("상품수량: " + [[${info.cartList[0].quantity}]]);
 	console.log("결제금액: " + [[${info.kakao.amount.total}]]);
 	console.log("결제방법: " + [[${info.kakao.payment_method_type}]]);
-	
-	// 쿠키삭제
-	$.removeCookie('cart');
-
+		
 	 // Initialize Firebase
 	  var config = {
 	    apiKey: "AIzaSyAKegY8LM_wqmn2twvBsMh0LsvGwsUjS6E",
@@ -101,12 +98,17 @@ $(document).ready(function() {
 	  });
 	  
 	  
-	 //버튼 클릭 이벤트
+	 	//버튼 클릭 이벤트
 		$("#successOrder").on("click", function(e) {	
 			
 			self.location="/user/history";
 			
 		});
+	 
+	 
+/* 		// 쿠키삭제
+		var cartCookie = document.cookie;
+		document.cookie = "username=cart" */
 
 });
 	</script>
