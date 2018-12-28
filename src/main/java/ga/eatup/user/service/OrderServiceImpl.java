@@ -11,7 +11,9 @@ import ga.eatup.user.domain.OrderInfoVO;
 import ga.eatup.user.domain.OrderVO;
 import ga.eatup.user.mapper.UserOrderMapper;
 import lombok.Setter;
+import lombok.extern.java.Log;
 
+@Log
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -33,5 +35,15 @@ public class OrderServiceImpl implements OrderService {
 		});
 		
 	}
+
+	@Override
+	public int getUno(String uid) {
+		log.info("get uno..");
+		return mapper.getUno(uid);
+	}
+
+
+
+
 
 }

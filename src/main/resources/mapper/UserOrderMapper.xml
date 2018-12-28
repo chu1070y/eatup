@@ -13,6 +13,10 @@
 	<insert id="insertOrderInfo">
 		insert into gorany.order_info (tid,mno,quantity)
 		values (#{tid},#{mno},#{quantity})
-	
 	</insert>
+	
+	<select id="getUno" resultType="int">
+	select uno from user where uid = #{uid}
+	</select>
+	
 </mapper>
