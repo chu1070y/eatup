@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ga.eatup.user.domain.CartDTO;
+import ga.eatup.user.domain.OrderNumDTO;
 import ga.eatup.user.domain.OrderVO;
 import ga.eatup.user.domain.kakaopay.KakaoPayApprovalVO;
 import ga.eatup.user.service.KakaoPay;
@@ -41,8 +42,7 @@ public class KakaoPayController {
 
 		for (CartDTO vo : cartList) {
 			totalPrice += (vo.getQuantity() * vo.getMprice());
-		}
-		;
+		};
 
 		log.info("============================================================================");
 		log.info("totalPrice: " + totalPrice);
@@ -93,28 +93,32 @@ public class KakaoPayController {
 
 		model.addAttribute("info", result);
 
-		// 가게별 주문번호 구하기
-		Map<Integer, Integer[]> order_num = new HashMap<>();
-
+		// 가게별 주문번호 구하기 - 날짜가 바뀌면 최신화 하기
+		
 		Calendar cal = Calendar.getInstance();
 		int date = cal.get(cal.DATE);
+		
+		log.info("" + date);
+		
+		Map<Integer, Integer[]> temp = new HashMap<>();
 
-		if (order_num.get(cartList.get(0).getSno()) == null) {
-			
-			order_num.put(cartList.get(0).getSno(), new Integer[] { 101, date });
+		if (OrderNumDTO.getOrder_num().get(cartList.get(0).getSno()) == null) {
+			log.info("come come3");
+			OrderNumDTO.putOrder_num(cartList.get(0).getSno(), new Integer[] { 101, date });
 			
 		} else {
 			
-			if (order_num.get(cartList.get(0).getSno())[1] != date) {
-				
-				order_num.put(cartList.get(0).getSno(), new Integer[] { 101, date });
+			if (OrderNumDTO.getOrder_num().get(cartList.get(0).getSno())[1] != date) {
+				log.info("come come2");
+				OrderNumDTO.putOrder_num(cartList.get(0).getSno(), new Integer[] { 101, date });
 			} else {
-				order_num.put(cartList.get(0).getSno(),
-						new Integer[] { order_num.get(cartList.get(0).getSno())[0] + 1, date });
+				log.info("come come");
+				OrderNumDTO.putOrder_num(cartList.get(0).getSno(), new Integer[] {OrderNumDTO.getOrder_num().get(cartList.get(0).getSno())[0] + 1, date });
+				
 			}
 		}
 
-		model.addAttribute("order_num", order_num.get(cartList.get(0).getSno())[0]);
+		model.addAttribute("order_num", OrderNumDTO.getOrder_num().get(cartList.get(0).getSno())[0]);
 
 	}
 
@@ -129,5 +133,6 @@ public class KakaoPayController {
 		log.info("kakaoPayCancel get............................................");
 
 	}
+
 
 }

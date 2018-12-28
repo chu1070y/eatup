@@ -43,7 +43,7 @@
 
 	<div>
 		<!-- firebase token -->
-		<div id="token" style="display: none;"></div>
+		<input type="hidden" id="token"/>
 	</div>
 	
 <!-- /.end content -->
@@ -52,6 +52,7 @@
 <th:block layout:fragment="script">
 	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+	
 	<script th:inline="javascript">
 $(document).ready(function() {
 	
@@ -92,16 +93,73 @@ $(document).ready(function() {
 	  	}) 
 	  	.then(function(token){
 	  		console.log(token);
-	  		$("#token").append(token+"<br/>");
+	  		$("#token").val(token);
 	  	})
 	  	.catch(function(arr){
 	  		console.log("Error Occured");
 	  	}) 
 	  
-	  messaging.onMessage(function(payload){
+/* 	  messaging.onMessage(function(payload){
 		 console.log('onMessage: ', payload); 
 		 console.log(payload.data.status);
-	  });
+	  }); */
+	  
+
+		//child안에 sno값을 넣어주면 된다.
+		var dbRefObject = firebase.database().ref().child([[${info.cartList[0].sno}]]);
+		
+		
+		dbRefObject.once('value',snap =>  {
+			console.log(snap.val());
+			console.log(Object.keys(snap.val()).length);
+			
+			pushMessage("주문이 완료되었습니다." + "앞에 " + Object.keys(snap.val()).length + "개의 주문이 남았습니다.",$("#token").val());
+							
+		});
+	  
+	  
+	  
+		 //음성 메세지 푸시 알람
+		 function pushMessage(data,token){
+			 console.log("push message.........");
+			 
+			 $.ajax({
+				 type:'post',
+					url:'https://fcm.googleapis.com/fcm/send',
+					headers:{
+						"Content-Type" : "application/json",
+						"Authorization" : "key=AAAAgHRKKlg:APA91bHCHmYkU1PANUYZgctP5dBZ1EuZZ5VfS4_fXUicesDas88tm6Rs1y35YMmLuOzAu3xmQqfI0KtR17UcdGR2ZuYrxhLJ2QasccO4xsO3kEBC98lO-Np1nIrxCa_mgE_DnnPCaxCe"
+					},
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					data:JSON.stringify({
+					    "notification" : {
+					        "body" : data,
+					        "title" : "FCM Message", 
+					        "click_action": "http://localhost:8080/user/home",
+					        "icon": "http://url-to-an-icon/icon.png"
+					        },
+					      "to": token
+					  }),
+					success: function(){
+						console.log(token);
+						console.log(data);
+						console.log("푸시 성공");
+					},
+					error: function(){
+						console.log("푸시 실패");
+					}
+			 });
+		 }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 	  
 	  
 	 //버튼 클릭 이벤트
@@ -112,9 +170,6 @@ $(document).ready(function() {
 		});
 	 
 		//firebase DB에 데이터 넣기
-		var menuArr=["아메리카노","카페라떼","카푸치노","맛나커피"];
-		var quantityArr = [1,2,1,7];
-
 		var result= [];
 
 		for (var i = 0; i < Object.keys(cartList).length ; i++){
@@ -122,7 +177,7 @@ $(document).ready(function() {
 		    result[i]=str;
 		}
 
-		console.log(result);
+		console.log("result: " + result);
 
 		function writeNewPost(tid,order_id,menulist) {
 			  // A post entry.
