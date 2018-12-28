@@ -1,5 +1,7 @@
 console.log("firebase realtime db js");
 
+
+	
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyAKegY8LM_wqmn2twvBsMh0LsvGwsUjS6E",
@@ -14,7 +16,7 @@ firebase.initializeApp(config);
 var preObject = document.getElementById('object');
 
 //child안에 sno값을 넣어주면 된다.
-var dbRefObject = firebase.database().ref().child(1);
+var dbRefObject = firebase.database().ref().child(sno);
 
 dbRefObject.on('value',snap =>  {
 
@@ -102,11 +104,12 @@ dbRefObject.on('value',snap =>  {
 	//firebase DB에 데이터 지우기
 	//여기서 1은 sno를 뜻함.
 	function deleteFirebase(key){
-		var remove = '/1/'+key;
+		var remove = '/'+sno +'/'+key;
 		return firebase.database().ref(remove).remove();
 	}
 
 	
 });
+
 
 console.log("firebase realtime db js end");
