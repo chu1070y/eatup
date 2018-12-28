@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ga.eatup.user.domain.StoreVO;
 import ga.eatup.user.mapper.StoreMapper;
@@ -28,5 +29,13 @@ public class StoreServiceImpl implements StoreService {
 		log.info("근처의 스토어 목록을 가져옵니다.");
 		return storeMapper.getStoreNear(lat, lng);
 	}
+
+	@Override
+	public List<StoreVO> getStoreImg(@RequestParam("sno") int sno) {
+		
+		return storeMapper.getStoreImg(sno);
+	}
+	
+	
 
 }
