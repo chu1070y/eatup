@@ -4,15 +4,15 @@
 
 <div layout:fragment="content">
 
-<style>
-	
-	.item img {
-/* 	border: 20px solid gold; */
+	<style>
+.item img {
+	/* 	border: 20px solid gold; */
 	border-radius: 50%;
 	-moz-border-radius: 50%;
 	-khtml-border-radius: 50%;
 	-webkit-border-radius: 50%;
 }
+
 #custom-search-input {
 	padding: 3px;
 	border: solid 1px #E4E4E4;
@@ -47,8 +47,9 @@
 </style>
 
 
- 	<!--csrf.token을 불러오지 못하는 문제가 있어서, 일단 여기서 한번 호출해두는 것 (스크립트에서 이 값을 빼서 쓰진 않음)-->
-	<input type="hidden" id="token" th:name="${_csrf.headerName}" th:value="${_csrf.token}" />
+	<!--csrf.token을 불러오지 못하는 문제가 있어서, 일단 여기서 한번 호출해두는 것 (스크립트에서 이 값을 빼서 쓰진 않음)-->
+	<input type="hidden" id="token" th:name="${_csrf.headerName}"
+		th:value="${_csrf.token}" />
 
 	<!-- Current Location -->
 	<div id="mylocation">
@@ -59,29 +60,29 @@
 					aria-label="Button group with nested dropdown">
 
 
-					 <div th:if="${location == null}">
-					 
+					<div th:if="${location == null}">
+
 						<button type=button class='btn btn-light' id="get-mylocation">
 						</button>
-						
-					</div> 
-					
+
+					</div>
+
 					<div th:if="${location != null}">
-						<button type=button class='btn btn-light' >
+						<button type=button class='btn btn-light'>
 							<table>
-								 <tr>
-									  <td th:text="${search != null} ? ${search} : ''"></td>
-									
-								</tr> 
-								
-								
+								<tr>
+									<td th:text="${search != null} ? ${search} : ''"></td>
+
+								</tr>
+
+
 							</table>
-							
+
 						</button>
 					</div>
-					
-					
-					
+
+
+
 					<div class="btn-group" role="group">
 						<button id="btnGroupDrop1" type="button"
 							class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
@@ -90,10 +91,13 @@
 							<a class="dropdown-item" href="http://localhost:8080/user/map">지도로
 								찾기</a>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
+		</div>
+		<div sec:authorize="${hasRole('USER')}">
+			<h6>권한이 있어야 나오는 글!!!!!!!!!!!!</h6>
 		</div>
 
 		<!-- Services -->
@@ -106,42 +110,48 @@
 							결제해보세요!</h6>
 					</div>
 				</div>
-				<div class="row">
-<!-- 					<div class="col-sm-4"> -->
+
+				<!-- <div sec:authorize="${hasRole('USER')}"> -->
+
+					<div class="row">
+						<!-- 					<div class="col-sm-4"> -->
 						<div class="owl-carousel team-member">
 							<div class="item">
-							<img class="mx-auto rounded-circle" src="../main/img/team/1.jpg"
-								alt="">
-							<h4>아이스아메리카노</h4>
-							<p class="text-muted">고라니카페</p>
-							<ul class="list-inline social-buttons">
-							</ul>
-							</div>
-						
-							<div class="item">
-							<img class="mx-auto rounded-circle" src="../main/img/team/2.jpg"
-								alt="">
-							<h4>에그마요샌드위치</h4>
-							<p class="text-muted">고라니카페</p>
-							<ul class="list-inline social-buttons">
-							</ul>
+								<img class="mx-auto rounded-circle" src="../main/img/team/1.jpg"
+									alt="">
+								<h4>아이스아메리카노</h4>
+								<p class="text-muted">고라니카페</p>
+								<ul class="list-inline social-buttons">
+								</ul>
 							</div>
 
 							<div class="item">
-							<img class="mx-auto rounded-circle" src="../main/img/team/3.jpg"
-								alt="">
-							<h4>무가당사과쥬스</h4>
-							<p class="text-muted">고라니카페</p>
-							<ul class="list-inline social-buttons">
-							</ul>
+								<img class="mx-auto rounded-circle" src="../main/img/team/2.jpg"
+									alt="">
+								<h4>에그마요샌드위치</h4>
+								<p class="text-muted">고라니카페</p>
+								<ul class="list-inline social-buttons">
+								</ul>
+							</div>
+
+							<div class="item">
+								<img class="mx-auto rounded-circle" src="../main/img/team/3.jpg"
+									alt="">
+								<h4>무가당사과쥬스</h4>
+								<p class="text-muted">고라니카페</p>
+								<ul class="list-inline social-buttons">
+								</ul>
+							</div>
+							<!-- end carousel -->
 						</div>
-					<!-- end carousel -->
+
+						<!-- </div> -->
 					</div>
 				<!-- </div> -->
+				<!-- security  -->
+
 			</div>
-			
-		</div>
-	</section>
+		</section>
 
 		<!-- Portfolio Grid -->
 		<section class="bg-light" id="portfolio">
@@ -325,7 +335,7 @@
 	<!-- google Geolocation -->
 	<script type="text/javascript"
 		src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCOjYqPJ97sckNjih-R8q07zMO9e8R-VJU&ver=3.exp"></script>
-<script type="text/javascript"
+	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dc56ff6a9fc8065d98b43e87a79e20a4&libraries=services"></script>
 
 
