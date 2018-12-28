@@ -2,20 +2,51 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layout/layout_user}">
 
+<style>
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.container {
+	item-align: center;
+	text-align: center;
+	margin: auto;
+}
+.col-lg-9 {
+	item-align: center;
+	text-align: center;
+	margin: auto;
+}
+
+.table table-hover {
+	item-align: center;
+	text-align: center;
+	margin: auto;
+}
+
+.thead-dark{
+	item-align: center;
+	text-align: center;
+	margin: auto;
+}
+
+
+</style>
 <div layout:fragment="content">
 
-	<!-- content -->
 
+
+	<!-- content -->
+<div class="container">
 	<div class="col-lg-9">
 
 		<h3>주문내역</h3>
 		
 		
-			<table class="table">
+			<table class="table table-hover">
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col"><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"  checked="checked">
-  							<label class="form-check-label" for="inlineCheckbox1"></label></div></th>
 						<th scope="col">No</th>
 						<th scope="col">상호명</th>
 						<th scope="col">주문번호</th>
@@ -23,28 +54,35 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"  checked="checked">
-  							<label class="form-check-label" for="inlineCheckbox1"></label></div></td>
-						<td>1</td>
-						<td>커피점빵</td>
-						<td>T232929192</td>
-						<td>2018-12-29</td>
+					<tr th:each="history, index : ${history}">
+						<td th:text="${index.index+1}"></td>
+						<td></td>
+						<td th:text="${history.tid}"></td>
+						<td th:text="${#dates.format(history.approved_at, 'yyyy-MM-dd')}"></td>
 					</tr>
 					
 				</tbody>
 			</table>
 	</div>
 </div>
+</div>
+
+
 
 <th:block layout:fragment="script">
 <script th:inline="javascript">
-
+$(document).ready(function(){
+	
+	var history = [[${history}]]
+	
+	console.log(history);
 	
 	
 	
 	
 	
+	
+});
 
 </script>
 </th:block>

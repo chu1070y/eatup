@@ -19,4 +19,13 @@
 	select uno from user where uid = #{uid}
 	</select>
 	
+	
+	<select id="getOrderHistory" resultType="ga.eatup.user.domain.OrderVO">
+	select gorany.order.tid tid, gorany.order.sno sno, gorany.order.uno uno, gorany.order.approved_at approved_at, gorany.order.payment_method_type payment_method_type, 
+	order_info.mno mno, order_info.quantity quantity
+	from gorany.order inner join order_info
+	on gorany.order.tid = order_info.tid
+	where gorany.order.uno = #{uno} order by approved_at desc;
+
+	</select>
 </mapper>

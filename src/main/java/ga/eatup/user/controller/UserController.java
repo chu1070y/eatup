@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,15 +27,16 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.user.domain.CartDTO;
 import ga.eatup.user.domain.FaqPageDTO;
 import ga.eatup.user.domain.FaqVO;
 import ga.eatup.user.domain.MenuVO;
+import ga.eatup.user.domain.OrderVO;
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.service.FaqBoardService;
 import ga.eatup.user.service.LoginService;
 import ga.eatup.user.service.MenuService;
+import ga.eatup.user.service.OrderService;
 import ga.eatup.user.service.StoreService;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -55,6 +57,9 @@ public class UserController {
 	
 	@Setter(onMethod_=@Autowired)
 	private FaqBoardService faqService;
+	
+	@Setter(onMethod_=@Autowired)
+	private OrderService orderService;
 	
 	@Autowired
 	PasswordEncoder encoder;
@@ -256,8 +261,19 @@ public class UserController {
 	
 	//주문내역 page
 	@GetMapping("/history")
-	public void orderHistory() {
-		log.info("orderHistory.............");
+	public void orderHistory(Authentication authentication, Model model) {
+		log.info("orderHistory.............");	
+		
+		String uid = (authentication == null) ? "nomember":authentication.getName();
+		log.info("uid: " + uid);
+		int uno = orderService.getUno(uid);
+		log.info("uno:" + uno);
+		
+		log.info("history: "+ orderService.getOrderHistory(orderService.getUno(uid)));
+		
+		model.addAttribute("history", orderService.getOrderHistory(orderService.getUno(uid)));
+		
+		
 		
 	}
 	

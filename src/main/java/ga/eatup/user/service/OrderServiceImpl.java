@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ga.eatup.user.domain.CartDTO;
 import ga.eatup.user.domain.OrderInfoVO;
@@ -41,6 +42,14 @@ public class OrderServiceImpl implements OrderService {
 		log.info("get uno..");
 		return mapper.getUno(uid);
 	}
+
+	@Override
+	public List<OrderVO> getOrderHistory(int uno) {
+		log.info("=====OrderServiceImpl=======");
+		return mapper.getOrderHistory(uno);
+	}
+
+
 
 
 
