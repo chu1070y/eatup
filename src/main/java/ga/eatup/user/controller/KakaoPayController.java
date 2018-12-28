@@ -53,14 +53,12 @@ public class KakaoPayController {
 		return new ResponseEntity<>(kakaopay.kakaoPayReady(totalPrice, cartList), HttpStatus.OK);
 
 	}
-
 	@GetMapping("/kakaopay/kakaoPaySuccess")
 	public void kakaoPaySuccess(Authentication authentication, @RequestParam("pg_token") String pg_token, Model model) {
 		log.info("kakaoPaySuccess get............................................");
 		log.info("kakaoPaySuccess pg_token : " + pg_token);
 
 		Map<String, Object> result = kakaopay.kakaoPayInfo(pg_token);
-
 		log.info("auth: ----------------------------------------------------" + authentication);
 		log.info("result: "+result);
 		
@@ -75,18 +73,17 @@ public class KakaoPayController {
 		
 		//kakaopayapprovalVO 타입을 CartDTO로 넣기
 		
-
 		String kakaokeyTid = kakaokey.getTid();
-		String kakaokeyPayment_method_type = kakaokey.getPayment_method_type();
-		String kakaokeyPartner_order_id = kakaokey.getPartner_order_id();
+		String kakaokeyPayment_method_type = kakaokey.getPayment_method_type();		
+		String kakaokeyPartner_order_id = kakaokey.getPartner_order_id(); 
 		int kakaokeyQuantity = kakaokey.getQuantity();
-
+		
 		OrderVO orderVO = new OrderVO();
-		List<CartDTO> cartList = (List<CartDTO>) result.get("cartList");
+		List<CartDTO> cartList = (List<CartDTO>)result.get("cartList");
 
 		orderVO.setTid(kakaokeyTid);
 		orderVO.setPayment_method_type(kakaokeyPayment_method_type);
-		orderVO.setPartner_order_id(Integer.parseInt(kakaokeyPartner_order_id));
+		orderVO.setPartner_order_id( Integer.parseInt(kakaokeyPartner_order_id));
 		orderVO.setQuantity(kakaokeyQuantity);
 		orderVO.setSno(cartList.get(0).getSno());
 		orderVO.setMno(cartList.get(0).getMno());
