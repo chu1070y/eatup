@@ -12,7 +12,8 @@
  	</select>
  	
  	<select id="getStoreNear" resultType="ga.eatup.user.domain.StoreVO">
- 	select * from gorany.partner_store 
+ 	select * from gorany.partner_store right join gorany.partner_store_img
+		on gorany.partner_store.sno = gorany.partner_store_img.sno
 order by sqrt( pow(#{plat} - lat, 2) + pow(#{plng} - lng,2)) 
 limit 0, 10
  	</select>
