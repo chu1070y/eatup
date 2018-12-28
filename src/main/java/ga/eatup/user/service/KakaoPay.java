@@ -99,7 +99,7 @@ public class KakaoPay {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("cid", "TC0ONETIME");
 		params.add("tid", kakaoPayReadyVO.getTid());
-		params.add("partner_order_id", "100");
+		params.add("partner_order_id", finalcartList.get(0).getSno()+"");
 		params.add("partner_user_id", finalcartList.get(0).getSno()+"");
 		params.add("pg_token", pg_token);
 		

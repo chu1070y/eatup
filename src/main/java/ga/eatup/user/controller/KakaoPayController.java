@@ -58,10 +58,10 @@ public class KakaoPayController {
 		log.info("kakaoPaySuccess pg_token : " + pg_token);
 
 		Map<String, Object> result = kakaopay.kakaoPayInfo(pg_token);
-		
+		log.info("auth: ----------------------------------------------------" + authentication);
 		log.info("result: "+result);
 		
-		String uid = authentication.getName();
+		String uid = (authentication == null) ? "nomember":authentication.getName();
 		log.info("uid: " + uid);
 		int uno = orderService.getUno(uid);
 		log.info("uno:" + uno);
