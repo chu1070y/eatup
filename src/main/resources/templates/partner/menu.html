@@ -10,14 +10,15 @@ a {
 	color: black;
 }
 
-#content-wrapper {
+ #content-wrapper {
  font: 14px sans-serif
-}
+} 
 
-.col-centered {
-	float: none;
+ .col-centered {
+ 	float: none; 
 	margin: 0 auto;
-}
+	
+} 
 
 
 img {
@@ -30,6 +31,24 @@ img {
 	
 
 }
+  .form-control{
+ 
+	display: block;
+	margin-left: 10px;
+	margin-right: 10px;
+	
+	position: relative; 
+	
+	 width: 100vh; 
+	/* height: 200px; */
+} 
+
+
+
+
+
+	
+
 </style>
 
 	<ol class="breadcrumb" style="font: 12px sans-serif">
@@ -53,20 +72,23 @@ img {
 					<div th:text="${menu.introduction}" align="center"></div>
 					</br>
 
-					<div class="row">
-						<div class="col-xl-3 col-sm-6 mb-3 col-centered">
-							<div class="input-group">
-								주문량 <input class="form-control" aria-label="Default"
+				</div>
+					 <div class="card-body"> 
+						
+							  <div class="input-group">
+							  주문량 
+								<input class="form-control" aria-label="Default"
 									aria-describedby="inputGroup-sizing-default" type="number"
 									id="usernumber" name="usernumber" value="5" step="1" min="0"
-									max="1000"> <span class="input-group-btn">
+									max="1000"  /> 
+								<span class="input-group-btn">
 									<button type="button" class="btn btn-dark" style="font: 12px sans-serif">설정</button>
 								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<button id="soldout" type="button" class="btn btn-danger" style="font: 12px sans-serif">품절</button>
+							  </div>  
+						<!-- </div> -->
+			 		</div> 
+				<button id="soldout" type="button" class="btn btn-outline-danger" style="font: 12px sans-serif">품절</button>
+
 			</div>
 		</div>
 
@@ -81,5 +103,16 @@ img {
 
 		
 		});
+		
+		$(".btn.btn-dark").click(function(){
+			console.log("click!!!");
+			var aaa = $(".form-control");
+			
+			var bbb = document.getElementById("form-control")
+			
+			
+			console.log(aaa[1]);
+			
+		})
 	</script>
 </th:block>
