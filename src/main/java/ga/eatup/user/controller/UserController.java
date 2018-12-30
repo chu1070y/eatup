@@ -267,13 +267,18 @@ public class UserController {
 		
 		String uid = (authentication == null) ? "nomember":authentication.getName();
 		log.info("uid: " + uid);
+		
 		int uno = orderService.getUno(uid);
 		log.info("uno:" + uno);
+		
 		Map<String, Object> map =new HashMap<>();
 		map.put("uno", uno);
+		
 		if(uno==1) {
-		map.put("tid",tid);
+		
+			map.put("tid",tid);
 		}
+		
 		log.info("history: "+ orderService.getOrderHistory(map));
 		
 		model.addAttribute("history", orderService.getOrderHistory(map));

@@ -6,15 +6,14 @@
 <mapper namespace="ga.eatup.user.mapper.UserOrderMapper">
 
 
-
 	<resultMap type="ga.eatup.user.domain.OrderInfoVO" id="Oinfo">
-		
 		<result column="mno" property="mno" />
 		<result column="quantity" property="quantity" />
 	</resultMap>
 	
 	<resultMap type="ga.eatup.user.domain.MenuVO" id="PStorMenu">
 		
+		<result column="mno" property="mno" />
 		<result column="mname" property="mname" />
 		<result column="mprice" property="mprice" />
 	</resultMap>
@@ -35,6 +34,7 @@
 		<collection property="menuList" resultMap="PStorMenu" />
 		<collection property="store" resultMap="PStore" />
 	</resultMap>
+	
 	<insert id="insertOrder">
 		insert into
 		gorany.order(tid,payment_method_type,token,sno,uno,partner_order_id,approved_at)
@@ -48,19 +48,6 @@
 
 	<select id="getUno" resultType="int">
 		select uno from user where uid = #{uid}
-	</select>
-
-
-	<select id="getOrderHistory2"
-		resultMap="Order">
-		select gorany.order.tid tid, gorany.order.sno sno, gorany.order.uno uno,
-		gorany.order.approved_at approved_at, gorany.order.payment_method_type
-		payment_method_type,
-		order_info.mno mno, order_info.quantity quantity
-		from gorany.order inner join order_info
-		on gorany.order.tid = order_info.tid
-		where gorany.order.uno = #{uno} order by approved_at desc;
-
 	</select>
 
 	<select id="getOrderHistory"
@@ -80,7 +67,7 @@
 
 		join gorany.partner_store pstore
 		on ord.sno=pstore.sno
-
+		
 		 <choose> 
 		 <when test="uno == '1'.toString">
 		  where ord.tid=#{tid}
@@ -90,6 +77,9 @@
 
 		where ord.tid!='' and ord.uno=#{uno}
 		</otherwise> </choose> 
+		and oinfo.mno=psmenu.mno
+		order by approved_at desc
+		
 	</select>
 
 </mapper>

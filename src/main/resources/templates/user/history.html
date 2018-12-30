@@ -13,6 +13,7 @@
 	text-align: center;
 	margin: auto;
 }
+
 .col-lg-9 {
 	item-align: center;
 	text-align: center;
@@ -25,7 +26,13 @@
 	margin: auto;
 }
 
-.thead-dark{
+.thead-dark {
+	item-align: center;
+	text-align: center;
+	margin: auto;
+}
+
+.modal {
 	item-align: center;
 	text-align: center;
 	margin: auto;
@@ -34,152 +41,202 @@
 
 <div layout:fragment="content">
 
-<style>
-#custom-search-input{
-    padding: 3px;
-    border: solid 1px #E4E4E4;
-    border-radius: 6px;
-    background-color: #fff;
-}
-
-#custom-search-input input{
-    border: 0;
-    box-shadow: none;
-}
-
-#custom-search-input button{
-    margin: 2px 0 0 0;
-    background: none;
-    box-shadow: none;
-    border: 0;
-    color: #666666;
-    padding: 0 8px 0 10px;
-    border-left: solid 1px #ccc;
-}
-
-#custom-search-input button:hover{
-    border: 0;
-    box-shadow: none;
-    border-left: solid 1px #ccc;
-}
-
-#custom-search-input .glyphicon-search{
-    font-size: 23px;
-}
-
-.largeBtn{
-  display: block;
-  width: 100%;
-  border: none;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: center;
-}
-
-
-a{
-	color: black;
-}
-
-a:hover{
-	color: black;
-}
-
-.heading{
-	text-align: center;
-	background-color: gray;
-	padding: 10px;
-	margin: 10px;
-	color: white;
-}
-
-</style>
 
 
 
 
 	<!-- content -->
-<div class="container">
-	<div class="col-lg-9">
+	<div class="container">
+		<div class="col-lg-9">
 
-		<h3>주문내역</h3>
-		
-		<!-- hasRole('USER') -->
-		<div sec:authorize="hasRole('USER')">
-			<table class="table table-hover">
-				<thead class="thead-dark">
-					<tr>
-						<th scope="col">No</th>
-						<th scope="col">상호명</th>
-						<th scope="col">주문번호</th>
-						<th scope="col">주문일자</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="history, index : ${history}">
-						<td th:text="${index.index+1}"></td>
-						 <td th:text="${history.store.sname}"></td>
-						<td th:text="${history.tid}"></td> 
-						<td th:text="${#dates.format(history.approved_at, 'yyyy-MM-dd')}"></td>
-					</tr>
-					
-				</tbody>
-			</table>
+			<h3>주문내역</h3>
+
+			<!-- hasRole('USER') -->
+			<div sec:authorize="hasRole('USER')">
+				<table class="table table-hover">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">No</th>
+							<th scope="col">상호명</th>
+							<th scope="col">주문번호</th>
+							<th scope="col">주문일자</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="orderList" th:each="history, index : ${history}"  th:data-idx="${index.index}">
+						
+							<td th:text="${index.index+1}"></td>
+							<td th:text="${history.store.sname}"></td>
+							<td th:text="${history.tid}"></td>
+							<td th:text="${#dates.format(history.approved_at, 'yyyy-MM-dd')}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+				<!-- hasRole('USER') -->
+
+
+				<!-- !hasRole('USER') -->
+				<div sec:authorize="!hasRole('USER')">
+						<div class="row">
+							<div class="col-md-12">
+								<p>※ 비회원은 주문번호로만 주문내역 조회가 가능합니다.</p>
+								
+
+								<form id="actionForm">
+								<div class="container">
+    							 <label for="getTid">주문번호</label>
+  								<div class="form-inline">
+        						<input name='tid' class="form-control mr-1" placeholder="주문번호를 입력하세요.">
+        						<button id="submitBtn" class="btn btn-primary"><i class="fas fa-search glyphicon-search" style="color: white"></i></button>
+    							</div>
+								</div>
+								</form>
+								 
+								
+							</div>
+						</div>
+					<!-- end input -->
+				</div>
+				<!-- !hasRole('USER') -->
+
+		<!-- Modal -->
+			<div class="modal" id="myModal" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">주문상세조회</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span class="modalclose" aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="col-md-7">
+							<h5 id="sname"></h5>
+							<span id="tid"></span>
+							</div>
+							<div class="col-md-5">
+								<h6 id="mname"></h6>
+								<span id="mprice"></span>
+								<p id="quantity"></p>
+							</div>
+							<div class="modal-footer">
+								<h4 id="totalPrice"></h4>
+								<button id="closeBtn" type="button" class="btn btn-primary">확인</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+				<!-- /.modal -->
+
+
+			</div>
 		</div>
-		<!-- hasRole('USER') -->
-		
-		<!-- !hasRole('USER') -->
-		<div sec:authorize="!hasRole('USER')">
-		
-		<div class="container">
-	<div class="row">
-        <div class="col-md-12">
-                    <p>※ 비회원은 주문번호로만 주문내역 조회가 가능합니다.</p>
-					<p>주문번호를 입력해주세요.</p></br></br>
-            <div id="custom-search-input">
-                <div class="input-group col-md-12">
-					<form action="/user/history" >
-                    <input type="text" class="form-control input-lg" name='tid' id="tags" placeholder="주문번호를 입력하세요." />
-                    <span class="input-group-btn">
-                        <button class="btn btn-info btn-lg searchBtn" type="submit">
-                            <i class="fas fa-search glyphicon-search"></i>
-                        </button>
-                    </span>
-                    </form>
-                </div>
-            </div>
-        </div>
-	</div>
-</div>
-<!-- end input -->	
-
-		
-		
-		</div>
-		<!-- !hasRole('USER') -->
-		
-		
-	</div>
-</div>
-</div>
 
 
 
-<th:block layout:fragment="script">
-<script th:inline="javascript">
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
 $(document).ready(function(){
 	
-	var history = [[${history}]]
+	var history = [[${history}]];
+	var actionForm=$('#actionForm');
+	var totalPrice = 0;
+ 	var str = "";
 	
-	console.log(history);
+ 	console.log(history);
 	
-	
-	
-	
-	
-	
-});
+	//회원: orderList click Modal
+ 	$(".orderList").on("click", function(e){
+ 		 			
+ 		$("#myModal").show();
+ 		
+ 		var idx = $(this).data('idx');
+ 		console.log("modal click...");
+ 		
+ 		str += "<h5 id='sname'>" + history[idx].store.sname + "</h5>";	
+ 		str += "<span id='tid'> 주문번호 " + history[idx].tid + "</span>";
+ 		str += "<hr>";
+ 	
+ 			for(var i = 0; i < history[idx].menuList.length; i++){
+ 			
+ 	 		str += "<h6 id='mname'>"+ history[idx].menuList[i].mname +"</h6>";
+ 			str += "<span id='mprice'>수량: "+ history[idx].oinfoList[i].quantity +"</span>";
+ 			str += "<p id='quantity'>가격: "+ history[idx].menuList[i].mprice +"원</p>"
+ 	 		str += "<hr>";
+ 			
+ 			
+ 			totalPrice += parseInt(history[idx].menuList[i].mprice);
+ 	
+ 		}
 
+ 		str += "<h4 id='totalPrice'>총 금액: "+ totalPrice +"원</h4>";
+ 		
+ 		$(".col-md-7").html(str);
+ 		
+ 		
+ 		// '확인'버튼 클릭
+ 		$("#closeBtn").on("click", function(){
+ 			console.log("modal close");
+ 			 
+ 			str = "";
+ 			$("#myModal").hide();
+ 			
+ 		});
+ 		
+ 		// 'X'버튼 클릭
+ 		$(".modalclose").on("click", function(e) {
+ 			console.log("modal close");
+ 			 
+ 			str = "";
+ 			$("#myModal").hide();
+ 		});
+ 		
+ 	});//end 회원 Modal
+ 	
+
+
+ 	
+  	//비회원: submitBtn click Modal
+ 	$(".submitBtn").on("click", function(e){
+ 		e.preventDefault();
+ 		e.stopPropagation();
+ 		
+ 		console.log("click submitBtn....");
+ 		
+ 	 /* 	var getTid = $("input[name='tid']".val());
+ 		console.log("getTid:"+ getTid);
+ 		
+ 		actionForm.attr("action",'/user/history')
+ 		actionForm.find('input[name="tid"]').val(getTid);
+		actionForm.submit();
+ 		
+ 		$("#myModal").show();
+ 		
+ 		
+ 		// '확인'버튼 클릭
+ 		$("#closeBtn").on("click", function(){
+ 			console.log("modal close");
+ 			 
+ 			$("#myModal").hide();
+ 			
+ 		});
+ 		
+ 		// 'X'버튼 클릭
+ 		$(".modalclose").on("click", function(e) {
+ 			console.log("modal close");
+ 			 
+ 			$("#myModal").hide();
+ 		});   */
+ 		
+ 		
+ 	});//end 비회원 Modal
+ 	 
+ 	
+ 		
+ });
+	
 </script>
-</th:block>
+	</th:block>
