@@ -13,10 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ga.eatup.partner.domain.MenuVO;
@@ -254,5 +256,17 @@ public class PartnerController {
 					? new ResponseEntity<>("success",HttpStatus.OK)
 					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
+		
+	//order complete
+	@GetMapping("/orderComplete/{tid}")
+	@ResponseBody
+	public ResponseEntity<Integer> orderComplete(@PathVariable("tid") String tid){
+		log.info("orderComplete get.....");
+		
+		return new ResponseEntity<>(service.orderComplete(tid),HttpStatus.OK);
+	}
+		
+		
 	
 }

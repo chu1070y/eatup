@@ -22,5 +22,6 @@ public interface PartnerService {
 	
 	public int insertPartner(PartnerVO partnerVO, StoreVO storeVO);
 
+	public int orderComplete(String tid);
 
 }

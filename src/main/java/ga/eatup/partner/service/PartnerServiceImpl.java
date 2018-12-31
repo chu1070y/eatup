@@ -63,6 +63,12 @@ public class PartnerServiceImpl implements PartnerService {
 		return mapper.insertStore(storeVO);
 	}
 
+	@Override
+	public int orderComplete(String tid) {
+		
+		return mapper.orderComplete(tid);
+	}
+
 
 
 
