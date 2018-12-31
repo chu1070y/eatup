@@ -331,22 +331,27 @@ $(document).ready(function () {
 	var csrfHearderName = [[${_csrf.headerName}]];
 	var csrfTokenValue =  [[${_csrf.token}]];
 
-	$(document).ajaxSend(function(e,xhr,options){
-		xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
-	});
+	//$(document).ajaxSend(function(e,xhr,options){
+	//	xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+	//});
 	
-	 
+	pushMessage("",'f4jMaGZbiFY:APA91bFsf4taLscTuVjzNk6ZTX-Kge4so-dAPsdpSF7ycuB2mX_PjEOgPXtrGMGrbY8kItXTpvO4myKnoMB-kqIcLr-LZzP2O2x74pTCtnUPOoXz0AOkyjgbm9o1fNUbXPmz6QoMfA46'); 
 	 //음성 메세지 푸시 알람
 	 function pushMessage(data,token){
 		 console.log("push message.........");
 		 
 		 $.ajax({
-			 type:'post',
+			 	type:'post',
 				url:'https://fcm.googleapis.com/fcm/send',
-				headers:{
+				beforeSend: function(request){
+					request.setRequestHeader("content-type","application/json");
+					request.setRequestHeader("authorization","key=AAAAgHRKKlg:APA91bHCHmYkU1PANUYZgctP5dBZ1EuZZ5VfS4_fXUicesDas88tm6Rs1y35YMmLuOzAu3xmQqfI0KtR17UcdGR2ZuYrxhLJ2QasccO4xsO3kEBC98lO-Np1nIrxCa_mgE_DnnPCaxCe");
+				}, 
+				
+				/* headers:{
 					"Content-Type" : "application/json",
 					"Authorization" : "key=AAAAgHRKKlg:APA91bHCHmYkU1PANUYZgctP5dBZ1EuZZ5VfS4_fXUicesDas88tm6Rs1y35YMmLuOzAu3xmQqfI0KtR17UcdGR2ZuYrxhLJ2QasccO4xsO3kEBC98lO-Np1nIrxCa_mgE_DnnPCaxCe"
-				},
+				}, */
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
 				data:JSON.stringify({
@@ -780,8 +785,6 @@ $(document).ready(function () {
 			     }
 			 });//end ajax
 		}
-
-		orderComplete(12323, 'ABCD', '12345678' )
 
 		
 	});
