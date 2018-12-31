@@ -116,7 +116,8 @@ public class PartnerController {
 		model.addAttribute("tidlist", tidlist);
 		
 		ordermapper.getOpen(store);
-		System.out.println("으뱌뱌 으뱝요~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		
+		store.setSno(sno);
 		List<StoreVO> open = service.getOpen(store);
 		System.out.println(open.get(0).getOpen());
 		

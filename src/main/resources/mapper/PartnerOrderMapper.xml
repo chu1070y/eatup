@@ -19,7 +19,7 @@
 		resultType="ga.eatup.partner.domain.StoreVO">
 		select sno,open
 		from gorany.partner_store
-		where sno= 1
+		where sno= #{sno}
 		;
 		<!-- and od.tid="tid1" and od.tid = "tid55" and sno = #{sno} and od.tid 
 			= #{tid} -->
