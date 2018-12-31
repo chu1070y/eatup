@@ -13,10 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ga.eatup.partner.domain.MenuVO;
@@ -24,8 +26,8 @@ import ga.eatup.partner.domain.NoticePageDTO;
 import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.partner.domain.OrderVO;
 import ga.eatup.partner.domain.StoreVO;
-import ga.eatup.partner.mapper.PartnerOrderMapper;
 import ga.eatup.partner.mapper.PartnerMenuMapper;
+import ga.eatup.partner.mapper.PartnerOrderMapper;
 import ga.eatup.partner.service.OpenService;
 import ga.eatup.partner.service.PartnerMenuService;
 import ga.eatup.partner.service.PartnerService;
@@ -80,7 +82,7 @@ public class PartnerController {
 	}
 	
 	@GetMapping("/index")
-	public void index(Model model, OrderVO order, Authentication authentication) {
+	public void index(Model model, OrderVO order,StoreVO store, Authentication authentication) {
 		log.info("index......................page");
 		
 		String pid = authentication.getName();
@@ -112,6 +114,15 @@ public class PartnerController {
 		
 		System.out.println(tidlist);
 		model.addAttribute("tidlist", tidlist);
+		
+		ordermapper.getOpen(store);
+		
+		store.setSno(sno);
+		List<StoreVO> open = service.getOpen(store);
+		System.out.println(open.get(0).getOpen());
+		
+		model.addAttribute("open", open.get(0).getOpen());
+		
 		
 		
 	}
@@ -254,5 +265,17 @@ public class PartnerController {
 					? new ResponseEntity<>("success",HttpStatus.OK)
 					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
+		
+	//order complete
+	@GetMapping("/orderComplete/{tid}")
+	@ResponseBody
+	public ResponseEntity<Integer> orderComplete(@PathVariable("tid") String tid){
+		log.info("orderComplete get.....");
+		
+		return new ResponseEntity<>(service.orderComplete(tid),HttpStatus.OK);
+	}
+		
+		
 	
 }

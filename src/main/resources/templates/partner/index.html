@@ -12,12 +12,12 @@ a {
 
 	<!-- Breadcrumbs-->
 
-		 <div id="content-wrapper"> 
-			<ol class="breadcrumb" style="font: 12px sans-serif">
-				<li class="breadcrumb-item"><a href="#">Home</a></li>
-				<li class="breadcrumb-item active">주문</li>
-			</ol>
- 		</div> 
+	<div id="content-wrapper">
+		<ol class="breadcrumb" style="font: 12px sans-serif">
+			<li class="breadcrumb-item"><a href="#">Home</a></li>
+			<li class="breadcrumb-item active">주문</li>
+		</ol>
+	</div>
 
 
 
@@ -40,7 +40,7 @@ a {
 		<hr>
 		<div id="body"></div>
 
-		<input id="tid" type="hidden" name="tid">
+		<input id="tid" type="hidden" data-token="" name="tid">
 		<!-- <button class="btn btn-secondary btn-lg btn-block" id="btn">F I N I S H !</button>  -->
 	</div>
 
@@ -51,11 +51,11 @@ a {
 
 
 	<style>
- .breadcrumb {
+.breadcrumb {
 	position: absolute;
 	width: 9000%;
 }
- 
+
 .btn.btn-secondary.btn-lg.btn-block {
 	position: absolute;
 	bottom: 0;
@@ -257,6 +257,8 @@ hr {
 		</div>
 	</div>
 
+	
+
 
 
 </div>
@@ -277,9 +279,6 @@ hr {
 $("#go").click(function(){
 	console.log("clickkkkkk");
 	number=101;
-	
-	
-	
 	
 	console.log(" 여기는 체크오더이고,," + number);
 		
@@ -336,37 +335,9 @@ $(document).ready(function () {
 		xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
 	});
 	
-	$("#btn1").click(function(){
-		
-		console.log("clickkkk")
-		
-	});
-
-	 //음성 메세지 DB에 저장할 경우
-	 function sendVoice(data,callback,error){
-		 console.log("send voice.........");
-		 
-		 $.ajax({
-			 type:'post',
-				url:'/sendVoice',
-				data:JSON.stringify(data),
-				contentType: "application/json; charset=utf-8",
-				success: function(result,status,xhr){
-					if(callback){
-						callback(result);
-					}
-				},
-				error: function(xhr,status,er){
-					if(error){
-						error(er);
-					}
-				}
-		 });
-	 }//end sendVoice
-	 
 	 
 	 //음성 메세지 푸시 알람
-	 function pushMessage(data){
+	 function pushMessage(data,token){
 		 console.log("push message.........");
 		 
 		 $.ajax({
@@ -380,21 +351,16 @@ $(document).ready(function () {
 				dataType: "json",
 				data:JSON.stringify({
 				    "notification" : {
-				        "body" : data,
+				        "body" : "좀 되자",
 				        "title" : "FCM Message", 
 				        "click_action": "http://localhost:8080/user/home",
 				        "icon": "http://url-to-an-icon/icon.png"
 				        },
-				      "to": "cHFUupbfKDs:APA91bHGYhS1DRdmTJfYcDesPJHKAgsaOF330GGNFtufAD28hhsJMkjAlIPBmkD1DB7dz3oXCGGzLFmeC1xz_cXogDwfwAIuS3XuFbpvOY-bO4Uftn6pkygtf0qMCs0aLuSYMVJcGfGd"
+				      "to": token
 				  }),
 				success: function(result,status,xhr){
 					if(callback){
 						callback(result);
-					}
-				},
-				error: function(xhr,status,er){
-					if(error){
-						error(er);
 					}
 				}
 		 });
@@ -463,7 +429,7 @@ $(document).ready(function () {
  			
  			var idarray = new Array(); //배열 아이디
  			var length = array.length -1; 
- 			console.log(length)
+ 			console.log(length);
  			
  			for(var i=0; i<length; i++){
  				idarray[i]=array[i].id;
@@ -474,7 +440,7 @@ $(document).ready(function () {
  			//animation
  			var elem = document.getElementById(number); //ex)103
  		  	var index = idarray.indexOf(""+number); 
- 			console.log(elem + "   " + index)
+ 			console.log(elem + "   " + index);
  		
  			if( number.toString() !== 'NaN' && checkarray.includes(""+number)==false ){
  			checkarray = ""+number;				
@@ -482,27 +448,13 @@ $(document).ready(function () {
  			
  			$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
  			
+ 			//주문 완료 날리기
+ 			pushMessage("조리가 완료되었습니다.",'cHFUupbfKDs:APA91bHGYhS1DRdmTJfYcDesPJHKAgsaOF330GGNFtufAD28hhsJMkjAlIPBmkD1DB7dz3oXCGGzLFmeC1xz_cXogDwfwAIuS3XuFbpvOY-bO4Uftn6pkygtf0qMCs0aLuSYMVJcGfGd');
  			
- 			}	
+ 			}
  			idarray.splice(index,1)
  			console.log(idarray);
  			
- 		///////////////////////////////////////////////////////////////
-
- 		/* console.log(" 여기는 체크오더이고,," + number);
-
- 		var elem = document.getElementById(number); 
- 		var tid = number
- 		var index = [[${tidlist}]].indexOf(tid);
- 		console.log(elem + "   " + index)
- 		
- 		if( number.toString() !== 'NaN'){
- 			
- 			
- 		$(elem).animate({"bottom":"1000px"}); 
- 		$(".block").slice(index).animate({"left": "-=420px"});
- 		
- 		}	 */
  		
  	}
 
@@ -544,18 +496,27 @@ $(document).ready(function () {
 	    	    console.log(tempMsg);
 	  
 	    	  	mic.stop();
-	    	  	pushMessage(tempMsg);
 	    	  	
 	    	    $('.modal-body').removeClass('on');
 	    	    	$("#speech_box").text("");
 	    	    	
 	    	    	
-	    	    	 //문자열에서 숫자만 빼기
+	    	    	//문자열에서 숫자만 빼기
 				    var splittempmsg =tempMsg.split("번" , 1);
 				    var splitmsg = splittempmsg.toString();
 				    console.log("숫자만 빼보았슴다,,,?" + splitmsg);
 				    
-				    checkOrder(splitmsg);
+				    
+				    //뮨자열에서 완료 감지하기
+				    var complete = tempMsg.search("완료");
+				    console.log("complete... -1만 안나오면 됨..." + complete);
+				     
+				    if(complete != -1){
+				    	checkOrder(splitmsg);
+				    	return;
+				    }
+				    
+				    alert("완료 단어가 인식되지 않았습니다.");
 	    	      
 	    	    };
 	    	    
@@ -593,13 +554,14 @@ $(document).ready(function () {
 	
 	var datax = {'open':'X'} 
 	var datao = {'open':'O'} 
-	$(function () {
-		 $( "#Disconnected" ).click(function() { 
-		
+/* 	$(function () { 
+		 $( "#Disconnected" ).click(function() { */
+			 $(document).on("click","#Disconnected",function(){
+			 
 			 if($( "#Disconnected" ).attr('value')=='end'){
 			 	/* disconnect();
 			 	$( "#Disconnected" ).html("O N") */
-			 	
+			 	console.log("자자자!!!!")
 			 	 $.ajax({
 			 		type :'put',
 			 		url: '/partner/openx',
@@ -620,6 +582,7 @@ $(document).ready(function () {
 			 else if($( "#Disconnected" ).attr('value')=='start'){
 				/* connect();
 				sendName(); */
+				console.log("자자자!!!!")
 				$( "#Disconnected" ).html("O F F")
 				//alert("연결이 됐슴다.,,,,");
 				
@@ -643,14 +606,18 @@ $(document).ready(function () {
 		 
 		 
 		 });	
-	});
+/* 	}); */
 	
 
 	 window.onload = function(){
 		 /* connect();
 		 sendName(); */
 		 
-		 $.ajax({
+		 console.log("시작이 될 때마다 여기가 처음인가요?")
+		 console.log([[${open}]])
+		 open = [[${open}]]
+		 /*
+		  $.ajax({
 		 		type :'put',
 		 		url: '/partner/openx',
 		 		data: JSON.stringify(datax),
@@ -664,7 +631,22 @@ $(document).ready(function () {
 		 		error:function(e){
 		            alert("에러 발생~~");
 		        } 
-		 	})//ajax 
+		 	})//ajax  
+		 	*/
+		 	/* <button id="Disconnected" class="btn btn-outline-warning"
+				value="start">O N</button></span> */
+				
+			var openx = "<span sec:authorize='hasRole('PARTNER')'><button id='Disconnected' class='btn btn-outline-warning'value='start'>O N</button></span>";
+			var openo = "<span sec:authorize='hasRole('PARTNER')'><button id='Disconnected' class='btn btn-outline-warning'value='end'>O F F</button></span>";
+		 	
+			if(open==='X'){
+		 		console.log("엑스라네");
+		 		$( ".navbar-nav.ml-auto.mr-0.mr-md-3.my-2.my-md-0" ).append(openx);
+		 	}
+		 	else{
+		 		console.log("오라네");
+		 		$( ".navbar-nav.ml-auto.mr-0.mr-md-3.my-2.my-md-0" ).append(openo);
+		 	}
 	 };
 	 
 	 /////////////////////////파이어베이스에서 realtime DB불러와 뿌리기
@@ -704,6 +686,8 @@ $(document).ready(function () {
 			
 			$("#origin #tid").val(snap.val()[data].tid);
 			
+			$("#origin #tid").attr("data-token",snap.val()[data].pushtoken);
+			
 			$("#origin #body").append("<button id="+snap.val()[data].order_id+" class='btn btn-secondary btn-lg btn-block'>F I N I S H !</button>");
 			$("#origin").attr("data-key",data);
 			
@@ -725,6 +709,10 @@ $(document).ready(function () {
 			console.log("클릭"+number);
 			
 			var key = $("#"+this.id).attr("data-key");
+			
+			var tid = $("#"+this.id).find("input").val();
+			
+			var token = $("#"+this.id).find("input").data("token");
 			
 			var array = $(".btn.btn-secondary.btn-lg.btn-block").slice(); //블록을 배열로
 			console.log(array);
@@ -752,13 +740,11 @@ $(document).ready(function () {
 			$(elem).animate({"bottom":"1000px"});		
 			$(".block").slice(index).animate({"left": "-=420px"},function(){
 				
-				//firebase DB삭제하기
-				deleteFirebase(key);
+				
+				//Mysql DB orderComplete...
+				orderComplete(tid,key,token);
 				
 			});  //103숫자 들어오면,,,
-			
-			
-			
 			
 		});//$(".btn.btn-secondary.btn-lg.btn-block").click
 		
@@ -769,9 +755,38 @@ $(document).ready(function () {
 			var remove = '/'+ [[${sno}]] +'/'+key;
 			return firebase.database().ref(remove).remove();
 		}
+		
+		//orderComplete - 주문완료라고 db 바꾸기
+		function orderComplete(tid,key,token){
+			console.log('order Complete');
+			
+		    $.ajax({
+		          type: 'get',
+		          url: "/partner/orderComplete/" + tid,
+		          success: function(result){
+		        	  
+					if(result==null){
+						alert("주문완료 전송 실패...");
+						return;
+					}
+					
+					console.log("click...................................................")
+					console.log(token);
+					//firebase DB삭제하기
+					//deleteFirebase(key);
+					pushMessage("조리가 완료되었습니다.",token);
+
+					
+			     }
+			 });//end ajax
+		}
+
+		orderComplete(12323, 'ABCD', '12345678' )
 
 		
 	});
+	
+	
 
 
 	console.log("firebase realtime db js end");

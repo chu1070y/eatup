@@ -61,6 +61,8 @@
  		select count(*) count from gorany.user where uid=#{uid}
  	</select>
  	
+
+ 	
  </mapper>
 
  

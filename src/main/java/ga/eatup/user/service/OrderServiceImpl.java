@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import ga.eatup.user.domain.CartDTO;
 import ga.eatup.user.domain.OrderInfoVO;
@@ -57,9 +56,15 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 
-
-
-
+	public List<OrderVO> getQuickMenu(int uno) {
+		
+		return mapper.getQuickMenu(uno);
+	}
+	
+	public int tokenUpdate(OrderVO vo){
+		
+		return mapper.tokenUpdate(vo);
+	}
 
 
 }

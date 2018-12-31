@@ -17,5 +17,11 @@ public interface OrderService {
 	public List<OrderVO> getOrderHistory(Map<String, Object> map);
 	
 	public OrderVO getTid(String tid);
+
+	public List<OrderVO> getQuickMenu(int uno);
+
+	public int tokenUpdate(OrderVO vo);
+
+
 	
 }

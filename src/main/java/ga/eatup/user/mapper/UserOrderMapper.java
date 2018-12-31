@@ -20,4 +20,7 @@ public interface UserOrderMapper {
 	
 	public OrderVO getTid(String tid);
 
+	public List<OrderVO> getQuickMenu(int uno);
+
+	public int tokenUpdate(OrderVO vo);
 }
