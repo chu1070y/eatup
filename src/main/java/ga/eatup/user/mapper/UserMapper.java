@@ -2,6 +2,7 @@ package ga.eatup.user.mapper;
 
 import java.util.List;
 
+import ga.eatup.user.domain.OrderVO;
 import ga.eatup.user.domain.UserVO;
 
 public interface UserMapper {
@@ -24,4 +25,5 @@ public interface UserMapper {
 	public int nullDefaultkey(String uid);
 	
 	public int checkId(String uid);
+	
 }

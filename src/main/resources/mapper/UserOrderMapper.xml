@@ -101,5 +101,9 @@
 		limit 15;
 
 	</select>
+	
+	<update id="tokenUpdate"  parameterType="ga.eatup.user.domain.StoreVO">
+ 		update gorany.order set token = #{token} where tid = #{tid}
+ 	</update>
 
 </mapper>

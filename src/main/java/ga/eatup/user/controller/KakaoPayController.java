@@ -7,17 +7,23 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import ga.eatup.partner.domain.StoreVO;
 import ga.eatup.user.domain.CartDTO;
+import ga.eatup.user.domain.MenuVO;
 import ga.eatup.user.domain.OrderNumDTO;
 import ga.eatup.user.domain.OrderVO;
 import ga.eatup.user.domain.kakaopay.KakaoPayApprovalVO;
@@ -138,6 +144,25 @@ public class KakaoPayController {
 	public void kakaoPayCancel() {
 		log.info("kakaoPayCancel get............................................");
 
+	}
+	
+	@PostMapping("/tokenAjax")
+	@ResponseBody
+	public ResponseEntity<Integer> searchMenu(@PathVariable("token") String token){
+		log.info("tokenAjax get.....");
+		
+		return new ResponseEntity<>( null ,HttpStatus.OK);
+	}
+	
+	@RequestMapping(method = {RequestMethod.POST}, value = "/tokenAjax", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> tokenAjax(@RequestBody OrderVO vo) {
+		log.info("token ajax post...... in kakaoPayController");
+		
+		log.info("tid:" + vo.getTid());
+		log.info("token:" + vo.getToken());
+
+		return orderService.tokenUpdate(vo) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 

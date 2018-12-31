@@ -78,11 +78,7 @@ public class PartnerServiceImpl implements PartnerService {
 		return mapper.orderComplete(tid);
 	}
 
-/*	public int orderComplete(String tid) {
-		
-		return mapper.orderComplete(tid);
->>>>>>> master
-	}*/
+
 
 
 

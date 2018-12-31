@@ -24,4 +24,5 @@ public interface UserOrderMapper {
 	
 	public List<OrderVO> getQuickMenu(int uno);
 
+	public int tokenUpdate(OrderVO vo);
 }

@@ -67,6 +67,8 @@
  	<update id="orderComplete">
  		update gorany.order set status="주문완료" where tid = #{tid}
  	</update>
+ 	
+
 
  	
  </mapper>
