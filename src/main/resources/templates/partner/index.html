@@ -351,7 +351,7 @@ $(document).ready(function () {
 				dataType: "json",
 				data:JSON.stringify({
 				    "notification" : {
-				        "body" : data,
+				        "body" : "좀 되자",
 				        "title" : "FCM Message", 
 				        "click_action": "http://localhost:8080/user/home",
 				        "icon": "http://url-to-an-icon/icon.png"
@@ -361,11 +361,6 @@ $(document).ready(function () {
 				success: function(result,status,xhr){
 					if(callback){
 						callback(result);
-					}
-				},
-				error: function(xhr,status,er){
-					if(error){
-						error(er);
 					}
 				}
 		 });
@@ -454,7 +449,7 @@ $(document).ready(function () {
  			$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
  			
  			//주문 완료 날리기
- 			//pushMessage("조리가 완료되었습니다.",token);
+ 			pushMessage("조리가 완료되었습니다.",'cHFUupbfKDs:APA91bHGYhS1DRdmTJfYcDesPJHKAgsaOF330GGNFtufAD28hhsJMkjAlIPBmkD1DB7dz3oXCGGzLFmeC1xz_cXogDwfwAIuS3XuFbpvOY-bO4Uftn6pkygtf0qMCs0aLuSYMVJcGfGd');
  			
  			}
  			idarray.splice(index,1)
@@ -775,8 +770,10 @@ $(document).ready(function () {
 						return;
 					}
 					
+					console.log("click...................................................")
+					console.log(token);
 					//firebase DB삭제하기
-					deleteFirebase(key);
+					//deleteFirebase(key);
 					pushMessage("조리가 완료되었습니다.",token);
 
 					
@@ -784,6 +781,7 @@ $(document).ready(function () {
 			 });//end ajax
 		}
 
+		orderComplete(12323, 'ABCD', '12345678' )
 
 		
 	});
