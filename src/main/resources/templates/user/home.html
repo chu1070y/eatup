@@ -44,7 +44,6 @@
 #custom-search-input .glyphicon-search {
 	font-size: 23px;
 }
-
 </style>
 
 
@@ -99,8 +98,8 @@
 		</div>
 		<!-- Services -->
 		<section id="services">
-			<div sec:authorize="${!hasRole('USER')}" class= "container">
-			<div class="row">
+			<div sec:authorize="${!hasRole('USER')}" class="container">
+				<div class="row">
 					<div class="col-lg-12 text-left">
 						<h3 class="section-heading text-uppercase">Quick Menu</h3>
 						<h6 class="section-subheading text-muted">이전에 주문하신 음식을 더 빠르게
@@ -108,7 +107,8 @@
 					</div>
 				</div>
 				<div class="row">
-				<a href="/user/login/customLogin"><img class="img-fluid" src="../imgs/lockquick.jpg"  alt=""></a>
+					<a href="/user/login/customLogin"><img class="img-fluid"
+						src="../imgs/lockquick.jpg" alt=""></a>
 				</div>
 
 			</div>
@@ -123,30 +123,34 @@
 
 				<!-- <div sec:authorize="${hasRole('USER')}"> -->
 
-					<div class="row">
-				
-						<div class="owl-carousel team-member" >
-							<div class="item" th:each="quick, iterState : ${quick}">
-								 <img class="mx-auto rounded-circle" th:src="@{/upload/display(fileName=${quick.upload_path +'\/'+ quick.uuid + '_' + quick.fname})}"
-									alt=""> 
-								<h4 th:text="${quick.mname}"></h4>
-								<p class="text-muted" th:text="${quick.sname}" ></p>
-								<ul class="list-inline social-buttons">
-								</ul>
-							</div>
+				<div class="row">
 
+					<div class="owl-carousel team-member">
+						<div class="item" th:each="quick, iterState : ${quick}" th:onclick="|window.location.href='@{/user/pay(sno=${quick.sno})}'|">
 							
-							
+							<img class="mx-auto rounded-circle"
+								th:src="@{/upload/display(fileName=${quick.upload_path +'\/'+ quick.uuid + '_' + quick.fname})}"
+								alt="">
+								<input type="hidden" th:value="${quick.mno}">
+								<input type="hidden" th:value="${quick.mprice}">
+								<input type="hidden" th:value="${quick.quantity}">
+								<input type="hidden" th:value="${quick.sno}">
+							<h4 class="order" th:text="${quick.mname}"></h4>
+							<p class="text-muted" th:text="${quick.sname}"></p>
+							<ul class="list-inline social-buttons">
+							</ul>
+
 						</div>
-						<!-- end carousel -->
-						
 					</div>
-			
+					<!-- end carousel -->
+
+				</div>
+
 				<!-- security  -->
 
 			</div>
-			
-			
+
+
 		</section>
 
 		<!-- Portfolio Grid -->
@@ -165,8 +169,8 @@
 								<div class="portfolio-hover-content">
 									<i class="fas fa-plus fa-3x"></i>
 								</div>
-							</div> <img class="img-fluid" src="../main/img/portfolio/7.jpg"
-							alt="" height="200px">
+							</div> <img class="img-fluid" src="../main/img/portfolio/7.jpg" alt=""
+							height="200px">
 						</a>
 						<div class="portfolio-caption">
 							<h4>커피점방</h4>
@@ -179,8 +183,8 @@
 								<div class="portfolio-hover-content">
 									<i class="fas fa-plus fa-3x"></i>
 								</div>
-							</div> <img class="img-fluid" src="../main/img/portfolio/15.jpg"
-							alt="" height="200px">
+							</div> <img class="img-fluid" src="../main/img/portfolio/15.jpg" alt=""
+							height="200px">
 						</a>
 						<div class="portfolio-caption">
 							<h4>브라운박스</h4>
@@ -193,8 +197,8 @@
 								<div class="portfolio-hover-content">
 									<i class="fas fa-plus fa-3x"></i>
 								</div>
-							</div> <img class="img-fluid" src="../main/img/portfolio/14.jpg"
-							alt="" height="200px">
+							</div> <img class="img-fluid" src="../main/img/portfolio/14.jpg" alt=""
+							height="200px">
 						</a>
 						<div class="portfolio-caption">
 							<h4>이지샐러드</h4>
@@ -537,6 +541,40 @@ $(document).ready(function(){
 			
 		 }
 		 
+			var arr = new Array(); 
+		//order 쿠키 생성
+			$(".item").one("click", function(e) {	
+				
+				console.log("order clicked...")
+				
+				var getSno = $(this).children()[4].defaultValue;
+				var getMname = $(this).children()[5].outerText;
+				var getMno = $(this).children()[1].defaultValue;
+				var getMprice = $(this).children()[2].defaultValue;
+				var getQuantity = $(this).children()[3].defaultValue;
+				
+				console.log("sno: "+getSno+" /mname: "+getMname+" /mno: "+getMno+" /mprice: "+getMprice+" /quantity: "+getQuantity);
+				
+				// json으로 Data변환
+				var jsonData = new Object();
+				jsonData.sno = getSno;
+				jsonData.mno = getMno;
+				jsonData.quantity = getQuantity;
+
+				arr.push(jsonData);
+				var json = JSON.stringify(arr);
+
+				console.log("jsonData: " + json);
+				
+				
+				// 쿠키 설정 (expries는 유지일, path는 쿠키 보관하고 있을 경로)
+				$.cookie('cart', json, { expires: 1, path: '/'}); 	       
+				console.log("cookie : " + $.cookie('cart')); 
+				
+				
+				
+			});
+		 
 	
 		
 			
@@ -653,10 +691,12 @@ $(document).ready(function(){
 			
 		}); 
 	 	
+		
 	 	
-
+		
 	});
 	
+
 
 	
 		  
