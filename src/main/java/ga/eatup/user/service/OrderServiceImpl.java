@@ -50,10 +50,11 @@ public class OrderServiceImpl implements OrderService {
 		return mapper.getOrderHistory(map);
 	}
 
-
-
-
-
-
-
+	@Override
+	public List<OrderVO> getQuickMenu(int uno) {
+		
+		return mapper.getQuickMenu(uno);
+	}
+	
+	
 }
