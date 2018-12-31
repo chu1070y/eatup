@@ -1,4 +1,4 @@
-importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js');
+/*importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js');
 
 // Initialize Firebase
@@ -21,4 +21,4 @@ messaging.setBackgroundMessageHandler(function(payload){
 	};
 	
 	return self.registration.showNotification(title,options);
-});
+});*/
