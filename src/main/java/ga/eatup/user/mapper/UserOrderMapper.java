@@ -10,10 +10,6 @@ import ga.eatup.user.domain.OrderVO;
 
 public interface UserOrderMapper {
 
-	public List<OrderVO> orderList(Map<String, Object> map);
-	
-	public OrderVO getOrder(int tid);
-
 	public int insertOrder(OrderVO vo);
 	
 	public int insertOrderInfo(OrderInfoVO vo);
@@ -21,5 +17,7 @@ public interface UserOrderMapper {
 	public int getUno(String uid);
 	
 	public List<OrderVO> getOrderHistory(Map<String, Object> map);
+	
+	public OrderVO getTid(String tid);
 
 }

@@ -50,6 +50,12 @@ public class OrderServiceImpl implements OrderService {
 		return mapper.getOrderHistory(map);
 	}
 
+	@Override
+	public OrderVO getTid(String tid) {
+		// TODO Auto-generated method stub
+		return mapper.getTid(tid);
+	}
+
 
 
 

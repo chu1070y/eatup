@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +35,7 @@ import ga.eatup.user.domain.CartDTO;
 import ga.eatup.user.domain.FaqPageDTO;
 import ga.eatup.user.domain.FaqVO;
 import ga.eatup.user.domain.MenuVO;
+import ga.eatup.user.domain.OrderVO;
 import ga.eatup.user.domain.UserVO;
 import ga.eatup.user.service.FaqBoardService;
 import ga.eatup.user.service.LoginService;
@@ -262,7 +266,7 @@ public class UserController {
 	
 	//주문내역 page
 	@GetMapping("/history")
-	public void orderHistory(Authentication authentication,String tid, Model model) {
+	public void orderHistory(Authentication authentication, String tid, Model model) {
 		log.info("orderHistory.............");	
 		
 		String uid = (authentication == null) ? "nomember":authentication.getName();
@@ -280,12 +284,26 @@ public class UserController {
 		}
 		
 		log.info("history: "+ orderService.getOrderHistory(map));
+		log.info("history get....................");
 		
 		model.addAttribute("history", orderService.getOrderHistory(map));
 		
-		
-		
 	}
+	
+	@PostMapping(value="/{tid}")
+	public ResponseEntity<List<OrderVO>> historyPOST(@PathVariable("tid") String tid){
+
+		int uno = 1;
+		
+		Map<String, Object> map =new HashMap<>();
+
+		map.put("uno", uno);
+		map.put("tid", tid);
+		
+		return new ResponseEntity<List<OrderVO>> (orderService.getOrderHistory(map), HttpStatus.OK);
+	
+	};
+	 
 	
 	@GetMapping("/firebase/test")
 	public void testFirebase(HttpServletRequest request) {
