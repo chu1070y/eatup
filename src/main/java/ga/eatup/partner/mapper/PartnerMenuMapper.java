@@ -10,5 +10,9 @@ public interface PartnerMenuMapper {
 	
 	public int getSno(String pid);
 	
+	public int getupdateMaxQuantity(MenuVO menu);
+
+	
+	
 	
 }

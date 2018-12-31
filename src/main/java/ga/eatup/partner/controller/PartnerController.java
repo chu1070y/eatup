@@ -142,6 +142,13 @@ public class PartnerController {
 		
 		log.info("메뉴 : " + list);
 		
+		
+		
+				
+		
+		
+		
+		
 	}
 	
 	
@@ -275,6 +282,30 @@ public class PartnerController {
 		
 		return new ResponseEntity<>(service.orderComplete(tid),HttpStatus.OK);
 	}
+	
+	@RequestMapping(method = {RequestMethod.POST},
+			value="/maxquantity",
+			consumes="application/json")
+	@ResponseBody
+	public int updatequantity(@RequestBody MenuVO vo, Authentication authentication){
+		
+		
+		//로그인 정보 끌어오는 것. pid로 sno를 뽑아서 sno에 해당하는 menu를 전달 
+				String pid = authentication.getName();
+				log.info("pid: " + pid);
+				int sno = menuservice.getSno(pid);
+				log.info("sno: " + sno);
+				
+		vo.setSno(sno);
+	
+		
+		log.info("#############################################################");
+		log.info("update: " + vo);
+		
+		return menuservice.getupdateMaxQuantity(vo) ;
+	}
+	
+	
 		
 		
 	
