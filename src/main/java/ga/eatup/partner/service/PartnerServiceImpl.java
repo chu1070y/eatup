@@ -66,19 +66,23 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public List<StoreVO> getOpen(StoreVO storeVO) {
 		
 		ordermapper.getOpen(storeVO);
 		
 		return ordermapper.getOpen(storeVO);
-		
-=======
+	}
+
+	@Override
 	public int orderComplete(String tid) {
+		return mapper.orderComplete(tid);
+	}
+
+/*	public int orderComplete(String tid) {
 		
 		return mapper.orderComplete(tid);
 >>>>>>> master
-	}
+	}*/
 
 
 
