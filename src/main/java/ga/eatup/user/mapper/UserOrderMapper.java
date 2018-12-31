@@ -21,5 +21,7 @@ public interface UserOrderMapper {
 	public int getUno(String uid);
 	
 	public List<OrderVO> getOrderHistory(Map<String, Object> map);
+	
+	public List<OrderVO> getQuickMenu(int uno);
 
 }
