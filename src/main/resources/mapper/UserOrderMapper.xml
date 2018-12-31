@@ -50,6 +50,11 @@
 	<select id="getUno" resultType="int">
 		select uno from user where uid = #{uid}
 	</select>
+	
+	<select id="getTid" resultType="ga.eatup.user.domain.OrderVO">
+		select * from gorany.order
+		where tid = #{tid}
+	</select>
 
 	<select id="getOrderHistory" resultMap="Order">
 		select
@@ -69,18 +74,18 @@
 		join
 		gorany.partner_store pstore
 		on ord.sno=pstore.sno
-
+		
 		<choose>
 			<when test="uno == '1'.toString">
 				where ord.tid=#{tid}
 			</when>
 
 			<otherwise>
-
 				where ord.tid!='' and ord.uno=#{uno}
 			</otherwise>
 		</choose>
 		and oinfo.mno=psmenu.mno
+
 		order by approved_at desc
 
 	</select>

@@ -52,6 +52,7 @@ public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/partner/superAdmin").hasRole("ADMIN")
 				.antMatchers("/partner/notice/modify").hasRole("ADMIN")
 				.antMatchers("/partner/notice/read").hasRole("ADMIN")
+				.antMatchers("/partner/maxquantity").hasRole("PARTNER")
 				.and()
 			.formLogin()
 				.loginPage("/partner/login/customLogin")

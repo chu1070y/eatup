@@ -3,6 +3,7 @@ package ga.eatup.partner.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import ga.eatup.partner.domain.MenuVO;
@@ -17,6 +18,10 @@ public class PartnerMenuServiceImpl implements PartnerMenuService {
 	@Setter(onMethod_=@Autowired)
 	private PartnerMenuMapper menuMapper;
 	
+	//menu service
+		@Setter(onMethod_=@Autowired)
+		private PartnerMenuService menuservice;
+	
 	@Override
 	public List<MenuVO> getMenu(int sno) {
 		
@@ -29,5 +34,13 @@ public class PartnerMenuServiceImpl implements PartnerMenuService {
 		log.info("sno를 가져옵니다.");
 		return menuMapper.getSno(pid);
 	}
+
+	@Override
+	public int getupdateMaxQuantity(MenuVO menu) {
+		
+		return menuMapper.getupdateMaxQuantity(menu);
+	}
+
+
 
 }

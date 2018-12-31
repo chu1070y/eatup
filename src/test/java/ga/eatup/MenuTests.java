@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import ga.eatup.partner.mapper.OpenMapper;
 import ga.eatup.partner.mapper.PartnerMenuMapper;
 import ga.eatup.partner.service.PartnerMenuService;
-import ga.eatup.user.domain.MenuVO;
+//import ga.eatup.user.domain.MenuVO;
+import ga.eatup.partner.domain.MenuVO;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -24,6 +26,10 @@ public class MenuTests {
 	
 	@Setter(onMethod_ = { @Autowired })
 	private PartnerMenuMapper mapper;
+	
+
+	@Setter(onMethod_ = { @Autowired })
+	private PartnerMenuMapper partnermapper;
 	
 	@Test
 	public void testMenuService() {
@@ -46,5 +52,17 @@ public class MenuTests {
 	@Test
 	public void testSnoMapper() {
 		log.info("" + mapper.getSno("manofin"));
+	}
+	
+	@Test
+	public void testUpdate() {
+		MenuVO vo = new MenuVO();
+		vo.setMax_quantity(9);
+		vo.setSno(1);
+		vo.setMno(71);
+		
+		partnermapper.getupdateMaxQuantity(vo);
+		
+		
 	}
 }

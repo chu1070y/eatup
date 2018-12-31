@@ -50,6 +50,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public OrderVO getTid(String tid) {
+		// TODO Auto-generated method stub
+		return mapper.getTid(tid);
+	}
+
 
 	public List<OrderVO> getQuickMenu(int uno) {
 		

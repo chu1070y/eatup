@@ -4,52 +4,41 @@
 
 <div layout:fragment="content">
 
-<style>
-
+	<style>
 a {
 	color: black;
 }
 
- #content-wrapper {
- font: 14px sans-serif
-} 
+#content-wrapper {
+	font: 14px sans-serif
+}
 
- .col-centered {
- 	float: none; 
+.col-centered {
+	float: none;
 	margin: 0 auto;
-	
-} 
-
+}
 
 img {
-
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	width: 300px;
 	height: 200px;
-	
-
 }
-  .form-control{
- 
+
+.form-control {
 	display: block;
 	margin-left: 10px;
 	margin-right: 10px;
-	
-	position: relative; 
-	
-	 width: 100vh; 
+	position: relative;
+	width: 100vh;
 	/* height: 200px; */
-} 
-
-
-
-
-
-	
-
+}
 </style>
+
+	<!--csrf.token을 불러오지 못하는 문제가 있어서, 일단 여기서 한번 호출해두는 것 (스크립트에서 이 값을 빼서 쓰진 않음)-->
+	<input type="hidden" id="token" th:name="${_csrf.headerName}"
+		th:value="${_csrf.token}" />
 
 	<ol class="breadcrumb" style="font: 12px sans-serif">
 		<li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -60,34 +49,37 @@ img {
 	<div class="row">
 
 		<!-- 메뉴목록 -->
+		
+
 
 		<div th:each="menu : ${menu}" class="col-xl-3 col-sm-6 mb-3"
 			id="menubox">
 			<div class="card o-hidden h-100">
 				<div class="card-body">
-				
-					<img th:src="@{/upload/display(fileName=${menu.upload_path +'\/'+ menu.uuid + '_'+menu.fname})}">
+
+					<img
+						th:src="@{/upload/display(fileName=${menu.upload_path +'\/'+ menu.uuid + '_'+menu.fname})}">
 					<div th:text="${menu.mname}" align="center"></div>
 					<div th:text="${menu.mprice}" align="center"></div>
 					<div th:text="${menu.introduction}" align="center"></div>
 					</br>
 
+					<!-- 		</div>
+					 <div class="card-body">  -->
+
+					<div class="input-group">
+						주문량 <input class="form-control" aria-label="Default"
+							aria-describedby="inputGroup-sizing-default" type="number"
+							th:id="${menu.mno}" name="usernumber" value="5" step="1" min="0"
+							max="1000" /> <span class="input-group-btn">
+							<button type="submit" class="btn btn-dark" th:value="${menu.mno}"
+								style="font: 12px sans-serif">설정</button>
+						</span>
+					</div>
+					<!-- </div> -->
 				</div>
-					 <div class="card-body"> 
-						
-							  <div class="input-group">
-							  주문량 
-								<input class="form-control" aria-label="Default"
-									aria-describedby="inputGroup-sizing-default" type="number"
-									id="usernumber" name="usernumber" value="5" step="1" min="0"
-									max="1000"  /> 
-								<span class="input-group-btn">
-									<button type="button" class="btn btn-dark" style="font: 12px sans-serif">설정</button>
-								</span>
-							  </div>  
-						<!-- </div> -->
-			 		</div> 
-				<button id="soldout" type="button" class="btn btn-outline-danger" style="font: 12px sans-serif">품절</button>
+				<button id="soldout" type="button" class="btn btn-outline-danger"
+					th:value="${menu.mno}" style="font: 12px sans-serif">품절</button>
 
 			</div>
 		</div>
@@ -100,20 +92,62 @@ img {
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		$(document).ready(function() {
+			var csrfHearderName = [[${_csrf.headerName}]];
+			var csrfTokenValue =  [[${_csrf.token}]];
+			
+			$(document).ajaxSend(function(e,xhr,options){
+				xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+			}); 
+			
+		$(document).on("click",".btn.btn-dark",function(){
+
+
+	
 
 		
+			console.log("click!!!");
+
+			
+			var id = $(this).context.value;
+			console.log($(this).context.value);
+			 
+			var control = document.getElementById( id ).value;
+			console.log(control);
+			
+			var data = {'mno':id , 'max_quantity': control}
+			
+			console.log(data);
+			
+ 
+			  //ajax
+			$.ajax({
+			 		type :'post',
+			 		url: '/partner/maxquantity',
+			 		data: JSON.stringify(data),
+			 		contentType: "application/json; charset=utf-8", 
+			 		beforeSend: function(xhr) {
+		                xhr.setRequestHeader(csrfHearderName, csrfTokenValue)
+		            },
+			 		success:function(data){
+			 			
+			 			alert("에이 작스가 한번에 될리가,,");
+			 			
+			 		},
+			 		error:function(e){
+			 			console.log(e);
+			            alert("에러 발생~~");
+			        } 
+			 	})//ajax
+			 	
+			 	  
+
+		
+			
+			
+			
 		});
 		
-		//설정 클릭 시
-		$(".btn.btn-dark").click(function(){
-			console.log("click!!!");
-			var aaa = $(".form-control");
-			
-			var bbb = document.getElementById("usernumber")
-			
-			
-			console.log(bbb);
-			
-		});
+		});//ready
+
 	</script>
 </th:block>

@@ -48,6 +48,8 @@
 	<!-- content -->
 	<div class="container">
 		<div class="col-lg-9">
+		 	<!--csrf.token을 불러오지 못하는 문제가 있어서, 일단 여기서 한번 호출해두는 것 (스크립트에서 이 값을 빼서 쓰진 않음)-->
+	<input type="hidden" id="token" th:name="${_csrf.headerName}" th:value="${_csrf.token}" /> 
 
 			<h3>주문내역</h3>
 
@@ -83,16 +85,16 @@
 								<p>※ 비회원은 주문번호로만 주문내역 조회가 가능합니다.</p>
 								
 
-								<form id="actionForm">
+								<form>
 								<div class="container">
     							 <label for="getTid">주문번호</label>
   								<div class="form-inline">
         						<input name='tid' class="form-control mr-1" placeholder="주문번호를 입력하세요.">
-        						<button id="submitBtn" class="btn btn-primary"><i class="fas fa-search glyphicon-search" style="color: white"></i></button>
+        						<button id="submitBtn" type="submit" class="btn btn-primary"><i class="fas fa-search glyphicon-search" style="color: white"></i></button>
     							</div>
 								</div>
 								</form>
-								 
+								
 								
 							</div>
 						</div>
@@ -107,7 +109,7 @@
 						<div class="modal-header">
 							<h5 class="modal-title">주문상세조회</h5>
 							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
+								aria-label="rClose">
 								<span class="modalclose" aria-hidden="true">&times;</span>
 							</button>
 						</div>
@@ -141,12 +143,93 @@
 		<script th:inline="javascript">
 $(document).ready(function(){
 	
+	//csrf처리
+	var csrfHearderName = [[${_csrf.headerName}]];
+	var csrfTokenValue =  [[${_csrf.token}]];
+	
 	var history = [[${history}]];
-	var actionForm=$('#actionForm');
 	var totalPrice = 0;
  	var str = "";
+	var actionForm = $('#actionForm');
 	
- 	console.log(history);
+	
+	//비회원: submitBtn click
+	$("#submitBtn").on("click", function(e){
+		e.preventDefault();
+		
+		var getTid = $('input[name=tid]').val();
+		
+		console.log(getTid);
+		
+		  $.ajax({
+			url: "/user/"+getTid,
+			type: "post",
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader(csrfHearderName, csrfTokenValue)
+			},
+			success : function(history, status, xhr) {
+				if(history == 0){
+					alert("존재하지 않는 주문번호입니다. 다시 확인해주세요.");
+				}else{
+
+					//modal start
+					  $("#myModal").show();
+					
+						var idx = 0;
+				 		
+				 		str += "<h5 id='sname'>" + history[idx].store.sname + "</h5>";	
+				 		str += "<span id='tid'> 주문번호 " + history[idx].tid + "</span>";
+				 		str += "<hr>";
+				 	
+				 			for(var i = 0; i < history[idx].menuList.length; i++){
+				 			
+				 	 		str += "<h6 id='mname'>"+ history[idx].menuList[i].mname +"</h6>";
+				 			str += "<span id='mprice'>수량: "+ history[idx].oinfoList[i].quantity +"</span>";
+				 			str += "<p id='quantity'>가격: "+ history[idx].menuList[i].mprice +"원</p>"
+				 	 		str += "<hr>";
+				 			
+				 			
+				 			totalPrice += parseInt(history[idx].menuList[i].mprice);
+				 	
+				 		}
+
+				 		str += "<h4 id='totalPrice'>총 금액: "+ totalPrice +"원</h4>";
+				 		
+				 		$(".col-md-7").html(str);
+				 		
+				 		
+				 		// '확인'버튼 클릭
+				 		$("#closeBtn").on("click", function(){
+				 			console.log("modal close");
+				 			 
+				 			str = "";
+				 			totalPrice = 0;
+				 			$("#myModal").hide();
+				 			
+				 		});
+				 		
+				 		// 'X'버튼 클릭
+				 		$(".modalclose").on("click", function(e) {
+				 			console.log("modal close");
+				 			 
+				 			str = "";
+				 			totalPrice = 0;
+				 			$("#myModal").hide();
+				 		});
+				 		
+				 		
+				};//end else
+				 		
+			}//end success
+
+			
+		}) //end ajax 
+		
+
+	}); //end submitBtn
+		
+
+ 	 
 	
 	//회원: orderList click Modal
  	$(".orderList").on("click", function(e){
@@ -182,6 +265,7 @@ $(document).ready(function(){
  			console.log("modal close");
  			 
  			str = "";
+ 			totalPrice = 0;
  			$("#myModal").hide();
  			
  		});
@@ -191,6 +275,7 @@ $(document).ready(function(){
  			console.log("modal close");
  			 
  			str = "";
+ 			totalPrice = 0;
  			$("#myModal").hide();
  		});
  		
@@ -199,42 +284,7 @@ $(document).ready(function(){
 
 
  	
-  	//비회원: submitBtn click Modal
- 	$(".submitBtn").on("click", function(e){
- 		e.preventDefault();
- 		e.stopPropagation();
- 		
- 		console.log("click submitBtn....");
- 		
- 	 /* 	var getTid = $("input[name='tid']".val());
- 		console.log("getTid:"+ getTid);
- 		
- 		actionForm.attr("action",'/user/history')
- 		actionForm.find('input[name="tid"]').val(getTid);
-		actionForm.submit();
- 		
- 		$("#myModal").show();
- 		
- 		
- 		// '확인'버튼 클릭
- 		$("#closeBtn").on("click", function(){
- 			console.log("modal close");
- 			 
- 			$("#myModal").hide();
- 			
- 		});
- 		
- 		// 'X'버튼 클릭
- 		$(".modalclose").on("click", function(e) {
- 			console.log("modal close");
- 			 
- 			$("#myModal").hide();
- 		});   */
- 		
- 		
- 	});//end 비회원 Modal
- 	 
- 	
+  
  		
  });
 	
