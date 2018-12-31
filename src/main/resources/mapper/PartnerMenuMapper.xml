@@ -19,4 +19,9 @@
 		where pid=#{pid}
 	</select>
 	
+	<update id="getupdateMaxQuantity" parameterType="ga.eatup.partner.domain.MenuVO">
+		update partner_store_menu set max_quantity=#{max_quantity} where sno= #{sno} and mno= #{mno};
+	</update>
+	
+	
 </mapper>
