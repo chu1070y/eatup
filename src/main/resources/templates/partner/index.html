@@ -40,7 +40,7 @@ a {
 		<hr>
 		<div id="body"></div>
 
-		<input id="tid" type="hidden" name="tid">
+		<input id="tid" type="hidden" data-token="" name="tid">
 		<!-- <button class="btn btn-secondary btn-lg btn-block" id="btn">F I N I S H !</button>  -->
 	</div>
 
@@ -278,9 +278,6 @@ $("#go").click(function(){
 	console.log("clickkkkkk");
 	number=101;
 	
-	
-	
-	
 	console.log(" 여기는 체크오더이고,," + number);
 		
 		var array = $(".block").slice(); //블록을 배열로
@@ -336,15 +333,9 @@ $(document).ready(function () {
 		xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
 	});
 	
-	$("#btn1").click(function(){
-		
-		console.log("clickkkk")
-		
-	});
-	
 	 
 	 //음성 메세지 푸시 알람
-	 function pushMessage(data){
+	 function pushMessage(data,token){
 		 console.log("push message.........");
 		 
 		 $.ajax({
@@ -363,7 +354,7 @@ $(document).ready(function () {
 				        "click_action": "http://localhost:8080/user/home",
 				        "icon": "http://url-to-an-icon/icon.png"
 				        },
-				      "to": "cHFUupbfKDs:APA91bHGYhS1DRdmTJfYcDesPJHKAgsaOF330GGNFtufAD28hhsJMkjAlIPBmkD1DB7dz3oXCGGzLFmeC1xz_cXogDwfwAIuS3XuFbpvOY-bO4Uftn6pkygtf0qMCs0aLuSYMVJcGfGd"
+				      "to": token
 				  }),
 				success: function(result,status,xhr){
 					if(callback){
@@ -441,7 +432,7 @@ $(document).ready(function () {
  			
  			var idarray = new Array(); //배열 아이디
  			var length = array.length -1; 
- 			console.log(length)
+ 			console.log(length);
  			
  			for(var i=0; i<length; i++){
  				idarray[i]=array[i].id;
@@ -452,7 +443,7 @@ $(document).ready(function () {
  			//animation
  			var elem = document.getElementById(number); //ex)103
  		  	var index = idarray.indexOf(""+number); 
- 			console.log(elem + "   " + index)
+ 			console.log(elem + "   " + index);
  		
  			if( number.toString() !== 'NaN' && checkarray.includes(""+number)==false ){
  			checkarray = ""+number;				
@@ -460,27 +451,13 @@ $(document).ready(function () {
  			
  			$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
  			
+ 			//주문 완료 날리기
+ 			//pushMessage("조리가 완료되었습니다.",token);
  			
- 			}	
+ 			}
  			idarray.splice(index,1)
  			console.log(idarray);
  			
- 		///////////////////////////////////////////////////////////////
-
- 		/* console.log(" 여기는 체크오더이고,," + number);
-
- 		var elem = document.getElementById(number); 
- 		var tid = number
- 		var index = [[${tidlist}]].indexOf(tid);
- 		console.log(elem + "   " + index)
- 		
- 		if( number.toString() !== 'NaN'){
- 			
- 			
- 		$(elem).animate({"bottom":"1000px"}); 
- 		$(".block").slice(index).animate({"left": "-=420px"});
- 		
- 		}	 */
  		
  	}
 
@@ -522,18 +499,27 @@ $(document).ready(function () {
 	    	    console.log(tempMsg);
 	  
 	    	  	mic.stop();
-	    	  	pushMessage(tempMsg);
 	    	  	
 	    	    $('.modal-body').removeClass('on');
 	    	    	$("#speech_box").text("");
 	    	    	
 	    	    	
-	    	    	 //문자열에서 숫자만 빼기
+	    	    	//문자열에서 숫자만 빼기
 				    var splittempmsg =tempMsg.split("번" , 1);
 				    var splitmsg = splittempmsg.toString();
 				    console.log("숫자만 빼보았슴다,,,?" + splitmsg);
 				    
-				    checkOrder(splitmsg);
+				    
+				    //뮨자열에서 완료 감지하기
+				    var complete = tempMsg.search("완료");
+				    console.log("complete... -1만 안나오면 됨..." + complete);
+				     
+				    if(complete != -1){
+				    	checkOrder(splitmsg);
+				    	return;
+				    }
+				    
+				    alert("완료 단어가 인식되지 않았습니다.");
 	    	      
 	    	    };
 	    	    
@@ -682,6 +668,8 @@ $(document).ready(function () {
 			
 			$("#origin #tid").val(snap.val()[data].tid);
 			
+			$("#origin #tid").attr("data-token",snap.val()[data].pushtoken);
+			
 			$("#origin #body").append("<button id="+snap.val()[data].order_id+" class='btn btn-secondary btn-lg btn-block'>F I N I S H !</button>");
 			$("#origin").attr("data-key",data);
 			
@@ -705,6 +693,8 @@ $(document).ready(function () {
 			var key = $("#"+this.id).attr("data-key");
 			
 			var tid = $("#"+this.id).find("input").val();
+			
+			var token = $("#"+this.id).find("input").data("token");
 			
 			var array = $(".btn.btn-secondary.btn-lg.btn-block").slice(); //블록을 배열로
 			console.log(array);
@@ -734,12 +724,9 @@ $(document).ready(function () {
 				
 				
 				//Mysql DB orderComplete...
-				orderComplete(tid,key)
+				orderComplete(tid,key,token);
 				
 			});  //103숫자 들어오면,,,
-			
-			
-			
 			
 		});//$(".btn.btn-secondary.btn-lg.btn-block").click
 		
@@ -752,7 +739,7 @@ $(document).ready(function () {
 		}
 		
 		//orderComplete - 주문완료라고 db 바꾸기
-		function orderComplete(tid,key){
+		function orderComplete(tid,key,token){
 			console.log('order Complete');
 			
 		    $.ajax({
@@ -767,6 +754,7 @@ $(document).ready(function () {
 					
 					//firebase DB삭제하기
 					deleteFirebase(key);
+					pushMessage("조리가 완료되었습니다.",token);
 
 					
 			     }

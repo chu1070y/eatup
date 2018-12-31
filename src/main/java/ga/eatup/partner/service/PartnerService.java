@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.domain.StoreVO;
+import ga.eatup.user.domain.OrderVO;
 
 @Service
 public interface PartnerService {
@@ -23,5 +24,7 @@ public interface PartnerService {
 	public int insertPartner(PartnerVO partnerVO, StoreVO storeVO);
 
 	public int orderComplete(String tid);
+	
+
 
 }

@@ -16,4 +16,6 @@ public interface OrderService {
 	
 	public List<OrderVO> getOrderHistory(Map<String, Object> map);
 	
+	public int tokenUpdate(OrderVO vo);
+	
 }

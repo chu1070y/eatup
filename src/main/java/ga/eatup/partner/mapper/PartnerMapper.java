@@ -4,6 +4,7 @@ import java.util.List;
 
 import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.domain.StoreVO;
+import ga.eatup.user.domain.OrderVO;
 
 public interface PartnerMapper {
 

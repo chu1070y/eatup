@@ -17,7 +17,7 @@ messaging.setBackgroundMessageHandler(function(payload){
 	
 	const title = "고라니 서비스";
 	const options = {
-			body: payload.data.status
+			body: payload.notification.body
 	};
 	
 	return self.registration.showNotification(title,options);

@@ -22,4 +22,5 @@ public interface UserOrderMapper {
 	
 	public List<OrderVO> getOrderHistory(Map<String, Object> map);
 
+	public int tokenUpdate(OrderVO vo);
 }

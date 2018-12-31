@@ -6,6 +6,7 @@ import ga.eatup.partner.domain.PartnerVO;
 import ga.eatup.partner.domain.StoreVO;
 import ga.eatup.partner.mapper.PartnerMapper;
 import ga.eatup.user.domain.MenuVO;
+import ga.eatup.user.domain.OrderVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -50,6 +50,12 @@ public class OrderServiceImpl implements OrderService {
 		return mapper.getOrderHistory(map);
 	}
 
+	@Override
+	public int tokenUpdate(OrderVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.tokenUpdate(vo);
+	}
+
 
 
 
