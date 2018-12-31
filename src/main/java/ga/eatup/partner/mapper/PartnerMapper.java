@@ -22,5 +22,7 @@ public interface PartnerMapper {
 	
 	public int insertStore(StoreVO vo);
 	
+	public int orderComplete(String tid);
+	
 		
 }

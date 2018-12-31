@@ -344,6 +344,7 @@ $(document).ready(function () {
 		
 	});
 	
+<<<<<<< HEAD
 
 	 //음성 메세지 DB에 저장할 경우
 	 function sendVoice(data,callback,error){
@@ -367,6 +368,8 @@ $(document).ready(function () {
 		 });
 	 }//end sendVoice
 	 
+=======
+>>>>>>> master
 	 
 	 //음성 메세지 푸시 알람
 	 function pushMessage(data){
@@ -750,6 +753,8 @@ $(document).ready(function () {
 			
 			var key = $("#"+this.id).attr("data-key");
 			
+			var tid = $("#"+this.id).find("input").val();
+			
 			var array = $(".btn.btn-secondary.btn-lg.btn-block").slice(); //블록을 배열로
 			console.log(array);
 			
@@ -776,8 +781,9 @@ $(document).ready(function () {
 			$(elem).animate({"bottom":"1000px"});		
 			$(".block").slice(index).animate({"left": "-=420px"},function(){
 				
-				//firebase DB삭제하기
-				deleteFirebase(key);
+				
+				//Mysql DB orderComplete...
+				orderComplete(tid,key)
 				
 			});  //103숫자 들어오면,,,
 			
@@ -793,9 +799,34 @@ $(document).ready(function () {
 			var remove = '/'+ [[${sno}]] +'/'+key;
 			return firebase.database().ref(remove).remove();
 		}
+		
+		//orderComplete - 주문완료라고 db 바꾸기
+		function orderComplete(tid,key){
+			console.log('order Complete');
+			
+		    $.ajax({
+		          type: 'get',
+		          url: "/partner/orderComplete/" + tid,
+		          success: function(result){
+		        	  
+					if(result==null){
+						alert("주문완료 전송 실패...");
+						return;
+					}
+					
+					//firebase DB삭제하기
+					deleteFirebase(key);
+
+					
+			     }
+			 });//end ajax
+		}
+
 
 		
 	});
+	
+	
 
 
 	console.log("firebase realtime db js end");

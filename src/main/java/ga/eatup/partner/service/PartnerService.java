@@ -24,5 +24,6 @@ public interface PartnerService {
 	
 	public List<StoreVO> getOpen(StoreVO storeVO);
 
+	public int orderComplete(String tid);
 
 }
