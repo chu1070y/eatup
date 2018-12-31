@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ga.eatup.partner.domain.OrderVO;
 import ga.eatup.partner.mapper.PartnerOrderMapper;
+import ga.eatup.partner.domain.StoreVO;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -40,5 +41,24 @@ public class OrderTests {
 		log.info(""+mapper.getOrder(vo));
 		
 	}
+	
+	
+	
+	
+	@Test
+	public void openmapper() {
+		
+		
+		StoreVO vo  = new StoreVO();
+		
+		vo.setSno(1);
+		
+		log.info(""+mapper.getOpen(vo));
+		
+		
+	}
+	
+	
+	
 
 }

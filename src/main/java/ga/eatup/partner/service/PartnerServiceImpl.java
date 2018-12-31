@@ -2,15 +2,14 @@ package ga.eatup.partner.service;
 
 import java.util.List;
 
-import ga.eatup.partner.domain.PartnerVO;
-import ga.eatup.partner.domain.StoreVO;
-import ga.eatup.partner.mapper.PartnerMapper;
-import ga.eatup.user.domain.MenuVO;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ga.eatup.partner.domain.PartnerVO;
+import ga.eatup.partner.domain.StoreVO;
+import ga.eatup.partner.mapper.PartnerMapper;
+import ga.eatup.partner.mapper.PartnerOrderMapper;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -20,6 +19,9 @@ public class PartnerServiceImpl implements PartnerService {
 
 	@Setter(onMethod_=@Autowired)
 	private PartnerMapper mapper;
+	
+	@Setter(onMethod_=@Autowired)
+	private PartnerOrderMapper ordermapper;
 	
 	public List<PartnerVO> getPartnerList(){
 		log.info("partner 리스트를 가져옵니다.");
@@ -61,6 +63,15 @@ public class PartnerServiceImpl implements PartnerService {
 		storeVO.setPno(partnerVO.getPno());
 		
 		return mapper.insertStore(storeVO);
+	}
+
+	@Override
+	public List<StoreVO> getOpen(StoreVO storeVO) {
+		
+		ordermapper.getOpen(storeVO);
+		
+		return ordermapper.getOpen(storeVO);
+		
 	}
 
 

@@ -24,8 +24,8 @@ import ga.eatup.partner.domain.NoticePageDTO;
 import ga.eatup.partner.domain.NoticeVO;
 import ga.eatup.partner.domain.OrderVO;
 import ga.eatup.partner.domain.StoreVO;
-import ga.eatup.partner.mapper.PartnerOrderMapper;
 import ga.eatup.partner.mapper.PartnerMenuMapper;
+import ga.eatup.partner.mapper.PartnerOrderMapper;
 import ga.eatup.partner.service.OpenService;
 import ga.eatup.partner.service.PartnerMenuService;
 import ga.eatup.partner.service.PartnerService;
@@ -80,7 +80,7 @@ public class PartnerController {
 	}
 	
 	@GetMapping("/index")
-	public void index(Model model, OrderVO order, Authentication authentication) {
+	public void index(Model model, OrderVO order,StoreVO store, Authentication authentication) {
 		log.info("index......................page");
 		
 		String pid = authentication.getName();
@@ -112,6 +112,14 @@ public class PartnerController {
 		
 		System.out.println(tidlist);
 		model.addAttribute("tidlist", tidlist);
+		
+		ordermapper.getOpen(store);
+		System.out.println("으뱌뱌 으뱝요~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		List<StoreVO> open = service.getOpen(store);
+		System.out.println(open.get(0).getOpen());
+		
+		model.addAttribute("open", open.get(0).getOpen());
+		
 		
 		
 	}

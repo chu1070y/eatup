@@ -12,12 +12,12 @@ a {
 
 	<!-- Breadcrumbs-->
 
-		 <div id="content-wrapper"> 
-			<ol class="breadcrumb" style="font: 12px sans-serif">
-				<li class="breadcrumb-item"><a href="#">Home</a></li>
-				<li class="breadcrumb-item active">주문</li>
-			</ol>
- 		</div> 
+	<div id="content-wrapper">
+		<ol class="breadcrumb" style="font: 12px sans-serif">
+			<li class="breadcrumb-item"><a href="#">Home</a></li>
+			<li class="breadcrumb-item active">주문</li>
+		</ol>
+	</div>
 
 
 
@@ -51,11 +51,11 @@ a {
 
 
 	<style>
- .breadcrumb {
+.breadcrumb {
 	position: absolute;
 	width: 9000%;
 }
- 
+
 .btn.btn-secondary.btn-lg.btn-block {
 	position: absolute;
 	bottom: 0;
@@ -257,6 +257,8 @@ hr {
 		</div>
 	</div>
 
+	<div th:text="${open}"></div>
+
 
 
 </div>
@@ -341,6 +343,7 @@ $(document).ready(function () {
 		console.log("clickkkk")
 		
 	});
+	
 
 	 //음성 메세지 DB에 저장할 경우
 	 function sendVoice(data,callback,error){
@@ -593,13 +596,14 @@ $(document).ready(function () {
 	
 	var datax = {'open':'X'} 
 	var datao = {'open':'O'} 
-	$(function () {
-		 $( "#Disconnected" ).click(function() { 
-		
+/* 	$(function () { 
+		 $( "#Disconnected" ).click(function() { */
+			 $(document).on("click","#Disconnected",function(){
+			 
 			 if($( "#Disconnected" ).attr('value')=='end'){
 			 	/* disconnect();
 			 	$( "#Disconnected" ).html("O N") */
-			 	
+			 	console.log("자자자!!!!")
 			 	 $.ajax({
 			 		type :'put',
 			 		url: '/partner/openx',
@@ -620,6 +624,7 @@ $(document).ready(function () {
 			 else if($( "#Disconnected" ).attr('value')=='start'){
 				/* connect();
 				sendName(); */
+				console.log("자자자!!!!")
 				$( "#Disconnected" ).html("O F F")
 				//alert("연결이 됐슴다.,,,,");
 				
@@ -643,14 +648,18 @@ $(document).ready(function () {
 		 
 		 
 		 });	
-	});
+/* 	}); */
 	
 
 	 window.onload = function(){
 		 /* connect();
 		 sendName(); */
 		 
-		 $.ajax({
+		 console.log("시작이 될 때마다 여기가 처음인가요?")
+		 console.log([[${open}]])
+		 open = [[${open}]]
+		 /*
+		  $.ajax({
 		 		type :'put',
 		 		url: '/partner/openx',
 		 		data: JSON.stringify(datax),
@@ -664,7 +673,22 @@ $(document).ready(function () {
 		 		error:function(e){
 		            alert("에러 발생~~");
 		        } 
-		 	})//ajax 
+		 	})//ajax  
+		 	*/
+		 	/* <button id="Disconnected" class="btn btn-outline-warning"
+				value="start">O N</button></span> */
+				
+			var openx = "<span sec:authorize='hasRole('PARTNER')'><button id='Disconnected' class='btn btn-outline-warning'value='start'>O N</button></span>";
+			var openo = "<span sec:authorize='hasRole('PARTNER')'><button id='Disconnected' class='btn btn-outline-warning'value='end'>O F F</button></span>";
+		 	
+			if(open==='X'){
+		 		console.log("엑스라네");
+		 		$( ".navbar-nav.ml-auto.mr-0.mr-md-3.my-2.my-md-0" ).append(openx);
+		 	}
+		 	else{
+		 		console.log("오라네");
+		 		$( ".navbar-nav.ml-auto.mr-0.mr-md-3.my-2.my-md-0" ).append(openo);
+		 	}
 	 };
 	 
 	 /////////////////////////파이어베이스에서 realtime DB불러와 뿌리기

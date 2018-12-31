@@ -21,6 +21,8 @@ public interface PartnerService {
 	public int checkId(String pid);
 	
 	public int insertPartner(PartnerVO partnerVO, StoreVO storeVO);
+	
+	public List<StoreVO> getOpen(StoreVO storeVO);
 
 
 }
