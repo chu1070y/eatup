@@ -64,7 +64,7 @@ $(document).ready(function() {
 	var cartList = [[${info.cartList}]];
 	console.log("리스트: " +  [[${info.kakao.tid}]]);
 
-	 // Initialize Firebase
+	  // Initialize Firebase
 	  var config = {
 	    apiKey: "AIzaSyAKegY8LM_wqmn2twvBsMh0LsvGwsUjS6E",
 	    authDomain: "gorany-df5bd.firebaseapp.com",
@@ -73,10 +73,45 @@ $(document).ready(function() {
 	    storageBucket: "gorany-df5bd.appspot.com",
 	    messagingSenderId: "551706831448"
 	  };
+
 	  firebase.initializeApp(config);
 
-	  var messaging = firebase.messaging();
+	  const messaging = firebase.messaging();  		
 	  
+	  //token값 알아내기
+	   messaging.requestPermission()
+	  	.then(function(){
+	  		console.log("Have permission");
+	  		return messaging.getToken();
+	  	}) 
+	  	.then(function(token){
+	  		console.log("fcm token:" + token);
+	  		
+	  		writeNewPost([[${info.kakao.tid}]],[[${order_num}]],result,token);
+	  	})
+	  	.catch(function(arr){
+	  		console.log("Error Occured");
+	  	});
+	  
+ 	  messaging.onMessage(function(payload){
+		console.log('onMessage: ', payload);
+		var title = "고라니 서비스";
+		var options = {
+				body: payload.notification.body
+		};
+		
+		var notification = new Notification(title, options);
+		 
+	  });
+ 	  
+	  
+	 	//버튼 클릭 이벤트
+		$("#successOrder").on("click", function(e) {	
+			
+			self.location="/user/history";
+			
+		});
+	 	
 		//child안에 sno값을 넣어주면 된다.
 		var dbRefObject = firebase.database().ref().child([[${info.cartList[0].sno}]]);
 		
@@ -89,36 +124,9 @@ $(document).ready(function() {
 
 			var orderTime = (Math.ceil(orderSize/5))*5;
 			
+			orderSize = orderSize == 0 ? 1:orderSize;
+			
 			$("#orderTime").html( "현재 " + orderSize + "번째 주문입니다. 대기시간은 약 " + orderTime + "분 입니다.");
-			
-		});
-  		
-	  
-	  //token값 알아내기
-	   messaging.requestPermission()
-	  	.then(function(){
-	  		console.log("Have permission");
-	  		return messaging.getToken();
-	  	}) 
-	  	.then(function(token){
-	  		console.log(token);
-	  		
-	  		writeNewPost([[${info.kakao.tid}]],[[${order_num}]],result,token);
-	  	})
-	  	.catch(function(arr){
-	  		console.log("Error Occured");
-	  	});
-	  
- 	  messaging.onMessage(function(payload){
-		 console.log('onMessage: ', payload); 
-		 alert(payload.notification.body);
-	  });
- 	  
-	  
-	 	//버튼 클릭 이벤트
-		$("#successOrder").on("click", function(e) {	
-			
-			self.location="/user/history";
 			
 		});
 	 

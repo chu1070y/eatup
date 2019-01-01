@@ -268,7 +268,6 @@ hr {
 <th:block layout:fragment="script">
 
 	<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
-	</script>
 
 	<script th:inline="javascript">
 	
@@ -312,30 +311,25 @@ $("#go").click(function(){
 		
 		$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
 		
-		
 		}
-		
 		
 		idarray.splice(index,1);
 		
 		console.log(idarray);
 		
 		console.log("췤ㄱ: " + checkarray)
-		
-	
-	
-})
+
+});
 	
 $(document).ready(function () {
 	//csrf처리
-	var csrfHearderName = [[${_csrf.headerName}]];
-	var csrfTokenValue =  [[${_csrf.token}]];
+	var csrftoken = $('#_csrf').attr('content');
+	var csrfheader = $('#_csrf_header').attr('content');
 
 	//$(document).ajaxSend(function(e,xhr,options){
 	//	xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
 	//});
 	
-	pushMessage("",'f4jMaGZbiFY:APA91bFsf4taLscTuVjzNk6ZTX-Kge4so-dAPsdpSF7ycuB2mX_PjEOgPXtrGMGrbY8kItXTpvO4myKnoMB-kqIcLr-LZzP2O2x74pTCtnUPOoXz0AOkyjgbm9o1fNUbXPmz6QoMfA46'); 
 	 //음성 메세지 푸시 알람
 	 function pushMessage(data,token){
 		 console.log("push message.........");
@@ -346,8 +340,7 @@ $(document).ready(function () {
 				beforeSend: function(request){
 					request.setRequestHeader("content-type","application/json");
 					request.setRequestHeader("authorization","key=AAAAgHRKKlg:APA91bHCHmYkU1PANUYZgctP5dBZ1EuZZ5VfS4_fXUicesDas88tm6Rs1y35YMmLuOzAu3xmQqfI0KtR17UcdGR2ZuYrxhLJ2QasccO4xsO3kEBC98lO-Np1nIrxCa_mgE_DnnPCaxCe");
-				}, 
-				
+				},
 				/* headers:{
 					"Content-Type" : "application/json",
 					"Authorization" : "key=AAAAgHRKKlg:APA91bHCHmYkU1PANUYZgctP5dBZ1EuZZ5VfS4_fXUicesDas88tm6Rs1y35YMmLuOzAu3xmQqfI0KtR17UcdGR2ZuYrxhLJ2QasccO4xsO3kEBC98lO-Np1nIrxCa_mgE_DnnPCaxCe"
@@ -356,7 +349,7 @@ $(document).ready(function () {
 				dataType: "json",
 				data:JSON.stringify({
 				    "notification" : {
-				        "body" : "좀 되자",
+				        "body" : data,
 				        "title" : "FCM Message", 
 				        "click_action": "http://localhost:8080/user/home",
 				        "icon": "http://url-to-an-icon/icon.png"
@@ -364,12 +357,11 @@ $(document).ready(function () {
 				      "to": token
 				  }),
 				success: function(result,status,xhr){
-					if(callback){
-						callback(result);
-					}
+					
 				}
 		 });
 	 }
+
 	 
 	 
 	var ws;
@@ -430,11 +422,9 @@ $(document).ready(function () {
  		console.log(" 여기는 체크오더이고,," + number);
  			
  			var array = $(".block").slice(); //블록을 배열로
- 			console.log(array);
  			
  			var idarray = new Array(); //배열 아이디
  			var length = array.length -1; 
- 			console.log(length);
  			
  			for(var i=0; i<length; i++){
  				idarray[i]=array[i].id;
@@ -445,7 +435,6 @@ $(document).ready(function () {
  			//animation
  			var elem = document.getElementById(number); //ex)103
  		  	var index = idarray.indexOf(""+number); 
- 			console.log(elem + "   " + index);
  		
  			if( number.toString() !== 'NaN' && checkarray.includes(""+number)==false ){
  			checkarray = ""+number;				
@@ -454,13 +443,11 @@ $(document).ready(function () {
  			$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
  			
  			//주문 완료 날리기
- 			pushMessage("조리가 완료되었습니다.",'cHFUupbfKDs:APA91bHGYhS1DRdmTJfYcDesPJHKAgsaOF330GGNFtufAD28hhsJMkjAlIPBmkD1DB7dz3oXCGGzLFmeC1xz_cXogDwfwAIuS3XuFbpvOY-bO4Uftn6pkygtf0qMCs0aLuSYMVJcGfGd');
+ 			pushMessage("조리가 완료되었습니다.",$(elem).find("input").data("token"));
  			
  			}
  			idarray.splice(index,1)
  			console.log(idarray);
- 			
- 		
  	}
 
 
@@ -545,10 +532,8 @@ $(document).ready(function () {
 			    <!-- close function -->
 			    });
 			      
-			      
 			  <!-- close else -->
 			  }
-			 
 	};
 	
 	/*
@@ -557,8 +542,8 @@ $(document).ready(function () {
 	});	
 	*/
 	
-	var datax = {'open':'X'} 
-	var datao = {'open':'O'} 
+	var datax = {'open':'X'};
+	var datao = {'open':'O'};
 /* 	$(function () { 
 		 $( "#Disconnected" ).click(function() { */
 			 $(document).on("click","#Disconnected",function(){
@@ -571,6 +556,9 @@ $(document).ready(function () {
 			 		type :'put',
 			 		url: '/partner/openx',
 			 		data: JSON.stringify(datax),
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader(csrfheader, csrftoken);
+                    },
 			 		contentType: "application/json; charset=utf-8",
 			 		success:function(datax){
 			 			disconnect();
@@ -595,6 +583,9 @@ $(document).ready(function () {
 			 		type :'put',
 			 		url: '/partner/openo',
 			 		data: JSON.stringify(datao),
+                    beforeSend: function(xhr) {
+                    	xhr.setRequestHeader(csrfheader, csrftoken);
+                    },
 			 		contentType: "application/json; charset=utf-8",
 			 		success:function(datao){
 			 			connect();
@@ -657,16 +648,17 @@ $(document).ready(function () {
 	 /////////////////////////파이어베이스에서 realtime DB불러와 뿌리기
 	 console.log("firebase realtime db js");
 
-	// Initialize Firebase
-	var config = {
-	  apiKey: "AIzaSyAKegY8LM_wqmn2twvBsMh0LsvGwsUjS6E",
-	  authDomain: "gorany-df5bd.firebaseapp.com",
-	  databaseURL: "https://gorany-df5bd.firebaseio.com",
-	  projectId: "gorany-df5bd",
-	  storageBucket: "gorany-df5bd.appspot.com",
-	  messagingSenderId: "551706831448"
-	};
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyAKegY8LM_wqmn2twvBsMh0LsvGwsUjS6E",
+	    authDomain: "gorany-df5bd.firebaseapp.com",
+	    databaseURL: "https://gorany-df5bd.firebaseio.com",
+	    projectId: "gorany-df5bd",
+	    storageBucket: "gorany-df5bd.appspot.com",
+	    messagingSenderId: "551706831448"
+	  };
 	firebase.initializeApp(config);
+	
 
 	var preObject = document.getElementById('object');
 
@@ -703,9 +695,8 @@ $(document).ready(function () {
 			
 			$("#orderlist").append(clone);
 			$("#origin #body").html("");
-			
-			
 		}
+		
 		//animation
 		$(".btn.btn-secondary.btn-lg.btn-block").click(function(){
 			
@@ -725,7 +716,7 @@ $(document).ready(function () {
 		
 			var idarray = new Array(); //배열 아이디
 			var length = array.length; 
-			console.log(length)
+			console.log(length);
 			
 			for(var i=0; i<length; i++){
 				idarray[i]=array[i].id;
@@ -744,10 +735,9 @@ $(document).ready(function () {
 			
 			$(elem).animate({"bottom":"1000px"});		
 			$(".block").slice(index).animate({"left": "-=420px"},function(){
-				
-				
-				//Mysql DB orderComplete...
-				orderComplete(tid,key,token);
+			
+			//Mysql DB orderComplete...
+			orderComplete(tid,key,token);
 				
 			});  //103숫자 들어오면,,,
 			
@@ -757,7 +747,7 @@ $(document).ready(function () {
 		//firebase DB에 데이터 지우기
 		//여기서 1은 sno를 뜻함.
 		function deleteFirebase(key){
-			var remove = '/'+ [[${sno}]] +'/'+key;
+			var remove = '/'+ [[${sno}]] + '/' + key;
 			return firebase.database().ref(remove).remove();
 		}
 		
@@ -778,19 +768,15 @@ $(document).ready(function () {
 					console.log("click...................................................")
 					console.log(token);
 					//firebase DB삭제하기
-					//deleteFirebase(key);
+					deleteFirebase(key);
 					pushMessage("조리가 완료되었습니다.",token);
 
-					
 			     }
 			 });//end ajax
 		}
 
 		
 	});
-	
-	
-
 
 	console.log("firebase realtime db js end");
 
