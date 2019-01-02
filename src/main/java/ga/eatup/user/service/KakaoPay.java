@@ -25,7 +25,7 @@ import lombok.extern.java.Log;
 @Log
 public class KakaoPay {
 
-	private static List<CartDTO> finalcartList;
+	private List<CartDTO> finalcartList;
 	
 	private static final String HOST = "https://kapi.kakao.com";
 	
