@@ -95,7 +95,6 @@ public class KakaoPayController {
 		orderVO.setMno(cartList.get(0).getMno());
 		orderVO.setUno(orderService.getUno(uid));
 		orderVO.setToken(pg_token);
-		orderVO.setApproved_at(kakaokey.getApproved_at());
 
 		cartList.forEach(vo -> {
 			log.info("" + vo);

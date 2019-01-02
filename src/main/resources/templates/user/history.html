@@ -70,7 +70,7 @@
 							<td th:text="${index.index+1}"></td>
 							<td th:text="${history.store.sname}"></td>
 							<td th:text="${history.tid}"></td>
-							<td th:text="${#dates.format(history.approved_at, 'yyyy-MM-dd')}"></td>
+							<td th:text="${#dates.format(history.approved_at, 'yyyy-MM-dd hh:mm:ss')}"></td>
 						</tr>
 					</tbody>
 				</table>
