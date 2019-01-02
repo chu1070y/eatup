@@ -172,7 +172,7 @@
 
 								<h6 th:text="${menu.mname}" class="card-title"></h6>
 								<input type="hidden" th:value="${menu.mno}">
-								<p th:text="${menu.mprice}" class="card-text"></p>
+								<p th:text="|${menu.mprice}원|" class="card-text"></p>
 								<p th:text="${menu.introduction}" class="card-text"></p>
 							</div>
 

@@ -56,19 +56,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="cart : ${cart}">
+					<tr class="cartList" th:each="cart ,index: ${cart}" th:data-idx="${index.index}">
 						<td><div class="form-check form-check-inline"> <input class="selectOne form-check-input" name="ckBox" type="checkbox" id="inlineCheckbox1" value="option1"  checked="checked">
   							<label class="form-check-label" for="inlineCheckbox1"></label></div></td>
 						<td th:text="${cart.mname}"></td>
-						<td><input th:value="${cart.quantity}" size="1" type="number" class="qty form-control" min="0" max="100"></td>
-						<td id="price" th:text="${cart.mprice}"></td>
-						<td><button class="editBtn btn btn-outline-warning">Edit</button></td>
+						<td><input th:value="${cart.quantity}" size="1" type="number" class="qty form-control" min="1" max="100" th:data-idx="${index.index}"></td>
+						<td id="price" th:text="|${cart.mprice}원|"></td>
+						<td><button class="editBtn btn btn-outline-warning">수정</button></td>
 					</tr>
 					
+					<tr>
+					<td></td><td></td><td></td><td></td>
+					<td> <button class="delBtn btn btn-danger">전체삭제</button></td>
+					</tr>
 				</tbody>
+				
 			</table>
-<button class="editBtn btn btn-warning">선택수정</button>
-<button class="editBtn btn btn-danger">선택삭제</button>
 
 	<div class="col-lg-9">
 				<h3>총 주문 금액</h3>
@@ -79,11 +82,14 @@
 	</div>
 		   <div class="col-md-5">
 		<!-- end content -->
-	</div>
-	      	<div class="wrapper">
-      		<div class="facet f1"> <button class="cartBtn btn btn-warning" th:onclick="|window.location.href='@{/user/pay(sno=${sno})}'|">주문하기</button></div>
-      	</div>
-</div>
+			</div>
+	      		<div class="wrapper">
+      			<div class="facet f1"> <button class="cartBtn btn btn-warning" th:onclick="|window.location.href='@{/user/pay(sno=${sno})}'|">주문하기</button></div>
+      			</div>
+      			
+      		
+      	
+      		
 </div>
 
 <th:block layout:fragment="script">
@@ -92,9 +98,11 @@ window.onload = function(){
 	
 	var getCookie = $.cookie('cart');
 	var cart = [[${cart}]];
-	var idx = 0;
+	var arr = new Array();
+	var idx = $(".cartList").data('idx');
+    var sumPrice=0;
 	
-	console.log(getCookie); 
+	console.log("카트리스트:" + $(".cartList").length);
 	
 
 	$(".qty").attr("disabled",true); 
@@ -105,74 +113,114 @@ window.onload = function(){
 		//클릭
 		if($(".selectOne").prop("checked")){
 			$("input[name=ckBox]").prop("checked", false);
+			
+			//메뉴 선택 삭제
+			if( $(".delBtn").html() == '전체삭제' ) {
+			      $(".delBtn").html('선택삭제');
+			      
+			      $(".delBtn").on("click", function(){
+			    	  
+			    	  delCart();
+			      });
+			   		
+			}; //delBtn if end
+
 		//논클릭
 		}else{
 			$("input[name=ckBox]").prop("checked", true);
 
+
 		} //end if-else
 	}) //end checkbox
+	
+	//메뉴 전체 삭제
+    $(".delBtn").on("click", function(){
+  	  delCart();
+    });
 	
 	
 
 	//총 주문금액
 	$(".totalPrice").html(function(){
-		
-		idx = 0;
-		
-		//수량
-		$(".qty").each(function(){
-			
-			idx += parseInt($(this).context.value);
-			
-			console.log("qty: " + $(this).context.value);
-			
-		});
-		
+		var price = 0;	
 		
 		//가격
 		$(".getPrice").each(function(){
-			console.log($(this));
 			
-			idx += parseInt($(this).context.value);
+			price += parseInt($(this).context.value);
 		});
 		
-		return idx;
+		return price+'원';
 	
 	}); //end totalPrice
 	
 	
 	//Edit 버튼 클릭
-	$(".editBtn").on("click", function(){
-		
-		$(".qty").removeAttr("disabled"); 
+	$(".editBtn").on("click", function(e){
+		e.preventDefault();
+		var inp=$(this).parent().parent().find('td input')[1];
+		inp.removeAttribute( 'disabled');
 		
 		//edit status
-		 if( $(this).html() == 'Edit' ) {
-		      $(this).html('Done');
-		      
-		    }
+		if( $(this).html() == '수정' ) {
+		      $(this).html('완료');
+		    } 
 		
 		//done status
-		    else {
-		      $(this).html('Edit');
-		     
-		      idx = 0;
+		   else {
+		      $(this).html('수정');
+		      inp.setAttribute( 'disabled','disabled');
 		      
-		     	for(var i = 0; i < getCookie[idx].length; i++){
+
+		   
+		      // json으로 Data변환
+		   		for(var i = 0; i < cart.length; i++){
+		   		var qty=$('input[data-idx="'+i+'"]').val();
+				
+		   		var jsonData = new Object();
+				jsonData.sno = [[${sno}]];
+				jsonData.mno =cart[i].mno;
+				jsonData.quantity =qty;
+				sumPrice+=parseInt(cart[i].mprice)*parseInt(qty);
+	
+				arr.push(jsonData);
+		   		}
+				
+				var json = JSON.stringify(arr);
 		      
-		     	 $(".qty").html($(".qty")[idx].value)
-		      	.attr("disabled",true);
-		     	 
-		     	 
-		      		      
-		      
-		  		}
-		
-		console.log("edit button click....");
-		
+		  	$.cookie('cart', json, { expires: 1, path: '/'}); 	       
+			console.log("cookie : " + $.cookie('cart')); 
+			arr = new Array();
+			$('.totalPrice').html(sumPrice+"원");
 		    }
+
+	}); //end editBtn
+	
+	// delCart confirm
+   function delCart(){
+   	  var choose = confirm("메뉴를 삭제하시겠습니까?");
+   	  if (choose == true) {
+
+   		$(".cartList").remove();
+   		var jsonData = new Object();
+   		$('.totalPrice').remove();
+   		
+   		
+   		
+   		
+   		  
+   		
+   		  
+   	  }else{
+
+   	  }
+   	  console.log(choose);
+   	}; //end delCart
+
+
+	
+	
 		
-	}); //end edit
 
 
 	
