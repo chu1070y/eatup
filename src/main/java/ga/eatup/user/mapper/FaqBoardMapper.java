@@ -3,6 +3,7 @@ package ga.eatup.user.mapper;
 import java.util.List;
 
 import ga.eatup.user.domain.FaqPageDTO;
+import ga.eatup.user.domain.FaqUploadVO;
 import ga.eatup.user.domain.FaqVO;
 
 public interface FaqBoardMapper {
@@ -13,9 +14,15 @@ public interface FaqBoardMapper {
 	
 	public FaqVO faqRead(int fno);
 	
+	public List<FaqUploadVO> uploadRead(int fno);
+	
+	public int uploadAdd(FaqUploadVO vo);
+	
 	public int faqCount();
 	
 	public int faqModify(FaqVO vo);
 	
 	public int faqRemove(FaqVO vo);
+	
+	public int removeFaqUpload(FaqVO vo);
 }

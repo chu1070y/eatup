@@ -247,9 +247,9 @@
 
 	</div>
 
-	<div class="FixedLayoutBottom css_layout_Bottom"
+	<div id="cartbtn" class="FixedLayoutBottom css_layout_Bottom"
 		th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">
-		장바구니 <span id="badge" class="badge badge-pill badge-danger">1</span>
+		장바구니
 	</div>
 
 </div>
@@ -316,7 +316,8 @@ $(document).ready(function() {
 		
 		$("#myModal").show();
 		
-		
+		var cookieCount = 0;
+		var cartstr="";
 
 		// cart 쿠키 생성
 		$("#cart").one("click", function(e) {	
@@ -338,12 +339,18 @@ $(document).ready(function() {
 			$.cookie('cart', json, { expires: 1, path: '/'}); 	       
 			console.log("cookie : " + $.cookie('cart')); 
 			
+			cookieCount = arr.length;
+			console.log("cookiecount: "+ cookieCount);
 			
-			 $('#numberUpDown').text(1);
+			cartstr += "장바구니<span id='badge' class='badge badge-pill badge-danger'>"+ cookieCount +"</span>"
+			$("#cartbtn").html(cartstr);
+			
+			$('#numberUpDown').text(1);
 			console.log("modal close");
 			$("#myModal").hide();
 			
 		});
+		
 		
 		// order 쿠키 생성
 		$("#order").one("click", function(e) {	
@@ -353,6 +360,7 @@ $(document).ready(function() {
 			jsonData.sno = getSno;
 			jsonData.mno = getMno;
 			jsonData.quantity = getQuantity;
+			
 		
 			arr.push(jsonData);
 			var json = JSON.stringify(arr);
@@ -369,7 +377,10 @@ $(document).ready(function() {
 			console.log("modal close");
 			$("#myModal").hide();
 			
+			
+			
 		});
+		
 		
 	});
 	
@@ -442,6 +453,11 @@ $(document).ready(function() {
 		
 		 $(".carousel-inner").html(str);
 		
+		 
+		 // 장바구니 badge
+		
+		
+		 
 
 });
 	</script>
