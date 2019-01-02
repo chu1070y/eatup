@@ -8,6 +8,10 @@
 	<update id="faqRemove" parameterType="ga.eatup.user.domain.FaqVO">
 		update gorany.faq set status="X" where fno = #{fno}
 	</update>
+	
+	<delete id="removeFaqUpload" parameterType="ga.eatup.user.domain.FaqVO">
+		delete from faq_upload where fno = #{fno}
+	</delete>
 
 	<update id="faqModify" parameterType="ga.eatup.user.domain.FaqVO">
 		update gorany.faq set title = #{title}, writer = #{writer}, content = #{content} where fno = #{fno}
@@ -46,8 +50,23 @@
 		insert into gorany.faq(title,writer,content)
 		values(#{title},#{writer},#{content})
 		
+		<selectKey order="AFTER" resultType="int" keyProperty="fno">
+			select LAST_INSERT_ID()
+		</selectKey>
+		
+	</insert>
+	
+	
+	<insert id="uploadAdd"
+		parameterType="ga.eatup.user.domain.FaqUploadVO">
+		insert into
+		faq_upload(fno,fname,uuid,upload_path,filetype)
+		values(#{fno},#{fname},#{uuid},#{upload_path},#{filetype})
 	</insert>
 
+	<select id="uploadRead" resultType="ga.eatup.user.domain.FaqUploadVO">
+		select * from faq_upload where fno = #{fno}
+	</select>
 
 </mapper>
  

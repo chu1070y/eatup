@@ -17,6 +17,6 @@ public class FaqVO {
 	
 	private String status;
 	
-	//private List<NoticeUploadVO> uploadList;
+	private List<FaqUploadVO> uploadList;
 
 }
