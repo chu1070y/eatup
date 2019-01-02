@@ -24,4 +24,15 @@
 	</update>
 	
 	
+	
+	
+	<update id="getSoldoutX" parameterType="ga.eatup.partner.domain.MenuVO">
+		update gorany.partner_store_menu set soldout='O' where sno=#{sno} and mno= #{mno} 
+	</update>
+	
+	<update id="getSoldoutO" parameterType="ga.eatup.partner.domain.MenuVO">
+		update gorany.partner_store_menu set soldout='X' where sno=#{sno} and mno= #{mno} 
+	</update>
+	
+	
 </mapper>

@@ -2,6 +2,7 @@ package ga.eatup.partner.mapper;
 
 import java.util.List;
 import ga.eatup.partner.domain.MenuVO;
+import ga.eatup.partner.domain.StoreVO;
 
 
 public interface PartnerMenuMapper {
@@ -12,7 +13,9 @@ public interface PartnerMenuMapper {
 	
 	public int getupdateMaxQuantity(MenuVO menu);
 
+	public int getSoldoutX(MenuVO menu);
 	
+	public int getSoldoutO(MenuVO menu);
 	
 	
 }
