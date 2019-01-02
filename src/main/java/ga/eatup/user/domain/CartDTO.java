@@ -19,11 +19,14 @@ public class CartDTO {
 	private String sname;
 	private String mname;
 	
+	private String time;
+	private String customerRequest;
+	
 	private boolean compare(MenuVO vo) {
 		
 		if(this.sno== vo.getSno() && this.mno==vo.getMno()) {
 			
-				return true;
+			return true;
 		}
 		return false;
 	}

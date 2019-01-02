@@ -89,7 +89,7 @@ public class KakaoPayController {
 
 		orderVO.setTid(kakaokeyTid);
 		orderVO.setPayment_method_type(kakaokeyPayment_method_type);
-		orderVO.setPartner_order_id( Integer.parseInt(kakaokeyPartner_order_id));
+		orderVO.setPartner_order_id(Integer.parseInt(kakaokeyPartner_order_id));
 		orderVO.setQuantity(kakaokeyQuantity);
 		orderVO.setSno(cartList.get(0).getSno());
 		orderVO.setMno(cartList.get(0).getMno());

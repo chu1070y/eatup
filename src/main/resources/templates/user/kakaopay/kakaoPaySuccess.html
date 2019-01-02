@@ -63,7 +63,7 @@
 $(document).ready(function() {
 
 	var cartList = [[${info.cartList}]];
-	console.log("리스트: " +  [[${info.kakao.tid}]]);
+	console.log("리스트: " +  [[${info.cartList}]]);
 
 	  // Initialize Firebase
 	  var config = {
@@ -88,7 +88,7 @@ $(document).ready(function() {
 	  	.then(function(token){
 	  		console.log("fcm token:" + token);
 	  		
-	  		writeNewPost([[${info.kakao.tid}]],[[${order_num}]],result,token);
+	  		writeNewPost([[${info.kakao.tid}]],[[${order_num}]],result,token,time,customerRequest);
 	  	})
 	  	.catch(function(arr){
 	  		console.log("Error Occured");
@@ -133,19 +133,26 @@ $(document).ready(function() {
 	 
 		//firebase DB에 데이터 넣기
 		var result= [];
+		
+		var length = Object.keys(cartList).length;
 
-		for (var i = 0; i < Object.keys(cartList).length ; i++){
+		for (var i = 0; i < length - 1; i++){
 		    str = {menu:cartList[i].mname,quantity:cartList[i].quantity};
 		    result[i]=str;
 		}
+		
+		var time = cartList[length-1].time;
+		var customerRequest = cartList[length-1].customerRequest;
 
-		function writeNewPost(tid,order_id,menulist,pushtoken) {
+		function writeNewPost(tid,order_id,menulist,pushtoken, time, customerRequest) {
 			  // A post entry.
 			  var postData = {
 				tid:tid,
 				order_id:order_id,
 			    menulist:menulist,
-			    pushtoken: pushtoken   
+			    pushtoken: pushtoken,
+			    time: time,
+			    customerRequest: customerRequest
 			  };
 			  var menu = menu;
 

@@ -85,7 +85,7 @@ hr {
 	white-space: nowrap;
 	background-color: #495057;
 	width: 400px;
-	height: 600px;
+	min-height: 600px;
 	float: left;
 	margin: 10px;
 	white-space: nowrap;
@@ -232,6 +232,11 @@ hr {
 		-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
 	}
+}
+
+h4{
+	white-space: normal;
+	text-align: left;
 }
 </style>
 
@@ -681,15 +686,23 @@ $(document).ready(function () {
 			console.log("-----");
 			console.log(snap.val()[data]);
 			
-			$("#origin #header").html("<h1>"+snap.val()[data].order_id+"</h1>");
+			$("#origin #header").html("<h1>"+snap.val()[data].order_id+"</h2>");
 			
 			for(var menu of snap.val()[data].menulist){
-				$("#origin #body").append("<h2>" + menu.menu + "---"+menu.quantity+"</h2><br/>");
+				$("#origin #body").append("<h3>" + menu.menu + "---"+menu.quantity+"</h3><br/>");
 			}
 			
 			$("#origin #tid").val(snap.val()[data].tid);
 			
 			$("#origin #tid").attr("data-token",snap.val()[data].pushtoken);
+
+			if(snap.val()[data].time!=""){
+				$("#origin #body").append("<h4>예약시간 :" + snap.val()[data].time +"</h4><br/>");
+			}
+			
+			if(snap.val()[data].customerRequest!=""){
+				$("#origin #body").append("<h4>요청사항 :" + snap.val()[data].customerRequest +"</h4><br/>");
+			}
 			
 			$("#origin #body").append("<button id="+snap.val()[data].order_id+" class='btn btn-secondary btn-lg btn-block'>F I N I S H !</button>");
 			$("#origin").attr("data-key",data);
