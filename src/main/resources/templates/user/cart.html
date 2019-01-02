@@ -47,7 +47,7 @@
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col"><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"  checked="checked">
+						<th scope="col"><div class="form-check form-check-inline"> <input class="selectAll form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"  checked="checked">
   							<label class="form-check-label" for="inlineCheckbox1"></label></div></th>
 						<th scope="col">메뉴</th>
 						<th scope="col">수량</th>
@@ -57,23 +57,18 @@
 				</thead>
 				<tbody>
 					<tr th:each="cart : ${cart}">
-						<td><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"  checked="checked">
+						<td><div class="form-check form-check-inline"> <input class="selectOne form-check-input" name="ckBox" type="checkbox" id="inlineCheckbox1" value="option1"  checked="checked">
   							<label class="form-check-label" for="inlineCheckbox1"></label></div></td>
 						<td th:text="${cart.mname}"></td>
-						<td id="qty" th:text="${cart.quantity}">
-						<div class="input-group mb-3">
-						<input size="1" type="number" class="form-control" min="0" max="100" value="1" disabled aria-describedby="basic-addon2">
-  						<div class="input-group-append">
-    					<button class="btn btn-warning" type="button">Edit</button>
-   						 </div>
-   						 </div>
-						</td>
+						<td><input th:value="${cart.quantity}" size="1" type="number" class="qty form-control" min="0" max="100"></td>
 						<td id="price" th:text="${cart.mprice}"></td>
-						<td><button class="btn btn-outline-warning">Edit</button></td>
+						<td><button class="editBtn btn btn-outline-warning">Edit</button></td>
 					</tr>
 					
 				</tbody>
 			</table>
+<button class="editBtn btn btn-warning">선택수정</button>
+<button class="editBtn btn btn-danger">선택삭제</button>
 
 	<div class="col-lg-9">
 				<h3>총 주문 금액</h3>
@@ -96,25 +91,93 @@
 window.onload = function(){
 	
 	var getCookie = $.cookie('cart');
+	var cart = [[${cart}]];
+	var idx = 0;
 	
 	console.log(getCookie); 
 	
 
+	$(".qty").attr("disabled",true); 
+
+	
+	//체크박스 전체선택, 해제
+	$(".selectAll").click(function(){
+		//클릭
+		if($(".selectOne").prop("checked")){
+			$("input[name=ckBox]").prop("checked", false);
+		//논클릭
+		}else{
+			$("input[name=ckBox]").prop("checked", true);
+
+		} //end if-else
+	}) //end checkbox
+	
+	
+
 	//총 주문금액
 	$(".totalPrice").html(function(){
-	
-		var a = 0;
 		
-		$(".getPrice").each(function(){
-			a+= parseInt($(this).context.value);
+		idx = 0;
+		
+		//수량
+		$(".qty").each(function(){
+			
+			idx += parseInt($(this).context.value);
+			
+			console.log("qty: " + $(this).context.value);
+			
 		});
 		
-		return a;
+		
+		//가격
+		$(".getPrice").each(function(){
+			console.log($(this));
+			
+			idx += parseInt($(this).context.value);
+		});
+		
+		return idx;
 	
-	});
+	}); //end totalPrice
+	
+	
+	//Edit 버튼 클릭
+	$(".editBtn").on("click", function(){
+		
+		$(".qty").removeAttr("disabled"); 
+		
+		//edit status
+		 if( $(this).html() == 'Edit' ) {
+		      $(this).html('Done');
+		      
+		    }
+		
+		//done status
+		    else {
+		      $(this).html('Edit');
+		     
+		      idx = 0;
+		      
+		     	for(var i = 0; i < getCookie[idx].length; i++){
+		      
+		     	 $(".qty").html($(".qty")[idx].value)
+		      	.attr("disabled",true);
+		     	 
+		     	 
+		      		      
+		      
+		  		}
+		
+		console.log("edit button click....");
+		
+		    }
+		
+	}); //end edit
 
 
-};
+	
+	
+}; // end window.onload
 	
 	
 	

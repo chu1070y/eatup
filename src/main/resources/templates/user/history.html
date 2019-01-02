@@ -148,6 +148,7 @@ $(document).ready(function(){
 	var csrfTokenValue =  [[${_csrf.token}]];
 	
 	var history = [[${history}]];
+	var idx = $(".orderList").data('idx');
 	var totalPrice = 0;
  	var str = "";
 	var actionForm = $('#actionForm');
@@ -171,14 +172,13 @@ $(document).ready(function(){
 				if(history == 0){
 					alert("존재하지 않는 주문번호입니다. 다시 확인해주세요.");
 				}else{
-
-					//modal start
-					  $("#myModal").show();
 					
 						var idx = 0;
+						
+				 		$("#myModal").show();
 				 		
 				 		str += "<h5 id='sname'>" + history[idx].store.sname + "</h5>";	
-				 		str += "<span id='tid'> 주문번호 " + history[idx].tid + "</span>";
+				 		str += "<span id='tid'> 주문번호:  " + history[idx].tid + "</span>";
 				 		str += "<hr>";
 				 	
 				 			for(var i = 0; i < history[idx].menuList.length; i++){
@@ -197,6 +197,16 @@ $(document).ready(function(){
 				 		
 				 		$(".col-md-7").html(str);
 				 		
+				 		
+				 		//'mname' 클릭
+				  		$("#mname").on("click", function(){
+				 			
+				  			console.log("mname click");
+				  			
+				 			self.location = "/user/store?sno=" + history[idx].sno;
+				 			
+				 		});
+				 		 		
 				 		
 				 		// '확인'버튼 클릭
 				 		$("#closeBtn").on("click", function(){
@@ -217,6 +227,7 @@ $(document).ready(function(){
 				 			$("#myModal").hide();
 				 		});
 				 		
+						
 				 		
 				};//end else
 				 		
@@ -233,14 +244,22 @@ $(document).ready(function(){
 	
 	//회원: orderList click Modal
  	$(".orderList").on("click", function(e){
- 		 			
+ 		e.preventDefault();			
+ 		console.log(history);
+ 	
+ 		showModal();
+ 		
+ 	});
+	
+	
+	//show Modal
+	function showModal(){
+ 		
  		$("#myModal").show();
  		
- 		var idx = $(this).data('idx');
- 		console.log("modal click...");
  		
  		str += "<h5 id='sname'>" + history[idx].store.sname + "</h5>";	
- 		str += "<span id='tid'> 주문번호 " + history[idx].tid + "</span>";
+ 		str += "<span id='tid'> 주문번호:  " + history[idx].tid + "</span>";
  		str += "<hr>";
  	
  			for(var i = 0; i < history[idx].menuList.length; i++){
@@ -259,6 +278,16 @@ $(document).ready(function(){
  		
  		$(".col-md-7").html(str);
  		
+ 		
+ 		//'mname' 클릭
+  		$("#mname").on("click", function(){
+ 			
+  			console.log("mname click");
+  			
+ 			self.location = "/user/store?sno=" + history[idx].sno;
+ 			
+ 		});
+ 		 		
  		
  		// '확인'버튼 클릭
  		$("#closeBtn").on("click", function(){
@@ -279,10 +308,7 @@ $(document).ready(function(){
  			$("#myModal").hide();
  		});
  		
- 	});//end 회원 Modal
- 	
-
-
+ 	};// end modal
  	
   
  		
