@@ -42,8 +42,8 @@ public class CustomUser extends User{
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		// TODO Auto-generated constructor stub
 	}
-
-
 	
+	
+		
 	
 }

@@ -1,5 +1,6 @@
 package ga.eatup.user.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -21,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ga.eatup.partner.domain.StoreVO;
 import ga.eatup.user.domain.CartDTO;
-import ga.eatup.user.domain.MenuVO;
 import ga.eatup.user.domain.OrderNumDTO;
 import ga.eatup.user.domain.OrderVO;
 import ga.eatup.user.domain.kakaopay.KakaoPayApprovalVO;
@@ -66,13 +65,17 @@ public class KakaoPayController {
 
 		Map<String, Object> result = kakaopay.kakaoPayInfo(pg_token);
 		log.info("auth: ----------------------------------------------------" + authentication);
-		log.info("result: "+result);
 		
-		String uid = (authentication == null) ? "nomember":authentication.getName();
-		log.info("uid: " + uid);
+		String auth = "";
+		
+		if(authentication != null) {
+			List list = new ArrayList<>(authentication.getAuthorities());
+			auth = "" + list.get(0);
+		}
+		
+		String uid = (auth == "ROLE_USER") ? authentication.getName() : "nomember";
+		
 		int uno = orderService.getUno(uid);
-		log.info("uno:" + uno);
-		
 		
 		//key = kakao
 		KakaoPayApprovalVO kakaokey = (KakaoPayApprovalVO)result.get("kakao");		
