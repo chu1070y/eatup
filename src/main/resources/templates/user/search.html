@@ -166,7 +166,7 @@ a:hover{
 			<form id="resultform" class="hidden">
 				<div class='row searchResult'>
 					<div class='col-md-7'>
-					<img class='img-fluid rounded mb-3 mb-md-0' src='/main/img/portfolio/cafe3.jpg'>
+					<img class='img-fluid rounded mb-3 mb-md-0' id="img" src='/main/img/portfolio/cafe3.jpg' style="height: 300px; width: 100%">
 					</div>
 					<div class='col-md-5 data'>
 					<h4 id='sname'></h4>
@@ -206,13 +206,13 @@ $(document).ready(function(){
 		var menuSearchList;
 		
 		
-		//csrf처리
+/* 		//csrf처리
 		var csrfHearderName = [[${_csrf.headerName}]];
 		var csrfTokenValue =  [[${_csrf.token}]];
 
 		$(document).ajaxSend(function(e,xhr,options){
 			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
-		});
+		}); */
 		
 		//검색창 자동완성
 		function display(data){
@@ -349,6 +349,7 @@ $(document).ready(function(){
 		var btn3 = $("#resultform #btn3");
 		var btn4 = $("#resultform #btn4");
 		var hours = $("#hours");
+		var img = $("#img");
 		
 
 		//검색 결과 화면에 출력
@@ -362,7 +363,11 @@ $(document).ready(function(){
 			btn3.html("#"+data.menuList[0].mprice);
 			btn4.html("#맛집");
 			hours.html("영업시간: " + data.businessHours);
-					
+			img.attr("src","/upload/display?fileName="+encodeURIComponent(data.upload_path)+"\/"+ data.uuid + "_"+ data.fname);
+			
+			console.log("스토어 이미지");
+			console.log(data);
+			
 			var clone = resultform.clone();
 			clone.attr("class","");
 			
@@ -388,6 +393,7 @@ $(document).ready(function(){
 			btn3.html("#"+data.storeVO.saddress.split(' ')[1]);
 			btn4.html("#"+data.storeVO.sname);
 			hours.html("");
+			img.attr("src","/upload/display?fileName="+encodeURIComponent(data.upload_path)+"\/"+ data.uuid + "_"+ data.fname);
 					
 			var clone = resultform.clone();
 			clone.attr("class","");

@@ -5,12 +5,16 @@
 
 <mapper namespace="ga.eatup.user.mapper.SearchMapper">
 
-	<select id="searchStoreWithSno" resultType="ga.eatup.user.domain.StoreVO">
-		select * from partner_store where sno = #{sno} and status ='O'
+	<select id="searchStoreWithSno"
+		resultType="ga.eatup.user.domain.StoreVO">
+		select * from partner_store where sno = #{sno} and status
+		='O'
 	</select>
 
-	<select id="searchMenuWithSno" resultType="ga.eatup.user.domain.MenuVO">
-		select * from partner_store_menu where sno = #{sno} and status ='O'
+	<select id="searchMenuWithSno"
+		resultType="ga.eatup.user.domain.MenuVO">
+		select * from partner_store_menu where sno = #{sno} and
+		status ='O'
 	</select>
 
 	<select id="searchMenu" resultType="ga.eatup.user.domain.MenuVO">
@@ -19,16 +23,17 @@
 		from
 		partner_store_menu
 		where
-		mname like concat("%",#{keyword},"%") and status ='O'
+		mname like concat("%",#{keyword},"%") and
+		status ='O'
 	</select>
 
-	<select id="searchStore" resultType="ga.eatup.user.domain.StoreVO">
-		select
-		*
-		from
-		partner_store
-		where
-		sname like concat("%",#{keyword},"%") and status ='O'
+	<select id="searchStore"
+		resultType="ga.eatup.user.domain.StoreVO">
+		select *
+		from partner_store left join (select * from partner_store_img group by
+		sno) img
+		on img.sno = partner_store.sno
+		where sname like concat("%",#{keyword},"%") and status ='O'
 	</select>
 
 	<select id="getMenuName" resultType="String">

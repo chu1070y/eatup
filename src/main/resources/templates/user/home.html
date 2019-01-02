@@ -374,14 +374,14 @@ $(document).ready(function(){
 	    
 	 });
 		
-	
-		//csrf처리
-		var csrfHearderName = [[${_csrf.headerName}]];
-		var csrfTokenValue =  [[${_csrf.token}]];
+	//csrf처리
+	var csrfHearderName = [[${_csrf.headerName}]];
+	var csrfTokenValue =  [[${_csrf.token}]];
 
-		$(document).ajaxSend(function(e,xhr,options){
-			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
-		});
+	$(document).ajaxSend(function(e,xhr,options){
+		xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
+	});
+
 
 		// 내위치 주소변환(Geolocation)
 		var mylocation = "";
