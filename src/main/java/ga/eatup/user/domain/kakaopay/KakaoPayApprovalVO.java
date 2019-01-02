@@ -14,7 +14,7 @@ public class KakaoPayApprovalVO {
 	private CardVO card_info;
 	private String item_name, item_code, payload;
 	private Integer quantity, tax_free_amount, vat_amount;
-	private Date created_at, approved_at;
+	//private Date created_at, approved_at;
 	
 	
 }

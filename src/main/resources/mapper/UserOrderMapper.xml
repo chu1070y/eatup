@@ -38,8 +38,8 @@
 
 	<insert id="insertOrder">
 		insert into
-		gorany.order(tid,payment_method_type,token,sno,uno,partner_order_id,approved_at)
-		value(#{tid},#{payment_method_type},#{token},#{sno},#{uno},#{partner_order_id},#{approved_at})
+		gorany.order(tid,payment_method_type,token,sno,uno,partner_order_id)
+		value(#{tid},#{payment_method_type},#{token},#{sno},#{uno},#{partner_order_id})
 	</insert>
 
 	<insert id="insertOrderInfo">
