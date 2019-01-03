@@ -247,7 +247,7 @@
 
 	</div>
 
-	<div class="FixedLayoutBottom css_layout_Bottom"
+	<div class="goCart FixedLayoutBottom css_layout_Bottom"
 		th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">
 		장바구니 <span id="badge" class="badge badge-pill badge-danger">1</span>
 	</div>
@@ -263,6 +263,15 @@
 $(document).ready(function() {
 	
 	var arr = new Array(); 
+	
+	$(".goCart").on("click", function(e){
+		
+		if($.cookie('cart') == null){
+			alert("주문 할 상품이 없습니다. 장바구니를 확인해주세요.");
+			
+			self.location = "/user/store?sno=[[${menu[0].sno}]]"
+		}
+	});
 
 	//메뉴 클릭 모달
 	$(".card-body").on("click", function(e) {
@@ -279,6 +288,7 @@ $(document).ready(function() {
 
 		$("#mname").html(getMname);
 		$("#mprice").html(getMprice);
+	
 		
 		
 
