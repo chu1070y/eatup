@@ -752,13 +752,14 @@ $(document).ready(function () {
 			console.log(elem + "   " + index)
 			console.log("여기 아이디 어레이" + idarray)
 			
-			$(elem).animate({"bottom":"1000px"});		
-			$(".block").slice(index).animate({"left": "-=420px"},function(){
+			$(elem).animate({"bottom":"1000px"},function(e){
+				//Mysql DB orderComplete...
+				orderComplete(tid,key,token);
 			
-			//Mysql DB orderComplete...
-			orderComplete(tid,key,token);
-				
-			});  //103숫자 들어오면,,,
+			});		
+			$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
+			
+			
 			
 		});//$(".btn.btn-secondary.btn-lg.btn-block").click
 		
