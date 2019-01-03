@@ -1,6 +1,7 @@
 package ga.eatup.user.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -180,8 +181,15 @@ public class UserController {
 	public void home(Authentication authentication, String lat, String lng, String search, Model model) {
 		log.info("lat: " + lat + " , lng: " + lng);
 		// model.addAttribute("location", lat );
+		
+		String auth = "";
+		
+		if(authentication != null) {
+			List list = new ArrayList<>(authentication.getAuthorities());
+			auth = "" + list.get(0);
+		}
 
-		String uid = (authentication == null) ? "nomember" : authentication.getName();
+		String uid = (auth == "ROLE_USER") ? authentication.getName() : "nomember";
 		log.info("uid: " + uid);
 
 		int uno = orderService.getUno(uid);

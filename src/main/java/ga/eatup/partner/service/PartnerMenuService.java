@@ -15,6 +15,10 @@ public interface PartnerMenuService {
 	public int getSno(String pid);
 
 	public int getupdateMaxQuantity(MenuVO menu);
+	
+	public int getSoldoutX(MenuVO menu);
+	
+	public int getSoldoutO(MenuVO menu);
 
 
 }
