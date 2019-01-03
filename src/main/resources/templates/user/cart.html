@@ -44,10 +44,10 @@
 		<h3>장바구니</h3>
 		
 		
-			<table class="table">
+			<table class="table table-hover">
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col"><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"  checked="checked">
+						<th scope="col"><div class="form-check form-check-inline"> <input class="selectAll form-check-input" type="checkbox" id="inlineCheckbox1" value="">
   							<label class="form-check-label" for="inlineCheckbox1"></label></div></th>
 						<th scope="col">메뉴</th>
 						<th scope="col">수량</th>
@@ -56,24 +56,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="cart : ${cart}">
-						<td><div class="form-check form-check-inline"> <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"  checked="checked">
+					<tr class="cartList" th:each="cart ,index: ${cart}" th:data-idx="${index.index}" th:data-mno="${cart.mno}">
+						<td><div class="form-check form-check-inline"> <input class="selectOne form-check-input" name="ckBox" type="checkbox" id="inlineCheckbox1"  th:data-idx="${index.index}" value="" >
   							<label class="form-check-label" for="inlineCheckbox1"></label></div></td>
 						<td th:text="${cart.mname}"></td>
-						<td id="qty" th:text="${cart.quantity}">
-						<div class="input-group mb-3">
-						<input size="1" type="number" class="form-control" min="0" max="100" value="1" disabled aria-describedby="basic-addon2">
-  						<div class="input-group-append">
-    					<button class="btn btn-warning" type="button">Edit</button>
-   						 </div>
-   						 </div>
-						</td>
+						<td><input th:value="${cart.quantity}" size="1" type="number" class="qty form-control" min="1" max="100" th:data-idex="${index.index}"></td>
 						<td id="price" th:text="${cart.mprice}"></td>
-						<td><button class="btn btn-outline-warning">Edit</button></td>
+						<td><button class="editBtn btn btn-outline-warning">수정</button></td>
 					</tr>
 					
 				</tbody>
 			</table>
+			
+			<div class="col-lg-9">
+				<button class="delBtn btn btn-danger">선택삭제</button>
+			</div></br>
 
 	<div class="col-lg-9">
 				<h3>총 주문 금액</h3>
@@ -84,11 +81,12 @@
 	</div>
 		   <div class="col-md-5">
 		<!-- end content -->
+			</div>
+	      		<div class="wrapper">
+      			<div class="facet f1"> <button class="cartBtn btn btn-warning" th:onclick="|window.location.href='@{/user/pay(sno=${sno})}'|">주문하기</button></div>
+      			</div>
+      			
 	</div>
-	      	<div class="wrapper">
-      		<div class="facet f1"> <button class="cartBtn btn btn-warning" th:onclick="|window.location.href='@{/user/pay(sno=${sno})}'|">주문하기</button></div>
-      	</div>
-</div>
 </div>
 
 <th:block layout:fragment="script">
@@ -96,25 +94,148 @@
 window.onload = function(){
 	
 	var getCookie = $.cookie('cart');
+	var cart = [[${cart}]];
+	var arr;
+    var sumPrice = 0;
+	var checked = $(".selectOne").append("checked='checked'");
+
+	var cartLength = cart.length-1;
 	
-	console.log(getCookie); 
+	$(".qty").attr("disabled",true); 
+	
 	
 
 	//총 주문금액
 	$(".totalPrice").html(function(){
-	
-		var a = 0;
+		var price = 0;	
 		
+		//가격
 		$(".getPrice").each(function(){
-			a+= parseInt($(this).context.value);
+			
+			price += parseInt($(this).context.value);
 		});
 		
-		return a;
+		return price+'원';
 	
-	});
+	}); //end totalPrice
+	
 
+	//체크박스 전체선택, 해제
+	$(".selectAll").click(function(){
 
-};
+		//체크 해제 상태
+		if($(".selectOne").prop("checked")){
+			$("input[name=ckBox]").prop("checked", false);
+			
+			//메뉴 선택 삭제
+			if( $(".delBtn").html() == '전체삭제' ) {
+			      $(".delBtn").html('선택삭제');   
+			}
+			
+		//체크 상태 (전체삭제)
+		}else{
+			$("input[name=ckBox]").prop("checked", true);
+			if( $(".delBtn").html() == '선택삭제' ) {
+				  $(".delBtn").html('전체삭제');
+
+					} //end if
+
+				}; //end else
+
+	}); //end .selectAll
+	
+	
+	//삭제 버튼 클릭
+	 $(".delBtn").on("click", function(e){
+		    e.preventDefault();
+			
+			var choose = confirm("메뉴를 삭제하시겠습니까?");
+			arr = new Array();
+			$('input:checkbox[type=checkbox]:checked').each(function(i, e) {
+				var idx = $(this).data('idx');	
+			var tr=$('tr[data-idx="'+idx+'"]');
+			tr.remove();
+			});
+			
+			
+			//console.log($('tbody tr')[0]);
+			$(('tbody tr')).each(function (index, item) {
+					console.log(item);
+					var idx = item.getAttribute('data-idx');
+				 	var qty = $(this).find("td input[type='number']").val();
+				 	var price = $(this).find("#price").text();
+				 	console.log(price);
+				 	console.log(qty);
+					var jsonData = new Object();
+					jsonData.sno = [[${sno}]];
+					jsonData.mno = item.getAttribute('data-mno');
+					jsonData.quantity = qty;
+					sumPrice+=parseInt(price)* parseInt(qty);
+	
+					arr.push(jsonData);
+					
+			});
+
+	 		var json = JSON.stringify(arr);
+	      
+	  	$.cookie('cart', json, { expires: 1, path: '/'}); 	       
+			console.log("cookie : " + $.cookie('cart')); 
+			 
+			$('.totalPrice').html(sumPrice+"원");
+			sumPrice = 0;
+		
+			
+	 });
+
+	
+	
+	//수정 버튼 클릭
+	$(".editBtn").on("click", function(e){
+		e.preventDefault();
+		var inp = $(this).parent().parent().find('td input')[1];
+		inp.removeAttribute('disabled');
+		
+		//edit status
+		if( $(this).html() == '수정' ) {
+		      $(this).html('완료');
+		    } 
+		
+		//done status
+		   else {
+		      $(this).html('수정');
+		      inp.setAttribute( 'disabled','disabled');
+		      arr = new Array();
+
+		   
+		      // json으로 Data변환
+		   		for(var i = 0; i <  cart.length; i++){
+		   		var qty=$('input[data-idex="'+i+'"]').val();
+		   		
+		   		console.log(qty);
+				
+		   		var jsonData = new Object();
+				jsonData.sno = [[${sno}]];
+				jsonData.mno =cart[i].mno;
+				jsonData.quantity =qty;
+				sumPrice+=parseInt(cart[i].mprice)*parseInt(qty);
+	
+				arr.push(jsonData);
+		   		}
+				
+				var json = JSON.stringify(arr);
+		      
+		  	$.cookie('cart', json, { expires: 1, path: '/'}); 	       
+			console.log("cookie : " + $.cookie('cart')); 
+			
+			$('.totalPrice').html(sumPrice+"원");
+			sumPrice=0;
+		    }
+
+	}); //end editBtn
+	
+	
+
+}; // end window.onload
 	
 	
 	

@@ -6,15 +6,15 @@
 <mapper namespace="ga.eatup.partner.mapper.OpenMapper">
 
 	<select id="readOpen" resultType="ga.eatup.partner.domain.StoreVO">
-	select * from partner_store where sno= 1
+	select * from partner_store where sno= #{sno}
 	</select>
 
 	<update id="updateOpenX" parameterType="ga.eatup.partner.domain.StoreVO">
-		update partner_store set open='X' where sno= 1
+		update gorany.partner_store set open='X' where sno= #{sno}
 	</update>
 	
 	<update id="updateOpenO" parameterType="ga.eatup.partner.domain.StoreVO">
-		update partner_store set open='O' where sno= 1
+		update gorany.partner_store set open='O' where sno= #{sno}
 	</update>
 	
 </mapper>

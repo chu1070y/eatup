@@ -27,6 +27,7 @@ import ga.eatup.user.domain.OrderNumDTO;
 import ga.eatup.user.domain.OrderVO;
 import ga.eatup.user.domain.kakaopay.KakaoPayApprovalVO;
 import ga.eatup.user.service.KakaoPay;
+import ga.eatup.user.service.MenuService;
 import ga.eatup.user.service.OrderService;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -41,6 +42,9 @@ public class KakaoPayController {
 
 	@Setter(onMethod_ = @Autowired)
 	private OrderService orderService;
+	
+	@Setter(onMethod_ = @Autowired)
+	private MenuService menuService;
 
 	@PostMapping(value = "/kakaoPay", consumes = "application/json")
 	public ResponseEntity<String> kakaoPay(@RequestBody List<CartDTO> cartList) {
@@ -48,12 +52,15 @@ public class KakaoPayController {
 
 		for (CartDTO vo : cartList) {
 			totalPrice += (vo.getQuantity() * vo.getMprice());
-			
+			log.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			log.info(vo.getSno() + "    " + vo.getSno() +"   " +vo.getMname() + "   " + vo.getQuantity());
+			menuService.updatequantity(vo);
 		};
 
 		log.info("============================================================================");
 		log.info("totalPrice: " + totalPrice);
 		log.info("cartList: " + cartList);
+		log.info("sno sname: " + cartList.get(0).getMname());
 
 		return new ResponseEntity<>(kakaopay.kakaoPayReady(totalPrice, cartList), HttpStatus.OK);
 

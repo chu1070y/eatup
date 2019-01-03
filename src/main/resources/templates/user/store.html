@@ -194,8 +194,10 @@ position:absolute;}
 
 								<h6 th:text="${menu.mname}" class="card-title"></h6>
 								<input type="hidden" th:value="${menu.mno}">
+
 								<input type="hidden" id="soldout" th:value="${menu.soldout}">
-								<p th:text="${menu.mprice}" class="card-text"></p>
+								<p th:text="|${menu.mprice}원|" class="card-text"></p>
+
 								<p th:text="${menu.introduction}" class="card-text"></p>
 							</div>
 
@@ -270,6 +272,7 @@ position:absolute;}
 
 	</div>
 
+
 	<div id="cartbtn" class="FixedLayoutBottom css_layout_Bottom"
 		th:onclick="|window.location.href='@{/user/cart(sno=${menu[0].sno})}'|">
 		장바구니
@@ -286,6 +289,15 @@ position:absolute;}
 $(document).ready(function() {
 	
 	var arr = new Array(); 
+	
+	$(".cartbtn").on("click", function(e){
+		
+		if($.cookie('cart') == null){
+			alert("주문 할 상품이 없습니다. 장바구니를 확인해주세요.");
+			
+			self.location = "/user/store?sno=[[${menu[0].sno}]]"
+		}
+	});
 
 	//메뉴 클릭 모달
 	$(".card-body").on("click", function(e) {
@@ -303,6 +315,7 @@ $(document).ready(function() {
 
 		$("#mname").html(getMname);
 		$("#mprice").html(getMprice);
+	
 		
 		//soldout	
 		console.log("soldout: " +soldout)
