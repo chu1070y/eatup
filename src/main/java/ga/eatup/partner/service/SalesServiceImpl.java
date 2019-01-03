@@ -48,30 +48,30 @@ public class SalesServiceImpl implements SalesService {
 
 
 	@Override
-	public List<SalesVO> getDailytableData(int month, int sno) {
+	public List<SalesVO> getDailytableData(int year, int month, int sno) {
 		log.info(month + " daily data menu.ver load..");
-		return mapper.getDailytableData(month, sno);
+		return mapper.getDailytableData(year, month, sno);
 	}
 
 
 	@Override
-	public List<SalesVO> getDailytableData_date(int month, int sno) {
+	public List<SalesVO> getDailytableData_date(int year, int month, int sno) {
 		log.info(month + " daily data date.ver load..");
-		return mapper.getDailytableData_date(month, sno);
+		return mapper.getDailytableData_date(year, month, sno);
 	}
 
 
 	@Override
-	public List<SalesVO> getWeeklytableData(int month, int sno) {
+	public List<SalesVO> getWeeklytableData(int year, int month, int sno) {
 		log.info(month + " weekly data menu.ver load..");
-		return mapper.getWeeklytableData(month, sno);
+		return mapper.getWeeklytableData(year, month, sno);
 	}
 
 
 	@Override
-	public List<SalesVO> getWeeklytableData_date(int month, int sno) {
+	public List<SalesVO> getWeeklytableData_date(int year, int month, int sno) {
 		log.info(month + " weekly data date.ver load..");
-		return mapper.getWeeklytableData_date(month, sno);
+		return mapper.getWeeklytableData_date(year, month, sno);
 	}
 
 

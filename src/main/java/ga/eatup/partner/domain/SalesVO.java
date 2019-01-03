@@ -8,6 +8,7 @@ public class SalesVO {
 	private String orderdate;
 	private String ordermonth;
 	private int month;
+	private int year;
 	private String start;
 	private String end;
 	private String week;

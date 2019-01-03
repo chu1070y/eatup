@@ -33,14 +33,14 @@ public class ExcelController {
 	@Setter(onMethod_=@Autowired)
 	private SalesService service;
 	
-	@RequestMapping(value="exceldown/dailydata/menu/{month}")
-	public void getExceldaily_menu(HttpServletResponse response, Authentication authentication, @PathVariable("month") int month)throws Exception{
+	@RequestMapping(value="exceldown/dailydata/menu/{year}/{month}")
+	public void getExceldaily_menu(HttpServletResponse response, Authentication authentication, @PathVariable("month") int month, @PathVariable("year") int year)throws Exception{
 		String pid = authentication.getName();
 		log.info("pid: " + pid);
 		int sno = service.getSno(pid);
 		log.info("sno: " + sno);
 		
-		List<SalesVO> list = service.getDailytableData(month, sno);
+		List<SalesVO> list = service.getDailytableData(year,month, sno);
 		
 		Workbook wb = new HSSFWorkbook();
 		Sheet sheet = wb.createSheet("dailydata_menu_month");
@@ -114,14 +114,14 @@ public class ExcelController {
 
 	}
 
-	@RequestMapping(value="exceldown/dailydata/date/{month}")
-	public void getExceldaily_date(HttpServletResponse response, Authentication authentication, @PathVariable("month") int month)throws Exception{
+	@RequestMapping(value="exceldown/dailydata/date/{year}/{month}")
+	public void getExceldaily_date(HttpServletResponse response, Authentication authentication, @PathVariable("month") int month, @PathVariable("year") int year)throws Exception{
 		String pid = authentication.getName();
 		log.info("pid: " + pid);
 		int sno = service.getSno(pid);
 		log.info("sno: " + sno);
 		
-		List<SalesVO> list = service.getDailytableData_date(month, sno);
+		List<SalesVO> list = service.getDailytableData_date(year, month, sno);
 		
 		Workbook wb = new HSSFWorkbook();
 		Sheet sheet = wb.createSheet("dailydata_date_month");
@@ -195,14 +195,14 @@ public class ExcelController {
 	
 	}
 	
-	@RequestMapping(value="exceldown/weeklydata/menu/{month}")
-	public void getExcelweekly_menu(HttpServletResponse response, Authentication authentication, @PathVariable("month") int month)throws Exception{
+	@RequestMapping(value="exceldown/weeklydata/menu/{year}/{month}")
+	public void getExcelweekly_menu(HttpServletResponse response, Authentication authentication, @PathVariable("month") int month, @PathVariable("year") int year)throws Exception{
 		String pid = authentication.getName();
 		log.info("pid: " + pid);
 		int sno = service.getSno(pid);
 		log.info("sno: " + sno);
 		
-		List<SalesVO> list = service.getWeeklytableData(month, sno);
+		List<SalesVO> list = service.getWeeklytableData(year, month, sno);
 		
 		Workbook wb = new HSSFWorkbook();
 		Sheet sheet = wb.createSheet("weeklydata_menu_month");
@@ -276,14 +276,14 @@ public class ExcelController {
 	
 	}
 	
-	@RequestMapping(value="exceldown/weeklydata/date/{month}")
-	public void getExcelweekly_date(HttpServletResponse response, Authentication authentication, @PathVariable("month") int month)throws Exception{
+	@RequestMapping(value="exceldown/weeklydata/date/{year}/{month}")
+	public void getExcelweekly_date(HttpServletResponse response, Authentication authentication, @PathVariable("month") int month, @PathVariable("year") int year)throws Exception{
 		String pid = authentication.getName();
 		log.info("pid: " + pid);
 		int sno = service.getSno(pid);
 		log.info("sno: " + sno);
 		
-		List<SalesVO> list = service.getWeeklytableData_date(month, sno);
+		List<SalesVO> list = service.getWeeklytableData_date(year, month, sno);
 		
 		Workbook wb = new HSSFWorkbook();
 		Sheet sheet = wb.createSheet("weeklydata_date_month");

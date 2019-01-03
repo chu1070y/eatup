@@ -14,13 +14,13 @@ public interface SalesMapper {
 	
 	public List<SalesVO> getMonthlySales(int sno);
 	
-	public List<SalesVO> getDailytableData(@Param("month")int month, int sno);
+	public List<SalesVO> getDailytableData(@Param("year")int year, @Param("month")int month, int sno);
 	
-	public List<SalesVO> getDailytableData_date(@Param("month")int month, int sno);
+	public List<SalesVO> getDailytableData_date(@Param("year")int year, @Param("month")int month, int sno);
 	
-	public List<SalesVO> getWeeklytableData(@Param("month")int month, int sno);
+	public List<SalesVO> getWeeklytableData(@Param("year")int year, @Param("month")int month, int sno);
 	
-	public List<SalesVO> getWeeklytableData_date(@Param("month")int month, int sno);
+	public List<SalesVO> getWeeklytableData_date(@Param("year")int year, @Param("month")int month, int sno);
 	
 	public List<SalesVO> getMonthlytableData(int sno);
 	
