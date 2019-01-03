@@ -361,7 +361,7 @@ $(document).ready(function () {
 				        click_action: "http://localhost:8080/user/home",
 				        icon: "http://url-to-an-icon/icon.png"
 				        },
-				     to: "cDjntcwfWv8:APA91bFGs6CjmVsrmaLD3qwgMlCUFOrKHYQtiLRGVPTe5haL-UujQmbmeUV5_70bylIhqczOdfryv1Lge6tNjwS8ntAhLOj41tuB4DznjbQg7uRi5lfUGh7pXLTRJI6WQ2Pz5xgMhJ1Z"
+				     to: token
 				  }),
 				success: function(result,status,xhr){
 					
@@ -785,7 +785,7 @@ $(document).ready(function () {
 					console.log(token);
 					//firebase DB삭제하기
 					//deleteFirebase(key);
-					pushMessage("조리가 완료되었습니다.","cDjntcwfWv8:APA91bFGs6CjmVsrmaLD3qwgMlCUFOrKHYQtiLRGVPTe5haL-UujQmbmeUV5_70bylIhqczOdfryv1Lge6tNjwS8ntAhLOj41tuB4DznjbQg7uRi5lfUGh7pXLTRJI6WQ2Pz5xgMhJ1Z");
+					pushMessage("조리가 완료되었습니다.",token);
 
 			     }
 			 });//end ajax
