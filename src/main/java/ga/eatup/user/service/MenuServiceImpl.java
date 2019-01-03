@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ga.eatup.user.domain.CartDTO;
 import ga.eatup.user.domain.MenuVO;
 import ga.eatup.user.mapper.UserMenuMapper;
 import lombok.Setter;
@@ -30,6 +31,13 @@ public class MenuServiceImpl implements MenuService {
 		
 		log.info("getCart service implement...........");
 		return mapper.getCart(sno);
+	}
+
+	@Override
+	public int updatequantity(CartDTO cart) {
+		
+		return mapper.updatequantity(cart);
+		
 	}
 
 

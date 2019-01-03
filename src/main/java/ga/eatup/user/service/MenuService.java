@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ga.eatup.user.domain.CartDTO;
 import ga.eatup.user.domain.MenuVO;
 
 public interface MenuService {
@@ -12,5 +13,6 @@ public interface MenuService {
 	
 	public List<MenuVO> getCart(@RequestParam("sno") int sno);
 	
+	public int updatequantity(CartDTO cart);
 	
 }

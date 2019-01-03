@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-//import ga.eatup.user.domain.MenuVO;
-import ga.eatup.partner.domain.MenuVO;
-import ga.eatup.partner.domain.StoreVO;
+//import ga.eatup.partner.domain.MenuVO;
 import ga.eatup.partner.mapper.PartnerMenuMapper;
 import ga.eatup.partner.service.PartnerMenuService;
+import ga.eatup.user.domain.CartDTO;
+import ga.eatup.user.mapper.UserMenuMapper;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -28,6 +28,9 @@ public class MenuTests {
 
 	@Setter(onMethod_ = { @Autowired })
 	private PartnerMenuMapper partnermapper;
+	
+	@Setter(onMethod_ = { @Autowired })
+	private UserMenuMapper usermapper;
 	
 	@Test
 	public void testMenuService() {
@@ -52,7 +55,7 @@ public class MenuTests {
 		log.info("" + mapper.getSno("manofin"));
 	}
 	
-	@Test
+	/*@Test
 	public void testUpdate() {
 		MenuVO vo = new MenuVO();
 		vo.setMax_quantity(9);
@@ -62,10 +65,10 @@ public class MenuTests {
 		partnermapper.getupdateMaxQuantity(vo);
 		
 		
-	}
+	}*/
 	
 	
-	@Test
+	/*@Test
 	public void soldoutteset() {
 		
 		MenuVO vo = new MenuVO();
@@ -81,5 +84,15 @@ public class MenuTests {
 		
 	
 				
+	}
+	*/
+	@Test
+	public void menutest() {
+		CartDTO menu = new CartDTO();
+		menu.setSno(1);
+		menu.setMno(11);
+		menu.setQuantity(2);
+		
+		log.info("" + usermapper.updatequantity(menu));
 	}
 }

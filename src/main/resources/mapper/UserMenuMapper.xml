@@ -24,6 +24,10 @@
 		where partner_store_menu.status = 'O' and partner_store_menu.sno = #{sno} 
 	
 	</select>
+	
+	<update id="updatequantity" parameterType="ga.eatup.user.domain.CartDTO">
+		update gorany.partner_store_menu set max_quantity=max_quantity-#{quantity} where max_quantity>0 and sno=#{sno} and mno= #{mno}  ;
+	</update>
 
 </mapper>
 

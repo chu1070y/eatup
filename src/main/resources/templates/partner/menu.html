@@ -70,14 +70,16 @@ img {
 					<div class="input-group">
 						주문량 <input class="form-control" aria-label="Default"
 							aria-describedby="inputGroup-sizing-default" type="number"
-							th:id="${menu.mno}" name="usernumber" value="5" step="1" min="0"
+							th:id="${menu.mno}" name="usernumber" th:value="${menu.max_quantity}" step="1" min="0"
 							max="1000" /> <span class="input-group-btn">
 							<button type="submit" class="btn btn-dark" th:value="${menu.mno}"
 								style="font: 12px sans-serif">설정</button>
 						</span>
+						
 					</div>
 					<!-- </div> -->
 				</div>
+				
 				<span th:if="${menu.soldout.toString()} == 'X'">
 				<div class="card o-hidden h-100">
 					<button th:id="${menu.mno}" class="btn btn-outline-danger"
@@ -157,7 +159,7 @@ img {
 		            },
 			 		success:function(data){
 			 			
-			 			alert("에이 작스가 한번에 될리가,,");
+			 			alert("변경 됐습니다");
 			 			
 			 		},
 			 		error:function(e){
