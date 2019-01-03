@@ -73,7 +73,7 @@ public class KakaoPayController {
 			auth = "" + list.get(0);
 		}
 		
-		String uid = (auth == "ROLE_USER") ? authentication.getName() : "nomember";
+		String uid = (auth.equals("ROLE_USER")) ? authentication.getName() : "nomember";
 		
 		int uno = orderService.getUno(uid);
 		
