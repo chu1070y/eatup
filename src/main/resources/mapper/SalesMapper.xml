@@ -61,7 +61,7 @@
 	on od.tid = info.tid) allorder
 	on menu.mno = allorder.mno
 	where allorder.sno = #{sno}
-	and YEAR(`approved_at`) = YEAR(curdate())
+	and YEAR(`approved_at`) = #{year}
 	and MONTH(`approved_at`) = #{month}
 	group by orderdate, mname;
 	</select>
@@ -74,7 +74,7 @@
 	on od.tid = info.tid) allorder
 	on menu.mno = allorder.mno
 	where allorder.sno = #{sno}
-	and YEAR(`approved_at`) = YEAR(curdate())
+	and YEAR(`approved_at`) = #{year}
 	and MONTH(`approved_at`) = #{month}
 	group by orderdate;
 	
@@ -93,7 +93,7 @@
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
 	where sno = #{sno}
-	and YEAR(`approved_at`) = YEAR(curdate())
+	and YEAR(`approved_at`) = #{year}
 	and MONTH(`approved_at`) = #{month}
 	group by week,mname
 	order by start;
@@ -112,7 +112,7 @@
 	on info.mno = menu.mno) allorder
 	on od.tid = allorder.tid
 	where sno = #{sno}
-	and YEAR(`approved_at`) = YEAR(curdate())
+	and YEAR(`approved_at`) = #{year}
 	and MONTH(`approved_at`) = #{month}
 	group by week
 	order by start;

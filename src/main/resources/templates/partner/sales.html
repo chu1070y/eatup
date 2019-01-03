@@ -71,7 +71,16 @@
 
 						</div>
 						<div class="col-sm-12 col-md-6">
-							<div class="select_month" id="select_month">
+							<div class="select_ym" id="select_ym">
+								<label>year <select id="dailyTable_year"
+									aria-controls="dataTable"
+									class="custom-select custom-select-sm form-control form-control-sm">
+										<option value="year">선택하기</option>
+										<option value="2018">2018</option>
+										<option value="2019">2019</option>
+								</select>
+								</label>
+							
 								<label>month <select id="dailyTable_month"
 									aria-controls="dataTable"
 									class="custom-select custom-select-sm form-control form-control-sm">
@@ -133,7 +142,16 @@
 							</div>
 						</div>
 						<div class="col-sm-12 col-md-6">
-							<div class="select_month" id="select_month">
+							<div class="select_ym" id="select_ym">
+								<label>year <select id="weeklyTable_year"
+									aria-controls="dataTable"
+									class="custom-select custom-select-sm form-control form-control-sm">
+										<option value="year">선택하기</option>
+										<option value="2018">2018</option>
+										<option value="2019">2019</option>
+								</select>
+								</label>
+							
 								<label>month <select id="weeklyTable_month"
 									aria-controls="dataTable"
 									class="custom-select custom-select-sm form-control form-control-sm">
@@ -151,11 +169,10 @@
 										<option value="11">11월</option>
 										<option value="12">12월</option>
 								</select>
-								</label>
-								<a id="excelweekly" href="#"><button id="exceldown" type="button" class="btn btn-default"
-									style="font: 12px sans-serif">다운로드</button></a>
+								</label> <a id="excelweekly" href="#"><button id="exceldown"
+										type="button" class="btn btn-default"
+										style="font: 12px sans-serif">다운로드</button></a>
 							</div>
-
 						</div>
 					</div>
 					<table class="table table-bordered" id="weeklyTable" width="100%"

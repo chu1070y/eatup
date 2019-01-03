@@ -80,44 +80,44 @@ public class SalesController {
 	}
 	
 	// ---------------------- data table ------------------------------- //
-	@GetMapping(value = "dailydata/menu/{month}", produces="application/json")
-	public ResponseEntity<List<SalesVO>> getdailydata(Authentication authentication, @PathVariable("month") int month){
+	@GetMapping(value = "dailydata/menu/{year}/{month}", produces="application/json")
+	public ResponseEntity<List<SalesVO>> getdailydata(Authentication authentication, @PathVariable("month") int month, @PathVariable("year") int year){
 		String pid = authentication.getName();
 		log.info("pid: " + pid);
 		int sno = service.getSno(pid);
 		log.info("sno: " + sno);
 		
-		return new ResponseEntity<>(service.getDailytableData(month, sno),HttpStatus.OK);
+		return new ResponseEntity<>(service.getDailytableData(year, month, sno),HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "dailydata/date/{month}", produces="application/json")
-	public ResponseEntity<List<SalesVO>> getdailydata_date(Authentication authentication, @PathVariable("month") int month){
+	@GetMapping(value = "dailydata/date/{year}/{month}", produces="application/json")
+	public ResponseEntity<List<SalesVO>> getdailydata_date(Authentication authentication, @PathVariable("month") int month, @PathVariable("year") int year){
 		String pid = authentication.getName();
 		log.info("pid: " + pid);
 		int sno = service.getSno(pid);
 		log.info("sno: " + sno);
 		
-		return new ResponseEntity<>(service.getDailytableData_date(month, sno),HttpStatus.OK);
+		return new ResponseEntity<>(service.getDailytableData_date(year, month, sno),HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "weeklydata/menu/{month}", produces="application/json")
-	public ResponseEntity<List<SalesVO>> getweeklydata(Authentication authentication, @PathVariable("month") int month){
+	@GetMapping(value = "weeklydata/menu/{year}/{month}", produces="application/json")
+	public ResponseEntity<List<SalesVO>> getweeklydata(Authentication authentication, @PathVariable("month") int month, @PathVariable("year") int year){
 		String pid = authentication.getName();
 		log.info("pid: " + pid);
 		int sno = service.getSno(pid);
 		log.info("sno: " + sno);
 		
-		return new ResponseEntity<>(service.getWeeklytableData(month, sno),HttpStatus.OK);
+		return new ResponseEntity<>(service.getWeeklytableData(year, month, sno),HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "weeklydata/date/{month}", produces="application/json")
-	public ResponseEntity<List<SalesVO>> getweeklydata_date(Authentication authentication, @PathVariable("month") int month){
+	@GetMapping(value = "weeklydata/date/{year}/{month}", produces="application/json")
+	public ResponseEntity<List<SalesVO>> getweeklydata_date(Authentication authentication, @PathVariable("month") int month, @PathVariable("year") int year){
 		String pid = authentication.getName();
 		log.info("pid: " + pid);
 		int sno = service.getSno(pid);
 		log.info("sno: " + sno);
 		
-		return new ResponseEntity<>(service.getWeeklytableData_date(month, sno),HttpStatus.OK);
+		return new ResponseEntity<>(service.getWeeklytableData_date(year, month, sno),HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "monthlydata/menu", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
@@ -139,7 +139,7 @@ public class SalesController {
 		log.info("pid: " + pid);
 		int sno = service.getSno(pid);
 		log.info("sno: " + sno);
-		
+		 
 		Gson gson = new Gson();
 		List<SalesVO> list = service.getMonthlytableData_date(sno);
 		
