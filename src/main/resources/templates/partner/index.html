@@ -343,9 +343,11 @@ $(document).ready(function () {
 			 	type:'post',
 				url:'https://fcm.googleapis.com/fcm/send',
 				beforeSend: function(request){
-					request.setRequestHeader("content-type","application/json");
+					request.setRequestHeader("content-Type","application/json");
 					request.setRequestHeader("authorization","key=AAAAgHRKKlg:APA91bHCHmYkU1PANUYZgctP5dBZ1EuZZ5VfS4_fXUicesDas88tm6Rs1y35YMmLuOzAu3xmQqfI0KtR17UcdGR2ZuYrxhLJ2QasccO4xsO3kEBC98lO-Np1nIrxCa_mgE_DnnPCaxCe");
 				},
+				
+				
 				/* headers:{
 					"Content-Type" : "application/json",
 					"Authorization" : "key=AAAAgHRKKlg:APA91bHCHmYkU1PANUYZgctP5dBZ1EuZZ5VfS4_fXUicesDas88tm6Rs1y35YMmLuOzAu3xmQqfI0KtR17UcdGR2ZuYrxhLJ2QasccO4xsO3kEBC98lO-Np1nIrxCa_mgE_DnnPCaxCe"
@@ -353,13 +355,13 @@ $(document).ready(function () {
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
 				data:JSON.stringify({
-				    "notification" : {
-				        "body" : data,
-				        "title" : "FCM Message", 
-				        "click_action": "http://localhost:8080/user/home",
-				        "icon": "http://url-to-an-icon/icon.png"
+				    notification : {
+				        body : data,
+				        title : "FCM Message", 
+				        click_action: "http://localhost:8080/user/home",
+				        icon: "http://url-to-an-icon/icon.png"
 				        },
-				      "to": token
+				     to: "cDjntcwfWv8:APA91bFGs6CjmVsrmaLD3qwgMlCUFOrKHYQtiLRGVPTe5haL-UujQmbmeUV5_70bylIhqczOdfryv1Lge6tNjwS8ntAhLOj41tuB4DznjbQg7uRi5lfUGh7pXLTRJI6WQ2Pz5xgMhJ1Z"
 				  }),
 				success: function(result,status,xhr){
 					
@@ -685,6 +687,7 @@ $(document).ready(function () {
 		for(var data in snap.val()){
 			console.log("-----");
 			console.log(snap.val()[data]);
+			console.log(snap.val()[data].pushtoken);
 			
 			$("#origin #header").html("<h1>"+snap.val()[data].order_id+"</h2>");
 			
@@ -780,8 +783,8 @@ $(document).ready(function () {
 					console.log("click...................................................")
 					console.log(token);
 					//firebase DB삭제하기
-					deleteFirebase(key);
-					pushMessage("조리가 완료되었습니다.",token);
+					//deleteFirebase(key);
+					pushMessage("조리가 완료되었습니다.","cDjntcwfWv8:APA91bFGs6CjmVsrmaLD3qwgMlCUFOrKHYQtiLRGVPTe5haL-UujQmbmeUV5_70bylIhqczOdfryv1Lge6tNjwS8ntAhLOj41tuB4DznjbQg7uRi5lfUGh7pXLTRJI6WQ2Pz5xgMhJ1Z");
 
 			     }
 			 });//end ajax

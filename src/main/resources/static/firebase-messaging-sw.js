@@ -19,8 +19,30 @@ messaging.setBackgroundMessageHandler(function(payload){
 
 	const title = "고라니 서비스";
 	const options = {
-			body: "dfsafd"
+			body: payload.notification.body
 	};
+	
+	console.log("-------------------------------------------");
+	console.log("-------------------------------------------");
+	console.log("-------------------------------------------");
+	console.log("-------------------------------------------");
+	console.log("-------------------------------------------");
+	console.log("-------------------------------------------");
+	
+	
+	
 	
 	return self.registration.showNotification(title,options);
 });
+
+
+self.addEventListener('install', function(event) {
+	  console.log('Service Worker installing.');
+	});
+
+	self.addEventListener('activate', function(event) {
+	  console.log('Service Worker activating.');  
+	});
+	
+	
+	
