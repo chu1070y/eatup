@@ -16,14 +16,14 @@ public class OpenServiceImpl implements OpenService {
 	private OpenMapper mapper;
 
 	@Override
-	public int updateX(StoreVO vo) {
+	public int updateX(int vo) {
 		
 		
 		return mapper.updateOpenX(vo);
 	}
 
 	@Override
-	public int updateO(StoreVO vo) {
+	public int updateO(int vo) {
 		
 		
 		return mapper.updateOpenO(vo);

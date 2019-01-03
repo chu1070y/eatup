@@ -87,6 +87,7 @@ public class PartnerController {
 		log.info("pid: " + pid);
 		int sno = menuservice.getSno(pid);
 		log.info("sno: " + sno);
+		store.setSno(sno);
 
 		model.addAttribute("sno", sno);
 
@@ -270,13 +271,20 @@ public class PartnerController {
 	@RequestMapping(method = { RequestMethod.PUT,
 			RequestMethod.PATCH }, value = "/openx", consumes = "application/json", produces = {
 					MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<String> updateX(@RequestBody StoreVO vo) {
+	public ResponseEntity<String> updateX(Authentication authentication,@RequestBody StoreVO vo) {
 		/*
 		 * vo.setSno(sno); log.info("update part...sno: " + sno );
 		 */
+		String pid = authentication.getName();
+		log.info("pid: " + pid);
+		int sno = menuservice.getSno(pid);
+		log.info("sno: " + sno);
+		vo.setSno(sno);
+		
 		log.info("update: " + vo);
+		log.info("에센....오.................." + sno);
 
-		return openService.updateX(vo) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+		return openService.updateX(sno) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -284,13 +292,20 @@ public class PartnerController {
 	@RequestMapping(method = { RequestMethod.PUT,
 			RequestMethod.PATCH }, value = "/openo", consumes = "application/json", produces = {
 					MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<String> updateO(@RequestBody StoreVO vo) {
+	public ResponseEntity<String> updateO(Authentication authentication,@RequestBody StoreVO vo) {
 		/*
 		 * vo.setSno(sno); log.info("update part...sno: " + sno );
 		 */
+		String pid = authentication.getName();
+		log.info("pid: " + pid);
+		int sno = menuservice.getSno(pid);
+		log.info("sno: " + sno);
+		vo.setSno(sno);
+		
 		log.info("update: " + vo);
+		log.info("에센....오.................." + sno);
 
-		return openService.updateO(vo) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+		return openService.updateO(sno) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
