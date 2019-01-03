@@ -10,15 +10,39 @@ var config = {
   storageBucket: "gorany-df5bd.appspot.com",
   messagingSenderId: "551706831448"
 };
+
 firebase.initializeApp(config);
 
 const messaging = firebase.messaging();
+
 messaging.setBackgroundMessageHandler(function(payload){
-	
+
 	const title = "고라니 서비스";
 	const options = {
 			body: payload.notification.body
 	};
 	
+	console.log("-------------------------------------------");
+	console.log("-------------------------------------------");
+	console.log("-------------------------------------------");
+	console.log("-------------------------------------------");
+	console.log("-------------------------------------------");
+	console.log("-------------------------------------------");
+	
+	
+	
+	
 	return self.registration.showNotification(title,options);
 });
+
+
+self.addEventListener('install', function(event) {
+	  console.log('Service Worker installing.');
+	});
+
+	self.addEventListener('activate', function(event) {
+	  console.log('Service Worker activating.');  
+	});
+	
+	
+	
