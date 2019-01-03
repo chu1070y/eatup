@@ -41,6 +41,18 @@ public class PartnerMenuServiceImpl implements PartnerMenuService {
 		return menuMapper.getupdateMaxQuantity(menu);
 	}
 
+	@Override
+	public int getSoldoutX(MenuVO menu) {
+		
+		return menuMapper.getSoldoutX(menu);
+	}
+
+	
+	@Override
+	public int getSoldoutO(MenuVO menu) {
+		
+		return menuMapper.getSoldoutO(menu);
+	}
 
 
 }

@@ -14,13 +14,13 @@ public interface SalesService {
 	
 	public List<SalesVO> getMonthlySales(int sno);
 	
-	public List<SalesVO> getDailytableData(int month, int sno);
+	public List<SalesVO> getDailytableData(int year, int month, int sno);
 	
-	public List<SalesVO> getDailytableData_date(int month, int sno);
+	public List<SalesVO> getDailytableData_date(int year, int month, int sno);
 	
-	public List<SalesVO> getWeeklytableData(int month, int sno);
+	public List<SalesVO> getWeeklytableData(int year, int month, int sno);
 	
-	public List<SalesVO> getWeeklytableData_date(int month, int sno);
+	public List<SalesVO> getWeeklytableData_date(int year, int month, int sno);
 	
 	public List<SalesVO> getMonthlytableData(int sno);
 	

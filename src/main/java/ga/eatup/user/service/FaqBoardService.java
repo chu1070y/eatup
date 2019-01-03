@@ -3,6 +3,7 @@ package ga.eatup.user.service;
 import java.util.List;
 
 import ga.eatup.user.domain.FaqPageDTO;
+import ga.eatup.user.domain.FaqUploadVO;
 import ga.eatup.user.domain.FaqVO;
 
 public interface FaqBoardService {
@@ -12,6 +13,8 @@ public interface FaqBoardService {
 	public List<FaqVO> faqList(FaqPageDTO dto);
 	
 	public FaqVO faqRead(int fno);
+	
+	public List<FaqUploadVO> uploadRead(int fno);
 	
 	public int faqCount();
 	

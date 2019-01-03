@@ -85,7 +85,7 @@ hr {
 	white-space: nowrap;
 	background-color: #495057;
 	width: 400px;
-	height: 600px;
+	min-height: 600px;
 	float: left;
 	margin: 10px;
 	white-space: nowrap;
@@ -232,6 +232,11 @@ hr {
 		-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
 	}
+}
+
+h4{
+	white-space: normal;
+	text-align: left;
 }
 </style>
 
@@ -440,20 +445,26 @@ $(document).ready(function () {
  			checkarray = ""+number;				
  			$(elem).animate({"bottom":"1000px"});
  			
- 			$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
+ 			$(".block").slice(index).animate({"left": "-=420px"},function(){
+ 				//파이어베이스 db 지우기
+ 				deleteFirebase($(elem).data("key"));
+ 			}); 
  			
  			//주문 완료 날리기
  			pushMessage("조리가 완료되었습니다.",$(elem).find("input").data("token"));
  			
+ 			
+ 			
+ 			
  			}
  			idarray.splice(index,1)
- 			console.log(idarray);
+ 			
+ 			
  	}
 
 
 	function showGreeting(message) {
 	    console.log("showGreeting..............");
-	    $("#greetings").append("<tr><td> " + message + "</td></tr>"); //연결 메세지 화면 출력
 	    $("#myModal").modal("show");
 			
 			var tempMsg = "";
@@ -675,15 +686,23 @@ $(document).ready(function () {
 			console.log("-----");
 			console.log(snap.val()[data]);
 			
-			$("#origin #header").html("<h1>"+snap.val()[data].order_id+"</h1>");
+			$("#origin #header").html("<h1>"+snap.val()[data].order_id+"</h2>");
 			
 			for(var menu of snap.val()[data].menulist){
-				$("#origin #body").append("<h2>" + menu.menu + "---"+menu.quantity+"</h2><br/>");
+				$("#origin #body").append("<h3>" + menu.menu + "---"+menu.quantity+"</h3><br/>");
 			}
 			
 			$("#origin #tid").val(snap.val()[data].tid);
 			
 			$("#origin #tid").attr("data-token",snap.val()[data].pushtoken);
+
+			if(snap.val()[data].time!=""){
+				$("#origin #body").append("<h4>예약시간 :" + snap.val()[data].time +"</h4><br/>");
+			}
+			
+			if(snap.val()[data].customerRequest!=""){
+				$("#origin #body").append("<h4>요청사항 :" + snap.val()[data].customerRequest +"</h4><br/>");
+			}
 			
 			$("#origin #body").append("<button id="+snap.val()[data].order_id+" class='btn btn-secondary btn-lg btn-block'>F I N I S H !</button>");
 			$("#origin").attr("data-key",data);
@@ -733,23 +752,17 @@ $(document).ready(function () {
 			console.log(elem + "   " + index)
 			console.log("여기 아이디 어레이" + idarray)
 			
-			$(elem).animate({"bottom":"1000px"});		
-			$(".block").slice(index).animate({"left": "-=420px"},function(){
+			$(elem).animate({"bottom":"1000px"},function(e){
+				//Mysql DB orderComplete...
+				orderComplete(tid,key,token);
 			
-			//Mysql DB orderComplete...
-			orderComplete(tid,key,token);
-				
-			});  //103숫자 들어오면,,,
+			});		
+			$(".block").slice(index).animate({"left": "-=420px"});  //103숫자 들어오면,,,
+			
+			
 			
 		});//$(".btn.btn-secondary.btn-lg.btn-block").click
 		
-		
-		//firebase DB에 데이터 지우기
-		//여기서 1은 sno를 뜻함.
-		function deleteFirebase(key){
-			var remove = '/'+ [[${sno}]] + '/' + key;
-			return firebase.database().ref(remove).remove();
-		}
 		
 		//orderComplete - 주문완료라고 db 바꾸기
 		function orderComplete(tid,key,token){
@@ -778,6 +791,15 @@ $(document).ready(function () {
 		
 	});
 
+
+	//firebase DB에 데이터 지우기
+	//여기서 1은 sno를 뜻함.
+	function deleteFirebase(key){
+		var remove = '/'+ [[${sno}]] + '/' + key;
+		return firebase.database().ref(remove).remove();
+	}
+	
+	
 	console.log("firebase realtime db js end");
 
 });

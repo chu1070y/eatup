@@ -62,9 +62,9 @@
 
 			<div class="input-group">
 				<div class="input-group-prepend">
-					<span class="input-group-text">요청사항</span>
+					<span class="input-group-text">요청사항<br/>(30자 이내)</span>
 				</div>
-				<textarea class="form-control" aria-label="With textarea"></textarea>
+				<textarea class="form-control" id="customerRequest" maxlength=30 aria-label="With textarea"></textarea>
 			</div>
 
 			<div class="custom-control custom-checkbox">
@@ -76,13 +76,16 @@
 			<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="custom-control-input"
 					id="customCheck2"> <label class="custom-control-label"
-					for="customCheck2">예약 주문</label> <select>
-					<option selected>오전/오후</option>
-					<option value="1">오전</option>
-					<option value="2">오후</option>
+					for="customCheck2">예약 주문</label>
+				<select id="ampm">
+					<option value="" selected>오전/오후</option>
+					<option value="AM">오전</option>
+					<option value="PM">오후</option>
 
-				</select> <select>
-					<option selected>시</option>
+				</select>
+				
+				<select id="hour">
+					<option value="" selected>시</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -96,14 +99,16 @@
 					<option value="11">11</option>
 					<option value="12">12</option>
 
-				</select> <select>
-					<option selected>분</option>
-					<option value="1">10</option>
-					<option value="2">20</option>
-					<option value="3">30</option>
-					<option value="4">40</option>
-					<option value="5">50</option>
-					<option value="6">00</option>
+				</select>
+				
+				<select id="min">
+					<option value="" selected>분</option>
+					<option value="10">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+					<option value="40">40</option>
+					<option value="50">50</option>
+					<option value="00">00</option>
 				</select>
 			</div>
 
@@ -135,6 +140,29 @@ $(document).ready(function(){
 	
 	var total = 0;
 	
+	//체크박스
+	var customCheck1 = $("#customCheck1");
+	var customCheck2 = $("#customCheck2");
+	
+	customCheck1.on("click",function(e){
+		
+		customCheck1.attr("checked",true);
+		customCheck2.attr("checked",false);
+		
+	});
+	
+	customCheck2.on("click",function(e){
+		
+		customCheck2.attr("checked",true);
+		customCheck1.attr("checked",false);
+	});
+	
+	//요청사항
+	var customerRequest = $("#customerRequest");
+	var ampm = $("#ampm");
+	var hour = $("#hour");
+	var min = $("#min");
+	
 
 	//총 주문금액
   	$(".menuPrice").html(function(){
@@ -152,6 +180,30 @@ $(document).ready(function(){
 	//카카오페이 버튼 click
 	$("#kakaoPayBtn").on('click', function(e){
 		e.preventDefault();
+		
+		var time = "";
+		if($("#customCheck2").is(':checked')){
+			
+			if(ampm.val()===""){
+				alert("오전/오후를 선택해주세요.");
+				return;
+			}
+
+			if(hour.val()===""){
+				alert("시간을 선택해주세요.");
+				return;
+			}
+
+			if(min.val()===""){
+				alert("분을 선택해주세요.");
+				return;
+			}
+			
+			time = ampm.val() + " " + hour.val() + ":" + min.val();
+		}
+		
+		var addJson = {time: time, customerRequest: customerRequest.val()};
+		
 		$.each(cartList, function(index, item){
 			
 			var json = {
@@ -167,6 +219,9 @@ $(document).ready(function(){
 			list.push(json);
 			console.log(list);	
 			});
+		
+		list.push(addJson);
+		console.log(list);
 			
  	$.ajax({
 			type: "post",
@@ -190,11 +245,11 @@ $(document).ready(function(){
 			
 	}); //end button click
 		
-		
-	
 	
 
-
+	
+	
+	
 	
 }); //end document ready
 			

@@ -54,6 +54,8 @@ public class PartnerSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/partner/notice/read").hasRole("ADMIN")
 				.antMatchers("/partner/maxquantity").hasRole("PARTNER")
 				.and()
+			.exceptionHandling().accessDeniedPage("/partner/login/customLogin")
+				.and()
 			.formLogin()
 				.loginPage("/partner/login/customLogin")
 				.successHandler(psuccessHandler())

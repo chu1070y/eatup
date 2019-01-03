@@ -1,8 +1,24 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layout/layout_user}">
+	layout:decorate="~{/layout/layout_user}"></html>
+
 
 <style>
+@
+-ms-viewport {
+	width: device-width;
+}
+
+@
+-o-viewport {
+	width: device-width;
+}
+
+@
+viewport {
+	width: device-width;
+}
+
 * {
 	margin: 0px;
 	padding: 0px;
@@ -14,13 +30,14 @@
 	margin: auto;
 }
 
-.col-lg-9 {
+.col-mb-3 {
 	item-align: center;
 	text-align: center;
 	margin: auto;
 }
 
 .table table-hover {
+	display: block;
 	item-align: center;
 	text-align: center;
 	margin: auto;
@@ -47,62 +64,77 @@
 
 	<!-- content -->
 	<div class="container">
-		<div class="col-lg-9">
-		 	<!--csrf.token을 불러오지 못하는 문제가 있어서, 일단 여기서 한번 호출해두는 것 (스크립트에서 이 값을 빼서 쓰진 않음)-->
-	<input type="hidden" id="token" th:name="${_csrf.headerName}" th:value="${_csrf.token}" /> 
+		<div class="card mb-3">
+			<!--csrf.token을 불러오지 못하는 문제가 있어서, 일단 여기서 한번 호출해두는 것 (스크립트에서 이 값을 빼서 쓰진 않음)-->
+			<input type="hidden" id="token" th:name="${_csrf.headerName}"
+				th:value="${_csrf.token}" />
 
-			<h3>주문내역</h3>
-
-			<!-- hasRole('USER') -->
-			<div sec:authorize="hasRole('USER')">
-				<table class="table table-hover">
-					<thead class="thead-dark">
-						<tr>
-							<th scope="col">No</th>
-							<th scope="col">상호명</th>
-							<th scope="col">주문번호</th>
-							<th scope="col">주문일자</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="orderList" th:each="history, index : ${history}"  th:data-idx="${index.index}">
-						
-							<td th:text="${index.index+1}"></td>
-							<td th:text="${history.store.sname}"></td>
-							<td th:text="${history.tid}"></td>
-							<td th:text="${#dates.format(history.approved_at, 'yyyy-MM-dd hh:mm:ss')}"></td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="card-header" sec:authorize="hasRole('USER')">
+				<i class="fas fa-table"></i> 주문 내역
 			</div>
-				<!-- hasRole('USER') -->
+			<!-- hasRole('USER') -->
+			<div class="card-body" sec:authorize="hasRole('USER')">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable"
+						style="font: 13px sans-serif; font-color: black">
+						<thead class="thead-dark">
+							<tr>
+								<th>No</th>
+								<th>상호명</th>
+								<th>주문번호</th>
+								<th>주문상태</th>
+								<th>주문일자</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="orderList" th:each="history, index : ${history}"
+								th:data-idx="${index.index}">
+								<td th:text="${index.index+1}"></td>
+								<td th:text="${history.store.sname}"></td>
+								<td th:text="${history.tid}"></td>
+								<td th:text="${history.status}"></td>
+								<td
+									th:text="${#dates.format(history.approved_at, 'yyyy-MM-dd hh:mm:ss')}"></td>
+							</tr>
 
-
-				<!-- !hasRole('USER') -->
-				<div sec:authorize="!hasRole('USER')">
-						<div class="row">
-							<div class="col-md-12">
-								<p>※ 비회원은 주문번호로만 주문내역 조회가 가능합니다.</p>
-								
-
-								<form>
-								<div class="container">
-    							 <label for="getTid">주문번호</label>
-  								<div class="form-inline">
-        						<input name='tid' class="form-control mr-1" placeholder="주문번호를 입력하세요.">
-        						<button id="submitBtn" type="submit" class="btn btn-primary"><i class="fas fa-search glyphicon-search" style="color: white"></i></button>
-    							</div>
-								</div>
-								</form>
-								
-								
-							</div>
-						</div>
-					<!-- end input -->
+						</tbody>
+					</table>
 				</div>
-				<!-- !hasRole('USER') -->
+				<!-- hasRole('USER') -->
+			</div>
 
-		<!-- Modal -->
+			<!-- !hasRole('USER') -->
+			<div sec:authorize="!hasRole('USER')">
+				<div class="row">
+					<div class="col-md-12">
+						<p>※ 비회원은 주문번호로만 주문내역 조회가 가능합니다.</p>
+
+
+						<form>
+							<div class="container">
+								<label for="getTid">주문번호</label>
+								<div class="form-inline">
+									<input name='tid' class="form-control mr-1"
+										placeholder="주문번호를 입력하세요.">
+									<button id="submitBtn" type="submit" class="btn btn-primary">
+										<i class="fas fa-search glyphicon-search" style="color: white"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+
+
+					</div>
+				</div>
+				<!-- end input -->
+			</div>
+			<!-- !hasRole('USER') -->
+
+		</div>
+	</div>
+
+
+			<!-- Modal -->
 			<div class="modal" id="myModal" tabindex="-1" role="dialog">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -115,8 +147,8 @@
 						</div>
 						<div class="modal-body">
 							<div class="col-md-7">
-							<h5 id="sname"></h5>
-							<span id="tid"></span>
+								<h5 id="sname"></h5>
+								<span id="tid"></span>
 							</div>
 							<div class="col-md-5">
 								<h6 id="mname"></h6>
@@ -131,11 +163,7 @@
 					</div>
 				</div>
 			</div>
-				<!-- /.modal -->
-
-
-			</div>
-		</div>
+			<!-- /.modal -->
 
 
 

@@ -49,7 +49,7 @@ img {
 	<div class="row">
 
 		<!-- 메뉴목록 -->
-		
+
 
 
 		<div th:each="menu : ${menu}" class="col-xl-3 col-sm-6 mb-3"
@@ -78,8 +78,16 @@ img {
 					</div>
 					<!-- </div> -->
 				</div>
-				<button id="soldout" type="button" class="btn btn-outline-danger"
-					th:value="${menu.mno}" style="font: 12px sans-serif">품절</button>
+				<span th:if="${menu.soldout.toString()} == 'X'">
+				<div class="card o-hidden h-100">
+					<button th:id="${menu.mno}" class="btn btn-outline-danger"
+					th:value="${menu.soldout}" style="font: 12px sans-serif">품절로 설정하시겠습니까?</button></div>
+				</span>
+				<span th:if="${menu.soldout.toString()} == 'O'">
+				<div class="card o-hidden h-100">
+					<button th:id="${menu.mno}" class="btn btn-outline-danger"
+					th:value="${menu.soldout}" style="font: 12px sans-serif">품절 설정 완료</button></div>
+				</span>
 
 			</div>
 		</div>
@@ -99,6 +107,25 @@ img {
 				xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
 			}); 
 			
+			
+			//var soldoutid;
+			console.log("으갸갹갸갸갸")
+			console.log($(".btn.btn-outline-danger")[0])
+			console.log($(".btn.btn-outline-danger").length)
+			  /* for(var i=0; $(".btn.btn-outline-danger").length; i++ )
+				{
+				if($(".btn.btn-outline-danger")[i] === 'O'){
+					console.log("이응")
+				}
+				else if($(".btn.btn-outline-danger")[i] === 'X'){
+					console.log("엑스")
+					
+				}
+				}   */
+			
+			
+			
+		//설정 버튼 클릭 시
 		$(document).on("click",".btn.btn-dark",function(){
 
 
@@ -145,7 +172,122 @@ img {
 			
 			
 			
-		});
+		}); //.btn.btn-dark click
+		
+		//품절 버튼 클릭 시 btn btn-outline-danger  
+		
+		$(document).on("click",".btn.btn-outline-danger",function(){
+			
+			console.log("--------------------------------------------------------품절 버튼이요");
+			
+			var soldoutid = $(this).context.id;
+			console.log(soldoutid); //11
+			
+			var value = $(this).context.value;
+			console.log(value); //x
+			
+			var sno = [[${menu}]][0].sno;
+			
+			var data = {'sno':sno, 'mno':soldoutid, 'soldout':value}
+			
+			if(value == 'X'){
+				console.log("벨류버튼 엑스");
+				
+				$.ajax({
+			 		type :'post',
+			 		url: '/partner/menu',
+			 		data: JSON.stringify(data),
+			 		contentType : "application/json", 
+			 		beforeSend: function(xhr) {
+		                xhr.setRequestHeader(csrfHearderName, csrfTokenValue)
+		            },
+			 		success:function(data){
+		 			
+			 			alert("품절 설정이 완료되었습니다!");
+ 			
+			 		},
+			 		error:function(e){
+			 			console.log(e);
+			            alert("에러 발생~~");
+			        } 
+			 	})//ajax
+			 	
+
+		 			 $(this).context.innerHTML="품절 설정 완료";
+			}
+			else if(value == 'O'){
+				console.log("벨류버튼 오")
+				
+				$.ajax({
+			 		type :'post',
+			 		url: '/partner/menu',
+			 		data: JSON.stringify(data),
+			 		contentType : "application/json", 
+			 		beforeSend: function(xhr) {
+		                xhr.setRequestHeader(csrfHearderName, csrfTokenValue)
+		            },
+			 		success:function(data){
+		 			
+			 			alert("품절 해제가 완료되었습니다!");
+ 			
+			 		},
+			 		error:function(e){
+			 			console.log(e);
+			            alert("에러 발생~~");
+			        } 
+			 	})//ajax
+			 	
+
+		 			 $(this).context.innerHTML="품절로 설정하시겠습니까?";
+				
+			 			
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			//console.log(data);
+			 
+			 
+			/*  $.ajax({
+			 		type :'post',
+			 		url: '/partner/menu',
+			 		data: JSON.stringify(data),
+			 		contentType : "application/json", 
+			 		beforeSend: function(xhr) {
+		                xhr.setRequestHeader(csrfHearderName, csrfTokenValue)
+		            },
+			 		success:function(data){
+			 			
+			 			alert("에이 작스가 한번에 될리가,,");
+			 			
+			 		},
+			 		error:function(e){
+			 			console.log(e);
+			            alert("에러 발생~~");
+			        } 
+			 	})//ajax */
+			
+			 
+			 
+		
+		
+			 
+			
+			
+		});//btn btn-outline-danger click
+		
+		
+		
+		
+		
 		
 		});//ready
 

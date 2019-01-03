@@ -1,6 +1,7 @@
 package ga.eatup.user.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -33,6 +36,7 @@ import com.google.gson.reflect.TypeToken;
 
 import ga.eatup.user.domain.CartDTO;
 import ga.eatup.user.domain.FaqPageDTO;
+import ga.eatup.user.domain.FaqUploadVO;
 import ga.eatup.user.domain.FaqVO;
 import ga.eatup.user.domain.MenuVO;
 import ga.eatup.user.domain.OrderVO;
@@ -177,8 +181,15 @@ public class UserController {
 	public void home(Authentication authentication, String lat, String lng, String search, Model model) {
 		log.info("lat: " + lat + " , lng: " + lng);
 		// model.addAttribute("location", lat );
+		
+		String auth = "";
+		
+		if(authentication != null) {
+			List list = new ArrayList<>(authentication.getAuthorities());
+			auth = "" + list.get(0);
+		}
 
-		String uid = (authentication == null) ? "nomember" : authentication.getName();
+		String uid = (auth.equals("ROLE_USER")) ? authentication.getName() : "nomember";
 		log.info("uid: " + uid);
 
 		int uno = orderService.getUno(uid);
@@ -349,9 +360,21 @@ public class UserController {
 		log.info("faq register page....");
 	}
 
+	@GetMapping(value="/getUploadList", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<FaqUploadVO>> getUploadList(int fno){
+		
+		return new ResponseEntity<>(faqService.uploadRead(fno),HttpStatus.OK);
+	}
+	
 	@PostMapping("/faqadd")
 	public String noticeAdd(FaqVO vo, RedirectAttributes redirect) {
 		log.info("faq add........");
+		
+		if(vo.getUploadList() != null) {
+			vo.getUploadList().forEach(upload -> log.info(""+upload));
+			vo.getUploadList().forEach(upload -> log.info(""+upload.getFiletype()));
+		}
 
 		int result = faqService.faqAdd(vo);
 
