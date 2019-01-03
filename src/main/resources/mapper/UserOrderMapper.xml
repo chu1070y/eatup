@@ -30,7 +30,7 @@
 		<result column="payment_method_type"
 			property="payment_method_type" />
 		<result column="approved_at" property="approved_at" />
-		<result column="status" property="status"/>
+		<result column="status" property="status" />
 		<collection property="oinfoList" resultMap="Oinfo" />
 		<collection property="menuList" resultMap="PStorMenu" />
 		<collection property="store" resultMap="PStore" />
@@ -48,12 +48,14 @@
 	</insert>
 
 	<select id="getUno" resultType="int">
-		select uno from user where uid = #{uid}
+		select uno from user where uid =
+		#{uid}
 	</select>
-	
+
 	<select id="getTid" resultType="ga.eatup.user.domain.OrderVO">
 		select * from gorany.order
-		where tid = #{tid}
+		where
+		tid = #{tid}
 	</select>
 
 	<select id="getOrderHistory" resultMap="Order">
@@ -74,7 +76,7 @@
 		join
 		gorany.partner_store pstore
 		on ord.sno=pstore.sno
-		
+
 		<choose>
 			<when test="uno == '1'.toString">
 				where ord.tid=#{tid}
@@ -90,25 +92,28 @@
 
 	</select>
 
-	<select id="getQuickMenu" resultType="ga.eatup.user.domain.OrderVO">
+	<select id="getQuickMenu"
+		resultType="ga.eatup.user.domain.OrderVO">
 		select userorder.*, sname
 		from
-		(select orderall.*, mname, mprice, fname, uuid, upload_path
+		(select orderall.*, mname, mprice, fname, uuid, upload_path, menu.status
+		menu_status, soldout
 		from
-		(select sno, uno, payment_method_type, approved_at, status, partner_order_id,
-		token, info.*
+		(select sno, uno, payment_method_type, approved_at, ord.status order_status,
+		partner_order_id, token, info.*
 		from gorany.order ord join gorany.order_info info
 		on ord.tid = info.tid) orderall join gorany.partner_store_menu menu
 		on orderall.mno = menu.mno) userorder join gorany.partner_store store
 		on userorder.sno = store.sno
-		where userorder.uno = #{uno}
+		where userorder.uno = #{uno} and menu_status = 'O' and soldout = 'O'
 		order by approved_at desc
 		limit 15;
 
 	</select>
-	
-	<update id="tokenUpdate"  parameterType="ga.eatup.user.domain.StoreVO">
- 		update gorany.order set token = #{token} where tid = #{tid}
- 	</update>
+
+	<update id="tokenUpdate"
+		parameterType="ga.eatup.user.domain.StoreVO">
+		update gorany.order set token = #{token} where tid = #{tid}
+	</update>
 
 </mapper>
