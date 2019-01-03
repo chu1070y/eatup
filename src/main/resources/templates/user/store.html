@@ -82,6 +82,13 @@
 	text-align: center;
 	font: 14px sans-serif;
 }
+
+
+
+
+
+
+
 </style>
 	<!-- Add icon library -->
 	<link rel="stylesheet"
@@ -172,6 +179,7 @@
 
 								<h6 th:text="${menu.mname}" class="card-title"></h6>
 								<input type="hidden" th:value="${menu.mno}">
+								<input type="hidden" id="soldout" th:value="${menu.soldout}">
 								<p th:text="${menu.mprice}" class="card-text"></p>
 								<p th:text="${menu.introduction}" class="card-text"></p>
 							</div>
@@ -272,6 +280,7 @@ $(document).ready(function() {
 		var getMno = $(this).children()[1].defaultValue;
 		var getMprice = $(this).children()[2].outerText;
 		var getQuantity = "";
+		var soldout = $(this).children()[2].defaultValue;
  
 		console.log("modal show.....");	
 		console.log(getMname);
@@ -279,6 +288,16 @@ $(document).ready(function() {
 
 		$("#mname").html(getMname);
 		$("#mprice").html(getMprice);
+		
+		//soldout	
+		console.log("soldout: " +soldout)
+		
+		if(soldout == 'O'){
+			alert("품절입니다..");
+			return false
+		}
+		 
+		
 		
 		
 
@@ -379,10 +398,10 @@ $(document).ready(function() {
 			
 			
 			
-		});
+		});//#order click
 		
 		
-	});
+	});//card-body click
 	
 
 	// 모달 close
