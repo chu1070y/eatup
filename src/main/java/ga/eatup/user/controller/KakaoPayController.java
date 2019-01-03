@@ -68,14 +68,20 @@ public class KakaoPayController {
 		
 		String auth = "";
 		
+		System.out.println("====================================");
+		System.out.println(authentication);
 		if(authentication != null) {
 			List list = new ArrayList<>(authentication.getAuthorities());
 			auth = "" + list.get(0);
 		}
-		
+		System.out.println("====================================");
+		System.out.println(auth);
 		String uid = (auth.equals("ROLE_USER")) ? authentication.getName() : "nomember";
 		
 		int uno = orderService.getUno(uid);
+		
+		System.out.println(uid);
+		System.out.println(uno);
 		
 		//key = kakao
 		KakaoPayApprovalVO kakaokey = (KakaoPayApprovalVO)result.get("kakao");		

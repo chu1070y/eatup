@@ -189,7 +189,7 @@ public class UserController {
 			auth = "" + list.get(0);
 		}
 
-		String uid = (auth == "ROLE_USER") ? authentication.getName() : "nomember";
+		String uid = (auth.equals("ROLE_USER")) ? authentication.getName() : "nomember";
 		log.info("uid: " + uid);
 
 		int uno = orderService.getUno(uid);
