@@ -357,9 +357,9 @@ $(document).ready(function () {
 				data:JSON.stringify({
 				    notification : {
 				        body : data,
-				        title : "FCM Message", 
-				        click_action: "http://localhost:8080/user/home",
-				        icon: "http://url-to-an-icon/icon.png"
+				        title : "Eat up! 실시간 서비스", 
+				        click_action: "https://eatup.ga/user/history",
+				        icon: "/icon.png"
 				        },
 				     to: token
 				  }),
@@ -394,7 +394,7 @@ $(document).ready(function () {
 	}
 
 	function connect() {
-		ws = new WebSocket('ws://localhost:8080/name');
+		ws = new WebSocket('ws://localhost:80/name');
 		ws.onmessage = function(data){
 			showGreeting(data.data);
 		}
@@ -560,13 +560,15 @@ $(document).ready(function () {
 /* 	$(function () { 
 		 $( "#Disconnected" ).click(function() { */
 			 $(document).on("click","#Disconnected",function(){
+			 console.log("왜안돼")
 			 
-			 if($( "#Disconnected" ).attr('value')=='end'){
-			 	/* disconnect();
-			 	$( "#Disconnected" ).html("O N") */
+			  if($( "#Disconnected" ).attr('value')=='end'){
+			 	 disconnect();
+			 	$( "#Disconnected" ).html("O N") 
 			 	console.log("자자자!!!!")
+			 	
 			 	 $.ajax({
-			 		type :'put',
+			 		type :'post',
 			 		url: '/partner/openx',
 			 		data: JSON.stringify(datax),
                     beforeSend: function(xhr) {
@@ -586,14 +588,14 @@ $(document).ready(function () {
 			 	
 			 }
 			 else if($( "#Disconnected" ).attr('value')=='start'){
-				/* connect();
-				sendName(); */
+				 connect();
+				sendName(); 
 				console.log("자자자!!!!")
 				$( "#Disconnected" ).html("O F F")
 				//alert("연결이 됐슴다.,,,,");
 				
 				 $.ajax({
-			 		type :'put',
+			 		type :'post',
 			 		url: '/partner/openo',
 			 		data: JSON.stringify(datao),
                     beforeSend: function(xhr) {
@@ -601,15 +603,15 @@ $(document).ready(function () {
                     },
 			 		contentType: "application/json; charset=utf-8",
 			 		success:function(datao){
-			 			connect();
-						sendName();
+			 			/* connect();
+						sendName(); */
 						$( "#Disconnected" ).html("O F F")
 			 			
 			 		},
 			 		error:function(e){
 			            alert("에러 발생~~");
 			        } 
-			 	})//ajax 
+			 	})//ajax  
 				
 			 }
 		 
@@ -619,8 +621,7 @@ $(document).ready(function () {
 	
 
 	 window.onload = function(){
-		 /* connect();
-		 sendName(); */
+		 
 		 
 		 console.log("시작이 될 때마다 여기가 처음인가요?")
 		 console.log([[${open}]])
@@ -655,6 +656,8 @@ $(document).ready(function () {
 		 	else{
 		 		console.log("오라네");
 		 		$( ".navbar-nav.ml-auto.mr-0.mr-md-3.my-2.my-md-0" ).append(openo);
+		 		  connect();
+				 sendName();  
 		 	}
 	 };
 	 

@@ -20,16 +20,7 @@ messaging.setBackgroundMessageHandler(function(payload){
 	const title = "고라니 서비스";
 	const options = {
 			body: payload.notification.body
-	};
-	
-	console.log("-------------------------------------------");
-	console.log("-------------------------------------------");
-	console.log("-------------------------------------------");
-	console.log("-------------------------------------------");
-	console.log("-------------------------------------------");
-	console.log("-------------------------------------------");
-	
-	
+	}; 	
 	
 	
 	return self.registration.showNotification(title,options);
