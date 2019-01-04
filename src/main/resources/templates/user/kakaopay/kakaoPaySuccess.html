@@ -95,6 +95,7 @@ $(document).ready(function() {
 	  
  	  messaging.onMessage(function(payload){
 		console.log('onMessage: ', payload);
+		alert("포그라운드");
 		var title = "고라니 서비스";
 		var options = {
 				body: payload.notification.body
