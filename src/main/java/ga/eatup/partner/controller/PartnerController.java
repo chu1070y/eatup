@@ -99,7 +99,7 @@ public class PartnerController {
 
 		model.addAttribute("result", list);
 
-		System.out.println("사이쥬ㅜ를 알려드리조,,," + list.size());
+		System.out.println("리스트 사이즈: ," + list.size());
 
 		for (int i = 0; i < list.size(); i++) {
 
