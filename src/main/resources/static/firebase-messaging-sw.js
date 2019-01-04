@@ -20,7 +20,7 @@ messaging.setBackgroundMessageHandler(function(payload){
 	const title = "고라니 서비스";
 	const options = {
 			body: payload.notification.body,
-			icon: '/logo.png'
+			icon: payload.notification.icon
 	}; 	
 	
 	

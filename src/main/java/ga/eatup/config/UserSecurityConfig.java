@@ -35,7 +35,7 @@ public class UserSecurityConfig  extends WebSecurityConfigurerAdapter {
 		
 		log.info("common user .... security config.......");
 		
-		http
+		http.authorizeRequests().antMatchers("/imgs/**").permitAll().and()
 			.antMatcher("/user/**")
 			.authorizeRequests()
 				.antMatchers("/upload/**").permitAll()

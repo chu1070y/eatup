@@ -97,14 +97,17 @@ $(document).ready(function() {
 		console.log('onMessage: ', payload);
 		var title = "고라니 서비스";
 		var options = {
-				body: payload.notification.body
+				body: payload.notification.body,
+				icon: payload.notification.icon
 		};
 		
+		
+		console.log(payload.notification.icon);
+	    console.log(payload.notification);
+	    
 		alert("주문이 완료되었습니다^^");
 	    var notification = new Notification(title,options);
-
 	    
-		 
 	  });
 
 	  

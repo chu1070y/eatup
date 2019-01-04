@@ -54,9 +54,9 @@ public class KakaoPay {
 		params.add("quantity", finalcartList.get(0).getQuantity()+"");
 		params.add("total_amount", totalPrice +"");
 		params.add("tax_free_amount","0");
-		params.add("approval_url", "http://localhost:8080/user/kakaopay/kakaoPaySuccess");
-		params.add("cancel_url", "http://localhost:8080/user/kakaopay/kakaoPayCancel");
-		params.add("fail_url", "http://localhost:8080/user/kakaopay/kakaoPaySuccessFail");
+		params.add("approval_url", "https://eatup.ga/user/kakaopay/kakaoPaySuccess");
+		params.add("cancel_url", "https://eatup.ga/user/kakaopay/kakaoPayCancel");
+		params.add("fail_url", "https://eatup.ga/user/kakaopay/kakaoPaySuccessFail");
 		
 		log.info( "finalcartList:" + finalcartList);
 
