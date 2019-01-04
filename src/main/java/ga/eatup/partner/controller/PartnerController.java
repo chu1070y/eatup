@@ -268,9 +268,10 @@ public class PartnerController {
 	}
 
 	// open column 'X' update
-	@RequestMapping(method = { RequestMethod.PUT,
+	/*@RequestMapping(method = { RequestMethod.PUT,
 			RequestMethod.PATCH }, value = "/openx", consumes = "application/json", produces = {
-					MediaType.TEXT_PLAIN_VALUE })
+					MediaType.TEXT_PLAIN_VALUE })*/
+	@PostMapping(value = "/openx", consumes = "application/json")
 	public ResponseEntity<String> updateX(Authentication authentication,@RequestBody StoreVO vo) {
 		/*
 		 * vo.setSno(sno); log.info("update part...sno: " + sno );
@@ -289,9 +290,10 @@ public class PartnerController {
 	}
 
 	// open column 'O' update
-	@RequestMapping(method = { RequestMethod.PUT,
+	/*@RequestMapping(method = { RequestMethod.PUT,
 			RequestMethod.PATCH }, value = "/openo", consumes = "application/json", produces = {
-					MediaType.TEXT_PLAIN_VALUE })
+					MediaType.TEXT_PLAIN_VALUE })*/
+	@PostMapping(value = "/openo", consumes = "application/json")
 	public ResponseEntity<String> updateO(Authentication authentication,@RequestBody StoreVO vo) {
 		/*
 		 * vo.setSno(sno); log.info("update part...sno: " + sno );
