@@ -95,13 +95,23 @@ $(document).ready(function() {
 	  
  	  messaging.onMessage(function(payload){
 		console.log('onMessage: ', payload);
-		alert("포그라운드");
 		var title = "고라니 서비스";
 		var options = {
 				body: payload.notification.body
 		};
 		
-		var notification = new Notification(title, options);
+		
+	    if (!("Notification" in window)) {
+	        alert("This browser does not support system notifications");
+	    }
+	    // Let's check whether notification permissions have already been granted
+	    else if (Notification.permission === "granted") {
+	        // If it's okay let's create a notification
+	        console.log("notification permission");
+	        var notification = new Notification(title,options);
+
+	    }
+	    
 		 
 	  });
 
