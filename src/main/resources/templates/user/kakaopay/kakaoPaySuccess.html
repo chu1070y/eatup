@@ -100,15 +100,9 @@ $(document).ready(function() {
 				body: payload.notification.body
 		};
 		
-		
-	    if (Notification.permission === "granted") {
-	        // If it's okay let's create a notification
-	        console.log("notification permission");
-	        var notification = new Notification(title,options);
+		alert("주문이 완료되었습니다^^");
+	    var notification = new Notification(title,options);
 
-	    }else{
-	    	alert("조리가 완료되었습니다^^");
-	    }
 	    
 		 
 	  });
