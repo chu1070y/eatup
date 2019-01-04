@@ -31,9 +31,10 @@ public class GreetingController extends TextWebSocketHandler {
 	public void handleTextMessage(WebSocketSession session, TextMessage message) throws InterruptedException, IOException {
 		System.out.println("message------------------------>" + message);
 		
+		
 		MsgInfo msgObj = new Gson().fromJson(message.getPayload(), MsgInfo.class);
 		
-		System.out.println(msgObj);
+		System.out.println("시리얼 넘버를 받아옵니다.: "+msgObj);
 		
 		if(msgObj.getMyDevice() != null) {
 			monitorMap.put(msgObj.getMyDevice(), session);
@@ -60,10 +61,11 @@ public class GreetingController extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(final WebSocketSession session, CloseStatus status) throws Exception {
 
-		System.out.println("--------------------------------종료");
-		System.out.println(session.getId() + "연결 끊어짐");
+		System.out.println("------------------------------------");
+		System.out.println(session.getId() + "의 연결이 종료되었습니다.");
 		sessions.remove(session.getId());
-		System.out.println("제거 후 SIZE: " + sessions.size());
+		System.out.println("....................................");
+		System.out.println("현재 " + sessions.size() + " 개 가맹점이 연결되었습니다.");
 
 	}
 
@@ -72,11 +74,12 @@ public class GreetingController extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// sessions.add(session.getId());
 		sessions.put(session.getId(), session);
-		System.out.println("session: " + session);
+		//System.out.println("session: " + session);
 		System.out.println("id: " + session.getId());
-		System.out.println("handshakeHeaders: " + session.getHandshakeHeaders());
-		System.out.println("extensions: " + session.getExtensions());
-		System.out.println("지금은 SIZE: " + sessions.size());
+		//System.out.println("handshakeHeaders: " + session.getHandshakeHeaders());
+		//System.out.println("extensions: " + session.getExtensions());
+		System.out.println(sessions.size() + " 개 가맹점이 연결되었습니다.");
+		System.out.println("------------------------------------");
 
 	}
 	/*
