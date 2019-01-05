@@ -150,6 +150,7 @@ $(document).ready(function() {
 		var customerRequest = cartList[length-1].customerRequest;
 
 		function writeNewPost(tid,order_id,menulist,pushtoken, time, customerRequest) {
+			console.log("firebase realtime db send...");
 			  // A post entry.
 			  var postData = {
 				tid:tid,

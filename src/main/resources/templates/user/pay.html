@@ -127,8 +127,36 @@
 </div>
 
 <th:block layout:fragment="script">
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
 <script th:inline="javascript">
 $(document).ready(function(){
+	
+	// Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyAKegY8LM_wqmn2twvBsMh0LsvGwsUjS6E",
+	    authDomain: "gorany-df5bd.firebaseapp.com",
+	    databaseURL: "https://gorany-df5bd.firebaseio.com",
+	    projectId: "gorany-df5bd",
+	    storageBucket: "gorany-df5bd.appspot.com",
+	    messagingSenderId: "551706831448"
+	  };
+
+	  firebase.initializeApp(config);
+
+	  const messaging = firebase.messaging();  		
+	  
+	  //token값 알아내기
+	   messaging.requestPermission()
+	  	.then(function(){
+	  		console.log("Have permission");
+	  		return messaging.getToken();
+	  	}) 
+	  	.then(function(token){
+	  		console.log("fcm token:" + token);
+	  	})
+	  	.catch(function(arr){
+	  		console.log("Error Occured");
+	  	});
 	
 	//csrf처리
 	var csrfHearderName = [[${_csrf.headerName}]];
