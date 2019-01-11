@@ -124,6 +124,24 @@ $(document).ready(function(){
 		actionForm.attr("method", "post").attr("action", "/partner/login/customLogin").submit();
 	});
 	
+	pid.keydown(function(event){
+		
+		if(event.keyCode == 13){
+			console.log("엔터");
+			event.preventDefault();
+			
+			var str = "";
+			
+			str += "<input type='hidden' name='username' value='" + pid.val() +"'>";
+			str += "<input type='hidden' name='password' value='" + ppw.val() +"'>";
+			
+			actionForm.append(str);
+			actionForm.attr("method", "post").attr("action", "/partner/login/customLogin").submit();
+			
+			}
+		}
+	);
+	
 });
 </script>
 </body>

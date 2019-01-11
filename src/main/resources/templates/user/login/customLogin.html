@@ -181,8 +181,7 @@ $(document).ready(function(){
 	
 	var welcome = [[${welcome}]]
 
-	
-	btnLogin.on("click", function(e){
+	var gogo = function(e){
 		e.preventDefault();
 
 		var str = "";
@@ -193,7 +192,11 @@ $(document).ready(function(){
 		
 		actionForm.append(str);
 		actionForm.attr("method", "post").attr("action", "/user/login/customLogin").submit();
-	});
+	};
+	
+	btnLogin.on("click", gogo);
+	uid.keydown(gogo);
+	upw.keydown(gogo);
 	
 	if(welcome==1){
 		alert("회원가입이 완료되었습니다. 로그인 해주세요^^");
