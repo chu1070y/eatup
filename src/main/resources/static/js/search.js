@@ -11,6 +11,9 @@ var searchService = (function(){
 		$.ajax({
             type: 'post',
             url: "/user/autocomplete",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(csrfheader, csrftoken);
+            },
             dataType: "json",
             success: function(result,status,xhr){
 				if(callback){
