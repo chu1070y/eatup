@@ -308,20 +308,14 @@ $(document).ready(function() {
 		var getMprice = $(this).children()[2].outerText;
 		var getQuantity = "";
 		var soldout = $(this).children()[2].defaultValue;
- 
-		console.log("modal show.....");	
-		console.log(getMname);
-		console.log($(this));
 
 		$("#mname").html(getMname);
 		$("#mprice").html(getMprice);
 	
 		
 		//soldout	
-		console.log("soldout: " +soldout)
-		
 		if(soldout == 'O'){
-			alert("품절입니다..");
+			alert("해당 메뉴는 품절입니다.");
 			return false
 		}
 		 
@@ -379,22 +373,17 @@ $(document).ready(function() {
 		
 			arr.push(jsonData);
 			var json = JSON.stringify(arr);
-	
-			console.log("jsonData: " + json);
-			
+
 			
 			// cart 쿠키 설정 (expries는 유지일)
 			$.cookie('cart', json, { expires: 1, path: '/'}); 	       
-			console.log("cookie : " + $.cookie('cart')); 
-			
+
 			cookieCount = arr.length;
-			console.log("cookiecount: "+ cookieCount);
 			
 			cartstr += "장바구니<span id='badge' class='badge badge-pill badge-danger'>"+ cookieCount +"</span>"
 			$("#cartbtn").html(cartstr);
 			
 			$('#numberUpDown').text(1);
-			console.log("modal close");
 			$("#myModal").hide();
 			
 		});
@@ -410,17 +399,12 @@ $(document).ready(function() {
 			jsonData.mno = getMno;
 			jsonData.quantity = getQuantity;
 			
-		
 			arr.push(jsonData);
 			var json = JSON.stringify(arr);
 	
-			console.log("jsonData: " + json);
-			
 			
 			// 쿠키 설정 (expries는 유지일, path는 쿠키 보관하고 있을 경로)
 			$.cookie('cart', json, { expires: 1, path: '/'}); 	       
-			console.log("cookie : " + $.cookie('cart')); 
-			
 			
 			 $('#numberUpDown').text(1);
 			console.log("modal close");
@@ -436,8 +420,6 @@ $(document).ready(function() {
 
 	// 모달 close
 	$(".modalclose").on("click", function(e) {
-
-		console.log("modal close");
 		
 		 $('#numberUpDown').text(1);
 		 
@@ -485,12 +467,9 @@ $(document).ready(function() {
 
 		
 		// 캐러셀
-		
 		var str = "";
 		var list = [[${storeimg}]];
 		var active = "active";
-		
-		console.log(list);
 		
 		for(i in list){
 			str += "<div class='carousel-item ";
@@ -502,11 +481,6 @@ $(document).ready(function() {
 		
 		 $(".carousel-inner").html(str);
 		
-		 
-		 // 장바구니 badge
-		
-		
-		 
 
 });
 	</script>

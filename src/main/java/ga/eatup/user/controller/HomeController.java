@@ -11,6 +11,7 @@ public class HomeController {
 		
 		return "redirect:/user/home";
 	}
+	
 	@GetMapping("/partner")
 	public String partner() {
 		

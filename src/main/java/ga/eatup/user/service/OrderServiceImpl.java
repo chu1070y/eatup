@@ -39,30 +39,25 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public int getUno(String uid) {
-		log.info("get uno..");
 		return mapper.getUno(uid);
 	}
 
 	@Override
 	public List<OrderVO> getOrderHistory(Map<String, Object> map) {
-		log.info("=====OrderServiceImpl=======");
 		return mapper.getOrderHistory(map);
 	}
 
 	@Override
 	public OrderVO getTid(String tid) {
-		// TODO Auto-generated method stub
 		return mapper.getTid(tid);
 	}
 
 
 	public List<OrderVO> getQuickMenu(int uno) {
-		
 		return mapper.getQuickMenu(uno);
 	}
 	
 	public int tokenUpdate(OrderVO vo){
-		
 		return mapper.tokenUpdate(vo);
 	}
 

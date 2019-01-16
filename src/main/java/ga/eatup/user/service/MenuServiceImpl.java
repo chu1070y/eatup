@@ -21,21 +21,16 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public List<MenuVO> getMenu(@RequestParam("sno") int sno) {
-
-		log.info("getmenu service implement...........");
 		return mapper.getMenu(sno);
 	}
 
 	@Override
 	public List<MenuVO> getCart(int sno) {
-		
-		log.info("getCart service implement...........");
 		return mapper.getCart(sno);
 	}
 
 	@Override
 	public int updatequantity(CartDTO cart) {
-		
 		return mapper.updatequantity(cart);
 		
 	}

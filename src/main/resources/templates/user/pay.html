@@ -148,14 +148,11 @@ $(document).ready(function(){
 	  //token값 알아내기
 	   messaging.requestPermission()
 	  	.then(function(){
-	  		console.log("Have permission");
 	  		return messaging.getToken();
 	  	}) 
 	  	.then(function(token){
-	  		console.log("fcm token:" + token);
 	  	})
 	  	.catch(function(arr){
-	  		console.log("Error Occured");
 	  	});
 	
 	//csrf처리
@@ -199,7 +196,6 @@ $(document).ready(function(){
 			total += parseInt($(this).context.value);
 		});
 		
-		console.log(total);
 		return total+"원";
 	
 	});  
@@ -245,11 +241,9 @@ $(document).ready(function(){
 			}
 			
 			list.push(json);
-			console.log(list);	
 			});
 		
 		list.push(addJson);
-		console.log(list);
 			
  	$.ajax({
 			type: "post",
@@ -261,10 +255,8 @@ $(document).ready(function(){
 			},
 			success: function(result, status, xhr){
   				if(status == 'success'){
-  					console.log(result);
 					  window.location.href = result;  
 				} 
- 				
 			}
 				
 

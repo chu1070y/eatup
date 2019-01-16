@@ -179,11 +179,9 @@ window.onload = function(){
 	 		var json = JSON.stringify(arr);
 	      
 	  	$.cookie('cart', json, { expires: 1, path: '/'}); 	       
-			console.log("cookie : " + $.cookie('cart')); 
 			 
 			$('.totalPrice').html(sumPrice+"원");
 			sumPrice = 0;
-		
 			
 	 });
 
@@ -192,6 +190,7 @@ window.onload = function(){
 	//수정 버튼 클릭
 	$(".editBtn").on("click", function(e){
 		e.preventDefault();
+		
 		var inp = $(this).parent().parent().find('td input')[1];
 		inp.removeAttribute('disabled');
 		
@@ -210,9 +209,7 @@ window.onload = function(){
 		      // json으로 Data변환
 		   		for(var i = 0; i <  cart.length; i++){
 		   		var qty=$('input[data-idex="'+i+'"]').val();
-		   		
-		   		console.log(qty);
-				
+		   			
 		   		var jsonData = new Object();
 				jsonData.sno = [[${sno}]];
 				jsonData.mno =cart[i].mno;
@@ -225,7 +222,6 @@ window.onload = function(){
 				var json = JSON.stringify(arr);
 		      
 		  	$.cookie('cart', json, { expires: 1, path: '/'}); 	       
-			console.log("cookie : " + $.cookie('cart')); 
 			
 			$('.totalPrice').html(sumPrice+"원");
 			sumPrice=0;

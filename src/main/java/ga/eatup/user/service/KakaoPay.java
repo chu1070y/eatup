@@ -54,32 +54,24 @@ public class KakaoPay {
 		params.add("quantity", finalcartList.get(0).getQuantity()+"");
 		params.add("total_amount", totalPrice +"");
 		params.add("tax_free_amount","0");
-		params.add("approval_url", "https://eatup.ga/user/kakaopay/kakaoPaySuccess");
-		params.add("cancel_url", "https://eatup.ga/user/kakaopay/kakaoPayCancel");
-		params.add("fail_url", "https://eatup.ga/user/kakaopay/kakaoPaySuccessFail");
+		params.add("approval_url", "http://localhost:8080/user/kakaopay/kakaoPaySuccess");
+		params.add("cancel_url", "http://localhost:8080/user/kakaopay/kakaoPayCancel");
+		params.add("fail_url", "http://localhost:8080/user/kakaopay/kakaoPaySuccessFail");
 		
-		log.info( "finalcartList:" + finalcartList);
 
  		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
 		try {
 			kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
-			
-			log.info("" + kakaoPayReadyVO);
-			
-			System.out.println("-------------------------------------1");
-			
+				
 			return kakaoPayReadyVO.getNext_redirect_pc_url();
 
 		} catch (RestClientException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		System.out.println("-------------------------------------2");
 		
 		return "/pay";
 		
@@ -87,10 +79,6 @@ public class KakaoPay {
 	
 	public Map<String, Object> kakaoPayInfo(String pg_token) {
 	
-
-		log.info("KakaoPayInfoVO............................................");
-		log.info("-----------------------------");
-		
 		RestTemplate restTemplate = new RestTemplate();
 
 		// 서버로 요청할 Header
@@ -108,21 +96,14 @@ public class KakaoPay {
 		params.add("pg_token", pg_token);
 		
 		
-		
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 		
-		
-		log.info("==============================================");
-		log.info("" + params);
-		
-		
+
 		Map<String, Object> map = new HashMap<>();
-		
 		
 		
 		try {
 			kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
-			log.info("" + kakaoPayApprovalVO);
 			
 			map.put("kakao", kakaoPayApprovalVO);
 			map.put("cartList", finalcartList);
@@ -130,10 +111,9 @@ public class KakaoPay {
 			return map;
 		
 		} catch (RestClientException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

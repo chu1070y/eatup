@@ -188,8 +188,6 @@ $(document).ready(function(){
 		
 		var getTid = $('input[name=tid]').val();
 		
-		console.log(getTid);
-		
 		  $.ajax({
 			url: "/user/"+getTid,
 			type: "post",
@@ -216,7 +214,6 @@ $(document).ready(function(){
 				 			str += "<p id='quantity'>가격: "+ history[idx].menuList[i].mprice +"원</p>"
 				 	 		str += "<hr>";
 				 			
-				 			
 				 			totalPrice += parseInt(history[idx].menuList[i].mprice);
 				 	
 				 		}
@@ -228,9 +225,6 @@ $(document).ready(function(){
 				 		
 				 		//'mname' 클릭
 				  		$("#mname").on("click", function(){
-				 			
-				  			console.log("mname click");
-				  			
 				 			self.location = "/user/store?sno=" + history[idx].sno;
 				 			
 				 		});
@@ -238,8 +232,6 @@ $(document).ready(function(){
 				 		
 				 		// '확인'버튼 클릭
 				 		$("#closeBtn").on("click", function(){
-				 			console.log("modal close");
-				 			 
 				 			str = "";
 				 			totalPrice = 0;
 				 			$("#myModal").hide();
@@ -248,7 +240,6 @@ $(document).ready(function(){
 				 		
 				 		// 'X'버튼 클릭
 				 		$(".modalclose").on("click", function(e) {
-				 			console.log("modal close");
 				 			 
 				 			str = "";
 				 			totalPrice = 0;
@@ -269,11 +260,9 @@ $(document).ready(function(){
 		
 
  	 
-	
 	//회원: orderList click Modal
  	$(".orderList").on("click", function(e){
  		e.preventDefault();			
- 		console.log(history);
  	
  		showModal();
  		
@@ -297,7 +286,6 @@ $(document).ready(function(){
  			str += "<p id='quantity'>가격: "+ history[idx].menuList[i].mprice +"원</p>"
  	 		str += "<hr>";
  			
- 			
  			totalPrice += parseInt(history[idx].menuList[i].mprice);
  	
  		}
@@ -309,18 +297,12 @@ $(document).ready(function(){
  		
  		//'mname' 클릭
   		$("#mname").on("click", function(){
- 			
-  			console.log("mname click");
-  			
  			self.location = "/user/store?sno=" + history[idx].sno;
- 			
  		});
  		 		
  		
  		// '확인'버튼 클릭
  		$("#closeBtn").on("click", function(){
- 			console.log("modal close");
- 			 
  			str = "";
  			totalPrice = 0;
  			$("#myModal").hide();
@@ -329,7 +311,6 @@ $(document).ready(function(){
  		
  		// 'X'버튼 클릭
  		$(".modalclose").on("click", function(e) {
- 			console.log("modal close");
  			 
  			str = "";
  			totalPrice = 0;
@@ -338,7 +319,6 @@ $(document).ready(function(){
  		
  	};// end modal
  	
-  
  		
  });
 	

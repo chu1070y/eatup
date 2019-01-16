@@ -36,6 +36,7 @@ public class UserSecurityConfig  extends WebSecurityConfigurerAdapter {
 		log.info("common user .... security config.......");
 		
 		http.authorizeRequests().antMatchers("/imgs/**").permitAll().and()
+			// 해당코드 주석처리해야 https로 자동변환되는 것을 막을 수 있다.
 			.requiresChannel().anyRequest().requiresSecure().and()
 			.antMatcher("/user/**")
 			.authorizeRequests()

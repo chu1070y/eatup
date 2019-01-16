@@ -52,44 +52,31 @@ public class KakaoPayController {
 
 		for (CartDTO vo : cartList) {
 			totalPrice += (vo.getQuantity() * vo.getMprice());
-			log.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			log.info(vo.getSno() + "    " + vo.getSno() +"   " +vo.getMname() + "   " + vo.getQuantity());
+
 			menuService.updatequantity(vo);
 		};
 
-		log.info("============================================================================");
-		log.info("totalPrice: " + totalPrice);
-		log.info("cartList: " + cartList);
-		log.info("sno sname: " + cartList.get(0).getMname());
 
 		return new ResponseEntity<>(kakaopay.kakaoPayReady(totalPrice, cartList), HttpStatus.OK);
 
 	}
 	@GetMapping("/kakaopay/kakaoPaySuccess")
 	public void kakaoPaySuccess(Authentication authentication, @RequestParam("pg_token") String pg_token, Model model) {
-		log.info("kakaoPaySuccess get............................................");
-		log.info("kakaoPaySuccess pg_token : " + pg_token);
 
 		Map<String, Object> result = kakaopay.kakaoPayInfo(pg_token);
-		log.info("auth: ----------------------------------------------------" + authentication);
 		
 		String auth = "";
 		
-		System.out.println("====================================");
-		System.out.println(authentication);
 		if(authentication != null) {
 			List list = new ArrayList<>(authentication.getAuthorities());
 			auth = "" + list.get(0);
 		}
-		System.out.println("====================================");
-		System.out.println(auth);
+
 		String uid = (auth.equals("ROLE_USER")) ? authentication.getName() : "nomember";
 		
 		int uno = orderService.getUno(uid);
 		
-		System.out.println(uid);
-		System.out.println(uno);
-		
+
 		//key = kakao
 		KakaoPayApprovalVO kakaokey = (KakaoPayApprovalVO)result.get("kakao");		
 		
@@ -113,33 +100,27 @@ public class KakaoPayController {
 		orderVO.setToken(pg_token);
 
 		cartList.forEach(vo -> {
-			log.info("" + vo);
 		});
 
 		orderService.insertOrder(orderVO, cartList);
 
 		model.addAttribute("info", result);
 
-		// 가게별 주문번호 구하기 - 날짜가 바뀌면 최신화 하기
 		
+		// 가게별 주문번호 구하기 - 날짜가 바뀌면 최신화 하기
 		Calendar cal = Calendar.getInstance();
 		int date = cal.get(cal.DATE);
-		
-		log.info("" + date);
-		
+			
 		Map<Integer, Integer[]> temp = new HashMap<>();
 
 		if (OrderNumDTO.getOrder_num().get(cartList.get(0).getSno()) == null) {
-			log.info("come come3");
 			OrderNumDTO.putOrder_num(cartList.get(0).getSno(), new Integer[] { 101, date });
 			
 		} else {
 			
 			if (OrderNumDTO.getOrder_num().get(cartList.get(0).getSno())[1] != date) {
-				log.info("come come2");
 				OrderNumDTO.putOrder_num(cartList.get(0).getSno(), new Integer[] { 101, date });
 			} else {
-				log.info("come come");
 				OrderNumDTO.putOrder_num(cartList.get(0).getSno(), new Integer[] {OrderNumDTO.getOrder_num().get(cartList.get(0).getSno())[0] + 1, date });
 				
 			}
@@ -151,30 +132,23 @@ public class KakaoPayController {
 
 	@GetMapping("/kakaopay/kakaoPayFail")
 	public void kakaoPayFail() {
-		log.info("kakaoPayFail get............................................");
 
 	}
 
 	@GetMapping("/kakaopay/kakaoPayCancel")
 	public void kakaoPayCancel() {
-		log.info("kakaoPayCancel get............................................");
 
 	}
 	
 	@PostMapping("/tokenAjax")
 	@ResponseBody
 	public ResponseEntity<Integer> searchMenu(@PathVariable("token") String token){
-		log.info("tokenAjax get.....");
 		
 		return new ResponseEntity<>( null ,HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = {RequestMethod.POST}, value = "/tokenAjax", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> tokenAjax(@RequestBody OrderVO vo) {
-		log.info("token ajax post...... in kakaoPayController");
-		
-		log.info("tid:" + vo.getTid());
-		log.info("token:" + vo.getToken());
 
 		return orderService.tokenUpdate(vo) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

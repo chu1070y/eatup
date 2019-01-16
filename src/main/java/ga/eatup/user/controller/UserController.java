@@ -72,21 +72,15 @@ public class UserController {
 	@Autowired
 	PasswordEncoder encoder;
 
-	@GetMapping("/speech")
-	public void speech() {
-		log.info("speech.......");
-	}
 
 	@GetMapping("/login/customLogout")
 	public void logout() {
-		log.info("===========로그아웃 ===============");
 	}
 
 	@PostMapping("/login/customLogin")
 	public void customLogin(UserVO vo, HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws IOException {
 
-		log.info("vo입니당: " + vo);
 
 		String inputUid = vo.getUid();
 		String inputPw = vo.getUpw();
@@ -96,9 +90,6 @@ public class UserController {
 		String uId = dbVo.getUid();
 		String uPw = dbVo.getUpw();
 
-		log.info("" + (inputPw == "12345678"));
-		log.info("" + (uPw == "12345678"));
-		log.info("같은지 체크: " + inputPw.equals(uPw));
 
 		if (!inputPw.equals(uPw)) {
 			response.sendRedirect("/user/pay");
@@ -116,17 +107,13 @@ public class UserController {
 
 	@GetMapping("/login/customLoginTemp")
 	public void temptemp(@RequestParam String username, @RequestParam String password, Model model) {
-		log.info("===========임시 로그인페이지 ===============");
-		log.info(username);
-		log.info(password);
+
 		model.addAttribute("username", username);
 		model.addAttribute("password", password);
 	}
 
 	@PostMapping("/usercreate")
 	public String usercreate(UserVO vo, RedirectAttributes redirect) {
-		log.info("유저 계정생성 완료....");
-		log.info("유저 회원가입 정보: " + vo);
 
 		String enPw = encoder.encode(vo.getUpw());
 		vo.setUpw(enPw);
@@ -144,7 +131,6 @@ public class UserController {
 		// KakaoLoginController에서 FlashMap으로 전송한 데이터 받기 위해서는 request를 파라미터로 한
 		// inputFlashMap 객체를 생성해야 함.
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(req);
-		log.info("inputFlashMap: " + inputFlashMap);
 
 		// 받은 정보를 UserVO 인스턴스 vo에 담아서 welcome.html(회원가입 페이지)로 전달.
 		UserVO vo = new UserVO();
@@ -163,19 +149,6 @@ public class UserController {
 		log.info("map.....");
 	}
 
-	@GetMapping("/gorany")
-	public void gorany(@ModelAttribute("sno") int sno, Model model) {
-
-		model.addAttribute("menu", service.getMenu(sno));
-
-	}
-
-	@GetMapping("/sample2")
-	public void sample2(@ModelAttribute("sno") int sno, Model model) {
-		log.info("sample2.....");
-
-		model.addAttribute("menu", service.getMenu(sno));
-	}
 
 	@GetMapping("/home")
 	public void home(Authentication authentication, String lat, String lng, String search, Model model) {
@@ -190,10 +163,8 @@ public class UserController {
 		}
 
 		String uid = (auth.equals("ROLE_USER")) ? authentication.getName() : "nomember";
-		log.info("uid: " + uid);
-
 		int uno = orderService.getUno(uid);
-		log.info("uno:" + uno);
+
 
 		model.addAttribute("quick", orderService.getQuickMenu(uno));
 
@@ -278,32 +249,27 @@ public class UserController {
 
 	@GetMapping("/firebase/test")
 	public void testFirebase(HttpServletRequest request) {
-		log.info("firebase....");
 
 	}
 
 	@GetMapping("/firebase/test2")
 	public void testFirebase2(HttpServletRequest request) {
-		log.info("firebase....test2");
 
 	}
 
 	@GetMapping("/search")
 	public void search() {
-		log.info("search page......");
 
 	}
 
 	@GetMapping("/oneByone")
 	public void oneByone() {
-		log.info("oneByone......................page");
 	}
 
 	@Transactional
 	@GetMapping("/faq")
 	public void notice(Model model, FaqPageDTO dto) {
-		log.info("faq......................page");
-		log.info("dto.." + dto);
+
 		dto.setTotal(faqService.faqCount());
 
 		model.addAttribute("faqList", faqService.faqList(dto));
@@ -312,7 +278,7 @@ public class UserController {
 
 	@GetMapping("/faq/register")
 	public void faqRegister() {
-		log.info("faq register page....");
+
 	}
 
 	@GetMapping(value="/getUploadList", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -324,7 +290,6 @@ public class UserController {
 	
 	@PostMapping("/faqadd")
 	public String noticeAdd(FaqVO vo, RedirectAttributes redirect) {
-		log.info("faq add........");
 		
 		if(vo.getUploadList() != null) {
 			vo.getUploadList().forEach(upload -> log.info(""+upload));
@@ -340,7 +305,6 @@ public class UserController {
 
 	@GetMapping("/faq/read")
 	public void faqRead(Model model, FaqPageDTO dto) {
-		log.info("faq read page...." + dto.getFno());
 
 		model.addAttribute("faq", faqService.faqRead(dto.getFno()));
 		model.addAttribute("dto", dto);
@@ -348,15 +312,13 @@ public class UserController {
 
 	@GetMapping("/faq/modify")
 	public void faqModify(Model model, FaqPageDTO dto) {
-		log.info("faq modify page....");
+
 		model.addAttribute("faq", faqService.faqRead(dto.getFno()));
 		model.addAttribute("dto", dto);
 	}
 
 	@PostMapping("/faq/modify")
 	public String faqModifyPost(RedirectAttributes redirect, FaqVO vo, FaqPageDTO dto) {
-		log.info("faq modify post....." + dto);
-		log.info("faq modify post....." + vo);
 
 		int result = faqService.faqModify(vo);
 
@@ -367,7 +329,6 @@ public class UserController {
 
 	@PostMapping("/faq/remove")
 	public String faqRemovePost(RedirectAttributes redirect, FaqVO vo) {
-		log.info("notice remove post....." + vo);
 
 		int result = faqService.faqRemove(vo);
 

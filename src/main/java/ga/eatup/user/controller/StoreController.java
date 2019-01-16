@@ -26,8 +26,6 @@ public class StoreController {
 	@ResponseBody
 	public ResponseEntity<List<StoreVO>> getStore(){
 
-		log.info(""+storeService.getStore());
-		
 		return new ResponseEntity<>(storeService.getStore(), HttpStatus.OK);
 	}
 	

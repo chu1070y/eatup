@@ -394,7 +394,6 @@ $(document).ready(function(){
 		        	return;
 		        } */ 
 		        
-		        console.log("location을 찾습니다.")
 		        navigator.geolocation.getCurrentPosition(
 		            function( position ){ // success cb
 		 
@@ -413,8 +412,7 @@ $(document).ready(function(){
 		                            var city= results[2].address_components[1].long_name;
 		                            var state = results[2].address_components[2].long_name;
 		                            mylocation = state + " " + city + " " + streetAddress
-		                            console.log("내위치 : " + mylocation);
-		                            console.log([[${search}]] == null)
+
 		                            if([[${search}]] == null){
 		                            $("#get-mylocation").append(mylocation);
 		                            }
@@ -423,7 +421,6 @@ $(document).ready(function(){
 		                            	$("#get-mylocation").append([[${search}]]);
 		                            }
 		                            
-		                            console.log("위도 경도:" + lat + " " + lng);
 		                            listoflocation(lat,lng);
 		                           
 		                            
@@ -432,7 +429,6 @@ $(document).ready(function(){
 		                );
 		            },
 		            function(){ // fail cb
-		            	console.log("fail cb");
 		            }
 		        );
 		        
@@ -441,9 +437,6 @@ $(document).ready(function(){
 		 
 		 //지도에서  search시 
 		 $("#get-searchlocation").show( function(e) {
-			console.log("get-searchlocation") ;
-			
-			console.log("이게 나오나 보저ㅏ")
 			 
 			
 			
@@ -500,60 +493,46 @@ $(document).ready(function(){
 					
 					var cname = $(this).text();
 					var array = new Array();
-					console.log(cname);
-					
 					var str = "";
 					
 					 for(var i=1; i<listlength; i++){
 					 if(list[i].b_field == cname ){
-						console.log("일치");
+
 						array[i] = list[i];
 					
 					 }else if(cname == "전체"){
 						 array[i] = list[i];
-						 console.log(array[i])
+
 						 str += "<div class='container'><div class='row'><div class='col-md-7'><a href='/user/store?sno="+array[i].sno+"'><img class='img-fluid rounded mb-3 mb-md-0' src='/upload/display?fileName="+encodeURIComponent(array[i].upload_path)+"\/"+ array[i].uuid + "_"+ array[i].fname +"' width=500px></a></div><div class='col-md-5'><h3>"+array[i].sname+"</h3><p>"+array[i].saddress+"</p><p>"+array[i].businessHours+"</p><p><span class='badge badge-info'>#"+array[i].b_field+"</span></p></div> </div></div><hr>";
 							
-						console.log("전체일치")
 					 }
 				 	}//for
 				 	
-				 	$(".bg-light2").html(str);
-				 	
-				 	console.log("---------------------------------------")
-				 	console.log(array);
-				 	
-				 	console.log("---------------------------------------")
+				 	$(".bg-light2").html(str);	 	
 				 	
 				 	var temp = "";
 				 	
 				 	for(var i in array){	
-						  console.log(array[i].sname);
 						  temp += "<div class='container'><div class='row'><div class='col-md-7'><a href='/user/store?sno="+array[i].sno+"'><img class='img-fluid rounded mb-3 mb-md-0' src='/upload/display?fileName="+encodeURIComponent(array[i].upload_path)+"\/"+ array[i].uuid + "_"+ array[i].fname +"' width=500px></a></div><div class='col-md-5'><h3>"+array[i].sname+"</h3><p>"+array[i].saddress+"</p><p>"+array[i].businessHours+"</p><p><span class='badge badge-info'>#"+array[i].b_field+"</span></p></div> </div></div><hr>";
 							}
 				 	
 				 	$(".bg-light2").html(temp);
 				
-			
 				});
-			  
-			 
 			
 		 }
 		 
 			var arr = new Array(); 
-		//order 쿠키 생성
+			
+			//order 쿠키 생성
 			$(".item").one("click", function(e) {	
 				
-				console.log("order clicked...")
 				
 				var getSno = $(this).children()[4].defaultValue;
 				var getMname = $(this).children()[5].outerText;
 				var getMno = $(this).children()[1].defaultValue;
 				var getMprice = $(this).children()[2].defaultValue;
 				var getQuantity = $(this).children()[3].defaultValue;
-				
-				console.log("sno: "+getSno+" /mname: "+getMname+" /mno: "+getMno+" /mprice: "+getMprice+" /quantity: "+getQuantity);
 				
 				// json으로 Data변환
 				var jsonData = new Object();
@@ -564,20 +543,12 @@ $(document).ready(function(){
 				arr.push(jsonData);
 				var json = JSON.stringify(arr);
 
-				console.log("jsonData: " + json);
-				
-				
 				// 쿠키 설정 (expries는 유지일, path는 쿠키 보관하고 있을 경로)
-				$.cookie('cart', json, { expires: 1, path: '/'}); 	       
-				console.log("cookie : " + $.cookie('cart')); 
-				
-				
+				$.cookie('cart', json, { expires: 1, path: '/'}); 	       		
 				
 			});
 		 
 	
-		
-			
 			
 		//검색창 자동완성
 		function display(data){
@@ -589,7 +560,6 @@ $(document).ready(function(){
 				},
 				select: function( event, ui ) {
 					event.stopPropagation();
-					console.log(ui.item.value);
 					$("#tags").val(ui.item.value);
 					search();
 				}
@@ -599,7 +569,6 @@ $(document).ready(function(){
 	 	
 			
 		searchService.autoComplete(function(result){
-			console.log("auto??");
 			display(result);
 		}); 
 		
@@ -619,7 +588,6 @@ $(document).ready(function(){
 		function search(){
 			
 			var keyword = $("#tags").val();
-			console.log(keyword);
 			
 			$(".searchResultStore ul").empty();
 			$(".searchResultMenu ul").empty();
@@ -655,7 +623,6 @@ $(document).ready(function(){
 	 	//검색하기 with 버튼
 		$(".searchBtn").on("click",function(e){
 			e.preventDefault();
-			console.log("searchBtn........")
 			
 			var keyword = $("#tags").val();
 			
@@ -691,8 +658,7 @@ $(document).ready(function(){
 			
 		}); 
 	 	
-		
-	 	
+
 		
 	});
 	
