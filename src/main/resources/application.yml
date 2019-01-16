@@ -35,8 +35,11 @@ mybatis:
   mapper-locations: classpath:/mapper/*.xml  
   
 server:
-  port: 8080
-  
+  port: 80
+  tomcat:
+    remote-ip-header: x-forwarded-for
+    protocol-header: x-forwarded-proto
+    
 
 logging:
   level:

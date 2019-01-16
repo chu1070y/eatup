@@ -171,16 +171,13 @@ right: 65;
   	
 <script>
 $(document).ready(function(){
-	
 
-	
 	var btnLogin = $("#signInBtn");
 	var uid = $("#username");
 	var upw = $("#password");
 	var actionForm = $("#actionForm");
 	
 	var welcome = [[${welcome}]]
-
 	
 	btnLogin.on("click", function(e){
 		e.preventDefault();
@@ -194,6 +191,41 @@ $(document).ready(function(){
 		actionForm.append(str);
 		actionForm.attr("method", "post").attr("action", "/user/login/customLogin").submit();
 	});
+	
+	
+	uid.keydown(function(event){
+		
+		if(event.keyCode == 13){
+			console.log("엔터");
+			event.preventDefault();
+			var str = "";
+			
+			str += "<input type='hidden' name='username' value='" + uid.val() +"'>";
+			str += "<input type='hidden' name='password' value='" + upw.val() +"'>";
+			console.log(str);
+			
+			actionForm.append(str);
+			actionForm.attr("method", "post").attr("action", "/user/login/customLogin").submit();
+		}
+	});
+	
+	upw.keydown(function(event){
+		
+		if(event.keyCode == 13){
+			console.log("엔터");
+			event.preventDefault();
+			var str = "";
+			
+			str += "<input type='hidden' name='username' value='" + uid.val() +"'>";
+			str += "<input type='hidden' name='password' value='" + upw.val() +"'>";
+			console.log(str);
+			
+			actionForm.append(str);
+			actionForm.attr("method", "post").attr("action", "/user/login/customLogin").submit();
+		}
+	});
+	
+	
 	
 	if(welcome==1){
 		alert("회원가입이 완료되었습니다. 로그인 해주세요^^");

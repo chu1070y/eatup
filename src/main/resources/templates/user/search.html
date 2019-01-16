@@ -154,7 +154,7 @@ a:hover{
 						</div>
 						<hr>
 					</div>
-					<div id="storenone"><h4></h4></div>
+					<div id="menunone"><h4></h4></div>
 					<div id="menulist"></div>
 					<a class="btn btn-primary largeBtn text-uppercase" id="menuMore" href="#">더보기</a>
                 </div>
@@ -198,21 +198,15 @@ a:hover{
 
 
 <script th:inline="javascript">
+//csrf처리
+var csrftoken = $('#_csrf').attr('content');
+var csrfheader = $('#_csrf_header').attr('content');
 
-	
 $(document).ready(function(){
 		
 		var storeSearchList;
 		var menuSearchList;
 		
-		
- 		//csrf처리
-		var csrfHearderName = [[${_csrf.headerName}]];
-		var csrfTokenValue =  [[${_csrf.token}]];
-
-		$(document).ajaxSend(function(e,xhr,options){
-			xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
-		}); 
 		
 		//검색창 자동완성
 		function display(data){
@@ -230,10 +224,7 @@ $(document).ready(function(){
 			});//end autocomplete
 			
 		};//end function
-		
-
-	 	
-
+	
 		searchService.autoComplete(function(result){
 			console.log(result);
 			display(result);
@@ -271,8 +262,6 @@ $(document).ready(function(){
 				keyword = data;
 			}
 			
-			console.log(keyword);
-			
 			$("#storelist").html("");
 			$("#menulist").html("");
 			
@@ -284,12 +273,7 @@ $(document).ready(function(){
 			searchService.searchStore(keyword,function(result){
 				
 				$(".storeResult").attr("class","storeResult");
-				
-				if(result==""){
-					$("#storenone h4").html("검색조건에 해당되는 결과가 없습니다.");
-					$("#storeMore").attr("class","hidden");
-				}
-				
+
 				storeSearchList = result;
 				
 				showList.showStoreList(storeSearchList);
@@ -299,11 +283,6 @@ $(document).ready(function(){
 			searchService.searchMenu(keyword,function(result){
 				
 				$(".menuResult").attr("class","menuResult");
-				
-				if(result==""){
-					$("#menunone h4").html("검색조건에 해당되는 결과가 없습니다.");
-					$("#menuMore").attr("class","hidden");
-				}
 				
 				menuSearchList = result;
 				
@@ -316,6 +295,14 @@ $(document).ready(function(){
 				storeindex:0,
 				menuindex:0,
 				showStoreList: function(data){
+					
+					if(data.length==0){
+						console.log("*-*-*-*-*-11111");
+						console.log(data);
+						$("#storenone h4").html("검색조건에 해당되는 결과가 없습니다.");
+						$("#storeMore").attr("class","hidden");
+					}
+					
 					for (var i = this.storeindex ; i < this.storeindex + 3 ; i++){
 						storelist(data[i]);
 						
@@ -328,6 +315,14 @@ $(document).ready(function(){
 					this.storeindex += 3;
 				},
 				showMenuList: function(data){
+					
+					if(data.length==0){
+						console.log("*-*-*-*-*-2222");
+						console.log(data);
+						$("#menunone h4").html("검색조건에 해당되는 결과가 없습니다.");
+						$("#menuMore").attr("class","hidden");
+					}
+					
 					for (var i = this.menuindex ; i < this.menuindex + 3 ; i++){
 						menulist(data[i]);
 						
