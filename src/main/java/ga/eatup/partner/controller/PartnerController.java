@@ -119,7 +119,7 @@ public class PartnerController {
 		System.out.println(open.get(0).getOpen());
 
 		model.addAttribute("open", open.get(0).getOpen());
-
+		
 	}
 
 	@GetMapping("/menu")

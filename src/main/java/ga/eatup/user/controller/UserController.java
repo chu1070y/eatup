@@ -215,96 +215,51 @@ public class UserController {
 
 	}
 
-	// 장바구니 page
-	@GetMapping("/cart")
+	// 장바구니, 주문확인 page
+	@GetMapping({"/cart","/pay"})
 	public void cart(@CookieValue("cart") String cart, @ModelAttribute("sno") int sno, Model model) {
 
-		log.info("cartPage....");
-
 		// 쿠기값 가져오기
-		log.info("cart:" + cart);
 		Gson gson = new Gson();
 
 		List<CartDTO> menu = gson.fromJson(cart, new TypeToken<List<CartDTO>>() {
 		}.getType());
 
 		menu.forEach(dto -> {
-			log.info("menu.forEach: " + dto);
 
 		});
 		List<MenuVO> menuList = service.getCart(sno);
 
-		log.info("cart : " + menu);
-
 		CartDTO.classify(menu, menuList);
 		menu.forEach(dto -> {
-			log.info("menu.forEach: " + dto);
 
 		});
 		model.addAttribute("cart", menu);
 
 	}
 
-	// 결제 page
-	@GetMapping("/pay")
-	public void pay(@CookieValue("cart") String cart, @ModelAttribute("sno") int sno, Model model) {
-
-		log.info("payPage....");
-
-		// 쿠기값 가져오기
-		log.info("cart:" + cart);
-		Gson gson = new Gson();
-
-		List<CartDTO> menu = gson.fromJson(cart, new TypeToken<List<CartDTO>>() {
-		}.getType());
-
-		menu.forEach(dto -> {
-			log.info("menu.forEach: " + dto);
-
-		});
-		List<MenuVO> menuList = service.getCart(sno);
-
-		log.info("cart : " + menu);
-		log.info("menu : " + service.getCart(sno));
-
-		CartDTO.classify(menu, menuList);
-		menu.forEach(dto -> {
-			log.info("menu.forEach: " + dto);
-
-		});
-
-		model.addAttribute("cart", menu);
-
-	}
 
 	// 주문내역 page
 	@GetMapping("/history")
 	public void orderHistory(Authentication authentication, String tid, Model model) {
-
-		log.info("orderHistory.............");	
 		
+		// 비회원 체크
 		String uid = (authentication == null) ? "nomember":authentication.getName();
-		log.info("uid: " + uid);
-
 		int uno = orderService.getUno(uid);
-		log.info("uno:" + uno);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("uno", uno);
 
 		if (uno == 1) {
-
 			map.put("tid", tid);
 		}
 
-		
-		log.info("history: "+ orderService.getOrderHistory(map));
-		log.info("history get....................");
 		
 		model.addAttribute("history", orderService.getOrderHistory(map));
 		
 	}
 	
+	// 비회원 주문내역
 	@PostMapping(value="/{tid}")
 	public ResponseEntity<List<OrderVO>> historyPOST(@PathVariable("tid") String tid){
 
