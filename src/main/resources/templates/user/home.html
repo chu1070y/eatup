@@ -311,7 +311,9 @@
 
 	<script th:inline="javascript">
 	
-
+	//csrf처리
+	var csrftoken = $('#_csrf').attr('content');
+	var csrfheader = $('#_csrf_header').attr('content');
 	
 $(document).ready(function(){
 	
