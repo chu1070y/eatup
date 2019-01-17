@@ -36,14 +36,10 @@ mybatis:
   
 server:
   port: 8080
-<<<<<<< HEAD
   tomcat:
     remote-ip-header: x-forwarded-for
     protocol-header: x-forwarded-proto
-    
-=======
-  
->>>>>>> casper
+
 
 logging:
   level:

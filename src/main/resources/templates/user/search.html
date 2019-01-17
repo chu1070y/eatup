@@ -234,7 +234,6 @@ $(document).ready(function(){
 		$("#tags").keydown(function(event){
 		
 			if(event.keyCode == 13){
-				console.log("엔터");
 				event.preventDefault();
 				search();
 				}
@@ -244,7 +243,6 @@ $(document).ready(function(){
 	 	//검색하기 with 버튼
 		$(".searchBtn").on("click",function(e){
 			e.preventDefault();
-			console.log("searchBtn........")
 			search();
 		});
 		
@@ -297,8 +295,6 @@ $(document).ready(function(){
 				showStoreList: function(data){
 					
 					if(data.length==0){
-						console.log("*-*-*-*-*-11111");
-						console.log(data);
 						$("#storenone h4").html("검색조건에 해당되는 결과가 없습니다.");
 						$("#storeMore").attr("class","hidden");
 					}
@@ -317,8 +313,6 @@ $(document).ready(function(){
 				showMenuList: function(data){
 					
 					if(data.length==0){
-						console.log("*-*-*-*-*-2222");
-						console.log(data);
 						$("#menunone h4").html("검색조건에 해당되는 결과가 없습니다.");
 						$("#menuMore").attr("class","hidden");
 					}
@@ -360,15 +354,13 @@ $(document).ready(function(){
 			hours.html("영업시간: " + data.businessHours);
 			img.attr("src","/upload/display?fileName="+encodeURIComponent(data.upload_path)+"\/"+ data.uuid + "_"+ data.fname);
 			
-			console.log("스토어 이미지");
-			console.log(data);
 			
 			var clone = resultform.clone();
 			clone.attr("class","");
 			
 			clone.on("click",function(e){
 				e.preventDefault();
-				console.log("click//");
+
 				$(this).attr("action","/user/store").attr("method","get").submit()
 			});
 
@@ -378,7 +370,6 @@ $(document).ready(function(){
 		}
 		
 		function menulist(data){
-			console.log(data);
 			
 			sno.val(data.sno);
 			sname.html(data.mname);
@@ -395,7 +386,7 @@ $(document).ready(function(){
 			
 			clone.on("click",function(e){
 				e.preventDefault();
-				console.log("click//");
+
 				$(this).attr("action","/user/store").attr("method","get").submit()
 			});
 			

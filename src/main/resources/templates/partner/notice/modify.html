@@ -305,15 +305,12 @@
 
 			//Upload 버튼
 			$("#uploadBtn").on("click",function(e){
-				console.log("이게 찍혀야해");
 				e.preventDefault();
 				
 				
 				var formData = new FormData();
 				var inputFile = $("input[name='uploadfile']");
 				var files =inputFile[0].files;
-				
-				console.log(files);
 				
 				//form태그에 파일 추가하기
 				for(var i = 0; i < files.length; i++){
@@ -331,7 +328,6 @@
 					data : formData,
 					type : 'POST',
 					success : function(result){
-						console.log(result);
 						
 						showUploadedFile(result);
 						
@@ -346,7 +342,6 @@
 		 	//이미지 보여주기
 			$(".uploadResult").on("click","img",function(e){
 			
-			console.log("click");
 			
 			var liObj = $(this).closest("li");
 			
@@ -363,7 +358,6 @@
 			});
 		 	
 			function showImage(fileCallPath){
-				console.log(encodeURI(fileCallPath));
 				
 				$(".bigPictureWrapper").css("display","flex").show();
 				$(".bigPicture")
@@ -385,7 +379,6 @@
 			//다운로드
 			$(".uploadResult").on("click","span",function(e){
 				e.preventDefault();
-				console.log("view image");
 				
 				var liObj = $(this).closest("li");
 				
@@ -401,7 +394,6 @@
 				var nno = [[${notice.nno}]];
 				
 				$.getJSON("/superadmin/getUploadList",{nno:nno},function(arr){
-					console.log(arr);
 					
 					var str = "";
 					
@@ -409,10 +401,8 @@
 						
 						//image type
 						if(upload.filetype == 0){
-							console.log("이미지");
 							var fileCallPath = encodeURIComponent(upload.upload_path+"/s_"+upload.uuid+"_"+upload.fname);
-							console.log(fileCallPath);
-							console.log(upload.upload_path)
+
 							str += "<li data-path='"+upload.upload_path+"' data-uuid='"+upload.uuid+"' data-filename='"+upload.fname+"' data-type=0>";
 							str += "<div>";
 							str += "<span>" + upload.fname + "</span><br/>";

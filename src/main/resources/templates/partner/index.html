@@ -328,7 +328,6 @@ $(document).ready(function () {
 	
 	 //음성 메세지 푸시 알람
 	 function pushMessage(data,token){
-		 console.log("push message.........");
 		 
 		 $.ajax({
 			 	type:'post',
@@ -337,12 +336,6 @@ $(document).ready(function () {
 					request.setRequestHeader("content-Type","application/json");
 					request.setRequestHeader("authorization","key=AAAAgHRKKlg:APA91bHCHmYkU1PANUYZgctP5dBZ1EuZZ5VfS4_fXUicesDas88tm6Rs1y35YMmLuOzAu3xmQqfI0KtR17UcdGR2ZuYrxhLJ2QasccO4xsO3kEBC98lO-Np1nIrxCa_mgE_DnnPCaxCe");
 				},
-				
-				
-				/* headers:{
-					"Content-Type" : "application/json",
-					"Authorization" : "key=AAAAgHRKKlg:APA91bHCHmYkU1PANUYZgctP5dBZ1EuZZ5VfS4_fXUicesDas88tm6Rs1y35YMmLuOzAu3xmQqfI0KtR17UcdGR2ZuYrxhLJ2QasccO4xsO3kEBC98lO-Np1nIrxCa_mgE_DnnPCaxCe"
-				}, */
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
 				data:JSON.stringify({
@@ -624,9 +617,7 @@ $(document).ready(function () {
 		 	}
 	 };
 	 
-	 /////////////////////////파이어베이스에서 realtime DB불러와 뿌리기
-	 console.log("firebase realtime db js");
-
+	 //파이어베이스에서 realtime DB불러와 뿌리기
 	  // Initialize Firebase
 	  var config = {
 	    apiKey: "AIzaSyAKegY8LM_wqmn2twvBsMh0LsvGwsUjS6E",
@@ -651,9 +642,6 @@ $(document).ready(function () {
 		var clone = $(".block").clone();
 		
 		for(var data in snap.val()){
-			console.log("-----");
-			console.log(snap.val()[data]);
-			console.log(snap.val()[data].pushtoken);
 			
 			$("#origin #header").html("<h1>"+snap.val()[data].order_id+"</h2>");
 			
@@ -735,7 +723,6 @@ $(document).ready(function () {
 		
 		//orderComplete - 주문완료라고 db 바꾸기
 		function orderComplete(tid,key,token){
-			console.log('order Complete');
 			
 		    $.ajax({
 		          type: 'get',
@@ -747,8 +734,6 @@ $(document).ready(function () {
 						return;
 					}
 					
-					console.log("click...................................................")
-					console.log(token);
 					//firebase DB삭제하기
 					deleteFirebase(key);
 					pushMessage("조리가 완료되었습니다.",token);
@@ -768,8 +753,6 @@ $(document).ready(function () {
 		return firebase.database().ref(remove).remove();
 	}
 	
-	
-	console.log("firebase realtime db js end");
 
 });
 </script>

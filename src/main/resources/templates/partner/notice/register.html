@@ -222,7 +222,6 @@
 			
 			function showUploadedFile(uploadResultArr){
 
-				console.log(uploadResultArr);
 				var str ="";
 				
 				$(uploadResultArr).each(function(i,obj){
@@ -292,8 +291,6 @@
 				var inputFile = $("input[name='uploadfile']");
 				var files =inputFile[0].files;
 				
-				console.log(files);
-				
 				//form태그에 파일 추가하기
 				for(var i = 0; i < files.length; i++){
 					if(!checkExtension(files[i].name, files[i].size)){
@@ -310,7 +307,6 @@
 					data : formData,
 					type : 'POST',
 					success : function(result){
-						console.log(result);
 						
 						showUploadedFile(result);
 						

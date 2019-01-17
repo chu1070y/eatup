@@ -314,10 +314,6 @@ $(document).ready(function(){
 	        // 정상적으로 검색이 완료됐으면
 	        if (status === daum.maps.services.Status.OK) {
 	        	var result = results[0];
-	        	
-	            console.log("위경도: ");
-	            console.log(result.x);
-	            console.log(result.y);
 	            
 	            $("#lat").val(result.y);
 	            $("#lng").val(result.x);

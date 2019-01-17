@@ -460,35 +460,28 @@ a {
 		        mcat =  $("#mcat").val();
 		        mprice =  $("#mprice").val();
 		        introduction =  $("#introduction").val();
-		         
-				console.log("등록버튼 클릭");
 				
 		      	 if(sname == ""){
-		      		console.log("-------------1");
 		       		 alert("가게이름을 입력해주세요.");
 		       		 return;
 		       	 }
 		      	 
 		      	 if(mname == ""){
-		      		console.log("-------------2");
 		       		 alert("메뉴이름을 입력해주세요.");
 		      		 return;
 		       	 }
 		      	 
 		      	 if(mcat == ""){
-		      		 console.log("-------------3");
 		       		 alert("메뉴종류를 입력해주세요.");
 		      		 return;
 		       	 }
 		      	 
 		      	 if(mprice == ""){
-		      		 console.log("-------------3");
 		       		 alert("가격를 입력해주세요.");
 		      		 return;
 		       	 }
 		      	 
 		      	 if(introduction == ""){
-		      		 console.log("-------------3");
 		       		 alert("한줄소개를 입력해주세요.");
 		      		 return;
 		       	 }
@@ -497,8 +490,7 @@ a {
 		            type: 'get',
 		            url: "/superadmin/menuadd/" + sname + "/" + mname,
 		            success: function(result,status,xhr){
-		            	console.log("sno: "+result.sno);
-		            	console.log("count: "+result.count);
+
 						if(result.sno==null){
 							alert("[실패]가게이름 오류");
 							return;
@@ -541,13 +533,11 @@ a {
 		        introduction =  $("#introduction").val();
 		        
 		        if(sname == ""){
-		      		console.log("-------------1");
 		       		 alert("가게이름을 입력해주세요.");
 		       		 return;
 		       	 }
 		      	 
 		      	 if(mname == ""){
-		      		console.log("-------------2");
 		       		 alert("메뉴이름을 입력해주세요.");
 		      		 return;
 		       	 }
@@ -556,9 +546,7 @@ a {
 			          type: 'get',
 			          url: "/superadmin/menumodify/" + sname + "/" +mname,
 			          success: function(result,status,xhr){
-						console.log("???" + result.sno);
-						console.log("???" + result.mno);
-						console.log("???" + result.count);
+
 						if(result.sno==null){
 							alert("[실패]가게이름, 메뉴이름을 확인해주세요");
 							return;
@@ -592,13 +580,13 @@ a {
 		        mname =  $("#mname").val();
 		        
 		        if(sname == ""){
-		      		console.log("-------------1");
+
 		       		 alert("가게이름을 입력해주세요.");
 		       		 return;
 		       	 }
 		      	 
 		      	 if(mname == ""){
-		      		console.log("-------------2");
+
 		       		 alert("메뉴이름을 입력해주세요.");
 		      		 return;
 		       	 }
@@ -607,8 +595,7 @@ a {
 			          type: 'get',
 			          url: "/superadmin/menumodify/" + sname + "/" +mname,
 			          success: function(result,status,xhr){
-			        	  console.log(result.mno);
-			        	  console.log(result.sno);
+
 						if(result.sno==null){
 							alert("[실패]가게이름, 메뉴이름을 확인해주세요");
 							return;

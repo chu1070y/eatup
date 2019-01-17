@@ -91,9 +91,7 @@
 			
 			$("#sendMessageButton").on("click",function(e){
 				e.preventDefault();
-				console.log("=============1");
 				var data = {"name": $("#name").val(), "email": $("#email").val(), "phone": $("#phone").val(), "msg": $("#msg").val()}
-				console.log(data);
 				
 				if(data.name==""){
 					alert("이름을 입력해주세요");
