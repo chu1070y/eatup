@@ -111,9 +111,7 @@ img {
 			
 			
 			//var soldoutid;
-			console.log("으갸갹갸갸갸")
-			console.log($(".btn.btn-outline-danger")[0])
-			console.log($(".btn.btn-outline-danger").length)
+		
 			  /* for(var i=0; $(".btn.btn-outline-danger").length; i++ )
 				{
 				if($(".btn.btn-outline-danger")[i] === 'O'){
@@ -129,12 +127,6 @@ img {
 			
 		//설정 버튼 클릭 시
 		$(document).on("click",".btn.btn-dark",function(){
-
-
-	
-
-		
-			console.log("click!!!");
 
 			
 			var id = $(this).context.value;
@@ -180,20 +172,19 @@ img {
 		
 		$(document).on("click",".btn.btn-outline-danger",function(){
 			
-			console.log("--------------------------------------------------------품절 버튼이요");
 			
 			var soldoutid = $(this).context.id;
-			console.log(soldoutid); //11
+		
 			
 			var value = $(this).context.value;
-			console.log(value); //x
+		
 			
 			var sno = [[${menu}]][0].sno;
 			
 			var data = {'sno':sno, 'mno':soldoutid, 'soldout':value}
 			
 			if(value == 'X'){
-				console.log("벨류버튼 엑스");
+				
 				
 				$.ajax({
 			 		type :'post',
@@ -218,7 +209,7 @@ img {
 		 			 $(this).context.innerHTML="품절 설정 완료";
 			}
 			else if(value == 'O'){
-				console.log("벨류버튼 오")
+			
 				
 				$.ajax({
 			 		type :'post',
