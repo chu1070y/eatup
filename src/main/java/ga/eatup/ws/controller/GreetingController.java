@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 @Component
 public class GreetingController extends TextWebSocketHandler {
 
-	// List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
+	
 	Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 	Map<String, WebSocketSession> monitorMap = new ConcurrentHashMap<>();
 
@@ -34,7 +34,7 @@ public class GreetingController extends TextWebSocketHandler {
 		
 		MsgInfo msgObj = new Gson().fromJson(message.getPayload(), MsgInfo.class);
 		
-		System.out.println("시리얼 넘버를 받아옵니다.: "+msgObj);
+		
 		
 		if(msgObj.getMyDevice() != null) {
 			monitorMap.put(msgObj.getMyDevice(), session);
@@ -72,33 +72,14 @@ public class GreetingController extends TextWebSocketHandler {
 	// 연결이 되면
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		// sessions.add(session.getId());
+		
 		sessions.put(session.getId(), session);
-		//System.out.println("session: " + session);
+		
 		System.out.println("id: " + session.getId());
-		//System.out.println("handshakeHeaders: " + session.getHandshakeHeaders());
-		//System.out.println("extensions: " + session.getExtensions());
 		System.out.println(sessions.size() + " 개 가맹점이 연결되었습니다.");
-		System.out.println("------------------------------------");
+		
 
 	}
-	/*
-	@OnWebSocketConnect
-    public void onConnect(WebSocketSession session) {
-		System.out.println(" connected"+ session.getRemoteAddress().getHostName());
-        logger.debug(" connected", session.getRemoteAddress().getHostName());
-    }
 	
-
-	
-	 * @Override public void handleMessage(WebSocketSession session,
-	 * WebSocketMessage<?> message) throws Exception { Map<String, Object> map =
-	 * session.getAttributes(); String userId = (String)map.get("name");
-	 * System.out.println("전송자 아이디: " + userId); System.out.println(map);
-	 * System.out.println(session.getAttributes()); System.out.println(session);
-	 * 
-	 * 
-	 * }
-	 */
 
 }

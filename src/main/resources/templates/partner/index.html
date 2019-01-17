@@ -23,11 +23,11 @@ a {
 
 	<div id="conversation">
 		<div id="greetings"></div>
-		<!-- <button id="Disconnected"  class="btn btn-warning" value="end">O F F</button> -->
+		
 	</div>
 
 
-	<!-- <button id=go>go</button> -->
+	
 
 
 
@@ -41,7 +41,7 @@ a {
 		<div id="body"></div>
 
 		<input id="tid" type="hidden" data-token="" name="tid">
-		<!-- <button class="btn btn-secondary btn-lg btn-block" id="btn">F I N I S H !</button>  -->
+		
 	</div>
 
 
@@ -68,10 +68,7 @@ a {
 
 /*네모네모 */
 #wrapper {
-	/* overflow:scroll;
-	 overflow-y:hidden; 
-	overflow-x:auto; */
-	/* background-color: yellow; */
+	
 	white-space: nowrap;
 	position: fixed;
 }
@@ -281,35 +278,33 @@ h4{
 	
 
 $("#go").click(function(){
-	console.log("clickkkkkk");
+	
 	number=101;
 	
-	console.log(" 여기는 체크오더이고,," + number);
+	
 		
 		var array = $(".block").slice(); //블록을 배열로
-		console.log(array);
+		
 		
 	
 		var idarray = new Array(); //배열 아이디
 		var length = array.length -1; 
-		console.log(length)
+	
 		
 		for(var i=0; i<length; i++){
 			idarray[i]=array[i].id;
 			
 		}
 		
-		console.log("idarray: " + idarray)
-	 
+		
 		//animation
 		var elem = document.getElementById(number); //ex)103
 	  	var index = idarray.indexOf(""+number); 
-		console.log(elem + "   " + index)
-		console.log("여기 아이디 어레이" + idarray)
-		//console.log("여기 체크 어레이" + checkarray)
+		
+		
 	
 		if( number.toString() !== 'NaN' && checkarray.includes(""+number)==false ){
-			console.log(idarray.includes(""+number))
+		
 						
 		checkarray = ""+number;
 		$(elem).animate({"bottom":"1000px"});
@@ -320,9 +315,7 @@ $("#go").click(function(){
 		
 		idarray.splice(index,1);
 		
-		console.log(idarray);
 		
-		console.log("췤ㄱ: " + checkarray)
 
 });
 	
@@ -331,9 +324,7 @@ $(document).ready(function () {
 	var csrftoken = $('#_csrf').attr('content');
 	var csrfheader = $('#_csrf_header').attr('content');
 
-	//$(document).ajaxSend(function(e,xhr,options){
-	//	xhr.setRequestHeader(csrfHearderName, csrfTokenValue);
-	//});
+	
 	
 	 //음성 메세지 푸시 알람
 	 function pushMessage(data,token){
@@ -380,7 +371,7 @@ $(document).ready(function () {
 
 
 	function setConnected(connected) { 
-		// $("#Disconnected").prop("disabled", !connected);
+		
 		 
 		 
 		if (connected){			
@@ -388,7 +379,7 @@ $(document).ready(function () {
 			$("#greetings").html("");
 		}
 		else{
-			//ws.close();
+			
 			console.log("Disconnected");		
 		}
 	}
@@ -426,7 +417,7 @@ $(document).ready(function () {
  	var checkarray = new Array();
  	function checkOrder(number){ 
  			
- 		console.log(" 여기는 체크오더이고,," + number);
+ 		
  			
  			var array = $(".block").slice(); //블록을 배열로
  			
@@ -437,8 +428,7 @@ $(document).ready(function () {
  				idarray[i]=array[i].id;
  			}
  			
- 			console.log("idarray: " + idarray)
- 		 
+ 			
  			//animation
  			var elem = document.getElementById(number); //ex)103
  		  	var index = idarray.indexOf(""+number); 
@@ -548,23 +538,17 @@ $(document).ready(function () {
 			  }
 	};
 	
-	/*
-	$(function () {
-		 $( "#Disconnected" ).click(function() { disconnect(); });	
-	});	
-	*/
+
 	
 	var datax = {'open':'X'};
 	var datao = {'open':'O'};
-/* 	$(function () { 
-		 $( "#Disconnected" ).click(function() { */
+
 			 $(document).on("click","#Disconnected",function(){
-			 console.log("왜안돼")
 			 
 			  if($( "#Disconnected" ).attr('value')=='end'){
 			 	 disconnect();
 			 	$( "#Disconnected" ).html("O N") 
-			 	console.log("자자자!!!!")
+			 	
 			 	
 			 	 $.ajax({
 			 		type :'post',
@@ -577,7 +561,7 @@ $(document).ready(function () {
 			 		success:function(datax){
 			 			disconnect();
 					 	$( "#Disconnected" ).html("O N")
-			 			//alert("연결을 끊었슴다.,,,,");
+			 			
 			 			
 			 		},
 			 		error:function(e){
@@ -589,9 +573,9 @@ $(document).ready(function () {
 			 else if($( "#Disconnected" ).attr('value')=='start'){
 				 connect();
 				sendName(); 
-				console.log("자자자!!!!")
+				
 				$( "#Disconnected" ).html("O F F")
-				//alert("연결이 됐슴다.,,,,");
+				
 				
 				 $.ajax({
 			 		type :'post',
@@ -602,8 +586,7 @@ $(document).ready(function () {
                     },
 			 		contentType: "application/json; charset=utf-8",
 			 		success:function(datao){
-			 			/* connect();
-						sendName(); */
+			 			
 						$( "#Disconnected" ).html("O F F")
 			 			
 			 		},
@@ -616,44 +599,25 @@ $(document).ready(function () {
 		 
 		 
 		 });	
-/* 	}); */
+
 	
 
 	 window.onload = function(){
 		 
 		 
-		 console.log("시작이 될 때마다 여기가 처음인가요?")
-		 console.log([[${open}]])
+		
 		 open = [[${open}]]
-		 /*
-		  $.ajax({
-		 		type :'put',
-		 		url: '/partner/openx',
-		 		data: JSON.stringify(datax),
-		 		contentType: "application/json; charset=utf-8",
-		 		success:function(datax){
-		 			disconnect();
-				 	$( "#Disconnected" ).html("O N")
-		 			//alert("연결을 끊었슴다.,,,,");
-		 			
-		 		},
-		 		error:function(e){
-		            alert("에러 발생~~");
-		        } 
-		 	})//ajax  
-		 	*/
-		 	/* <button id="Disconnected" class="btn btn-outline-warning"
-				value="start">O N</button></span> */
+		 
 				
 			var openx = "<span sec:authorize='hasRole('PARTNER')'><button id='Disconnected' class='btn btn-outline-warning'value='start'>O N</button></span>";
 			var openo = "<span sec:authorize='hasRole('PARTNER')'><button id='Disconnected' class='btn btn-outline-warning'value='end'>O F F</button></span>";
 		 	
 			if(open==='X'){
-		 		console.log("엑스라네");
+		 		
 		 		$( ".navbar-nav.ml-auto.mr-0.mr-md-3.my-2.my-md-0" ).append(openx);
 		 	}
 		 	else{
-		 		console.log("오라네");
+		 		
 		 		$( ".navbar-nav.ml-auto.mr-0.mr-md-3.my-2.my-md-0" ).append(openo);
 		 		  connect();
 				 sendName();  
