@@ -7,7 +7,7 @@ import ga.eatup.partner.domain.StoreVO;
 
 public interface PartnerOrderMapper {
 
-//	public List<OrderVO> getOrder();
+
 	public List<OrderVO> getOrder(OrderVO order);
 	
 	public List<StoreVO> getOpen(StoreVO sno);

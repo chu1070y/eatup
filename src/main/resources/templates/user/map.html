@@ -118,8 +118,7 @@
 		<div id="menu_wrap" class="bg_white">
 			<div class="option">
 				<div>
-					<!-- <div><input type="text" id="keyword" size="28" placeholder="주소, 건물명, 역명 등을 입력하세요"></div> -->
-					<!-- <div><button type="submit">검색하기</button></div> -->
+					
 					<input type="text" class="search" size="28"
 						placeholder="주소, 건물명, 역명 등을 입력하세요">
 				</div>
@@ -129,11 +128,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div>
-            <input type="text" class="search" value=""
-                placeholder="원하는 장소를 입력하세요(주소, 건물명, 역명 등)">
-            <button id="searchBtn">검색</button>
-        </div> -->
+		
 	</div>
 	<form id='actionForm' action="/user/home" method="post"></form>
 
@@ -175,7 +170,7 @@
 $(document).ready(function(){
     
     var searchBtn = $("#searchBtn");
-   // var searchInput = $(".search");
+   
    var searchValue=""; 
    
     var firstLat, firstLng = 0;
@@ -194,10 +189,10 @@ $(document).ready(function(){
     	
     	var searchInput = $(".search");
 
-        	console.log("searchInput.val(): " + searchInput.val());
+        	
             ps.keywordSearch(searchInput.val(), placesSearchCB);
             searchValue = searchInput.val();
-            console.log(map.getCenter());
+          
             searchInput.attr("value",searchInput.val());
             
             searchInput.val("");
@@ -221,8 +216,8 @@ $(document).ready(function(){
             
             for (var i=0; i<data.length; i++) {
                 bounds.extend(new daum.maps.LatLng(data[i].y, data[i].x));
-                console.log("----------------------------------");
-                console.log(data[i].y,",", data[i].x);
+                
+               
                 
                 if(i === 0){
                     firstLat = data[i].y;
@@ -347,11 +342,6 @@ $(document).ready(function(){
             var centerAddr = $("#centerAddr").html();
             ps.keywordSearch(centerAddr, placesSearchCB); 
             
-            console.log("lat,lng :" + firstLat, firstLng);
-            
-            
-            
-            console.log(searchValue)
             
               if(searchValue !== ""){
             	

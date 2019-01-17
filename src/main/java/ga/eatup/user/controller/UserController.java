@@ -153,7 +153,7 @@ public class UserController {
 	@GetMapping("/home")
 	public void home(Authentication authentication, String lat, String lng, String search, Model model) {
 		log.info("lat: " + lat + " , lng: " + lng);
-		// model.addAttribute("location", lat );
+		
 		
 		String auth = "";
 		

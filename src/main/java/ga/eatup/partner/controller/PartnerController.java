@@ -84,14 +84,14 @@ public class PartnerController {
 		log.info("index......................page");
 
 		String pid = authentication.getName();
-		log.info("pid: " + pid);
+		
 		int sno = menuservice.getSno(pid);
-		log.info("sno: " + sno);
+		
 		store.setSno(sno);
 
 		model.addAttribute("sno", sno);
 
-		/* model.addAttribute("result", ordermapper.getOrder(order)); */
+		
 		System.out.println("-=------------------------------>" + model);
 
 		List<String> tidlist = new ArrayList<String>();
@@ -103,21 +103,20 @@ public class PartnerController {
 
 		for (int i = 0; i < list.size(); i++) {
 
-			// System.out.println(list.get(i).getTid());
+			
 			if (!tidlist.contains(list.get(i).getTid())) {
 				tidlist.add(list.get(i).getTid());
 			}
 		}
 
-		System.out.println(tidlist);
+		
 		model.addAttribute("tidlist", tidlist);
 
 		ordermapper.getOpen(store);
 
 		store.setSno(sno);
 		List<StoreVO> open = service.getOpen(store);
-		System.out.println(open.get(0).getOpen());
-
+		
 		model.addAttribute("open", open.get(0).getOpen());
 		
 	}
@@ -128,14 +127,14 @@ public class PartnerController {
 
 		// 로그인 정보 끌어오는 것. pid로 sno를 뽑아서 sno에 해당하는 menu를 전달
 		String pid = authentication.getName();
-		log.info("pid: " + pid);
+		
 		int sno = menuservice.getSno(pid);
-		log.info("sno: " + sno);
+		
 
 		List<MenuVO> list = menuservice.getMenu(sno);
 		model.addAttribute("menu", list);
 
-		log.info("메뉴 : " + list);
+		
 
 	}
 
@@ -145,16 +144,14 @@ public class PartnerController {
 
 		// 로그인 정보 끌어오는 것. pid로 sno를 뽑아서 sno에 해당하는 menu를 전달
 		String pid = authentication.getName();
-		log.info("pid: " + pid);
+		
 		int sno = menuservice.getSno(pid);
-		log.info("sno: " + sno);
+		
 
 		List<MenuVO> list = menuservice.getMenu(sno);
 		model.addAttribute("menu", list);
 
-		log.info("메뉴 : " + list);
-		log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		log.info("하" + menu.getSoldout());
+		
 		
 	
 		
@@ -162,13 +159,13 @@ public class PartnerController {
 		
 		if (menu.getSoldout().equals("X")) {
 			
-			log.info("엑스!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			
 			menuservice.getSoldoutX(menu);
 			return new ResponseEntity<Integer>(1, HttpStatus.OK);
 
 		} else if (menu.getSoldout().equals("O")) {
 			 menuservice.getSoldoutO(menu);
-			log.info("오!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			
 			return new ResponseEntity<Integer>(1, HttpStatus.OK);
 
 		}
@@ -267,45 +264,33 @@ public class PartnerController {
 		model.addAttribute("dto", dto);
 	}
 
-	// open column 'X' update
-	/*@RequestMapping(method = { RequestMethod.PUT,
-			RequestMethod.PATCH }, value = "/openx", consumes = "application/json", produces = {
-					MediaType.TEXT_PLAIN_VALUE })*/
+	
 	@PostMapping(value = "/openx", consumes = "application/json")
 	public ResponseEntity<String> updateX(Authentication authentication,@RequestBody StoreVO vo) {
-		/*
-		 * vo.setSno(sno); log.info("update part...sno: " + sno );
-		 */
+		
 		String pid = authentication.getName();
-		log.info("pid: " + pid);
+		
 		int sno = menuservice.getSno(pid);
-		log.info("sno: " + sno);
+		
 		vo.setSno(sno);
 		
-		log.info("update: " + vo);
-		log.info("에센....오.................." + sno);
+		
 
 		return openService.updateX(sno) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	// open column 'O' update
-	/*@RequestMapping(method = { RequestMethod.PUT,
-			RequestMethod.PATCH }, value = "/openo", consumes = "application/json", produces = {
-					MediaType.TEXT_PLAIN_VALUE })*/
+	
 	@PostMapping(value = "/openo", consumes = "application/json")
 	public ResponseEntity<String> updateO(Authentication authentication,@RequestBody StoreVO vo) {
-		/*
-		 * vo.setSno(sno); log.info("update part...sno: " + sno );
-		 */
+		
 		String pid = authentication.getName();
-		log.info("pid: " + pid);
+		
 		int sno = menuservice.getSno(pid);
-		log.info("sno: " + sno);
+		
 		vo.setSno(sno);
 		
-		log.info("update: " + vo);
-		log.info("에센....오.................." + sno);
+		
 
 		return openService.updateO(sno) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -326,32 +311,17 @@ public class PartnerController {
 
 		// 로그인 정보 끌어오는 것. pid로 sno를 뽑아서 sno에 해당하는 menu를 전달
 		String pid = authentication.getName();
-		log.info("pid: " + pid);
+		
 		int sno = menuservice.getSno(pid);
-		log.info("sno: " + sno);
+		
 
 		vo.setSno(sno);
 
-		log.info("#############################################################");
-		log.info("update: " + vo);
+		
 
 		return menuservice.getupdateMaxQuantity(vo);
 	}
 
-	/*
-	 * //품절
-	 * 
-	 * @RequestMapping(method = {RequestMethod.POST}, value="/soldout",
-	 * consumes="application/json")
-	 * 
-	 * @ResponseBody public List<MenuVO> updatesoldout2(@RequestBody MenuVO vo,
-	 * Authentication authentication){
-	 * 
-	 * 
-	 * log.info("#############################################################");
-	 * log.info("select: " + vo); log.info(vo.getSoldout());
-	 * 
-	 * return menuservice.getSoldout(vo) ; }
-	 */
+	
 
 }

@@ -244,7 +244,7 @@
 
 			</div>
 		</section>
-		<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+		
 
 		<!-- Team -->
 		<section class="bg-light2" id="team">
@@ -256,23 +256,7 @@
 					</div>
 				</div>
 
-				<!-- Project One
-					<div class="row">
-						<div class="col-md-7">
-							<a href="/user/store"> <img
-								class="img-fluid rounded mb-3 mb-md-0"
-								src="../main/img/portfolio/cafe3.jpg" alt="">
-							</a>
-						</div>
-						<div class="col-md-5">
-							<h3>고라니카페</h3>
-							<p>24시 커피전문점, 고라니 카페입니다.</p>
-							<span class="badge badge-primary">#카페</span> <span
-								class="badge badge-danger">#커피</span> <span
-								class="badge badge-warning">#샌드위치</span> <span
-								class="badge badge-dark">#토스트</span>
-						</div>
-					</div> -->
+				
 				<hr>
 				<!-- /.row -->
 
@@ -286,20 +270,6 @@
 			<!-- /.container -->
 		</section>
 
-		<!-- <span th:text= "${store}"></span> -->
-
-
-		<!-- 
-<div th:each="n : ${tidlist}" th:id="${n}" th:class="block" >
-<h2 th:text="${n}"></h2>
-<h3>메뉴번호 &nbsp수량</h3>
-
-<div th:each="vo : ${result}">
-<div th:if="${n} == ${vo.tid}" > -->
-
-
-
-		<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 		<!-- Footer -->
 		<footer>
@@ -451,7 +421,7 @@ $(document).ready(function(){
 		 
 		 //위치별 카페 리스트
 		 function listoflocation(lat,lng){
-			 console.log("위치별 카페 리스트입니달,,,,..." + lat +" " + lng);
+			
 			
 			 var list = [[${store}]];
 			 var listlength = [[${store}]].length;
@@ -572,17 +542,7 @@ $(document).ready(function(){
 			display(result);
 		}); 
 		
-/* 		//엔터 이벤트
-		$("#tags").keydown(function(event){
-			
-			if(event.keyCode == 13){
-				console.log("엔터");
-				close = 1;
-				event.preventDefault();
-				search();
-				}
-			}
-		); */
+
 		
 		//검색하기 with 엔터
 		function search(){

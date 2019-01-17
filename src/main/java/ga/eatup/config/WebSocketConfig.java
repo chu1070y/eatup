@@ -13,7 +13,7 @@ public class WebSocketConfig implements WebSocketConfigurer{
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		System.out.println("sssssssssssssssssssssssssssssssssssssssssss");
+		
 		registry.addHandler(new GreetingController(), "/name");
 	
 	
