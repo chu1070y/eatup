@@ -34,7 +34,7 @@ public class PartnerLoginSuccessHandler extends SavedRequestAwareAuthenticationS
 		
 		
 		if(authentication.getName().equals("superadmin")) {
-			response.sendRedirect("/partner/superAdmin");
+			response.sendRedirect("/partner/admin");
 			return;
 		}
 
