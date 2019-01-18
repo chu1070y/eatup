@@ -31,7 +31,7 @@ public class NaverLogin {
 		postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
 		postParams.add(new BasicNameValuePair("client_id", "ZjzDdLEmTmslKEvM2l5d")); // REST API KEY
 		postParams.add(new BasicNameValuePair("client_secret", "006r09Bo90"));
-		postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8080/naverlogin")); // 리다이렉트 URI
+		postParams.add(new BasicNameValuePair("redirect_uri", "https://eatup.ga/naverlogin")); // 리다이렉트 URI
 		postParams.add(new BasicNameValuePair("code", autorize_code)); // 로그인 과정중 얻은 code 값
 		postParams.add(new BasicNameValuePair("state", ""));
 
