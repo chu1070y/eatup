@@ -57,7 +57,7 @@ public class SuperadminController {
 		
 		redirect.addFlashAttribute("storeRemoveResult", result);
 		
-		return "redirect:/partner/superAdmin";
+		return "redirect:/partner/admin";
 	}
 	
 	@PostMapping("/storemodify")
@@ -75,7 +75,7 @@ public class SuperadminController {
 		
 		redirect.addFlashAttribute("storeModifyResult", result);
 		
-		return "redirect:/partner/superAdmin";
+		return "redirect:/partner/admin";
 	}
 	
 	@PostMapping("/storeadd")
@@ -93,7 +93,7 @@ public class SuperadminController {
 		
 		redirect.addFlashAttribute("storeAddResult", result);
 		
-		return "redirect:/partner/superAdmin";
+		return "redirect:/partner/admin";
 	}
 	
 	@GetMapping("/pid/{pid}")
@@ -124,7 +124,7 @@ public class SuperadminController {
 		
 		redirect.addFlashAttribute("addResult", result);
 		
-		return "redirect:/partner/superAdmin";
+		return "redirect:/partner/admin";
 	}
 	
 	@PostMapping("/sendEmail")
@@ -149,7 +149,7 @@ public class SuperadminController {
 		
 		redirect.addFlashAttribute("menuAddResult", result);
 		
-		return "redirect:/partner/superAdmin";
+		return "redirect:/partner/admin";
 	}
 	
 	@GetMapping("/menuadd/{sname}/{mname}")
@@ -182,7 +182,7 @@ public class SuperadminController {
 		
 		redirect.addFlashAttribute("menuModifyResult", result);
 		
-		return "redirect:/partner/superAdmin";
+		return "redirect:/partner/admin";
 	}
 	
 	@GetMapping("/menumodify/{sname}/{mname}")
@@ -208,7 +208,7 @@ public class SuperadminController {
 		
 		redirect.addFlashAttribute("menuRemoveResult", result);
 		
-		return "redirect:/partner/superAdmin";
+		return "redirect:/partner/admin";
 	}
 
 }

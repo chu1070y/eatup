@@ -175,9 +175,9 @@ public class PartnerController {
 	}
 
 	@Transactional
-	@GetMapping("/superAdmin")
-	public void superAdmin(Model model, NoticePageDTO dto) {
-		log.info("superAdmin......................page");
+	@GetMapping("/admin")
+	public void admin(Model model, NoticePageDTO dto) {
+		log.info("admin......................page");
 		log.info("dto.." + dto);
 		dto.setTotal(superadminService.noticeCount());
 
@@ -190,7 +190,7 @@ public class PartnerController {
 	@GetMapping("/notice")
 	public void notice(Model model, NoticePageDTO dto) {
 		log.info("notice......................page");
-		log.info("superAdmin......................page");
+		log.info("admin......................page");
 		log.info("dto.." + dto);
 		dto.setTotal(superadminService.noticeCount());
 
@@ -253,7 +253,7 @@ public class PartnerController {
 
 		redirect.addFlashAttribute("result", result);
 
-		return "redirect:/partner/superAdmin";
+		return "redirect:/partner/admin";
 	}
 
 	@GetMapping("/notice/partnerRead")
